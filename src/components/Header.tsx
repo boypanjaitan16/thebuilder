@@ -98,7 +98,7 @@ export function Header() {
           </nav>
           <NavLink
             to="/apply"
-            className="inline-flex md:hidden items-center justify-center rounded-full bg-ink px-4 py-3 text-sm font-semibold text-white shadow-soft w-full"
+            className="inline-flex md:hidden items-center justify-center rounded-full border border-ink px-4 py-3 text-sm font-semibold text-ink shadow-soft w-full"
           >
             Apply
           </NavLink>

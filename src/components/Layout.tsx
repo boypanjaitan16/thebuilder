@@ -36,12 +36,12 @@ export function Layout() {
               and human risk safeguards.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3 text-sm font-medium text-slate-700">
+          <div className="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700">
             {footerLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
-                className="rounded-full border border-sand px-3 py-1 transition hover:border-ink hover:text-ink"
+                className="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
               >
                 {link.label}
               </NavLink>
