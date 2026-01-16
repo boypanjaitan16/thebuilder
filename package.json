@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postbuild": "node -e \"const fs=require('fs'); fs.copyFileSync('dist/index.html','dist/404.html');\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
