@@ -29,7 +29,6 @@ a {
 .container-page {
   max-width: var(--page-max-width);
   margin: 0 auto;
-  padding: 0 1.5rem;
 }
 
 .glass-panel {
