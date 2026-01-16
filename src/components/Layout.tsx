@@ -1,16 +1,11 @@
 import { useEffect } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Header } from './Header'
-
-const footerLinks = [
-  { label: 'About', to: '/about' },
-  { label: 'Insights', to: '/insights' },
-  { label: 'Work With Me', to: '/work-with-me' },
-  { label: 'Privacy Policy', to: '/privacy' },
-]
+import { useI18n } from '../i18n/I18nProvider'
 
 export function Layout() {
   const location = useLocation()
+  const { copy } = useI18n()
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -31,13 +26,16 @@ export function Layout() {
               The Builder
             </p>
             <p className="mt-2 max-w-xl text-sm text-slate-600">
-              Strategic advisory based in Indonesia. Working with organizations
-              selectively to design resilient structures, leadership continuity,
-              and human risk safeguards.
+              {copy.footer.line}
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700">
-            {footerLinks.map((link) => (
+            {[
+              { label: 'About', to: '/about' },
+              { label: copy.nav.insights, to: '/insights' },
+              { label: copy.nav.work, to: '/work-with-me' },
+              { label: 'Privacy Policy', to: '/privacy' },
+            ].map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}

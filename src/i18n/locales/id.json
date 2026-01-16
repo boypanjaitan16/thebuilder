@@ -1,0 +1,483 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "organization": "Transformasi Organisasi",
+    "future": "Strategi Talenta Masa Depan",
+    "risk": "Risiko & Business Continuity",
+    "insights": "Insights",
+    "work": "Bekerja Bersama",
+    "apply": "Ajukan"
+  },
+  "header": {
+    "tagline": "Konsultan Strategis"
+  },
+  "footer": {
+    "line": "Konsultasi strategis berbasis di Indonesia. Bekerja selektif dengan organisasi untuk merancang struktur tangguh, kontinuitas kepemimpinan, dan mitigasi risiko manusia."
+  },
+  "shared": {
+    "areasOfFocus": [
+      {
+        "slug": "organization-transformation",
+        "title": "Transformasi & Resiliensi Organisasi",
+        "summary": "Merancang struktur, alur keputusan, dan arsitektur kepemimpinan yang tetap efektif di bawah tekanan.",
+        "to": "/organization-transformation"
+      },
+      {
+        "slug": "future-talent-strategy",
+        "title": "Strategi Talenta Masa Depan & Pengembangan Kepemimpinan",
+        "summary": "Menyelaraskan pipeline kepemimpinan dan sistem talenta dengan tuntutan organisasi masa depan.",
+        "to": "/future-talent-strategy"
+      },
+      {
+        "slug": "risk-and-business-continuity",
+        "title": "Risiko & Business Continuity",
+        "summary": "Menangani disrupsi manusia dan risiko kontinuitas melalui resiliensi struktural dan finansial.",
+        "to": "/risk-and-business-continuity"
+      }
+    ],
+    "insightArticles": [
+      {
+        "title": "Mengapa Leadership Development Gagal Tanpa Desain Organisasi",
+        "lens": "Kepemimpinan & Struktur Organisasi"
+      },
+      {
+        "title": "Business Continuity Bukan Hanya Masalah Sistem",
+        "lens": "Risiko, Pemulihan & Kontinuitas"
+      },
+      {
+        "title": "Pertumbuhan Mengungkap Lebih dari Sekadar Peluang",
+        "lens": "Talenta Masa Depan & Risiko Kepemimpinan"
+      },
+      {
+        "title": "Masa Pemulihan yang Jarang Dirancang Pemimpin",
+        "lens": "Risiko, Pemulihan & Kontinuitas"
+      },
+      {
+        "title": "Ketika Pemimpin Mumpuni Tetap Tersandung di Skala",
+        "lens": "Kepemimpinan & Struktur Organisasi"
+      }
+    ],
+    "caseReflections": [
+      "Transisi Kepemimpinan yang Hampir Mengganggu Kontinuitas",
+      "Saat Pertumbuhan Melampaui Kesiapan Kepemimpinan",
+      "Biaya Ketergantungan pada Satu Pengambil Keputusan"
+    ],
+    "diagnosticQuestions": [
+      {
+        "id": "q1",
+        "section": "Ketergantungan Kepemimpinan & Risiko Keputusan",
+        "text": "Jika satu-dua pemimpin kunci tidak tersedia beberapa bulan, keputusan kritis tetap bergerak tanpa penundaan besar."
+      },
+      {
+        "id": "q2",
+        "section": "Ketergantungan Kepemimpinan & Risiko Keputusan",
+        "text": "Tanggung jawab strategis dan operasional didistribusikan secara sengaja, bukan menumpuk karena kebiasaan atau sejarah."
+      },
+      {
+        "id": "q3",
+        "section": "Ketergantungan Kepemimpinan & Risiko Keputusan",
+        "text": "Keputusan berdampak tinggi tidak bergantung pada ketersediaan satu individu."
+      },
+      {
+        "id": "q4",
+        "section": "Kontinuitas Saat Pemulihan",
+        "text": "Kami punya pandangan realistis tentang cara bisnis berjalan selama pemulihan kepemimpinan, bukan hanya saat disrupsi awal."
+      },
+      {
+        "id": "q5",
+        "section": "Kontinuitas Saat Pemulihan",
+        "text": "Tidak ada tekanan mengambil keputusan tergesa hanya demi stabilitas jangka pendek jika pemulihan lebih lama."
+      },
+      {
+        "id": "q6",
+        "section": "Kontinuitas Saat Pemulihan",
+        "text": "Ekspektasi pemangku kepentingan tetap dapat dikelola meski kapasitas kepemimpinan berkurang sementara."
+      },
+      {
+        "id": "q7",
+        "section": "Paparan Finansial & Buffer",
+        "text": "Kewajiban finansial tetap terkendali meski kontribusi pemimpin tertentu berkurang sementara."
+      },
+      {
+        "id": "q8",
+        "section": "Paparan Finansial & Buffer",
+        "text": "Ada kejelasan toleransi risiko finansial jika masa pemulihan melampaui asumsi awal."
+      },
+      {
+        "id": "q9",
+        "section": "Paparan Finansial & Buffer",
+        "text": "Resiliensi finansial tidak bergantung pada asumsi kondisi pribadi pemimpin kunci selalu stabil."
+      },
+      {
+        "id": "q10",
+        "section": "Asumsi Struktural & Blind Spot",
+        "text": "Struktur kami dirancang untuk menyerap tekanan, bukan hanya bekerja efisien di kondisi ideal."
+      },
+      {
+        "id": "q11",
+        "section": "Asumsi Struktural & Blind Spot",
+        "text": "Risiko kepemimpinan dan kontinuitas dibahas terbuka, bukan dihindari karena sensitif."
+      },
+      {
+        "id": "q12",
+        "section": "Asumsi Struktural & Blind Spot",
+        "text": "Jika besok terjadi disrupsi, kami tidak bergantung pada keberuntungan atau improvisasi."
+      }
+    ]
+  },
+  "home": {
+    "hero": {
+      "title": "Merancang Organisasi yang Tahan Perubahan Kepemimpinan, Pertumbuhan, dan Disrupsi",
+      "subtitle": "Konsultasi strategis tentang sistem organisasi, kontinuitas kepemimpinan, dan risiko manusia bagi pemimpin yang menavigasi kompleksitas.",
+      "body1": "Sebagian besar organisasi banyak berinvestasi di pengembangan kepemimpinan, program transformasi, dan inisiatif SDM. Namun tetap goyah saat pertumbuhan melonjak, pemimpin berganti, atau orang kunci terganggu.",
+      "body2": "Masalahnya jarang soal talenta. Ia soal ketergantungan sistem pada individu, bukan struktur.",
+      "ctaPrimary": "Jelajahi Pekerjaan",
+      "ctaSecondary": "Arsitektur Terpadu",
+      "points": [
+        "Ketika kontinuitas kepemimpinan, alur keputusan, dan risiko tidak dirancang, kinerja mudah rapuh.",
+        "Kejelasan datang dari melihat sistem — bukan menambah program.",
+        "The Builder bekerja dengan pemimpin yang memilih ketegasan dan integrasi, bukan volume."
+      ]
+    },
+    "areas": {
+      "title": "Tiga domain yang saling terhubung",
+      "description": "Masing-masing menangani lapisan kerentanan berbeda dan dirancang berfungsi sebagai satu sistem.",
+      "linkLabel": "Cara bekerja lintas domain",
+      "cardCtaPrefix": "Jelajahi"
+    },
+    "positioning": {
+      "title": "The Builder adalah praktik konsultasi strategis yang berfokus merancang sistem organisasi yang tahan tekanan pertumbuhan, transisi kepemimpinan, dan disrupsi manusia.",
+      "body": "Pekerjaan ini mengintegrasikan desain organisasi, arsitektur kepemimpinan, dan pemikiran kontinuitas untuk membantu pemimpin mengurangi ketergantungan pada individu dan memperkuat resiliensi jangka panjang. Keterlibatan bersifat selektif dan dipimpin secara advisory.",
+      "founderNote": "Didirikan dan dipimpin oleh Christine Manopo."
+    },
+    "approach": {
+      "title": "Pendekatan kerja",
+      "bullets": [
+        "Mengidentifikasi risiko struktural di balik gejala permukaan.",
+        "Merancang ulang arsitektur kepemimpinan dan keputusan.",
+        "Mengantisipasi disrupsi manusia sebelum menjadi krisis.",
+        "Membuat keputusan jangka panjang lebih baik di bawah tekanan."
+      ],
+      "notThis": "Bukan konsultasi operasional, bukan training delivery, bukan eksekusi program."
+    },
+    "howWeWork": {
+      "title": "Dirancang untuk kedalaman, bukan volume",
+      "description": "Untuk menjaga kedalaman dan kualitas, pekerjaan ini dijalankan dengan jumlah organisasi terbatas setiap tahun. Ditujukan bagi organisasi yang siap berinvestasi pada desain sistem strategis. Detail dibahas setelah penjajaran awal.",
+      "note": "Pengalaman yang tenang dan berfokus teks — tanpa checklist atau visual ramai, hanya kejelasan dan struktur."
+    },
+    "insights": {
+      "title": "Pilihan Insights",
+      "description": "Refleksi tentang resiliensi organisasi, kontinuitas kepemimpinan, dan risiko manusia bagi pemimpin yang memilih kejelasan daripada kebisingan.",
+      "viewAll": "Lihat semua insights"
+    },
+    "cta": {
+      "title": "Pertimbangkan percakapan advisory?",
+      "description": "Jika organisasi Anda sedang menghadapi pertumbuhan, transisi kepemimpinan, atau risiko kontinuitas, percakapan fokus dapat membantu memperjelas keputusan struktural berikutnya.",
+      "button": "Ajukan Percakapan Advisory"
+    }
+  },
+  "organization": {
+    "heroTitle": "Merancang sistem organisasi yang tetap efektif saat pertumbuhan, pergantian pemimpin, dan disrupsi.",
+    "heroBody": "Banyak organisasi mengejar transformasi lewat inisiatif baru atau program kepemimpinan, namun tetap kesulitan ketika pertumbuhan meningkat atau pemimpin kunci pergi. Masalahnya jarang niat — sering kali kurangnya desain sistem yang sengaja.",
+    "coreProblemTitle": "Mengapa transformasi sering tidak bertahan",
+    "coreProblemIntro": "Organisasi menjadi rapuh saat kinerja terlalu bergantung pada individu, bukan struktur.",
+    "coreProblemBullets": [
+      "Keputusan melambat saat kompleksitas naik",
+      "Kesenjangan kepemimpinan saat transisi atau ekspansi",
+      "Ketergantungan tinggi pada founder atau segelintir pemimpin",
+      "Restrukturisasi berulang tanpa perbaikan berkelanjutan",
+      "Inisiatif HR terasa terpisah dari tekanan bisnis nyata"
+    ],
+    "resilienceTitle": "Makna resiliensi organisasi",
+    "resilienceIntro": "Resiliensi bukan slogan budaya atau lebih banyak program. Artinya:",
+    "resilienceList": [
+      "Kontinuitas kepemimpinan melampaui individu",
+      "Alur keputusan jelas di bawah tekanan",
+      "Akuntabilitas tidak runtuh saat transisi",
+      "Sistem talenta selaras dengan kebutuhan masa depan",
+      "Risiko operasional dan manusia berkurang"
+    ],
+    "approachTitle": "Bagaimana kerja ini membantu pemimpin mengendalikan lagi",
+    "approachBody1": "Saat organisasi tersendat di masa pertumbuhan atau transisi, masalahnya jarang kurang usaha. Pemimpin sering bekerja dalam struktur yang tidak lagi mendukung keputusan, akuntabilitas, atau kontinuitas.",
+    "approachBody2": "Keterlibatan mengeksplorasi di mana keputusan tersendat, peran yang terlalu sarat, ketergantungan yang terpusat, eksekusi yang tidak konsisten, dan apa yang rapuh saat pemimpin berubah. Hasilnya bukan program baru, melainkan arah dan struktur jelas yang mengurangi ketergantungan dan memungkinkan keputusan tegas.",
+    "scopeTitle": "Cakupan & batasan",
+    "scopeIncludes": [
+      "Diagnosa organisasi dan pemetaan sistem",
+      "Desain arsitektur kepemimpinan dan peran",
+      "Masukan advisory untuk arah transformasi",
+      "Identifikasi risiko terkait manusia dan struktur"
+    ],
+    "scopeExcludes": [
+      "Eksekusi change management",
+      "Operasi HR atau implementasi",
+      "Delivery pelatihan atau fasilitasi",
+      "Manajemen program berkelanjutan"
+    ],
+    "relevance": "Paling relevan saat memasuki fase pertumbuhan baru, menghadapi suksesi kepemimpinan, atau ketika founder dan pemimpin kunci menjadi bottleneck kritis.",
+    "designedFor": "CEO, founder, board, dan tim kepemimpinan senior yang bersedia menangani isu struktural dengan matang.",
+    "integration": "Terintegrasi dengan Strategi Talenta Masa Depan & Pengembangan Kepemimpinan serta Risiko & Business Continuity untuk mengurangi ketergantungan struktural dan memperkuat kontinuitas.",
+    "ctaTitle": "Mempertimbangkan pekerjaan ini",
+    "ctaBody": "Jika Anda menavigasi kompleksitas, transisi, atau tekanan pertumbuhan, percakapan advisory dapat memperjelas keputusan struktural berikutnya."
+  },
+  "future": {
+    "heroTitle": "Merancang sistem kepemimpinan dan talenta yang selaras dengan tuntutan organisasi masa depan — bukan keberhasilan masa lalu.",
+    "heroBody": "Banyak organisasi berinvestasi besar pada program pengembangan kepemimpinan. Namun saat pemimpin senior pergi atau strategi bergeser, pertanyaan yang sama muncul: siapa siap memimpin berikutnya, dan apakah kita mengembangkan kapabilitas yang tepat?",
+    "problemTitle": "Mengapa pengembangan kepemimpinan sering mengecewakan",
+    "problemIntro": "Frustrasi yang familiar muncul meski investasi besar:",
+    "problemList": [
+      "Orang yang sama selalu diandalkan saat situasi sulit",
+      "\"High potential\" ragu ketika tekanan nyata datang",
+      "Kesenjangan kepemimpinan baru terlihat saat seseorang pergi",
+      "Program terasa menyemangati, tapi perilaku harian tidak berubah"
+    ],
+    "futureTitle": "Apa yang sering luput tentang talenta masa depan",
+    "futureIntro": "Pertumbuhan, skala, dan kompleksitas menuntut kepemimpinan berbeda. Tanpa keselarasan ini, organisasi merasa belum siap meski punya orang mumpuni.",
+    "futureList": [
+      "Keputusan memengaruhi lebih banyak orang dan uang",
+      "Kesalahan membawa konsekuensi lebih besar",
+      "Koordinasi menggantikan keunggulan individu",
+      "Otoritas harus dibagi tanpa kehilangan kendali"
+    ],
+    "approachTitle": "Bagaimana kerja ini mengurangi risiko kepemimpinan",
+    "approachBody": "Kerja ini memindahkan tim dari pengembangan berbasis harapan ke desain kepemimpinan yang disengaja. Memperjelas peran kritis, otoritas yang kabur, alasan calon pemimpin enggan naik, dan perilaku apa yang diperkuat sistem. Hasilnya: ekspektasi kepemimpinan yang jelas dan pipeline lebih andal yang selaras dengan realitas masa depan.",
+    "scopeTitle": "Cakupan & batasan",
+    "scopeIncludes": [
+      "Desain peran kepemimpinan dan kapabilitas masa depan",
+      "Analisis risiko talenta dan suksesi",
+      "Arsitektur pipeline dan kesiapan kepemimpinan",
+      "Masukan advisory untuk strategi kepemimpinan"
+    ],
+    "scopeExcludes": [
+      "Delivery program pelatihan",
+      "Paket coaching",
+      "Pelaksanaan assessment center",
+      "Operasi talent management berkelanjutan"
+    ],
+    "whenTitle": "Kapan ini kritis",
+    "whenBody": "Pertumbuhan lebih cepat dari kapasitas kepemimpinan, founder tidak bisa lepas tanpa gangguan, dan promosi terasa berisiko.",
+    "whoTitle": "Untuk siapa",
+    "whoBody": "CEO, founder, board, CHRO, dan pimpinan HR senior yang mencari kontinuitas kepemimpinan jangka panjang.",
+    "integration": "Terintegrasi dengan Transformasi Organisasi & Resiliensi serta Risiko & Business Continuity agar kontinuitas kepemimpinan tidak diserahkan pada kebetulan.",
+    "ctaTitle": "Mempertimbangkan pekerjaan ini",
+    "ctaBody": "Jika Anda mempertanyakan kesiapan sistem kepemimpinan dan talenta untuk masa depan, percakapan advisory dapat memperjelas arahnya."
+  },
+  "risk": {
+    "heroTitle": "Saat diuji, kontinuitas jarang jatuh karena strategi.",
+    "heroBody": "Sebagian besar disrupsi datang dari peristiwa pribadi yang tak terduga. Pertumbuhan bisa dirancang, proses bisa dibenahi, tapi kontinuitas diuji ketika orang kunci tidak sepenuhnya tersedia.",
+    "invisibleTitle": "Di mana kontinuitas diam-diam retak",
+    "invisibleIntro": "Bagi banyak organisasi, risiko kontinuitas ada pada orang, bukan dokumen:",
+    "invisibleList": [
+      "Satu-dua individu memegang otoritas keputusan berlebihan",
+      "Momentum pendapatan bergantung pada kehadiran pemimpin tertentu",
+      "Komitmen finansial tetap berjalan meski kapasitas kepemimpinan terganggu",
+      "Tidak ada buffer jelas saat pemulihan lebih lama dari rencana"
+    ],
+    "requiresTitle": "Apa yang benar-benar dibutuhkan kontinuitas bisnis",
+    "requiresIntro": "Kontinuitas diuji ketika orang kunci tidak dapat berfungsi penuh dan pemulihan lebih lama. Artinya pemimpin merancang untuk tiga realitas:",
+    "requiresList": [
+      "Ketersediaan kepemimpinan tidak dijamin.",
+      "Kewajiban finansial tidak berhenti saat pemulihan.",
+      "Linimasa pemulihan tidak pasti."
+    ],
+    "beyondTitle": "Continuity di luar dokumen",
+    "beyondBody": "Kerja ini melihat kontinuitas dari perspektif kepemimpinan yang realistis. Menilai peran yang memengaruhi stabilitas, tekanan finansial selama pemulihan panjang, berapa lama bisnis bisa berjalan tanpa kehadiran pemimpin kunci, dan di mana asumsi menggantikan pagar pengaman. Fokusnya menghilangkan blind spot, bukan menebar rasa takut.",
+    "protectionTitle": "Perlindungan sebagai tanggung jawab pemimpin",
+    "protectionList": [
+      "Bisnis tidak terekspos finansial selama pemulihan.",
+      "Absensi pemimpin tidak memaksa keputusan tergesa.",
+      "Disrupsi personal tidak berubah menjadi krisis organisasi.",
+      "Pemulihan dapat terjadi tanpa mengguncang perusahaan."
+    ],
+    "whoTitle": "Untuk siapa",
+    "whoBody": "Organisasi yang sangat bergantung pada sedikit pemimpin, memiliki paparan finansial meningkat, atau menempatkan stabilitas di atas target jangka pendek.",
+    "closingTitle": "Kontinuitas bukan pesimisme",
+    "closingBody": "Ini kedewasaan kepemimpinan. Organisasi yang bertahan merancang resiliensi sambil pemulihan berlangsung.",
+    "integration": "Terintegrasi dengan Transformasi Organisasi & Resiliensi dan Strategi Talenta Masa Depan untuk mengatasi risiko di level struktur, kepemimpinan, dan finansial.",
+    "ctaTitle": "Mempertimbangkan pekerjaan ini",
+    "ctaBody": "Jika meninjau pendekatan kontinuitas, risiko kepemimpinan, atau resiliensi jangka panjang, percakapan advisory dapat memberi kejelasan."
+  },
+  "insightsPage": {
+    "heroTitle": "Cara pemimpin memikirkan kerentanan sebelum pecah.",
+    "heroBody1": "Sebagian besar isu organisasi muncul diam-diam — lewat keraguan mengambil keputusan, ketergantungan pada orang tertentu, kelelahan pemimpin, atau risiko yang terasa namun belum terucap.",
+    "heroBody2": "Refleksi ini membantu pemimpin melihat pola dengan lebih jelas, terutama di momen pertumbuhan, transisi, atau peningkatan tanggung jawab.",
+    "featuredTitle": "Refleksi pilihan",
+    "featuredBody": "Perspektif tentang bagaimana organisasi menjadi rapuh — dan bagaimana merancang resiliensi sebelum disrupsi terjadi.",
+    "themesNote": "Tema saling terkait; jarang gagal sendirian.",
+    "casesTitle": "Refleksi kasus",
+    "casesBody": "Situasi yang diamati lewat pekerjaan advisory. Nama dan detail disamarkan demi kerahasiaan.",
+    "editorialTitle": "Filosofi editorial",
+    "editorialBody": "Insights dipublikasikan selektif, bukan sering. Tujuannya kejelasan, bukan visibilitas; pengenalan pola, bukan opini; kesiapan, bukan prediksi.",
+    "philosophy": [
+      "Bukan blog dengan jadwal konten",
+      "Tanpa komentar atau tekanan berbagi",
+      "Tipografi bersih, visual minimal"
+    ],
+    "invitationTitle": "Ketika pola ini terasa familiar",
+    "invitationBody": "Jika situasi ini beresonansi, biasanya ada risiko struktural atau kepemimpinan yang perlu dilihat lebih dekat.",
+    "diagnosticCta": "Jelajahi Risk Readiness Diagnostic",
+    "applyCta": "Ajukan Percakapan Advisory Privat"
+  },
+  "work": {
+    "heroTitle": "Bekerja Bersama",
+    "heroBody1": "Pekerjaan ini untuk pemimpin dan organisasi yang mencari kejelasan di level sistem, bukan dukungan eksekusi tambahan.",
+    "heroBody2": "Keterlibatan bersifat advisory — fokus mendiagnosa risiko sistemik, merancang ulang struktur, dan memungkinkan keputusan berdampak tinggi dengan konsekuensi jangka panjang. Bukan konsultasi operasional, bukan eksekusi proyek, bukan delivery pelatihan.",
+    "flowTitle": "Alur keterlibatan",
+    "flowSteps": [
+      "Penjajaran awal — percakapan singkat memahami konteks, tantangan kepemimpinan, dan intent strategis.",
+      "Diagnosa sistem — mengidentifikasi risiko struktural terkait kontinuitas, alur keputusan, ketergantungan talenta, atau resiliensi organisasi.",
+      "Desain arsitektur & advisory — memperjelas opsi, trade-off, dan keputusan yang dibutuhkan untuk memperkuat organisasi.",
+      "Sesi keputusan eksekutif — mendukung pemimpin senior membuat keputusan terinformasi, bukan mengelola implementasi."
+    ],
+    "scopeTitle": "Cakupan & batasan",
+    "scopeIncludes": [
+      "Diagnosa strategis dan analisis sistem",
+      "Desain arsitektur organisasi dan kepemimpinan",
+      "Dukungan advisory dan keputusan eksekutif"
+    ],
+    "scopeExcludes": [
+      "Operasi HR harian",
+      "Delivery pelatihan/fasilitasi berkelanjutan",
+      "Manajemen proyek atau eksekusi",
+      "Program coaching individual"
+    ],
+    "fitTitle": "Cocok jika Anda…",
+    "fitList": [
+      "CEO, founder, anggota board, atau pimpinan senior",
+      "Menghadapi pertumbuhan, transisi, atau risiko kepemimpinan",
+      "Ingin kejelasan sebelum komit ke inisiatif besar",
+      "Bersedia menangani isu sistemik, bukan gejala",
+      "Menghargai masukan independen yang mendalam"
+    ],
+    "notFitTitle": "Mungkin kurang cocok jika Anda…",
+    "notFitList": [
+      "Mencari paket pelatihan siap pakai",
+      "Butuh dukungan operasional segera",
+      "Mengharap eksekusi atau fasilitasi langsung",
+      "Fokus utama pada harga, bukan hasil"
+    ],
+    "capacityTitle": "Kapasitas & investasi",
+    "capacityBody": "Jumlah keterlibatan dibatasi tiap tahun untuk menjaga kedalaman. Sebagian besar dirancang bagi organisasi yang siap berinvestasi signifikan pada desain sistem strategis. Struktur biaya biasanya mulai dari USD 10.000, bergantung cakupan.",
+    "applicationNote": "Jika konteksnya selaras, Anda dapat mengajukan percakapan awal. Karena kapasitas terbatas, tidak semua aplikasi dapat diterima.",
+    "ctaTitle": "Ajukan Percakapan Advisory",
+    "ctaBody": "Jika organisasi Anda menavigasi kompleksitas, transisi, atau risiko di level kepemimpinan, percakapan advisory dapat menjadi titik awal yang berguna.",
+    "ctaButton": "Ajukan untuk Bekerja Bersama"
+  },
+  "apply": {
+    "heroTitle": "Ajukan Percakapan Advisory",
+    "intro1": "Formulir ini memastikan kejelasan dan keselarasan sebelum keterlibatan advisory dimulai. Tujuan percakapan awal bukan menjual layanan, tetapi memahami apakah konteks, tantangan kepemimpinan, dan ekspektasi Anda selaras dengan sifat pekerjaan ini.",
+    "intro2": "Pekerjaan ini bersifat advisory dan berfokus pada sistem. Ditujukan bagi organisasi yang mencari kejelasan di level kepemimpinan dan struktur — bukan untuk eksekusi operasional atau delivery pelatihan.",
+    "contextNote": "Isian wajib menjaga percakapan tetap fokus dan relevan.",
+    "sections": {
+      "basic": "A. Informasi dasar",
+      "context": "B. Konteks & tantangan",
+      "readiness": "D. Kesiapan investasi & komitmen",
+      "closing": "Terima kasih atas konteks yang Anda berikan. Aplikasi ditinjau dengan cermat untuk menjaga keselarasan dan menghargai waktu kedua pihak. Jika ada potensi kecocokan, Anda akan dihubungi untuk menjadwalkan percakapan awal."
+    },
+    "form": {
+      "name": "Nama Lengkap",
+      "role": "Peran / Jabatan",
+      "organization": "Nama Organisasi",
+      "size": "Ukuran Organisasi",
+      "sizeOptions": [
+        "Di bawah 50 karyawan",
+        "50–200 karyawan",
+        "200–1.000 karyawan",
+        "1.000+ karyawan"
+      ],
+      "industry": "Industri / Sektor",
+      "situationTitle": "Pernyataan mana yang paling menggambarkan situasi Anda? (Pilih maks. 2)",
+      "situationOptions": [
+        "Transisi kepemimpinan atau suksesi",
+        "Pertumbuhan cepat atau tekanan struktural",
+        "Ketergantungan pada individu kunci",
+        "Pipeline talenta atau kesiapan kepemimpinan kurang",
+        "Misalignment organisasi atau bottleneck keputusan",
+        "Lainnya (jelaskan)"
+      ],
+      "description": "Uraikan singkat situasi atau tantangan Anda.",
+      "expectation": "Pernyataan mana yang paling sesuai dengan ekspektasi Anda?",
+      "expectationOptions": [
+        "Kami ingin kejelasan sebelum mengambil keputusan besar",
+        "Kami ingin perspektif eksternal tentang risiko sistemik",
+        "Kami ingin validasi atau tantangan atas pemikiran saat ini",
+        "Kami mencari pihak yang mengeksekusi solusi"
+      ],
+      "decisionFlow": "Bagaimana biasanya keputusan strategis dibuat?",
+      "readinessTitle": "Keterlibatan advisory umumnya dimulai dari USD 10.000. Mana yang menggambarkan kesiapan Anda?",
+      "readinessOptions": [
+        "Kami memahami rentang ini dan siap mengeksplorasi kecocokan",
+        "Kami perlu diskusi internal lebih lanjut sebelum berkomitmen",
+        "Kemungkinan di luar ruang lingkup kami saat ini"
+      ],
+      "timelineTitle": "Kapan Anda mempertimbangkan percakapan ini?",
+      "timelineOptions": [
+        "Dalam 2–4 minggu",
+        "Dalam 1–3 bulan",
+        "Hanya eksplorasi, belum ada linimasa"
+      ],
+      "submit": "Kirim Aplikasi",
+      "successTitle": "Aplikasi Anda telah diterima.",
+      "successBody": "Kami akan menghubungi jika ada keselarasan. Ringkasan:"
+    }
+  },
+  "diagnostic": {
+    "heroTitle": "Sebelum pertumbuhan diuji, risiko sudah terasa diam-diam.",
+    "heroBody": "Pemimpin sering merasakan risiko lewat keraguan, ketergantungan, atau kesadaran bahwa kondisi tertentu sulit diserap. Diagnostic ini memeriksa sinyal tersebut dengan jernih sebelum tekanan memaksa keputusan. Bentuknya refleksi terstruktur tentang kepemimpinan, kontinuitas, dan resiliensi — bukan asesmen individu.",
+    "meta": [
+      "Total pertanyaan: 12",
+      "Perkiraan waktu: 10–12 menit",
+      "Nada: reflektif, bukan evaluatif"
+    ],
+    "whoTitle": "Untuk siapa",
+    "whoBody": "Pemimpin yang memikul tanggung jawab besar, merasakan ketergantungan pada sedikit orang, menavigasi pertumbuhan atau transisi, atau menginginkan kejelasan sebelum keterlibatan lebih jauh.",
+    "receiveTitle": "Yang akan Anda dapatkan",
+    "receiveList": [
+      "Kuesioner diagnostik terstruktur",
+      "Ringkasan kesiapan yang disintesis",
+      "Observasi tertulis tentang pola kepemimpinan dan kontinuitas",
+      "Sinyal apakah dukungan advisory lebih dalam dibutuhkan"
+    ],
+    "optionalReflection": "Jika satu asumsi tentang kesiapan Anda ternyata salah, area mana yang paling mengkhawatirkan?",
+    "primaryCta": "Mulai Diagnostic",
+    "reset": "Atur ulang jawaban",
+    "scoreCopy": {
+      "high": "Kesiapan struktural tinggi — selaras untuk percakapan advisory strategis.",
+      "moderate": "Paparan risiko sedang — ada blind spot yang dapat ditangani melalui advisory terfokus atau bertahap.",
+      "low": "Risiko ketergantungan tinggi — refleksi lebih dalam disarankan sebelum keterlibatan besar.",
+      "note": "Percakapan ini untuk kejelasan dan keselarasan, bukan kewajiban. Jika ingin membahas pola yang muncul, Anda dapat melanjutkan ke percakapan advisory privat."
+    }
+  },
+  "about": {
+    "title": "The Builder — Praktik Konsultasi Strategis",
+    "body1": "Didirikan dan dipimpin oleh Christine Manopo, The Builder membantu pemimpin merancang organisasi yang tahan tekanan pertumbuhan, transisi kepemimpinan, dan disrupsi manusia.",
+    "body2": "Keterlibatan bersifat selektif dan advisory-led. Pekerjaan tenang, berfokus teks, dan mengutamakan kejelasan.",
+    "showTitle": "Seperti apa wujudnya",
+    "showList": [
+      "Perspektif independen dengan fokus keputusan sistemik",
+      "Advisory yang rahasia dan penuh diskresi bagi pimpinan senior",
+      "Integrasi lintas struktur, kepemimpinan, dan kontinuitas",
+      "Komitmen pada kedalaman, bukan volume — klien lebih sedikit, ketelitian lebih besar"
+    ]
+  },
+  "architecture": {
+    "title": "Cara bekerja lintas domain",
+    "body": "The Builder beroperasi sebagai satu sistem advisory. Setiap domain menangani lapisan kerentanan berbeda, namun dirancang menyatu agar keputusan di satu area menguatkan area lain.",
+    "principlesTitle": "Prinsip",
+    "principles": [
+      "Mulai dari struktur sebelum menambah program atau inisiatif.",
+      "Rancang untuk kontinuitas dan pemulihan, bukan hanya kondisi normal.",
+      "Selaraskan arsitektur kepemimpinan dengan realitas masa depan organisasi, bukan kesuksesan masa lalu.",
+      "Kurangi ketergantungan individu dengan alur keputusan dan akuntabilitas yang jelas."
+    ],
+    "integrationNote": "Keterlibatan diurutkan agar desain transformasi, pipeline kepemimpinan, dan pagar kontinuitas saling menguatkan, bukan berebut perhatian."
+  },
+  "privacy": {
+    "title": "Menghormati kerahasiaan.",
+    "intro": "Pekerjaan advisory bersifat rahasia. Informasi yang dibagikan melalui situs ini atau percakapan hanya digunakan untuk menilai keselarasan potensi keterlibatan dan tidak pernah dijual atau dipakai ulang untuk pemasaran.",
+    "bullets": [
+      "Hanya detail penting yang diminta; isian opsional tetap opsional.",
+      "Data formulir ditinjau secara privat dan disimpan hanya selama diperlukan untuk menilai kecocokan.",
+      "Anda dapat meminta penghapusan data kapan saja."
+    ]
+  }
+}
