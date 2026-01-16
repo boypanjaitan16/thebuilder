@@ -8,8 +8,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter
       basename={
-        // React Router expects no trailing slash on basename
-        (import.meta.env.BASE_URL?.replace(/\/$/, '') || '/thebuilder')
+        import.meta.env.VITE_BASE_PATH || '/'
       }
     >
       <App />
