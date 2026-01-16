@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
-
-const navItems = [
-  { label: 'Home', to: '/' },
-  { label: 'Organization Transformation', to: '/organization-transformation' },
-  { label: 'Future Talent Strategy', to: '/future-talent-strategy' },
-  { label: 'Risk & Business Continuity', to: '/risk-and-business-continuity' },
-  { label: 'Insights', to: '/insights' },
-  { label: 'Work With Me', to: '/work-with-me' },
-]
+import { useI18n } from '../i18n/I18nProvider'
 
 export function Header() {
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  const { copy, language, setLanguage } = useI18n()
 
   useEffect(() => {
     setOpen(false)
@@ -21,8 +14,8 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-20 border-b border-sand/70 bg-white/80 backdrop-blur">
-      <div className="container-page flex flex-col gap-5 py-5 px-5 xl:px-0">
-        <div className='flex flex-row justify-between items-center'>
+      <div className="container-page flex flex-col gap-3 py-3 md:pt-5 md:pb-3 px-5 xl:px-0">
+        <div className="flex flex-row items-center justify-between">
           <NavLink to="/" className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-sm font-semibold uppercase text-white shadow-soft">
               TB
@@ -32,54 +25,84 @@ export function Header() {
                 The Builder
               </p>
               <p className="font-display text-lg font-semibold text-ink">
-                Strategic Advisory
+                {copy.header.tagline}
               </p>
             </div>
           </NavLink>
 
-          <button
-            type="button"
-            className="inline-flex md:hidden h-11 w-11 items-center justify-center rounded-xl border border-sand bg-white text-ink shadow-sm transition hover:border-ink"
-            aria-label={open ? 'Close navigation' : 'Open navigation'}
-            onClick={() => setOpen((prev) => !prev)}
-          >
-            <div className="relative h-4 w-4">
-              <span
+          <div className="flex items-center gap-3">
+            <div className="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm">
+              <button
+                type="button"
+                onClick={() => setLanguage('en')}
                 className={classNames(
-                  'absolute inset-x-0 top-0 h-0.5 bg-ink transition',
-                  open && 'translate-y-2 rotate-45',
+                  'rounded-full px-4 py-2 transition',
+                  language === 'en' ? 'bg-ink text-white shadow-soft' : 'text-slate-700',
                 )}
-              />
-              <span
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('id')}
                 className={classNames(
-                  'absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-ink transition',
-                  open && 'opacity-0',
+                  'rounded-full px-4 py-2 transition',
+                  language === 'id' ? 'bg-ink text-white shadow-soft' : 'text-slate-700',
                 )}
-              />
-              <span
-                className={classNames(
-                  'absolute inset-x-0 bottom-0 h-0.5 bg-ink transition',
-                  open && '-translate-y-2 -rotate-45',
-                )}
-              />
+              >
+                ID
+              </button>
             </div>
-          </button>
-          <NavLink
-            to="/apply"
-            className="items-center justify-center rounded-full border border-ink px-5 py-2 text-sm font-semibold text-ink shadow-soft transition hover:-translate-y-0.5 hidden md:inline-flex"
-          >
-            Apply Now
-          </NavLink>
+            <button
+              type="button"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-sand bg-white text-ink shadow-sm transition hover:border-ink md:hidden"
+              aria-label={open ? 'Close navigation' : 'Open navigation'}
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              <div className="relative h-4 w-4">
+                <span
+                  className={classNames(
+                    'absolute inset-x-0 top-0 h-0.5 bg-ink transition',
+                    open && 'translate-y-2 rotate-45',
+                  )}
+                />
+                <span
+                  className={classNames(
+                    'absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-ink transition',
+                    open && 'opacity-0',
+                  )}
+                />
+                <span
+                  className={classNames(
+                    'absolute inset-x-0 bottom-0 h-0.5 bg-ink transition',
+                    open && '-translate-y-2 -rotate-45',
+                  )}
+                />
+              </div>
+            </button>
+            <NavLink
+              to="/apply"
+              className="hidden items-center justify-center rounded-full border border-ink px-5 py-2 text-sm font-semibold text-ink shadow-soft transition hover:-translate-y-0.5 md:inline-flex"
+            >
+              {copy.nav.apply}
+            </NavLink>
+          </div>
         </div>
-
         <div
           className={classNames(
-            'w-full flex-col md:w-auto md:flex-row md:items-center gap-5',
+            'w-full flex-col gap-5 md:w-auto md:flex-row md:items-center border-t pt-3',
             open ? 'flex' : 'hidden md:flex',
           )}
         >
           <nav className="flex flex-col gap-2 text-sm md:flex-row md:items-center md:gap-3">
-            {navItems.map((item) => (
+            {[
+              { label: copy.nav.home, to: '/' },
+              { label: copy.nav.organization, to: '/organization-transformation' },
+              { label: copy.nav.future, to: '/future-talent-strategy' },
+              { label: copy.nav.risk, to: '/risk-and-business-continuity' },
+              { label: copy.nav.insights, to: '/insights' },
+              { label: copy.nav.work, to: '/work-with-me' },
+            ].map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
@@ -98,9 +121,9 @@ export function Header() {
           </nav>
           <NavLink
             to="/apply"
-            className="inline-flex md:hidden items-center justify-center rounded-full border border-ink px-4 py-3 text-sm font-semibold text-ink shadow-soft w-full"
+            className="inline-flex items-center justify-center rounded-full border border-ink px-4 py-3 text-sm font-semibold text-ink shadow-soft w-full md:hidden"
           >
-            Apply
+            {copy.nav.apply}
           </NavLink>
         </div>
       </div>
