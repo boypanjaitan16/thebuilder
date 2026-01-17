@@ -11,6 +11,11 @@ import OrganizationPage from './pages/OrganizationPage'
 import PrivacyPage from './pages/PrivacyPage'
 import RiskContinuityPage from './pages/RiskContinuityPage'
 import WorkWithMePage from './pages/WorkWithMePage'
+import AdminPage from './pages/AdminPage'
+import AdminLoginPage from './pages/AdminLoginPage'
+import AdminProductsPage from './pages/AdminProductsPage'
+import AdminProductCreatePage from './pages/AdminProductCreatePage'
+import { AdminGuard } from './components/AdminGuard'
 
 function App() {
   return (
@@ -36,6 +41,12 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/architecture" element={<ArchitecturePage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin" element={<AdminGuard />}>
+          <Route index element={<AdminPage />} />
+          <Route path="products" element={<AdminProductsPage />} />
+          <Route path="products/new" element={<AdminProductCreatePage />} />
+        </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
