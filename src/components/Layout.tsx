@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Header } from './Header'
+import { AdminHeader } from './AdminHeader'
 import { useI18n } from '../i18n/I18nProvider'
 
 export function Layout() {
   const location = useLocation()
   const { copy } = useI18n()
+  const isAdminRoute = location.pathname.startsWith('/admin')
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -13,7 +15,7 @@ export function Layout() {
 
   return (
     <div className="min-h-screen bg-mist text-ink">
-      <Header />
+      {isAdminRoute ? <AdminHeader /> : <Header />}
 
       <main className="py-5 xl:py-10 px-5 xl:px-0">
         <Outlet />
