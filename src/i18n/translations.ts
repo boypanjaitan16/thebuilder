@@ -240,7 +240,6 @@ export type Copy = {
     heroSubtitle: string
     heroTitle: string
     heroBody: string
-    topicsTitle: string
     topicsBody: string
     topicsNote: string
     topicsList: string[]
@@ -267,7 +266,6 @@ export type Copy = {
     heroSubtitle: string
     heroTitle: string
     heroBody: string
-    topicsTitle: string
     topicsBody: string
     topicsList: string[]
     topicsNote: string
