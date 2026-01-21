@@ -33,10 +33,12 @@ export function Layout() {
           </div>
           <div className="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700">
             {[
-              { label: 'About', to: '/about' },
+              { label: copy.footer.about, to: '/about' },
               { label: copy.nav.insights, to: '/insights' },
               { label: copy.nav.work, to: '/work-with-me' },
-              { label: 'Privacy Policy', to: '/privacy' },
+              { label: copy.footer.privacyPolicy, to: '/privacy' },
+              { label: copy.footer.resources, to: '/resources' },
+              { label: copy.footer.riskReadinessDiagnostic, to: '/risk-readiness-diagnostic' },
             ].map((link) => (
               <NavLink
                 key={link.to}

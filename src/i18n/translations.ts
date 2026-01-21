@@ -16,9 +16,10 @@ export type Copy = {
     insights: string
     work: string
     apply: string
+    resources: string
   }
   header: { tagline: string }
-  footer: { line: string }
+  footer: { line: string, about: string, privacyPolicy: string, resources: string, riskReadinessDiagnostic: string }
   shared: {
     areasOfFocus: FocusArea[]
     insightArticles: InsightArticle[]
@@ -193,6 +194,89 @@ export type Copy = {
     integrationNote: string
   }
   privacy: { title: string; intro: string; bullets: string[] }
+  notFound: { title: string; body: string; cta: string }
+  riskReadiness: {
+    heroTitle: string
+    heroBody: string
+    beforeTitle: string
+    beforeBody: string
+    designedForTitle: string
+    designedForList: string[]
+    designedForNote: string
+    helpsTitle: string
+    helpsIntro: string
+    helpsList: string[]
+    helpsNote: string
+    isTitle: string
+    isList: string[]
+    isNotTitle: string
+    isNotList: string[]
+    whyTitle: string
+    whyIntro: string
+    whyList: string[]
+    receiveTitle: string
+    receiveList: string[]
+    receiveNote: string
+    afterTitle: string
+    afterBody: string
+    limitedNote: string
+    primaryCta: string
+    secondaryCta: string
+  }
+  resources: {
+    heroSubtitle: string
+    heroTitle: string
+    heroBody: string
+    middleSectionTitle: string
+    middleSectionBody1: string
+    middleSectionBody2: string
+    middleSectionBody3: string
+    categories: { slug: string; title: string; body: string; items: string[]; cta: string }[]
+    closingNote: string
+    closingTitle: string
+    closingCta: string
+  }
+  resourcesFoundational: {
+    heroSubtitle: string
+    heroTitle: string
+    heroBody: string
+    topicsTitle: string
+    topicsBody: string
+    topicsNote: string
+    topicsList: string[]
+    whatInsideTitle: string
+    learningModel: {
+      title: string,
+      items: string[]
+    }[]
+  }
+  resourcesGuides: {
+    heroSubtitle: string
+    heroTitle: string
+    heroBody: string
+    topicsNote: string
+    topicsBody: string
+    topicsList: string[]
+    whatInsideTitle: string
+    whatInsideList: {
+      title: string
+      subtitle: string
+    }[]
+  }
+  resourcesCourses: {
+    heroSubtitle: string
+    heroTitle: string
+    heroBody: string
+    topicsTitle: string
+    topicsBody: string
+    topicsList: string[]
+    topicsNote: string
+    whatInsideTitle: string
+    whatInsideList: {
+      title: string
+      subtitle: string
+    }[]
+  }
 }
 
 export const translations: Record<Language, Copy> = {

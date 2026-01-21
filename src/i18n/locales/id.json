@@ -6,13 +6,18 @@
     "risk": "Risiko & Business Continuity",
     "insights": "Insights",
     "work": "Bekerja Bersama",
-    "apply": "Ajukan"
+    "apply": "Ajukan",
+    "resources": "Sumber Daya"
   },
   "header": {
     "tagline": "Konsultan Strategis"
   },
   "footer": {
-    "line": "Konsultasi strategis berbasis di Indonesia. Bekerja selektif dengan organisasi untuk merancang struktur tangguh, kontinuitas kepemimpinan, dan mitigasi risiko manusia."
+    "line": "Konsultasi strategis berbasis di Indonesia. Bekerja selektif dengan organisasi untuk merancang struktur tangguh, kontinuitas kepemimpinan, dan mitigasi risiko manusia.",
+    "about": "Tentang",
+    "privacyPolicy": "Kebijakan Privasi",
+    "resources": "Sumber Daya",
+    "riskReadinessDiagnostic": "Diagnostik Kesiapan Risiko"
   },
   "shared": {
     "areasOfFocus": [
@@ -479,5 +484,210 @@
       "Data formulir ditinjau secara privat dan disimpan hanya selama diperlukan untuk menilai kecocokan.",
       "Anda dapat meminta penghapusan data kapan saja."
     ]
+  },
+  "riskReadiness": {
+    "heroTitle": "Refleksi terstruktur tentang kepemimpinan, kontinuitas, dan paparan tersembunyi.",
+    "heroBody": "Kebanyakan pemimpin tidak menemukan risiko kontinuitas lewat analisis. Mereka merasakannya lewat keraguan, ketergantungan, atau kesadaran diam-diam bahwa situasi tertentu sulit diserap. Risk Readiness Diagnostic membantu memeriksa sinyal ini dengan jelas sebelum tekanan memaksa keputusan. Ini bukan penilaian orang. Ini refleksi tentang struktur, ketersediaan kepemimpinan, dan ketahanan saat disrupsi.",
+    "beforeTitle": "Sebelum pertumbuhan diuji, risiko terasa diam-diam.",
+    "beforeBody": "Risiko sering muncul sebagai keraguan, ketergantungan, atau titik tekanan halus. Diagnostic ini menyorot sinyal tersebut sebelum pertumbuhan menguji struktur.",
+    "designedForTitle": "Diagnostic ini untuk pemimpin yang…",
+    "designedForList": [
+      "Menanggung tanggung jawab yang tidak proporsional di organisasi",
+      "Merasa ketergantungan yang makin besar pada sedikit individu",
+      "Sedang menghadapi pertumbuhan, transisi, atau paparan finansial yang meningkat",
+      "Ingin kejelasan sebelum berkomitmen ke keterlibatan advisory yang lebih besar",
+      "Lebih suka refleksi terstruktur daripada rekomendasi generik"
+    ],
+    "designedForNote": "Diagnostic ini bukan untuk pemecahan masalah operasional atau pelaporan kepatuhan.",
+    "helpsTitle": "Yang dibantu diagnostic ini untuk dilihat",
+    "helpsIntro": "Diagnostic ini mengeksplorasi seberapa siap organisasi saat kapasitas atau ketersediaan kepemimpinan terganggu.",
+    "helpsList": [
+      "Ketergantungan kepemimpinan dan konsentrasi otoritas keputusan",
+      "Kontinuitas selama masa pemulihan, bukan hanya disrupsi awal",
+      "Paparan finansial yang tetap berjalan meski kapasitas kepemimpinan menurun",
+      "Asumsi struktural yang diam-diam meningkatkan kerentanan",
+      "Kesenjangan antara rencana formal dan perilaku nyata"
+    ],
+    "helpsNote": "Fokusnya bukan memprediksi kejadian, tetapi memahami paparan.",
+    "isTitle": "Apa itu diagnostic ini",
+    "isList": [
+      "Refleksi terpandu yang terstruktur",
+      "Lensa untuk melihat risiko tanpa alarm berlebihan",
+      "Titik awal untuk keputusan kepemimpinan yang lebih jelas"
+    ],
+    "isNotTitle": "Apa yang bukan",
+    "isNotList": [
+      "Tes kepribadian atau kompetensi",
+      "Alat kepatuhan atau audit",
+      "Percakapan penjualan yang menyamar sebagai assessment"
+    ],
+    "whyTitle": "Mengapa diagnostic ini ada",
+    "whyIntro": "Banyak pemimpin merasakan risiko jauh sebelum dapat mengartikulasikannya. Diagnostic ini ada untuk:",
+    "whyList": [
+      "Mengganti kekhawatiran samar dengan kejelasan",
+      "Memisahkan risiko struktural dari kecemasan personal",
+      "Memungkinkan keputusan yang terinformasi tanpa urgensi atau tekanan"
+    ],
+    "receiveTitle": "Yang akan Anda terima",
+    "receiveList": [
+      "Kuesioner diagnostic terstruktur",
+      "Ringkasan kesiapan yang menyorot area paparan utama",
+      "Observasi tertulis tentang pola kepemimpinan dan kontinuitas",
+      "Sinyal jelas apakah diperlukan pekerjaan advisory lebih dalam"
+    ],
+    "receiveNote": "Tidak ada rekomendasi yang dipaksakan. Tidak ada keterlibatan yang diasumsikan.",
+    "afterTitle": "Apa yang terjadi setelah diagnostic",
+    "afterBody": "Sebagian pemimpin memakai diagnostic ini hanya untuk refleksi internal. Yang lain melanjutkan percakapan saat pekerjaan struktural lebih dalam dibutuhkan. Jika dukungan advisory tepat, langkah berikutnya dibahas secara privat dengan keselarasan dan ruang lingkup yang jelas.",
+    "limitedNote": "Ketersediaan terbatas. Dirancang untuk pemimpin yang menghargai diskresi dan kedalaman. Diagnostic ini sengaja selektif dan reflektif, bukan untuk partisipasi volume.",
+    "primaryCta": "Mulai diagnostic",
+    "secondaryCta": "Diskusikan kecocokan advisory"
+  },
+  "resources": {
+    "heroSubtitle": "Sumber Daya",
+    "heroTitle": "Sumber daya untuk pemimpin yang ingin lebih dari ide. Mereka ingin kejelasan, keputusan, dan sistem yang bertahan.",
+    "heroBody": "Beberapa sumber daya terbuka. Sebagian lain lebih mendalam. ",
+    "categories": [
+      {
+        "slug": "foundational-thinking",
+        "title": "Pemikiran Dasar",
+        "body": "Ide yang membentuk cara saya melihat organisasi, kepemimpinan, dan mengapa sebagian besar masalah pertumbuhan bersifat struktural, bukan personal.",
+        "items": ["Esai singkat", "Studi kasus"],
+        "cta": "Jelajahi pemikiran dasar"
+      },
+      {
+        "slug": "guides-playbooks",
+        "title": "Panduan & Playbook",
+        "body": "Panduan praktis untuk pemimpin yang ingin bergerak dari wawasan ke eksekusi tanpa menyederhanakan realitas.",
+        "items": ["Template siap pakai", "Playbook langkah demi langkah", "Panduan implementasi"],
+        "cta": "Lihat panduan & playbook"
+      },
+      {
+        "slug": "courses-deep-dives",
+        "title": "Kursus & Deep Dive",
+        "body": "Pengalaman belajar terstruktur bagi pemimpin yang ingin mendesain ulang cara organisasi mereka benar-benar bekerja.",
+        "items": ["Kursus video", "Lokakarya rekaman", "Master class"],
+        "cta": "Jelajahi kursus & deep dive"
+      }
+    ],
+    "middleSectionTitle": "Sebelum Pertumbuhan Diuji, Risiko Terasa Diam-Diam",
+    "middleSectionBody1": "Sebagian besar pemimpin tidak menemukan risiko kontinuitas melalui analisis. Mereka merasakannya melalui keraguan, ketergantungan, atau kesadaran diam-diam bahwa situasi tertentu akan sulit diatasi.",
+    "middleSectionBody2": "Diagnostic Kesiapan Risiko dirancang untuk membantu pemimpin memeriksa sinyal ini dengan jelas, sebelum tekanan memaksa pengambilan keputusan.",
+    "middleSectionBody3": "Ini bukan penilaian terhadap orang. Ini adalah refleksi tentang struktur, ketersediaan kepemimpinan, dan ketahanan di bawah gangguan.",
+    "closingNote": "Sumber daya ini bukan jalan pintas. Ini alat bagi pemimpin yang mau berpikir jernih sebelum bertindak tegas.",
+    "closingTitle": "Kejelasan dibangun, bukan diunduh",
+    "closingCta": "Jelajahi semua sumber daya"
+  },
+  "resourcesFoundational": {
+    "heroSubtitle": "Bagaimana saya melihat organisasi",
+    "heroTitle": "Sebelum alat, sebelum taktik, harus ada kejernihan perspektif.",
+    "heroBody": "Ruang ini berisi pemikiran yang membentuk pendekatan saya pada kepemimpinan, desain organisasi, dan pertumbuhan jangka panjang. Ini refleksi dari pola berulang di antara founder, eksekutif, dan organisasi yang berkembang.",
+    "topicsBody": "Di sini ada esai dan refleksi singkat tentang topik seperti:",
+    "topicsList": [
+      "Otoritas dan pengambilan keputusan",
+      "Pertumbuhan dan ketergantungan",
+      "Kepemimpinan di luar kepribadian",
+      "Mengapa orang mampu bisa gagal dalam sistem yang kabur"
+    ],
+    "topicsNote": "Setiap potongannya dirancang untuk membantu kamu melihat pola, bukan apa yang harus dilakukan.",
+    "whatInsideTitle": "Isi di dalamnya",
+    "learningModel": [
+      {
+        "title": "Esai Singkat",
+        "items": [
+          "Pertumbuhan Tidak Merusak Organisasi — Orang Melakukannya",
+          "Sebagian Besar Masalah Kepemimpinan Adalah Masalah Desain",
+          "Ketika Otoritas Tidak Jelas, Talenta Menjadi Bising",
+          "Mengapa Founder Kuat Menciptakan Sistem yang Lemah"
+        ]
+      },
+      {
+        "title": "Studi Kasus",
+        "items": [
+          "Pemimpin Mampu, Keputusan Lemah",
+          "Mengapa Wawancara Gagal di Level Senior",
+          "Mengubah Kejelasan Menjadi Alur Keputusan",
+          "Dari Wawasan ke Struktur: Mendesain Otoritas"
+        ]
+      }
+    ]
+  },
+  "resourcesGuides": {
+    "heroSubtitle": "Dari wawasan ke eksekusi",
+    "heroTitle": "Kejelasan hanya berarti ketika mengubah cara keputusan dibuat.",
+    "heroBody": "Bagian ini berisi panduan dan playbook terstruktur untuk membantu pemimpin menerapkan pemikiran jelas pada situasi organisasi nyata. Alat-alat ini bukan teori abstrak, tetapi panduan praktis yang dibangun dari pola berulang di berbagai organisasi.",
+    "heroBody2": " Beberapa panduan terfokus pada taktik spesifik; yang lain membutuhkan waktu, refleksi, dan disiplin untuk diterapkan dengan benar.",
+    "topicsBody": "Kamu akan menemukan panduan dan playbook tentang topik seperti:",
+    "topicsNote": "Setiap alat dibangun dari pola nyata di berbagai organisasi, bukan teori abstrak.",
+    "topicsList": [
+      "Arsitektur keputusan dan desain otoritas",
+      "Scaling tanpa ketergantungan founder",
+      "Seleksi kepemimpinan dan sistem wawancara",
+      "Mendesain peran, akuntabilitas, dan eskalasi"
+    ],
+    "whatInsideTitle": "Isi di dalamnya",
+    "whatInsideList": [
+      {
+        "title": "Mendesain Otoritas Keputusan",
+        "subtitle": "Panduan praktis untuk pemimpin yang menghadapi eskalasi terus-menerus."
+      },
+      {
+        "title": "Scaling Tanpa Ketergantungan Founder",
+        "subtitle": "Mendesain ulang peran, keputusan, dan akuntabilitas."
+      },
+      {
+        "title": "Ketika Delegasi Gagal",
+        "subtitle": "Mendiagnosis kerusakan struktural, bukan personal."
+      },
+      {
+        "title": "Menjernihkan Peran di Organisasi yang Bertumbuh",
+        "subtitle": "Mengurangi kebingungan sebelum jadi konflik."
+      },
+      {
+        "title": "Playbook Desain Organisasi",
+        "subtitle": "Mendesain ulang peran, akuntabilitas, dan eskalasi pada skala."
+      },
+      {
+        "title": "HR yang Mengubah Hasil",
+        "subtitle": "Playbook membangun relevansi lewat struktur."
+      }
+    ]
+  },
+  "resourcesCourses": {
+    "heroSubtitle": "Saat kejelasan butuh komitmen lebih dalam",
+    "heroTitle": "Beberapa masalah tidak bisa diselesaikan hanya dengan membaca.",
+    "heroBody": "Bagian ini berisi pengalaman belajar terstruktur untuk pemimpin yang ingin mendesain ulang cara organisasi mereka benar-benar bekerja. Kursus dan lokakarya ini bukan teori abstrak, tetapi alat praktis yang dibangun dari pola nyata di berbagai organisasi.",
+    "topicsTitle": "Ketika kejernihan butuh komitmen",
+    "topicsBody": "Topik yang dibahas di bagian ini meliputi:",
+    "topicsList": [
+      "Transformasi organisasi",
+      "Sistem HR & pengembangan people",
+      "Strategi talenta masa depan",
+      "Strategi pengembangan kepemimpinan"
+    ],
+    "topicsNote": "Setiap program dibangun dari pola nyata di berbagai organisasi, bukan teori abstrak.",
+    "whatInsideTitle": "Isi di dalamnya",
+    "whatInsideList": [
+      {
+        "title": "Wawancara Perilaku untuk Pemimpin",
+        "subtitle": "Kursus video mendalam tentang mendesain wawancara yang mengungkap penilaian, bukan jawaban hafalan."
+      },
+      {
+        "title": "Mendesain Organisasi yang Bertumbuh",
+        "subtitle": "Kursus tentang pengambilan keputusan, peran, dan akuntabilitas di organisasi yang berkembang pesat."
+      },
+      {
+        "title": "Pengambilan Keputusan di Level Senior",
+        "subtitle": "Kejelasan, kepemilikan, dan konsekuensi dalam keputusan berdampak tinggi."
+      },
+      {
+        "title": "Saat HR Menjadi Tak Terlihat Secara Operasional",
+        "subtitle": "Kajian mendalam relevansi dan dampak HR di organisasi yang bertumbuh."
+      }
+    ]
+  },
+  "notFound": {
+    "title": "Halaman yang Anda cari tidak ditemukan.",
+    "body": "Mungkin sudah dipindah atau tautannya tidak lagi aktif. Kembali ke beranda untuk melanjutkan.",
+    "cta": "Kembali ke beranda"
   }
 }

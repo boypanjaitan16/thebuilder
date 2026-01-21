@@ -102,6 +102,7 @@ export function Header() {
               { label: copy.nav.risk, to: '/risk-and-business-continuity' },
               { label: copy.nav.insights, to: '/insights' },
               { label: copy.nav.work, to: '/work-with-me' },
+              { label: copy.nav.resources, to: '/resources' },
             ].map((item) => (
               <NavLink
                 key={item.to}

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import AboutPage from './pages/AboutPage'
 import ApplyPage from './pages/ApplyPage'
@@ -11,11 +11,17 @@ import OrganizationPage from './pages/OrganizationPage'
 import PrivacyPage from './pages/PrivacyPage'
 import RiskContinuityPage from './pages/RiskContinuityPage'
 import WorkWithMePage from './pages/WorkWithMePage'
+import RiskReadinessDiagnosticPage from './pages/RiskReadinessDiagnosticPage'
+import ResourcesPage from './pages/ResourcesPage'
+import ResourcesFoundationalPage from './pages/ResourcesFoundationalPage'
+import ResourcesGuidesPage from './pages/ResourcesGuidesPage'
+import ResourcesCoursesPage from './pages/ResourcesCoursesPage'
 import AdminPage from './pages/AdminPage'
 import AdminLoginPage from './pages/AdminLoginPage'
 import AdminProductsPage from './pages/AdminProductsPage'
 import AdminProductCreatePage from './pages/AdminProductCreatePage'
 import { AdminGuard } from './components/AdminGuard'
+import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
   return (
@@ -38,6 +44,11 @@ function App() {
         <Route path="/work-with-me" element={<WorkWithMePage />} />
         <Route path="/apply" element={<ApplyPage />} />
         <Route path="/diagnostic" element={<DiagnosticPage />} />
+        <Route path="/risk-readiness-diagnostic" element={<RiskReadinessDiagnosticPage />} />
+        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/resources/foundational-thinking" element={<ResourcesFoundationalPage />} />
+        <Route path="/resources/guides-playbooks" element={<ResourcesGuidesPage />} />
+        <Route path="/resources/courses-deep-dives" element={<ResourcesCoursesPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/architecture" element={<ArchitecturePage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
@@ -47,7 +58,7 @@ function App() {
           <Route path="products" element={<AdminProductsPage />} />
           <Route path="products/new" element={<AdminProductCreatePage />} />
         </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   )

@@ -6,13 +6,18 @@
     "risk": "Risk & Business Continuity",
     "insights": "Insights",
     "work": "Work With Me",
-    "apply": "Apply"
+    "apply": "Apply",
+    "resources": "Resources"
   },
   "header": {
     "tagline": "Strategic Advisory"
   },
   "footer": {
-    "line": "Strategic advisory based in Indonesia. Working with organizations selectively to design resilient structures, leadership continuity, and human risk safeguards."
+    "line": "Strategic advisory based in Indonesia. Working with organizations selectively to design resilient structures, leadership continuity, and human risk safeguards.",
+    "about": "About",
+    "privacyPolicy": "Privacy Policy",
+    "resources": "Resources",
+    "riskReadinessDiagnostic": "Risk Readiness Diagnostic"
   },
   "shared": {
     "areasOfFocus": [
@@ -479,5 +484,209 @@
       "Data submitted through forms is reviewed privately and retained only as long as necessary to consider fit.",
       "If you would like your submission removed, you may request deletion at any time."
     ]
+  },
+  "riskReadiness": {
+    "heroTitle": "A structured reflection on leadership, continuity, and hidden exposure.",
+    "heroBody": "Most leaders do not discover continuity risk through analysis. They sense it through hesitation, dependency, or the quiet realization that certain situations would be difficult to absorb. The Risk Readiness Diagnostic is designed to help leaders examine these signals with clarity, before pressure forces decisions. This is not an assessment of people. It is a reflection on structure, leadership availability, and resilience under disruption.",
+    "beforeTitle": "Before growth is tested, risk is felt quietly.",
+    "beforeBody": "Risk often shows up first as hesitation, dependency, or quiet pressure points. The diagnostic surfaces these signals before growth tests the structure.",
+    "designedForTitle": "This diagnostic is designed for leaders who…",
+    "designedForList": [
+      "Carry disproportionate responsibility within the organization",
+      "Sense growing dependency on a small number of individuals",
+      "Are navigating growth, transition, or increased financial exposure",
+      "Want clarity before committing to larger advisory engagements",
+      "Prefer structured reflection over generic recommendations"
+    ],
+    "designedForNote": "This diagnostic is not designed for operational problem-solving or compliance reporting.",
+    "helpsTitle": "What the diagnostic helps you see",
+    "helpsIntro": "The diagnostic explores how prepared the organization truly is when leadership capacity or availability is disrupted.",
+    "helpsList": [
+      "Leadership dependency and concentration of decision authority",
+      "Continuity during recovery periods, not just immediate disruption",
+      "Financial exposure that continues despite reduced leadership capacity",
+      "Structural assumptions that quietly increase fragility",
+      "Gaps between formal plans and real-world behavior"
+    ],
+    "helpsNote": "The focus is not on predicting events, but on understanding exposure.",
+    "isTitle": "What this diagnostic is",
+    "isList": [
+      "A guided, structured reflection",
+      "A lens to examine risk without alarmism",
+      "A starting point for clearer leadership decisions"
+    ],
+    "isNotTitle": "What this diagnostic is not",
+    "isNotList": [
+      "A personality or competency test",
+      "A compliance or audit tool",
+      "A sales conversation disguised as an assessment"
+    ],
+    "whyTitle": "Why this diagnostic exists",
+    "whyIntro": "Many leaders sense risk long before they can articulate it. This diagnostic exists to:",
+    "whyList": [
+      "Replace vague concern with clarity",
+      "Separate structural risk from personal anxiety",
+      "Enable informed decisions without urgency or pressure"
+    ],
+    "receiveTitle": "What you will receive",
+    "receiveList": [
+      "A structured diagnostic questionnaire",
+      "A synthesized readiness overview highlighting key exposure areas",
+      "Written observations focused on leadership and continuity patterns",
+      "Clear signals indicating whether deeper advisory work is warranted"
+    ],
+    "receiveNote": "No recommendations are forced. No engagement is assumed.",
+    "afterTitle": "What happens after the diagnostic",
+    "afterBody": "Some leaders use the diagnostic solely for internal reflection. Others continue the conversation when deeper structural work is required. If advisory support is appropriate, next steps are discussed privately with mutual alignment and clear scope.",
+    "limitedNote": "Limited availability. Designed for leaders who value discretion and depth. This diagnostic is intentionally selective and reflective in nature. It is not designed for volume participation.",
+    "primaryCta": "Begin the diagnostic",
+    "secondaryCta": "Talk about advisory fit"
+  },
+  "resources": {
+    "heroSubtitle": "Resources",
+    "heroTitle": "Resources for leaders who want more than ideas. They want clarity, decisions, and systems that last.",
+    "heroBody": "Some resources are open. Some go deeper.",
+    "categories": [
+      {
+        "slug": "foundational-thinking",
+        "title": "Foundational Thinking",
+        "body": "The ideas that shape how I see organizations, leadership, and why most growth problems are structural not personal.",
+        "items": ["Short essays", "Case study"],
+        "cta": "Explore foundational thinking"
+      },
+      {
+        "slug": "guides-playbooks",
+        "title": "Guides & Playbooks",
+        "body": "Practical guidance for leaders who want to move from insight to execution without oversimplifying reality.",
+        "items": ["Ready to use templates", "Step by step playbooks", "Implementation guides"],
+        "cta": "View guides & playbooks"
+      },
+      {
+        "slug": "courses-deep-dives",
+        "title": "Courses & Deep Dives",
+        "body": "Structured learning experiences for leaders who want to redesign how their organization actually works.",
+        "items": ["Video courses", "Recorded workshops", "Master class"],
+        "cta": "Explore courses & deep dives"
+      }
+    ],
+    "middleSectionTitle": "Before Growth Is Tested, Risk Is Felt Quietly",
+    "middleSectionBody1": "Most leaders do not discover continuity risk through analysis. They sense it through hesitation, dependency, or the quiet realization that certain situations would be difficult to absorb.",
+    "middleSectionBody2": "The Risk Readiness Diagnostic is designed to help leaders examine these signals with clarity, before pressure forces decisions.",
+    "middleSectionBody3": "This is not an assessment of people. It is a reflection on structure, leadership availability, and resilience under disruption.",
+    "closingNote": "These resources are not shortcuts. They are tools for leaders willing to think clearly before acting decisively.",
+    "closingTitle": "Clarity is built, not downloaded",
+    "closingCta": "Explore resources"
+  },
+  "resourcesFoundational": {
+    "heroSubtitle": "How I see organizations",
+    "heroTitle": "Before tools, before tactics, there must be clarity of perspective.",
+    "heroBody": "This space contains the thinking that shapes how I approach leadership, organizational design, and long-term growth. These are not opinion pieces. They are reflections built from recurring patterns, observed across founders, executives, and growing organizations. Some ideas will feel familiar. Others may feel uncomfortable. That is intentional.",
+    "topicsBody": "Here you will find short essays and reflections on topics such as:",
+    "topicsList": [
+      "Authority and decision-making",
+      "Growth and dependency",
+      "Leadership beyond personality",
+      "Why capable people fail inside unclear systems"
+    ],
+    "topicsNote": "These pieces are designed to help you see patterns and not to tell you what to do.",
+    "whatInsideTitle": "What’s inside",
+    "learningModel": [
+      {
+        "title": "Short Essays",
+        "items": [
+          "Growth Does Not Break Organizations. Ambiguity Does.",
+          "Most Leadership Problems Are Design Problems",
+          "When Authority Is Unclear, Talent Becomes Noise",
+          "Why Strong Founders Create Weak Systems"
+        ]
+      },
+      {
+        "title": "Case Study",
+        "items": [
+          "Capable Leaders, Weak Decisions",
+          "Why Interviews Fail at Senior Level",
+          "Turning Clarity into Decision Flow",
+          "From Insight to Structure: Designing Authority"
+        ]
+      }
+    ]
+  },
+  "resourcesGuides": {
+    "heroSubtitle": "From Insights to Execution",
+    "heroTitle": "Clarity only matters when it changes how decisions are made.",
+    "heroBody": "This section contains structured guides and playbooks designed to help leaders apply clear thinking to real organizational situations. They are not generic templates. They are practical tools built from recurring patterns observed inside growing organizations.",
+    "heroBody2": "Some guides are focused and tactical. Others require time, reflection, and discipline.",
+    "topicsBody": "Here you will find guides and playbooks covering areas such as:",
+    "topicsNote": "Each resource is designed to be worked through, not skimmed.",
+    "topicsList": [
+      "Decision architecture and authority design",
+      "Scaling without founder dependency",
+      "Leadership selection and interview systems",
+      "Designing roles, accountability, and escalation"
+    ],
+    "whatInsideTitle": "What’s inside",
+    "whatInsideList": [
+      {
+        "title": "Designing Decision Authority",
+        "subtitle": "A practical guide for leaders facing constant escalation."
+      },
+      {
+        "title": "Scaling Without Founder Dependency",
+        "subtitle": "Redesigning roles, decisions, and accountability."
+      },
+      {
+        "title": "When Delegation Fails",
+        "subtitle": "Diagnosing structural, not personal, breakdowns."
+      },
+      {
+        "title": "Clarifying Roles in Growing Organizations",
+        "subtitle": "Reducing confusion before it becomes conflict."
+      },
+      {
+        "title": "Organizational Design Playbook",
+        "subtitle": "Redesigning roles, accountability, and escalation at scale."
+      },
+      {
+        "title": "HR That Changes Outcomes",
+        "subtitle": "A playbook for building relevance through structure."
+      }
+    ]
+  },
+  "resourcesCourses": {
+    "heroSubtitle": "When clarity requires commitment",
+    "heroTitle": "Some problems can’t be solved by reading alone.",
+    "heroBody": "This section contains structured learning experiences designed for leaders who need time, guidance, and disciplined thinking to address complex challenges. These are not motivational programs. They are deliberate explorations of how decisions, authority, and systems actually work inside organizations.",
+    "topicsBody": "Topics explored in this section include:",
+    "topicsList": [
+      "Organizational transformation",
+      "HR system & people development",
+      "Future talent strategy",
+      "Leadership development strategies"
+    ],
+    "topicsNote": "Each program is built from real patterns observed across organizations, not abstract theory.",
+    "whatInsideTitle": "What’s inside",
+    "whatInsideList": [
+      {
+        "title": "Behavioral Interviewing for Leaders",
+        "subtitle": "Design interviews that reveal judgment, not rehearsed answers."
+      },
+      {
+        "title": "Designing Authority in Organizations",
+        "subtitle": "A course on decision-making, roles, and accountability."
+      },
+      {
+        "title": "Decision-Making at Senior Level",
+        "subtitle": "Clarity, ownership, and consequence."
+      },
+      {
+        "title": "When HR Becomes Operationally Invisible",
+        "subtitle": "A deep dive into relevance and impact."
+      }
+    ]
+  },
+  "notFound": {
+    "title": "The page you’re looking for isn’t here.",
+    "body": "It may have been moved or the link is outdated. Head back to the homepage to continue.",
+    "cta": "Back to homepage"
   }
 }
