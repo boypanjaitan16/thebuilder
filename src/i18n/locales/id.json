@@ -185,6 +185,7 @@
 		}
 	},
 	"organization": {
+		"subtitle": "Transformasi & Resiliensi Organisasi",
 		"heroTitle": "Merancang sistem organisasi yang tetap efektif saat pertumbuhan, pergantian pemimpin, dan disrupsi.",
 		"heroBody": "Banyak organisasi mengejar transformasi lewat inisiatif baru atau program kepemimpinan, namun tetap kesulitan ketika pertumbuhan meningkat atau pemimpin kunci pergi. Masalahnya jarang niat — sering kali kurangnya desain sistem yang sengaja.",
 		"coreProblemTitle": "Mengapa transformasi sering tidak bertahan",
@@ -196,6 +197,7 @@
 			"Restrukturisasi berulang tanpa perbaikan berkelanjutan",
 			"Inisiatif HR terasa terpisah dari tekanan bisnis nyata"
 		],
+		"coreProblemNote": "Transformasi gagal bukan karena orang menolak perubahan, tetapi karena sistem tidak pernah dirancang untuk menyerapnya.",
 		"resilienceTitle": "Makna resiliensi organisasi",
 		"resilienceIntro": "Resiliensi bukan slogan budaya atau lebih banyak program. Artinya:",
 		"resilienceList": [
@@ -205,10 +207,23 @@
 			"Sistem talenta selaras dengan kebutuhan masa depan",
 			"Risiko operasional dan manusia berkurang"
 		],
+		"resilienceNote": "Ini adalah kemampuan organisasi untuk terus beroperasi ketika kondisi tidak lagi ideal.",
 		"approachTitle": "Bagaimana kerja ini membantu pemimpin mengendalikan lagi",
 		"approachBody1": "Saat organisasi tersendat di masa pertumbuhan atau transisi, masalahnya jarang kurang usaha. Pemimpin sering bekerja dalam struktur yang tidak lagi mendukung keputusan, akuntabilitas, atau kontinuitas.",
-		"approachBody2": "Keterlibatan mengeksplorasi di mana keputusan tersendat, peran yang terlalu sarat, ketergantungan yang terpusat, eksekusi yang tidak konsisten, dan apa yang rapuh saat pemimpin berubah. Hasilnya bukan program baru, melainkan arah dan struktur jelas yang mengurangi ketergantungan dan memungkinkan keputusan tegas.",
+		"approachBody2": "Kegiatan ini berfokus pada membantu pemimpin melihat apa yang sebenarnya terjadi di dalam organisasi — dan mengapa masalah tertentu terus berulang meskipun ada berbagai inisiatif.",
+		"approachBody3": "Keterlibatan biasanya mengeksplorasi:",
+		"approachList": [
+			"Saat keputusan melambat atau terhenti, dan mengapa otoritas terasa tidak jelas",
+			"Peran mana yang membawa terlalu banyak tanggung jawab, dan mana yang kurang akuntabilitas nyata",
+			"Di mana organisasi terlalu bergantung pada individu tertentu, menciptakan risiko tersembunyi",
+			"Mengapa pelaksanaan terasa tidak konsisten, bahkan ketika orang tampak mampu",
+			"Apa yang menjadi rapuh saat pertumbuhan meningkat atau pemimpin berubah"
+		],
+		"approachNote1": "Hasilnya bukan program lain atau latihan restrukturisasi",
+		"approachNote2": "Ini adalah arah dan struktur organisasi yang jelas yang memungkinkan pemimpin bertindak tegas, mengurangi ketergantungan, dan memajukan organisasi dengan percaya diri.",
 		"scopeTitle": "Cakupan & batasan",
+		"scopeIncludesNote": "Pekerjaan ini mencakup:",
+		"scopeExcludesNote": "Pekerjaan ini tidak mencakup:",
 		"scopeIncludes": [
 			"Diagnosa organisasi dan pemetaan sistem",
 			"Desain arsitektur kepemimpinan dan peran",
@@ -221,11 +236,31 @@
 			"Delivery pelatihan atau fasilitasi",
 			"Manajemen program berkelanjutan"
 		],
-		"relevance": "Paling relevan saat memasuki fase pertumbuhan baru, menghadapi suksesi kepemimpinan, atau ketika founder dan pemimpin kunci menjadi bottleneck kritis.",
-		"designedFor": "CEO, founder, board, dan tim kepemimpinan senior yang bersedia menangani isu struktural dengan matang.",
-		"integration": "Terintegrasi dengan Strategi Talenta Masa Depan & Pengembangan Kepemimpinan serta Risiko & Business Continuity untuk mengurangi ketergantungan struktural dan memperkuat kontinuitas.",
+		"relevance": "Pekerjaan ini paling relevan ketika",
+		"relevancePoints": [
+			"Organisasi memasuki fase pertumbuhan baru",
+			"Suksesi atau transisi kepemimpinan mendekat",
+			"Founder atau pemimpin kunci tetap menjadi bottleneck kritis",
+			"Upaya transformasi sebelumnya mengalami kebuntuan",
+			"Ada kekhawatiran tentang kontinuitas selama gangguan"
+		],
+		"designedFor": "Untuk Siapa Pekerjaan Ini Dirancang",
+		"designedForPoints": [
+			"CEO, founder, dan dewan",
+			"Tim kepemimpinan senior",
+			"Organisasi yang bersedia menangani isu struktural, bukan gejala"
+		],
+		"designedForNote": "Ini sangat relevan untuk organisasi yang menyadari biaya kerentanan—tetapi ingin mengatasinya dengan bijaksana.",
+		"connectedAreasTitle": "Bagaimana Ini Terhubung ke Area Lain",
+		"connectedAreasIntro": "Transformasi & Ketahanan Organisasi sering beririsan dengan:",
+		"connectedAreasList": [
+			"Strategi Talenta Masa Depan & Pengembangan Kepemimpinan — memastikan pipeline kepemimpinan mendukung struktur yang dirancang",
+			"Risiko & Kontinuitas Bisnis — menangani ketergantungan manusia dan risiko kepemimpinan sebagai bagian dari perencanaan kontinuitas"
+		],
+		"connectedAreasNote": "Area ini sengaja diintegrasikan, bukan diperlakukan sebagai inisiatif terpisah.",
 		"ctaTitle": "Mempertimbangkan pekerjaan ini",
-		"ctaBody": "Jika Anda menavigasi kompleksitas, transisi, atau tekanan pertumbuhan, percakapan advisory dapat memperjelas keputusan struktural berikutnya."
+		"ctaBody": "Jika Anda menavigasi kompleksitas, transisi, atau tekanan pertumbuhan, percakapan advisory dapat memperjelas keputusan struktural berikutnya.",
+		"ctaButton": "Ajukan Percakapan Advisory"
 	},
 	"future": {
 		"heroTitle": "Merancang sistem kepemimpinan dan talenta yang selaras dengan tuntutan organisasi masa depan — bukan keberhasilan masa lalu.",

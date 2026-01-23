@@ -185,6 +185,7 @@
 		}
 	},
 	"organization": {
+		"subtitle": "Organization Transformation & Resilience",
 		"heroTitle": "Designing organizational systems that remain effective under growth, leadership change, and disruption.",
 		"heroBody": "Most organizations pursue transformation through new initiatives, restructuring, or leadership programs. Yet many still struggle when growth accelerates, key leaders leave, or decision pressure increases. The issue is rarely effort or intent — it is often the absence of intentional system design.",
 		"coreProblemTitle": "Why transformation often fails to hold",
@@ -196,6 +197,7 @@
 			"Repeated reorganization without sustained improvement",
 			"HR initiatives that feel disconnected from real business pressure"
 		],
+		"coreProblemNote": "Transformation fails not because people resist change, but because systems were never designed to absorb it.",
 		"resilienceTitle": "What we mean by organizational resilience",
 		"resilienceIntro": "Resilience is not about culture slogans, engagement scores, or running more programs. It means:",
 		"resilienceList": [
@@ -205,10 +207,23 @@
 			"Talent systems aligned with future — not past — needs",
 			"Reduced operational and human risk"
 		],
+		"resilienceNote": "It is the organization’s ability to continue performing when conditions are no longer ideal.",
 		"approachTitle": "How this work helps leaders regain control",
 		"approachBody1": "When organizations struggle during growth or transition, the problem is rarely a lack of effort. More often, leaders operate in structures that no longer support clear decisions, accountability, or continuity.",
-		"approachBody2": "Engagements explore where decisions slow, which roles carry too much responsibility, where dependency concentrates, why execution feels inconsistent, and what becomes fragile when leaders change. The outcome is not another program — it is clear direction and structure that reduces dependency and enables decisive action.",
-		"scopeTitle": "Scope & boundaries",
+		"approachBody2": "This work focuses on helping leaders see what is actually happening inside the organization — and why certain problems keep repeating despite multiple initiatives.",
+		"approachBody3": "Engagements typically explore:",
+		"approachList": [
+			"Where decisions slow down or get stuck, and why authority feels unclear",
+			"Which roles carry too much responsibility, and which ones lack real accountability",
+			"Where the organization depends too heavily on specific individuals, creating hidden risk",
+			"Why execution feels inconsistent, even when people appear capable",
+			"What becomes fragile when growth accelerates or leaders change"
+		],
+		"approachNote1": "The outcome is not another program or restructuring exercise",
+		"approachNote2": "It is clear organizational direction and structure that allows leaders to act decisively, reduce dependency, and move the organization forward with confidence.",
+		"scopeTitle": "Scope & Boundaries",
+		"scopeIncludesNote": "This work includes:",
+		"scopeExcludesNote": "This work does not include:",
 		"scopeIncludes": [
 			"Organizational diagnosis and system mapping",
 			"Leadership and role architecture design",
@@ -221,11 +236,31 @@
 			"Training delivery or facilitation",
 			"Ongoing program management"
 		],
-		"relevance": "Most relevant when entering a new growth phase, facing leadership transition, or when founders and key leaders are critical bottlenecks.",
-		"designedFor": "CEOs, founders, boards, and senior leadership teams willing to address structural issues thoughtfully.",
-		"integration": "Integrates with Future Talent Strategy & Leadership Development and Risk & Business Continuity to reduce structural dependency and strengthen continuity.",
-		"ctaTitle": "Considering this work",
-		"ctaBody": "If you are navigating complexity, transition, or growth pressure, an advisory conversation may clarify the next structural decisions."
+		"relevance": "This Work Is Most Relevant When",
+		"relevancePoints": [
+			"The organization is entering a new growth phase",
+			"Leadership transition or succession is approaching",
+			"Founders or key leaders remain critical bottlenecks",
+			"Previous transformation efforts have stalled",
+			"There is concern about continuity during disruption"
+		],
+		"designedFor": "Who This Work Is Designed For",
+		"designedForPoints": [
+			"CEOs, founders, and boards",
+			"Senior leadership teams",
+			"Organizations willing to address structural issues, not symptoms"
+		],
+		"designedForNote": "It is especially relevant for organizations that recognize the cost of fragility—but want to address it thoughtfully.",
+		"connectedAreasTitle": "How This Connects to Other Areas",
+		"connectedAreasIntro": "Organization Transformation & Resilience often intersects with:",
+		"connectedAreasList": [
+			"Future Talent Strategy & Leadership Development — ensuring leadership pipelines support the designed structure",
+			"Risk & Business Continuity — addressing human dependency and leadership risk as part of continuity planning"
+		],
+		"connectedAreasNote": "These areas are intentionally integrated, not treated as separate initiatives.",
+		"ctaTitle": "Considering This Work",
+		"ctaBody": "If you are navigating complexity, transition, or growth pressure, an advisory conversation may clarify the next structural decisions.",
+		"ctaButton": "Request an Advisory Conversation"
 	},
 	"future": {
 		"heroTitle": "Designing leadership and talent systems aligned with future organizational demands — not past success.",
