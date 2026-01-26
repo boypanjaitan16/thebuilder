@@ -20,7 +20,7 @@ function OrganizationPage() {
 
 			<section className="flex flex-col md:flex-row gap-8 md:gap-0 md:px-5 md:py-8 md:border-t md:border-b border-slate-800">
 				<div className="flex-1 space-y-3">
-					<h2 className="text-2xl font-semibold text-ink">
+					<h2 className="text-2xl font-semibold font-display text-ink">
 						{org.coreProblemTitle}
 					</h2>
 					<p className="text-slate-700">{org.coreProblemIntro}</p>
@@ -33,7 +33,7 @@ function OrganizationPage() {
 				</div>
 				<div className="w-[1px] bg-slate-800 mx-7 hidden md:block" />
 				<div className="flex-1 space-y-3">
-					<h2 className="text-2xl font-semibold text-ink">
+					<h2 className="text-2xl font-semibold font-display text-ink">
 						{org.resilienceTitle}
 					</h2>
 					<p className="text-slate-700">{org.resilienceIntro}</p>
@@ -48,7 +48,7 @@ function OrganizationPage() {
 
 			<section>
 				<div className="glass-panel p-8 space-y-3">
-					<h3 className="text-2xl font-semibold text-ink">
+					<h3 className="text-2xl font-semibold font-display text-ink">
 						{org.approachTitle}
 					</h3>
 					<p>{org.approachBody1}</p>
@@ -65,48 +65,54 @@ function OrganizationPage() {
 			</section>
 
 			<section>
-				<h3 className="text-2xl font-semibold text-ink text-center mb-5">
+				<h3 className="text-2xl font-semibold font-display text-ink text-center mb-5">
 					{org.scopeTitle}
 				</h3>
-				<div className="mt-3 gap-4 grid grid-cols-2">
-					<div className="flex items-center justify-center">
+				<div className="mt-3 gap-7 grid grid-cols-2">
+					<div className="flex bg-white border border-ink rounded-2xl p-8">
 						<div className="space-y-2">
-							<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 underline underline-offset-4">
+							<p className="text-lg font-semibold font-display uppercase text-ink underline-offset-4">
 								{org.scopeIncludesNote}
 							</p>
-							<ul className="list-disc list-inside">
+							<ul className="list-disc list-inside pl-5">
 								{org.scopeIncludes.map((item) => (
 									<li key={item}>{item}</li>
 								))}
 							</ul>
 						</div>
 					</div>
-					<div className="flex items-center justify-center">
+					<div className="flex bg-white border border-ink rounded-2xl p-8">
 						<div className="space-y-2">
-							<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 underline underline-offset-4">
+							<p className="text-lg font-semibold font-display uppercase text-ink underline-offset-4">
 								{org.scopeExcludesNote}
 							</p>
-							<ul className="list-disc list-inside">
+							<ul className="list-disc list-inside pl-5">
 								{org.scopeExcludes.map((item) => (
 									<li key={item}>{item}</li>
 								))}
 							</ul>
+							<p>{org.scopeExcludesNote}</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<section className="grid gap-6 rounded-[24px] bg-white px-8 py-8 shadow-soft md:grid-cols-2">
-				<div>
-					<h4 className="text-2xl font-semibold text-ink">{org.relevance}</h4>
+			<section className="flex flex-col md:flex-row rounded-2xl bg-white shadow-soft border border-ink">
+				<div className="flex-1 p-8">
+					<h4 className="text-xl font-semibold font-display text-ink">
+						{org.relevance}
+					</h4>
 					<ul className="list-disc list-inside mt-5 pl-5">
 						{org.relevancePoints.map((item) => (
 							<li key={item}>{item}</li>
 						))}
 					</ul>
 				</div>
-				<div>
-					<h4 className="text-2xl font-semibold text-ink">{org.designedFor}</h4>
+				<div className="bg-ink w-[1px]" />
+				<div className="flex-1 p-8">
+					<h4 className="text-xl font-semibold font-display text-ink">
+						{org.designedFor}
+					</h4>
 					<ul className="list-disc list-inside mt-5 pl-5">
 						{org.designedForPoints.map((item) => (
 							<li key={item}>{item}</li>
@@ -117,7 +123,7 @@ function OrganizationPage() {
 			</section>
 
 			<section>
-				<h3 className="text-2xl font-semibold text-ink mb-5">
+				<h3 className="text-2xl font-semibold font-display text-ink mb-5">
 					{org.connectedAreasTitle}
 				</h3>
 				<p>{org.connectedAreasIntro}</p>

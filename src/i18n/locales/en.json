@@ -10,7 +10,7 @@
 		"resources": "Resources"
 	},
 	"header": {
-		"tagline": "Strategic Advisory"
+		"tagline": "Building Organizations That Scale"
 	},
 	"footer": {
 		"line": "Strategic advisory based in Indonesia. Working with organizations selectively to design resilient structures, leadership continuity, and human risk safeguards.",
@@ -19,6 +19,7 @@
 		"resources": "Resources",
 		"riskReadinessDiagnostic": "Risk Readiness Diagnostic"
 	},
+	"ctaButton": "Request an Advisory Conversation",
 	"shared": {
 		"areasOfFocus": [
 			{
@@ -44,10 +45,6 @@
 			{
 				"title": "Why Leadership Development Fails Without Organizational Design",
 				"lens": "Leadership & Organizational Structure"
-			},
-			{
-				"title": "Business Continuity Is Not Just a Systems Problem",
-				"lens": "Risk, Recovery & Continuity"
 			},
 			{
 				"title": "Growth Exposes More Than Opportunity",
@@ -263,27 +260,41 @@
 		"ctaButton": "Request an Advisory Conversation"
 	},
 	"future": {
+		"heroSubtitle": "Future Talent Strategy & Leadership Development",
 		"heroTitle": "Designing leadership and talent systems aligned with future organizational demands — not past success.",
 		"heroBody": "Many organizations invest heavily in leadership development programs. Yet when senior leaders leave, growth accelerates, or strategy shifts, the same questions resurface: Who is ready to lead next? And are we developing the right capabilities — or only reinforcing yesterday’s success?",
 		"problemTitle": "Why leadership development often disappoints leaders",
-		"problemIntro": "Familiar frustrations appear even after significant investment:",
+		"problemIntro": "Many leaders invest in leadership development with high expectations. Yet over time, familiar frustrations appear:",
 		"problemList": [
 			"The same people are always relied on when things get difficult",
 			"“High potentials” hesitate when real pressure hits",
 			"Leadership gaps only become visible when someone leaves",
-			"Programs feel encouraging, but daily behavior does not change"
+			"Development programs feel encouraging, but daily behavior does not change"
 		],
+		"problemNote": "The issue is not a lack of training. It is the absence of clarity about what leadership is actually needed next.",
 		"futureTitle": "What leaders usually miss about future talent",
-		"futureIntro": "Growth, scale, and complexity demand different kinds of leadership. Without alignment to these realities, organizations feel underprepared — even with capable people inside.",
+		"futureIntro1": "Future leadership is often assumed to be a continuation of current success.",
+		"futureIntro2": "In reality, growth, scale, and complexity demand different kinds of leadership:",
 		"futureList": [
 			"Decisions affect more people and more money",
 			"Mistakes carry greater consequences",
 			"Coordination replaces individual excellence",
 			"Authority must be shared without losing control"
 		],
+		"futureNote": "When talent and leadership systems are not aligned with these realities, organizations feel constantly underprepared even with capable people inside.",
 		"approachTitle": "How this work helps leaders reduce leadership risk",
-		"approachBody": "This work moves teams from hope-based development to intentional leadership design. Engagements clarify which roles are critical, where authority is vague, why potential leaders avoid stepping up, and which behaviors the system reinforces. The outcome is clear leadership expectations and a more reliable pipeline aligned with future reality.",
-		"scopeTitle": "Scope & boundaries",
+		"approachBody": "This work helps leaders move from hope-based development to intentional leadership design. Engagements typically explore:",
+		"approachItems": [
+			"Which leadership roles are truly critical, and which are unclear or overloaded",
+			"Who would struggle if a key leader became unavailable, even temporarily",
+			"Where decision authority is vague, causing hesitation or over-dependence",
+			"Why potential leaders avoid stepping up, despite capability",
+			"Which leadership behaviors are reinforced by the system not just by values"
+		],
+		"approachNote": "The outcome is not a list of competencies or training plans. It is clear leadership expectations and a more reliable talent pipeline, aligned with the organization’s future reality.",
+		"scopeTitle": "Scope & Boundaries",
+		"scopeIncludesIntro": "This work includes:",
+		"scopeExcludesIntro": "This work does not include:",
 		"scopeIncludes": [
 			"Future leadership role and capability design",
 			"Talent and succession risk analysis",
@@ -296,93 +307,200 @@
 			"Assessment center execution",
 			"Ongoing talent management operations"
 		],
-		"whenTitle": "When this becomes critical",
-		"whenBody": "Growing faster than leadership capacity, founders who cannot step away without disruption, and promotions that feel risky rather than confident.",
-		"whoTitle": "Who this is designed for",
-		"whoBody": "CEOs, founders, boards, CHROs, and senior HR leaders seeking long-term leadership continuity.",
-		"integration": "Integrated with Organization Transformation & Resilience and Risk & Business Continuity so leadership continuity is not left to chance.",
-		"ctaTitle": "Considering this work",
-		"ctaBody": "If you are questioning whether leadership and talent systems are prepared for the future, an advisory conversation may clarify the path forward."
+		"scopeExcludesNote": "This distinction ensures development efforts remain strategic rather than transactional.",
+		"critical": {
+			"title": "This Becomes Critical When",
+			"items": [
+				"The organization is growing faster than leadership capacity",
+				"Founders or senior leaders cannot step away without disruption",
+				"Promotions feel risky rather than confident",
+				"Leadership discussions keep returning to the same names",
+				"Succession plans exist, but trust in them is low"
+			]
+		},
+		"designedFor": {
+			"title": "Who This Work Is Designed For",
+			"intro": "This work is designed for:",
+			"items": [
+				"CEOs, founders, and boards",
+				"CHROs and senior HR leaders",
+				"Organizations seeking longterm leadership continuity"
+			],
+			"note": "It is especially relevant for organizations that want to reduce leadership risk — not just develop individuals."
+		},
+		"resilience": {
+			"title": "How This Connects to Organizational Resilience",
+			"intro1": "Future Talent Strategy & Leadership\nDevelopment is a core pillar of\norganizational resilience.",
+			"intro2": "Without intentional leadership architecture:",
+			"items": [
+				"Succession becomes reactive",
+				"Growth amplifies risk",
+				"Decision quality deteriorates under pressure"
+			],
+			"note": "This work is intentionally integrated with Organization Transformation & Resilience and Risk & Business Continuity to ensure leadership continuity is not left to chance."
+		},
+		"ctaTitle": "Considering This Work",
+		"ctaBody": "If you are questioning whether leadership and talent systems are prepared for the future, an advisory conversation may clarify the path forward.",
+		"ctaButton": "Request an Advisory Conversation"
 	},
 	"risk": {
+		"heroSubtitle": "Risk & Business Continuity",
 		"heroTitle": "When business continuity is tested, it is rarely by strategy.",
-		"heroBody": "Most disruptions do not come from failed plans. They come from sudden, personal, and unplanned events leaders assume will never happen to them. Growth can be designed and processes can be improved — but continuity is tested when key people are no longer fully available.",
+		"heroBody1": "Most business disruptions do not come from failed plans or poor decisions.",
+		"heroBody2": "They come from sudden, personal, and unplanned events that leaders assume will never happen to them. Growth can be designed. Processes can be improved.",
+		"heroBody3": "But continuity is often tested when key people are no longer fully available; physically, mentally, or financially. When this happens, organizations quickly discover whether continuity was intentionally built or quietly assumed.",
 		"invisibleTitle": "Where continuity quietly breaks",
-		"invisibleIntro": "For many organizations, continuity risk sits in people, not documents:",
+		"invisibleIntro": "For many organizations, continuity risk does not sit in documents or disaster plans. It sits in people.",
 		"invisibleList": [
 			"One or two individuals hold disproportionate decision authority",
 			"Revenue momentum depends on the presence of specific leaders",
 			"Financial commitments continue even when leadership capacity is disrupted",
 			"No clear buffer exists when recovery takes longer than expected"
 		],
+		"invisibleNote": "These risks remain invisible until they are triggered.",
 		"requiresTitle": "What business continuity really requires",
-		"requiresIntro": "Continuity is tested when key people cannot perform at full capacity and recovery takes longer than planned. True continuity requires leaders to design for three realities:",
+		"requiresIntroList": [
+			"Business continuity is often misunderstood as operational preparedness.",
+			"In reality, continuity is tested when key people cannot perform at full capacity and recovery takes longer than planned.",
+			"True continuity requires leaders to design for three realities:"
+		],
 		"requiresList": [
-			"Leadership availability is not guaranteed.",
-			"Financial obligations do not pause during recovery.",
-			"Recovery timelines are unpredictable."
+			{
+				"title": "First, leadership availability is not guaranteed.",
+				"description": "Even the most capable leaders may face periods where focus, energy, or presence is limited. Organizations that rely on uninterrupted leadership availability carry hidden risk."
+			},
+			{
+				"title": "Second, financial obligations do not pause during recovery.",
+				"description": "Salaries, commitments, growth investments, and stakeholder expectations continue — regardless of personal circumstances."
+			},
+			{
+				"title": "Third, recovery timelines are unpredictable.",
+				"description": "Disruption rarely follows a clean schedule. Without intentional safeguards, temporary situations can quickly turn into structural strain."
+			}
 		],
+		"requiresNote": "Business continuity, therefore, requires financial resilience that supports leadership recovery without destabilizing the organization.",
 		"beyondTitle": "Business continuity beyond documents",
-		"beyondBody": "This work examines continuity from a realistic leadership perspective, not a theoretical one. It explores which roles impact stability, the financial pressure of prolonged recovery, how long the business can operate without key leadership presence, and where assumptions replace safeguards. The focus is not on fear-based planning, but on removing blind spots that compromise continuity.",
-		"protectionTitle": "Protection as leadership responsibility",
-		"protectionList": [
-			"The business is not financially exposed during recovery.",
-			"Leadership absence does not force rushed decisions.",
-			"Personal disruption does not become organizational crisis.",
-			"Recovery can happen without destabilizing the enterprise."
+		"beyondIntro": "This work helps leaders examine continuity from a realistic leadership perspective, not a theoretical one. Engagements typically explore:",
+		"beyondList": [
+			"Which roles would immediately impact business stability if disrupted",
+			"What financial pressure the organization would face during prolonged recovery",
+			"How long the business can realistically operate without key leadership presence",
+			"Where assumptions replace actual safeguards",
+			"Which risks leaders carry personally that affect organizational resilience"
 		],
-		"whoTitle": "Who this is for",
-		"whoBody": "Organizations that depend on a small number of leaders, face increased financial exposure, or value stability beyond quarterly results.",
-		"closingTitle": "Continuity is not pessimism",
-		"closingBody": "It is leadership maturity. Enduring organizations design for resilience while recovery takes place.",
-		"integration": "Integrated with Organization Transformation & Resilience and Future Talent Strategy & Leadership Development to address risk at the structural, leadership, and financial levels.",
+		"beyondNote": "The focus is not on fear-based planning, but on removing blind spots that compromise continuity.",
+		"protection": {
+			"title": "Protection as Leadership Responsibility",
+			"intro1": "Strong leaders do not assume uninterrupted availability. They design for resilience.",
+			"intro2": "This includes ensuring that:",
+			"list": [
+				"The business is not financially exposed during recovery periods",
+				"Leadership absence does not force rushed or unfavorable decisions",
+				"Personal disruption does not become organizational crisis",
+				"Recovery can happen without destabilizing the enterprise"
+			],
+			"note": "When protection is integrated thoughtfully, continuity becomes calmer, clearer, and more controlled even under pressure."
+		},
+		"relevant": {
+			"title": "This Work Is Relevant If",
+			"intro": "The organization depends heavily on a small number of leaders",
+			"list": [
+				"Growth has increased financial exposure and obligations",
+				"Leadership roles are difficult to replace quickly",
+				"Business stability matters beyond quarterly results",
+				"Owners want to reduce risk without over-engineering the organization"
+			]
+		},
+		"expectation": {
+			"title": "Continuity Is Not About Expecting the Worst",
+			"body1": "Business continuity is not pessimism.",
+			"body2": "It is leadership maturity. Organizations that endure are not those that avoid disruption, but those that remain financially and structurally steady while recovery takes place."
+		},
+		"risk": {
+			"title": "An Integrated View of Risk",
+			"intro": "Risk & Business Continuity is intentionally integrated with:",
+			"list": [
+				"Organization Transformation & Resilience: to reduce structural dependency",
+				"Future Talent Strategy & Leadership Development:to strengthen leadership continuity"
+			],
+			"note": "Together, these areas address risk at the system, leadership, and human levels."
+		},
 		"ctaTitle": "Considering this work",
 		"ctaBody": "If you are reviewing your approach to continuity, leadership risk, or long-term resilience, an advisory conversation may provide clarity."
 	},
 	"insightsPage": {
-		"heroTitle": "How leaders think about fragility before it breaks.",
-		"heroBody1": "Most organizational issues surface quietly — through hesitation in decisions, over-reliance on certain people, leadership fatigue, or risks that are sensed but not articulated.",
-		"heroBody2": "These reflections help leaders see patterns more clearly, especially in moments of growth, transition, or increased responsibility.",
-		"featuredTitle": "Featured reflections",
-		"featuredBody": "Perspectives exploring how organizations become fragile — and how to design for resilience before disruption occurs.",
-		"themesNote": "Themes are intentionally interrelated. In practice, they rarely fail in isolation.",
-		"casesTitle": "Case reflections",
-		"casesBody": "Situations observed through advisory work. Names, organizations, and identifying details are intentionally withheld.",
-		"editorialTitle": "Editorial philosophy",
-		"editorialBody": "Insights are published selectively, not frequently. The goal is clarity over visibility; pattern recognition over opinion; preparedness over prediction.",
-		"philosophy": [
-			"Not labeled as a blog or forced into timelines",
-			"No comment sections or social pressure",
-			"Clean typography, minimal visuals"
+		"heroSubtitle": "Insights",
+		"heroTitle1": "Selected perspectives on leadership, structure, and continuity",
+		"heroTitle2": "How leaders think about fragility before it breaks.",
+		"heroBody1": "Most organizational issues do not appear suddenly. They surface quietly through hesitation in decisions, overreliance on certain people, leadership fatigue, or risks that are sensed but not fully articulated.",
+		"heroBody2": "The insights shared here are not designed to educate at scale. They are written to help leaders see patterns more clearly, especially in moments of growth, transition, or increased responsibility. This is not a content library. It is a curated collection of reflections drawn from advisory work across leadership, organizational structure, and business continuity.",
+		"featuredTitle": "Featured Reflections",
+		"featuredIntro": "A selection of perspectives exploring how organizations become fragile — and how leaders can design for resilience before disruption occurs.",
+		"featuredBody": "Each reflection is written through one primary lens:",
+		"featuredList": [
+			"Leadership & Organizational Structure",
+			"Future Talent & Leadership Risk",
+			"Risk, Recovery & Continuity"
 		],
+		"featuredNote": "These themes are intentionally interrelated. In practice, they rarely fail in isolation.",
+		"casesTitle": "Case Reflections",
+		"casesIntro1": "A Situations observed through advisory work. Names, organizations, and identifying details are intentionally withheld.",
+		"casesIntro2": "These reflections do not focus on success stories. They examine tension points; moments when leaders realized that existing structures, assumptions, or safeguards were no longer sufficient.",
+		"casesBody": "Each case highlights:",
+		"casesList": [
+			"The situation leaders believed they were managing",
+			"What quietly created pressure beneath the surface",
+			"The insight that shifted how continuity, leadership, or risk was understood"
+		],
+		"areSelectiveTitle": "Why These Insights Are Selective",
+		"areSelectiveBody1": "Insights are published selectively, not frequently. The goal is not visibility, but clarity. Not opinion, but pattern recognition.",
+		"areSelectiveBody2": "Not prediction, but preparedness. Each reflection is shared only when it contributes meaningfully to how leaders think about responsibility, risk, and continuity.",
 		"invitationTitle": "When these patterns feel familiar",
 		"invitationBody": "If the situations described here resonate, they often point to structural or leadership risks worth examining more closely.",
 		"diagnosticCta": "Explore the Risk Readiness Diagnostic",
 		"applyCta": "Apply for a Private Advisory Conversation"
 	},
 	"work": {
-		"heroTitle": "Working Together",
-		"heroBody1": "This work is designed for leaders and organizations seeking clarity at a system level, not additional execution support.",
-		"heroBody2": "Engagements are advisory in nature — focused on diagnosing systemic risk, redesigning structures, and enabling high-impact decisions with long-term consequences. This is not operational consulting, project execution, or training delivery.",
-		"flowTitle": "How engagements typically work",
+		"heroSubtitle": "Working Together",
+		"heroTitle": "This work is designed for leaders and organizations seeking clarity at a system level, not additional execution support",
+		"heroBody1": "Engagements with The Builder are advisory in nature. The focus is on helping senior leaders diagnose systemic risk, redesign organizational and leadership structures, and make high-impact decisions with long-term consequences.",
+		"heroBody2": "This is not operational consulting, project execution, or training delivery.",
+		"flowTitle": "How Engagements Typically Work",
+		"flowIntro": "Most engagements follow a focused and structured flow:",
 		"flowSteps": [
-			"Initial alignment — a short conversation to understand context, leadership challenges, and strategic intent.",
-			"System diagnosis — identifying structural risks related to continuity, decision flow, talent dependency, or organizational resilience.",
-			"Architecture & advisory design — clarifying options, trade-offs, and decisions required to strengthen the organization.",
-			"Executive decision sessions — supporting senior leaders in making informed decisions, not managing implementation."
+			{
+				"title": "Initial Alignment Conversation",
+				"description": "A short, high-level discussion to understand context, leadership challenges, and strategic intent."
+			},
+			{
+				"title": "System Diagnosis",
+				"description": "Identifying structural risks related to leadership continuity, decision flow, talent dependency, or organizational resilience."
+			},
+			{
+				"title": "Architecture & Advisory Design",
+				"description": "Clarifying options, trade-offs, and system-level decisions required to strengthen the organization."
+			},
+			{
+				"title": "Executive Decision Session(s)",
+				"description": "Supporting senior leaders in making informed, aligned decisions, not managing implementation."
+			}
 		],
-		"scopeTitle": "Scope & boundaries",
+		"flowNote": "Implementation, facilitation, and operational follow-through are intentionally handled internally by the organization or trusted partners.",
+		"scopeTitle": "Scope & Boundaries",
+		"scopeIntro": "To maintain focus and quality, this work operates within clear boundaries.",
 		"scopeIncludes": [
 			"Strategic diagnosis and system analysis",
 			"Organizational and leadership architecture design",
 			"Executive-level advisory and decision support"
 		],
+		"scopeIncludesIntro": "This work includes:",
 		"scopeExcludes": [
 			"Day-to-day HR operations",
 			"Ongoing training delivery or facilitation",
 			"Project management or execution",
 			"Individual coaching programs"
 		],
+		"scopeExcludesIntro": "This work does not include:",
 		"fitTitle": "This work is a good fit if you…",
 		"fitList": [
 			"Are a CEO, founder, board member, or senior leader",
@@ -398,11 +516,11 @@
 			"Expect hands-on execution or facilitation",
 			"Are primarily price-driven rather than outcome-driven"
 		],
-		"capacityTitle": "Capacity & investment",
-		"capacityBody": "Engagements are limited each year to maintain depth and focus. Most advisory work is designed for organizations ready to make a meaningful investment in strategic system design. Fees are typically structured from USD 10,000, depending on scope and context.",
+		"capacityTitle": "Capacity & Investment",
+		"capacityBody": "To ensure depth, focus, and quality, engagements are limited each year. Most advisory work is designed for organizations ready to make a meaningful investment in strategic system design. Engagement fees are typically structured from USD 10,000, depending on scope and context. Details are discussed after an initial alignment conversation.",
 		"applicationNote": "If the context aligns, you may request an initial advisory conversation. Due to limited capacity, not all applications can be accommodated.",
 		"ctaTitle": "Request an Advisory Conversation",
-		"ctaBody": "If your organization is navigating complexity, transition, or risk at a leadership level, an advisory conversation may be a useful place to begin.",
+		"ctaBody": "If the context above aligns with your needs, you may request an initial advisory conversation. This step helps ensure alignment of intent, scope, and readiness before moving forward.",
 		"ctaButton": "Apply to Work Together"
 	},
 	"apply": {
@@ -524,6 +642,7 @@
 		]
 	},
 	"riskReadiness": {
+		"heroSubtitle": "Risk Readiness Diagnostic",
 		"heroTitle": "A structured reflection on leadership, continuity, and hidden exposure.",
 		"heroBody": "Most leaders do not discover continuity risk through analysis. They sense it through hesitation, dependency, or the quiet realization that certain situations would be difficult to absorb. The Risk Readiness Diagnostic is designed to help leaders examine these signals with clarity, before pressure forces decisions. This is not an assessment of people. It is a reflection on structure, leadership availability, and resilience under disruption.",
 		"beforeTitle": "Before growth is tested, risk is felt quietly.",
@@ -577,8 +696,9 @@
 		"afterTitle": "What happens after the diagnostic",
 		"afterBody": "Some leaders use the diagnostic solely for internal reflection. Others continue the conversation when deeper structural work is required. If advisory support is appropriate, next steps are discussed privately with mutual alignment and clear scope.",
 		"limitedNote": "Limited availability. Designed for leaders who value discretion and depth. This diagnostic is intentionally selective and reflective in nature. It is not designed for volume participation.",
-		"primaryCta": "Begin the diagnostic",
-		"secondaryCta": "Talk about advisory fit"
+		"ctaTitle": "Begin the Risk Readiness Diagnostic",
+		"ctaBody": "A structured starting point for leaders seeking clarity before commitment.",
+		"ctaButton": "Begin the Diagnostic"
 	},
 	"resources": {
 		"heroSubtitle": "Resources",

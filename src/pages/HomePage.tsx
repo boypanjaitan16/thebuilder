@@ -141,7 +141,9 @@ function HomePage() {
 							key={article.title}
 							className="rounded-xl bg-white px-4 py-3 shadow-sm border border-slate-800"
 						>
-							<p className="font-semibold text-ink">{article.title}</p>
+							<p className="font-semibold font-display text-ink">
+								{article.title}
+							</p>
 							<p className="text-xs uppercase tracking-wide text-slate-500">
 								{article.lens}
 							</p>

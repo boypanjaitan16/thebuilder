@@ -32,6 +32,7 @@ export type Copy = {
 		caseReflections: string[];
 		diagnosticQuestions: DiagnosticQuestion[];
 	};
+	ctaButton: string;
 	home: {
 		hero: {
 			title: string;
@@ -103,73 +104,137 @@ export type Copy = {
 		ctaButton: string;
 	};
 	future: {
+		heroSubtitle: string;
 		heroTitle: string;
 		heroBody: string;
 		problemTitle: string;
 		problemIntro: string;
 		problemList: string[];
+		problemNote: string;
 		futureTitle: string;
-		futureIntro: string;
+		futureIntro1: string;
+		futureIntro2: string;
 		futureList: string[];
+		futureNote: string;
 		approachTitle: string;
 		approachBody: string;
+		approachItems: string[];
+		approachNote: string;
 		scopeTitle: string;
+		scopeIncludesIntro: string;
+		scopeExcludesIntro: string;
 		scopeIncludes: string[];
 		scopeExcludes: string[];
-		whenTitle: string;
-		whenBody: string;
-		whoTitle: string;
-		whoBody: string;
-		integration: string;
+		scopeExcludesNote: string;
+		critical: {
+			title: string;
+			items: string[];
+		};
+		designedFor: {
+			title: string;
+			intro: string;
+			items: string[];
+			note: string;
+		};
+		resilience: {
+			title: string;
+			intro1: string;
+			intro2: string;
+			items: string[];
+			note: string;
+		};
 		ctaTitle: string;
 		ctaBody: string;
+		ctaButton: string;
 	};
 	risk: {
+		heroSubtitle: string;
 		heroTitle: string;
-		heroBody: string;
+		heroBody1: string;
+		heroBody2: string;
+		heroBody3: string;
 		invisibleTitle: string;
 		invisibleIntro: string;
 		invisibleList: string[];
+		invisibleNote: string;
 		requiresTitle: string;
-		requiresIntro: string;
-		requiresList: string[];
+		requiresIntroList: string[];
+		requiresList: {
+			title: string;
+			description: string;
+		}[];
+		requiresNote: string;
 		beyondTitle: string;
-		beyondBody: string;
-		protectionTitle: string;
-		protectionList: string[];
-		whoTitle: string;
-		whoBody: string;
-		closingTitle: string;
-		closingBody: string;
-		integration: string;
+		beyondIntro: string;
+		beyondList: string[];
+		beyondNote: string;
+		protection: {
+			title: string;
+			intro1: string;
+			intro2: string;
+			list: string[];
+			note: string;
+		};
+		relevant: {
+			title: string;
+			intro: string;
+			list: string[];
+		};
+		expectation: {
+			title: string;
+			body1: string;
+			body2: string;
+		};
+		risk: {
+			title: string;
+			intro: string;
+			list: string[];
+			note: string;
+		};
 		ctaTitle: string;
 		ctaBody: string;
 	};
 	insightsPage: {
-		heroTitle: string;
+		heroSubtitle: string;
+		heroTitle1: string;
+		heroTitle2: string;
 		heroBody1: string;
 		heroBody2: string;
 		featuredTitle: string;
+		featuredIntro: string;
 		featuredBody: string;
-		themesNote: string;
+		featuredList: string[];
+		featuredNote: string;
 		casesTitle: string;
+		casesIntro1: string;
+		casesIntro2: string;
 		casesBody: string;
-		editorialTitle: string;
-		editorialBody: string;
-		philosophy: string[];
+		casesList: string[];
+		areSelectiveTitle: string;
+		areSelectiveBody1: string;
+		areSelectiveBody2: string;
 		invitationTitle: string;
 		invitationBody: string;
 		diagnosticCta: string;
 		applyCta: string;
 	};
 	work: {
+		heroSubtitle: string;
 		heroTitle: string;
 		heroBody1: string;
 		heroBody2: string;
 		flowTitle: string;
-		flowSteps: string[];
+		flowIntro: string;
+		flowSteps: {
+			title: string;
+			description: string;
+		}[];
+		flowNote: string;
 		scopeTitle: string;
+		scopeIntro: string;
+		scopeIncludesIntro: string;
 		scopeIncludes: string[];
+		scopeExcludesIntro: string;
 		scopeExcludes: string[];
 		fitTitle: string;
 		fitList: string[];
@@ -245,6 +310,7 @@ export type Copy = {
 	privacy: { title: string; intro: string; bullets: string[] };
 	notFound: { title: string; body: string; cta: string };
 	riskReadiness: {
+		heroSubtitle: string;
 		heroTitle: string;
 		heroBody: string;
 		beforeTitle: string;
@@ -269,8 +335,9 @@ export type Copy = {
 		afterTitle: string;
 		afterBody: string;
 		limitedNote: string;
-		primaryCta: string;
-		secondaryCta: string;
+		ctaTitle: string;
+		ctaBody: string;
+		ctaButton: string;
 	};
 	resources: {
 		heroSubtitle: string;
