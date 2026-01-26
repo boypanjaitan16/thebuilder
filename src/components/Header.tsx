@@ -13,15 +13,15 @@ export function Header() {
 	}, [location.pathname]);
 
 	return (
-		<header className="sticky top-0 z-20 border-b border-sand/70 bg-white/80 backdrop-blur">
+		<header className="sticky top-0 z-20 border-b border-ink  bg-white backdrop-blur">
 			<div className="container-page flex flex-col gap-3 py-3 md:pt-5 md:pb-3 px-5 xl:px-0">
 				<div className="flex flex-row items-center justify-between">
 					<NavLink to="/" className="flex items-center gap-3">
 						<div className="text-left leading-tight">
-							<p className="font-semibold font-display text-2xl uppercase text-ink">
+							<p className="font-bold font-display text-2xl uppercase text-ink">
 								The Builder
 							</p>
-							<p className="font-display text-[11px] font-semibold text-slate-500">
+							<p className="font-display text-[10px] md:text-[11px] font-semibold text-slate-500">
 								{copy.header.tagline}
 							</p>
 						</div>
@@ -33,7 +33,7 @@ export function Header() {
 								type="button"
 								onClick={() => setLanguage("en")}
 								className={classNames(
-									"rounded-full px-4 py-2 transition",
+									"rounded-full px-2 md:px-4 py-1 md:py-2 transition",
 									language === "en"
 										? "bg-ink text-white shadow-soft"
 										: "text-slate-700",
@@ -45,7 +45,7 @@ export function Header() {
 								type="button"
 								onClick={() => setLanguage("id")}
 								className={classNames(
-									"rounded-full px-4 py-2 transition",
+									"rounded-full px-2 md:px-4 py-1 md:py-2 transition",
 									language === "id"
 										? "bg-ink text-white shadow-soft"
 										: "text-slate-700",
@@ -56,7 +56,7 @@ export function Header() {
 						</div>
 						<button
 							type="button"
-							className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-sand bg-white text-ink shadow-sm transition hover:border-ink md:hidden"
+							className="inline-flex size-9 md:size-11 items-center justify-center rounded-xl border border-sand bg-white text-ink shadow-sm transition hover:border-ink md:hidden"
 							aria-label={open ? "Close navigation" : "Open navigation"}
 							onClick={() => setOpen((prev) => !prev)}
 						>

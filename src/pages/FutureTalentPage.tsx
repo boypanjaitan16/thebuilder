@@ -66,7 +66,7 @@ function FutureTalentPage() {
 				<h3 className="text-2xl font-semibold font-display text-ink text-center mb-5">
 					{page.scopeTitle}
 				</h3>
-				<div className="mt-3 gap-7 grid grid-cols-2">
+				<div className="mt-3 gap-7 grid grid-cols-1 md:grid-cols-2">
 					<div className="flex bg-white border border-ink rounded-2xl p-8">
 						<div className="space-y-2">
 							<p className="text-lg font-semibold font-display uppercase text-ink underline-offset-4">
@@ -135,7 +135,7 @@ function FutureTalentPage() {
 
 			<section className="glass-panel flex flex-col gap-4 px-8 py-8 md:flex-row md:items-center md:justify-between">
 				<div className="max-w-2xl">
-					<h3 className="font-display text-2xl font-semibold font-display text-ink">
+					<h3 className="font-display text-2xl font-semibold text-ink">
 						{page.ctaTitle}
 					</h3>
 					<p className="mt-2 text-slate-700">{page.ctaBody}</p>

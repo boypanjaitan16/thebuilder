@@ -1,40 +1,22 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { supabase } from '../lib/supabaseClient'
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useSupabaseSession } from "../hooks/useSupabaseSession";
+import LoadingIndicator from "./LoadingIndicator";
 
 export function AdminGuard() {
-  const location = useLocation()
-  const [session, setSession] = useState<Awaited<ReturnType<typeof supabase.auth.getSession>>['data']['session']>(null)
-  const [checking, setChecking] = useState(true)
+	const location = useLocation();
+	const { checking, isAuthenticated } = useSupabaseSession();
 
-  const isAuthenticated = useMemo(() => Boolean(session), [session])
+	if (checking) {
+		return (
+			<div className="container-page w-full flex flex-col flex-grow items-center justify-center">
+				<LoadingIndicator label="Checking session…" />
+			</div>
+		);
+	}
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session)
-      setChecking(false)
-    })
+	if (!isAuthenticated) {
+		return <Navigate to="/admin/login" state={{ from: location }} replace />;
+	}
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      setSession(newSession)
-    })
-
-    return () => {
-      listener?.subscription.unsubscribe()
-    }
-  }, [])
-
-  if (checking) {
-    return (
-      <div className="container-page">
-        <section className="glass-panel px-8 py-6 text-sm text-slate-700">Checking session…</section>
-      </div>
-    )
-  }
-
-  if (!isAuthenticated) {
-    return <Navigate to="/admin/login" state={{ from: location }} replace />
-  }
-
-  return <Outlet />
+	return <Outlet />;
 }

@@ -68,7 +68,7 @@ function OrganizationPage() {
 				<h3 className="text-2xl font-semibold font-display text-ink text-center mb-5">
 					{org.scopeTitle}
 				</h3>
-				<div className="mt-3 gap-7 grid grid-cols-2">
+				<div className="mt-3 gap-7 grid grid-cols-1 md:grid-cols-2">
 					<div className="flex bg-white border border-ink rounded-2xl p-8">
 						<div className="space-y-2">
 							<p className="text-lg font-semibold font-display uppercase text-ink underline-offset-4">

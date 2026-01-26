@@ -60,6 +60,7 @@ function ResourcesPage() {
 				<p className="my-3 text-slate-700">{page.closingNote}</p>
 				<button
 					type="button"
+					onClick={() => navigate("/resources/products")}
 					className="px-5 py-2 rounded-full bg-white text-ink border border-ink"
 				>
 					{page.closingCta} &rarr;
