@@ -18,7 +18,7 @@ export function Header() {
 				<div className="flex flex-row items-center justify-between">
 					<NavLink to="/" className="flex items-center gap-3">
 						<div className="text-left leading-tight">
-							<p className="font-semibold font-display text-2xl uppercase tracking-[0.15em] text-ink">
+							<p className="font-semibold font-display text-2xl uppercase text-ink">
 								The Builder
 							</p>
 							<p className="font-display text-[11px] font-semibold text-slate-500">
@@ -95,7 +95,7 @@ export function Header() {
 						open ? "flex" : "hidden md:flex",
 					)}
 				>
-					<nav className="flex flex-col gap-2 text-sm md:flex-row md:items-center md:gap-3">
+					<nav className="flex flex-col gap-2 text-sm md:flex-row md:items-center md:gap-3 overflow-x-auto">
 						{[
 							{ label: copy.nav.home, to: "/" },
 							{
@@ -113,12 +113,13 @@ export function Header() {
 								to={item.to}
 								className={({ isActive }) =>
 									classNames(
-										"rounded-full px-4 py-2 transition-all duration-150",
+										"rounded-full px-4 py-2 transition-all duration-150 truncate",
 										isActive
 											? "bg-ink text-white shadow-soft"
 											: "text-slate-700 hover:bg-sand/70 hover:text-ink",
 									)
 								}
+								title={item.label}
 							>
 								{item.label}
 							</NavLink>
