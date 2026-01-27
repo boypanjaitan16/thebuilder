@@ -1,10 +1,14 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import classNames from "classnames";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminLoginSchema, type AdminLoginValues } from "../../schemas/adminLoginSchema";
 import { useNavigate } from "react-router-dom";
+import { TextInput } from "../../components/forms/TextInput";
 import { supabase } from "../../lib/supabaseClient";
+import {
+	type AdminLoginValues,
+	adminLoginSchema,
+} from "../../schemas/adminLoginSchema";
 
 function LoginPage() {
 	const navigate = useNavigate();
@@ -14,7 +18,7 @@ function LoginPage() {
 	const {
 		register,
 		handleSubmit,
-		formState: { isSubmitting },
+		formState: { errors, isSubmitting },
 	} = useForm<AdminLoginValues>({
 		resolver: zodResolver(adminLoginSchema),
 		defaultValues: { email: "", password: "" },
@@ -44,24 +48,22 @@ function LoginPage() {
 				)}
 			>
 				<form onSubmit={handleSubmit(onLogin)} className="space-y-4 w-full">
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						Email
-						<input
-							type="email"
-							required
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("email")}
-						/>
-					</label>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						Password
-						<input
-							type="password"
-							required
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("password")}
-						/>
-					</label>
+					<TextInput
+						label="Email"
+						errorMessage={errors.email?.message}
+						inputProps={{
+							type: "email",
+							...register("email"),
+						}}
+					/>
+					<TextInput
+						label="Password"
+						errorMessage={errors.password?.message}
+						inputProps={{
+							type: "password",
+							...register("password"),
+						}}
+					/>
 					{error && <p className="text-sm text-red-600">{error}</p>}
 					{status && <p className="text-sm text-emerald-700">{status}</p>}
 					<button

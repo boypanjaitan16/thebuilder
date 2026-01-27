@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { TextInput } from "../../components/forms/TextInput";
 import { useSupabaseSession } from "../../hooks/useSupabaseSession";
 import { supabase } from "../../lib/supabaseClient";
 import {
@@ -69,28 +70,23 @@ function ProfilePage() {
 					onSubmit={handleSubmit(onSubmit)}
 					className="mt-6 flex flex-col gap-5"
 				>
-					<label className="md:col-span-2 flex flex-col gap-2 text-sm font-medium text-ink">
-						Email
-						<input
-							type="email"
-							readOnly
-							value={session?.user.email || ""}
-							className="rounded-xl border border-sand bg-slate-50 px-4 py-3 text-base text-slate-500"
-						/>
-					</label>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						Full name
-						<input
-							type="text"
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("fullName")}
-						/>
-						{errors.fullName && (
-							<span className="text-sm text-amber-700">
-								{errors.fullName.message}
-							</span>
-						)}
-					</label>
+					<TextInput
+						label="Email"
+						inputProps={{
+							type: "email",
+							readOnly: true,
+							value: session?.user.email || "",
+						}}
+						inputClassName="border-sand bg-slate-50 text-slate-500"
+					/>
+					<TextInput
+						label="Full name"
+						errorMessage={errors.fullName?.message}
+						inputProps={{
+							type: "text",
+							...register("fullName"),
+						}}
+					/>
 
 					{error && <p className="text-sm text-amber-700">{error}</p>}
 					{status && <p className="text-sm text-emerald-700">{status}</p>}

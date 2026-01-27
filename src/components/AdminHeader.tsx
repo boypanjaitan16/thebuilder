@@ -59,13 +59,21 @@ export function AdminHeader() {
 								aria-haspopup="menu"
 								className="inline-flex items-center gap-2 rounded-full border border-sand px-4 py-2 text-ink transition hover:border-ink"
 							>
-								Account
+								Menu
 							</button>
 							{menuOpen && (
 								<div
 									role="menu"
 									className="absolute right-0 mt-2 w-52 rounded-2xl border border-sand bg-white p-2 shadow-soft"
 								>
+									<NavLink
+										to="/"
+										role="menuitem"
+										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
+									>
+										The Builder
+									</NavLink>
+									<hr className="my-2" />
 									<NavLink
 										to="/admin/profile"
 										role="menuitem"
@@ -87,18 +95,12 @@ export function AdminHeader() {
 									>
 										Products
 									</NavLink>
-									<NavLink
-										to="/"
-										role="menuitem"
-										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
-									>
-										The Builder
-									</NavLink>
+									<hr className="my-2" />
 									<button
 										type="button"
 										onClick={handleSignOut}
 										disabled={signingOut}
-										className="mt-1 w-full rounded-xl px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-70"
+										className="w-full rounded-xl px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-70"
 									>
 										{signingOut ? "Signing out…" : "Sign out"}
 									</button>

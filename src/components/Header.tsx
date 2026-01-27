@@ -22,7 +22,7 @@ export function Header() {
 								The Builder
 							</p>
 							<p className="font-display text-[10px] md:text-[11px] font-semibold text-slate-500">
-								{copy.header.tagline}
+								Building Organization That Scale
 							</p>
 						</div>
 					</NavLink>

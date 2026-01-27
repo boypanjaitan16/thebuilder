@@ -50,7 +50,6 @@ function DiagnosticPage() {
 		} else {
 			setSignal(page.scoreCopy.low);
 		}
-		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 
 	return (

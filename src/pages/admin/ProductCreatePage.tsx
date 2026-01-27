@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { TextInput } from "../../components/forms/TextInput";
 import { useCreateProduct } from "../../hooks/useCreateProduct";
 import { useUploadProductThumbnail } from "../../hooks/useUploadProductThumbnail";
 import {
@@ -31,7 +32,7 @@ function ProductCreatePage() {
 	const {
 		register,
 		handleSubmit,
-		formState: { isSubmitting },
+		formState: { errors, isSubmitting },
 	} = useForm<ProductCreateFormValues, undefined, ProductCreateValues>({
 		resolver: zodResolver(productCreateSchema),
 		defaultValues: {
@@ -96,26 +97,24 @@ function ProductCreatePage() {
 					onSubmit={handleSubmit(onCreateProduct)}
 					className="mt-4 grid gap-4 md:grid-cols-2"
 				>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						Name
-						<input
-							type="text"
-							required
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("name")}
-						/>
-					</label>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						Price (IDR)
-						<input
-							type="number"
-							step="0.01"
-							min="0"
-							required
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("price", { valueAsNumber: true })}
-						/>
-					</label>
+					<TextInput
+						label="Name"
+						errorMessage={errors.name?.message}
+						inputProps={{
+							type: "text",
+							...register("name"),
+						}}
+					/>
+					<TextInput
+						label="Price (IDR)"
+						errorMessage={errors.price?.message}
+						inputProps={{
+							type: "number",
+							step: "0.01",
+							min: 0,
+							...register("price", { valueAsNumber: true }),
+						}}
+					/>
 					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
 						Thumbnail image
 						<input
@@ -126,23 +125,22 @@ function ProductCreatePage() {
 								const file = event.target.files?.[0];
 								if (file) setThumbnailFile(file);
 							}}
-							className="rounded-xl border border-sand bg-white px-2 py-2 text-sm text-ink file:mr-3 file:rounded-lg file:border-none file:bg-ink file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+							className="rounded-xl border border-sand bg-white px-2 py-1.5 text-sm text-ink file:mr-3 file:rounded-lg file:border-none file:bg-ink file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
 						/>
 						<span className="text-xs font-normal text-slate-600">
 							Upload a small image (e.g., &lt;1MB). Stored in the public
 							thumbnail bucket.
 						</span>
 					</label>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						Marketplace Url
-						<input
-							type="url"
-							placeholder="https://shopee.co.id/xxxxx"
-							required
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("marketplace_url")}
-						/>
-					</label>
+					<TextInput
+						label="Marketplace Url"
+						errorMessage={errors.marketplace_url?.message}
+						inputProps={{
+							type: "url",
+							placeholder: "https://shopee.co.id/xxxxx",
+							...register("marketplace_url"),
+						}}
+					/>
 					<label className="md:col-span-2 flex flex-col gap-2 text-sm font-medium text-ink">
 						Description
 						<textarea

@@ -2,6 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import classNames from "classnames";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
+import { SelectBox } from "../components/forms/SelectBox";
+import { TextInput } from "../components/forms/TextInput";
 import { useI18n } from "../i18n/I18nProvider";
 import {
 	type ApplyFormValues,
@@ -74,71 +76,55 @@ function ApplyPage() {
 					<p className="text-sm text-slate-600">{text.contextNote}</p>
 				</div>
 				<div className="grid gap-4 md:grid-cols-2">
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						{text.form.name}
-						<input
-							type="text"
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("name")}
-						/>
-						{errors.name && (
-							<span className={errorColor}>{errors.name.message}</span>
-						)}
-					</label>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						{text.form.role}
-						<input
-							type="text"
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							placeholder="e.g. CEO, Founder, Director, CHRO"
-							{...register("role")}
-						/>
-						{errors.role && (
-							<span className={errorColor}>{errors.role.message}</span>
-						)}
-					</label>
+					<TextInput
+						label={text.form.name}
+						errorMessage={errors.name?.message}
+						inputProps={{
+							type: "text",
+							...register("name"),
+						}}
+					/>
+					<TextInput
+						label={text.form.role}
+						errorMessage={errors.role?.message}
+						inputProps={{
+							type: "text",
+							placeholder: "e.g. CEO, Founder, Director, CHRO",
+							...register("role"),
+						}}
+					/>
 				</div>
 				<div className="grid gap-4 md:grid-cols-2">
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						{text.form.organization}
-						<input
-							type="text"
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("organization")}
-						/>
-						{errors.organization && (
-							<span className={errorColor}>{errors.organization.message}</span>
-						)}
-					</label>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						{text.form.size}
-						<select
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							defaultValue=""
-							{...register("size")}
-						>
-							<option value="" disabled>
-								{language === "en" ? "Select range" : "Pilih rentang"}
-							</option>
-							{text.form.sizeOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</select>
-						{errors.size && (
-							<span className={errorColor}>{errors.size.message}</span>
-						)}
-					</label>
-				</div>
-				<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-					{text.form.industry}
-					<input
-						type="text"
-						className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-						{...register("industry")}
+					<TextInput
+						label={text.form.organization}
+						errorMessage={errors.organization?.message}
+						inputProps={{
+							type: "text",
+							...register("organization"),
+						}}
 					/>
-				</label>
+					<SelectBox
+						label={text.form.size}
+						placeholder={language === "en" ? "Select range" : "Pilih rentang"}
+						options={text.form.sizeOptions.map((option) => ({
+							label: option,
+							value: option,
+						}))}
+						errorMessage={errors.size?.message}
+						selectProps={{
+							defaultValue: "",
+							...register("size"),
+						}}
+					/>
+				</div>
+				<TextInput
+					label={text.form.industry}
+					errorMessage={errors.industry?.message}
+					inputProps={{
+						type: "text",
+						...register("industry"),
+					}}
+				/>
 
 				<div className="flex flex-col gap-1">
 					<h3 className="text-sm font-semibold font-display uppercase text-slate-500">
@@ -154,7 +140,7 @@ function ApplyPage() {
 								<label
 									key={value}
 									className={classNames(
-										"flex items-start gap-3 rounded-xl border px-4 py-3 text-sm shadow-sm transition",
+										"flex min-w-0 items-start gap-3 rounded-xl border px-4 py-3 text-sm shadow-sm transition",
 										checked ? "border-ink bg-mist" : "border-sand bg-white",
 										!checked && maxSituationReached
 											? "opacity-60"
@@ -179,7 +165,7 @@ function ApplyPage() {
 											}
 										}}
 									/>
-									<span>{label}</span>
+									<span className="flex-1 break-words">{label}</span>
 								</label>
 							);
 						})}
@@ -198,32 +184,29 @@ function ApplyPage() {
 				</div>
 
 				<div className="grid gap-4 md:grid-cols-2">
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						{text.form.expectation}
-						<select
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							defaultValue=""
-							{...register("expectation")}
-						>
-							<option value="">
-								{language === "en" ? "Select an option" : "Pilih opsi"}
-							</option>
-							{text.form.expectationOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</select>
-					</label>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						{text.form.decisionFlow}
-						<input
-							type="text"
-							placeholder="e.g. leadership team discussion, founder-led, board-driven"
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("decisionFlow")}
-						/>
-					</label>
+					<SelectBox
+						label={text.form.expectation}
+						placeholder={language === "en" ? "Select an option" : "Pilih opsi"}
+						options={text.form.expectationOptions.map((option) => ({
+							label: option,
+							value: option,
+						}))}
+						errorMessage={errors.expectation?.message}
+						selectProps={{
+							defaultValue: "",
+							...register("expectation"),
+						}}
+					/>
+					<TextInput
+						label={text.form.decisionFlow}
+						errorMessage={errors.decisionFlow?.message}
+						inputProps={{
+							type: "text",
+							placeholder:
+								"e.g. leadership team discussion, founder-led, board-driven",
+							...register("decisionFlow"),
+						}}
+					/>
 				</div>
 
 				<div className="flex flex-col gap-1">
@@ -232,7 +215,12 @@ function ApplyPage() {
 					</h3>
 				</div>
 				<div className="grid gap-6 md:grid-cols-2">
-					<div className="rounded-2xl border border-sand bg-white px-5 py-5 shadow-sm">
+					<div
+						className={classNames(
+							"rounded-2xl border bg-white px-5 py-5 shadow-sm",
+							errors.readiness?.message ? "border-red-600" : "border-sand",
+						)}
+					>
 						<p className="text-sm font-semibold text-ink">
 							{text.form.readinessTitle}
 						</p>
@@ -240,7 +228,7 @@ function ApplyPage() {
 							{text.form.readinessOptions.map((option) => (
 								<label
 									key={option}
-									className="flex items-start gap-3 rounded-xl border border-sand px-4 py-3 text-sm shadow-sm"
+									className="flex min-w-0 items-start gap-3 rounded-xl border border-sand px-4 py-3 text-sm shadow-sm"
 								>
 									<input
 										type="radio"
@@ -248,7 +236,7 @@ function ApplyPage() {
 										className="mt-1 accent-ink"
 										{...register("readiness")}
 									/>
-									<span>{option}</span>
+									<span className="flex-1 break-words">{option}</span>
 								</label>
 							))}
 						</div>
@@ -256,7 +244,12 @@ function ApplyPage() {
 							<p className={errorColor}>{errors.readiness.message}</p>
 						)}
 					</div>
-					<div className="rounded-2xl border border-sand bg-white px-5 py-5 shadow-sm">
+					<div
+						className={classNames(
+							"rounded-2xl border bg-white px-5 py-5 shadow-sm",
+							errors.timeline?.message ? "border-red-600" : "border-sand",
+						)}
+					>
 						<p className="text-sm font-semibold text-ink">
 							{text.form.timelineTitle}
 						</p>
@@ -264,7 +257,7 @@ function ApplyPage() {
 							{text.form.timelineOptions.map((option) => (
 								<label
 									key={option}
-									className="flex items-start gap-3 rounded-xl border border-sand px-4 py-3 text-sm shadow-sm"
+									className="flex min-w-0 items-start gap-3 rounded-xl border border-sand px-4 py-3 text-sm shadow-sm"
 								>
 									<input
 										type="radio"
@@ -272,7 +265,7 @@ function ApplyPage() {
 										className="mt-1 accent-ink"
 										{...register("timeline")}
 									/>
-									<span>{option}</span>
+									<span className="flex-1 break-words">{option}</span>
 								</label>
 							))}
 						</div>

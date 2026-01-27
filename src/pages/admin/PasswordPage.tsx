@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { TextInput } from "../../components/forms/TextInput";
 import { useSupabaseSession } from "../../hooks/useSupabaseSession";
 import { supabase } from "../../lib/supabaseClient";
 import {
@@ -77,45 +78,30 @@ function PasswordPage() {
 					onSubmit={handleSubmit(onSubmit)}
 					className="mt-6 flex flex-col gap-5"
 				>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						Current password
-						<input
-							type="password"
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("currentPassword")}
-						/>
-						{errors.currentPassword && (
-							<span className="text-sm text-amber-700">
-								{errors.currentPassword.message}
-							</span>
-						)}
-					</label>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						New password
-						<input
-							type="password"
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("newPassword")}
-						/>
-						{errors.newPassword && (
-							<span className="text-sm text-amber-700">
-								{errors.newPassword.message}
-							</span>
-						)}
-					</label>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
-						Confirm password
-						<input
-							type="password"
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("confirmPassword")}
-						/>
-						{errors.confirmPassword && (
-							<span className="text-sm text-amber-700">
-								{errors.confirmPassword.message}
-							</span>
-						)}
-					</label>
+					<TextInput
+						label="Current password"
+						errorMessage={errors.currentPassword?.message}
+						inputProps={{
+							type: "password",
+							...register("currentPassword"),
+						}}
+					/>
+					<TextInput
+						label="New password"
+						errorMessage={errors.newPassword?.message}
+						inputProps={{
+							type: "password",
+							...register("newPassword"),
+						}}
+					/>
+					<TextInput
+						label="Confirm password"
+						errorMessage={errors.confirmPassword?.message}
+						inputProps={{
+							type: "password",
+							...register("confirmPassword"),
+						}}
+					/>
 
 					{error && <p className="text-sm text-amber-700">{error}</p>}
 					{status && <p className="text-sm text-emerald-700">{status}</p>}
