@@ -5,11 +5,13 @@ import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
 import { useGetProducts } from "../../hooks/useGetProducts";
 import type { Product } from "../../types/Product";
+import { useToast } from "../../components/ToastProvider";
 
 function ProductsPage() {
 	const navigate = useNavigate();
+	const { showToast } = useToast();
 	const [products, setProducts] = useState<Product[]>([]);
-	const [status, setStatus] = useState<string | null>(null);
+	
 	const { fetchProducts: fetchProductsApi, loading, error } = useGetProducts();
 	const {
 		deleteProduct,
@@ -46,11 +48,11 @@ function ProductsPage() {
 			const deleteResult = await deleteThumbnail(product.thumbnail_url);
 			thumbnailDeleted = deleteResult.success;
 		}
-		setStatus(
-			thumbnailDeleted
-				? "Product deleted"
-				: "Product deleted, but failed to remove thumbnail.",
-		);
+		if (thumbnailDeleted) {
+			showToast("Product deleted", { tone: "success" });
+		} else {
+			showToast("Product deleted, thumbnail removal failed", { tone: "info" });
+		}
 		await fetchProducts();
 	};
 
@@ -77,8 +79,7 @@ function ProductsPage() {
 				{combinedError && (
 					<p className="mt-3 text-sm text-amber-700">{combinedError}</p>
 				)}
-				{status && <p className="mt-2 text-sm text-emerald-700">{status}</p>}
-				<div className="mt-6 overflow-x-auto">
+								<div className="mt-6 overflow-x-auto">
 					<table className="min-w-full text-sm">
 						<thead>
 							<tr className="border-b border-sand text-left text-xs uppercase tracking-wide text-slate-500">

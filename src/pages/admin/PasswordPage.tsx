@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TextInput } from "../../components/forms/TextInput";
+import { useToast } from "../../components/ToastProvider";
 import { useSupabaseSession } from "../../hooks/useSupabaseSession";
 import { supabase } from "../../lib/supabaseClient";
 import {
@@ -12,7 +13,7 @@ import {
 
 function PasswordPage() {
 	const { session } = useSupabaseSession();
-	const [status, setStatus] = useState<string | null>(null);
+	const { showToast } = useToast();
 	const [error, setError] = useState<string | null>(null);
 
 	const {
@@ -33,7 +34,6 @@ function PasswordPage() {
 
 	const onSubmit = async (values: AdminPasswordFormValues) => {
 		setError(null);
-		setStatus(null);
 		const email = session?.user?.email;
 		if (!email) {
 			setError("No email available for this account.");
@@ -57,7 +57,7 @@ function PasswordPage() {
 			return;
 		}
 		reset();
-		setStatus("Password updated");
+		showToast("Password updated successfully", { tone: "success" });
 	};
 
 	return (
@@ -104,7 +104,6 @@ function PasswordPage() {
 					/>
 
 					{error && <p className="text-sm text-amber-700">{error}</p>}
-					{status && <p className="text-sm text-emerald-700">{status}</p>}
 
 					<div className="md:col-span-2">
 						<button

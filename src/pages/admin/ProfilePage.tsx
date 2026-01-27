@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TextInput } from "../../components/forms/TextInput";
+import { useToast } from "../../components/ToastProvider";
 import { useSupabaseSession } from "../../hooks/useSupabaseSession";
 import { supabase } from "../../lib/supabaseClient";
 import {
@@ -12,7 +13,7 @@ import {
 
 function ProfilePage() {
 	const { session } = useSupabaseSession();
-	const [status, setStatus] = useState<string | null>(null);
+	const { showToast } = useToast();
 	const [error, setError] = useState<string | null>(null);
 
 	const {
@@ -37,7 +38,6 @@ function ProfilePage() {
 
 	const onSubmit = async (values: AdminProfileFormValues) => {
 		setError(null);
-		setStatus(null);
 		const { error: updateError } = await supabase.auth.updateUser({
 			data: {
 				full_name: values.fullName,
@@ -49,7 +49,7 @@ function ProfilePage() {
 			return;
 		}
 
-		setStatus("Profile updated");
+		showToast("Profile updated successfully", { tone: "success" });
 	};
 
 	return (
@@ -89,7 +89,6 @@ function ProfilePage() {
 					/>
 
 					{error && <p className="text-sm text-amber-700">{error}</p>}
-					{status && <p className="text-sm text-emerald-700">{status}</p>}
 
 					<div className="md:col-span-2">
 						<button

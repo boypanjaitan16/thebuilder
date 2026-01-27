@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import classNames from "classnames";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { TextInput } from "../../components/forms/TextInput";
@@ -12,12 +11,11 @@ import {
 
 function LoginPage() {
 	const navigate = useNavigate();
-	const [status, setStatus] = useState<string | null>(null);
-	const [error, setError] = useState<string | null>(null);
 
 	const {
 		register,
 		handleSubmit,
+		setError,
 		formState: { errors, isSubmitting },
 	} = useForm<AdminLoginValues>({
 		resolver: zodResolver(adminLoginSchema),
@@ -25,15 +23,12 @@ function LoginPage() {
 	});
 
 	const onLogin = async (values: AdminLoginValues) => {
-		setError(null);
-		setStatus(null);
 		const { error: loginError } =
 			await supabase.auth.signInWithPassword(values);
 		if (loginError) {
-			setError(loginError.message);
+			setError("email", { message: loginError.message });
 			return;
 		}
-		setStatus("Signed in");
 		navigate("/admin");
 	};
 
@@ -43,7 +38,7 @@ function LoginPage() {
 				className={classNames(
 					"flex border bg-white rounded-2xl w-full max-w-lg p-8",
 					{
-						"border-red-600": error,
+						"border-red-600": errors.email || errors.password,
 					},
 				)}
 			>
@@ -64,8 +59,6 @@ function LoginPage() {
 							...register("password"),
 						}}
 					/>
-					{error && <p className="text-sm text-red-600">{error}</p>}
-					{status && <p className="text-sm text-emerald-700">{status}</p>}
 					<button
 						type="submit"
 						disabled={isSubmitting}

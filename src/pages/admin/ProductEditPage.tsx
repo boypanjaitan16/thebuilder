@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { TextInput } from "../../components/forms/TextInput";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import { useToast } from "../../components/ToastProvider";
 import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
 import { useGetProduct } from "../../hooks/useGetProduct";
 import { useUpdateProduct } from "../../hooks/useUpdateProduct";
@@ -17,9 +18,9 @@ import type { Product } from "../../types/Product";
 
 function ProductEditPage() {
 	const navigate = useNavigate();
+	const { showToast } = useToast();
 	const { productId } = useParams<{ productId: string }>();
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
-	const [status, setStatus] = useState<string | null>(null);
 	const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
 	const [product, setProduct] = useState<Product | null>(null);
 	const {
@@ -94,7 +95,6 @@ function ProductEditPage() {
 		setUpdateError(null);
 		setUploadError(null);
 		setDeleteThumbnailError(null);
-		setStatus(null);
 		if (!productId) {
 			setErrorMessage("Invalid product id.");
 			return;
@@ -131,7 +131,7 @@ function ProductEditPage() {
 			}
 		}
 
-		setStatus("Product updated");
+		showToast("Product updated successfully", { tone: "success" });
 		navigate("/admin/products");
 	};
 
@@ -174,7 +174,6 @@ function ProductEditPage() {
 					</button>
 				</div>
 
-				{status && <p className="mt-2 text-sm text-emerald-700">{status}</p>}
 				{displayedError && (
 					<p className="mt-2 text-sm text-amber-700">{displayedError}</p>
 				)}
@@ -201,7 +200,7 @@ function ProductEditPage() {
 							...register("price", { valueAsNumber: true }),
 						}}
 					/>
-					<label className="flex flex-col gap-2 text-sm font-medium text-ink">
+					<label className="flex flex-col gap-1 text-sm font-medium text-ink">
 						Thumbnail image
 						<input
 							type="file"

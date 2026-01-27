@@ -9,7 +9,7 @@ export function AdminHeader() {
 	const [signingOut, setSigningOut] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [menuOpen, setMenuOpen] = useState(false);
-	const { isAuthenticated } = useSupabaseSession();
+	const { isAuthenticated, session } = useSupabaseSession();
 
 	useEffect(() => {
 		setMenuOpen(false);
@@ -59,7 +59,7 @@ export function AdminHeader() {
 								aria-haspopup="menu"
 								className="inline-flex items-center gap-2 rounded-full border border-sand px-4 py-2 text-ink transition hover:border-ink"
 							>
-								Menu
+								{session?.user.user_metadata.full_name ?? "Administrator"}
 							</button>
 							{menuOpen && (
 								<div
