@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { supabase } from "../../lib/supabaseClient";
 import type { Product } from "../../types/Product";
-
-type ProductValues = {
-	name: string;
-	description: string;
-	price: number;
-	marketplace_url: string;
-};
+import {
+	type ProductUpdateFormValues,
+	productUpdateSchema,
+	type ProductUpdateValues,
+} from "../../schemas/productUpdateSchema";
 
 function ProductEditPage() {
 	const navigate = useNavigate();
@@ -27,8 +26,14 @@ function ProductEditPage() {
 		handleSubmit,
 		reset,
 		formState: { isSubmitting },
-	} = useForm<ProductValues>({
-		defaultValues: { name: "", description: "", price: 0, marketplace_url: "" },
+	} = useForm<ProductUpdateFormValues, undefined, ProductUpdateValues>({
+		resolver: zodResolver(productUpdateSchema),
+		defaultValues: {
+			name: "",
+			description: "",
+			price: 0,
+			marketplace_url: "",
+		},
 	});
 
 	useEffect(() => {
@@ -66,7 +71,7 @@ function ProductEditPage() {
 		setLoadingProduct(false);
 	};
 
-	const onUpdateProduct = async (values: ProductValues) => {
+	const onUpdateProduct = async (values: ProductUpdateValues) => {
 		setError(null);
 		setStatus(null);
 		if (!productId) {

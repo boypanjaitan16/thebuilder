@@ -1,13 +1,10 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { adminLoginSchema, type AdminLoginValues } from "../../schemas/adminLoginSchema";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
-
-type LoginValues = {
-	email: string;
-	password: string;
-};
 
 function LoginPage() {
 	const navigate = useNavigate();
@@ -18,11 +15,12 @@ function LoginPage() {
 		register,
 		handleSubmit,
 		formState: { isSubmitting },
-	} = useForm<LoginValues>({
+	} = useForm<AdminLoginValues>({
+		resolver: zodResolver(adminLoginSchema),
 		defaultValues: { email: "", password: "" },
 	});
 
-	const onLogin = async (values: LoginValues) => {
+	const onLogin = async (values: AdminLoginValues) => {
 		setError(null);
 		setStatus(null);
 		const { error: loginError } =

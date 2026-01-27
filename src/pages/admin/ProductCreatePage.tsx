@@ -1,14 +1,13 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
-
-type ProductValues = {
-	name: string;
-	description: string;
-	price: number;
-	marketplace_url: string;
-};
+import {
+	type ProductCreateFormValues,
+	type ProductCreateValues,
+	productCreateSchema,
+} from "../../schemas/productCreateSchema";
 
 function ProductCreatePage() {
 	const navigate = useNavigate();
@@ -21,11 +20,17 @@ function ProductCreatePage() {
 		register,
 		handleSubmit,
 		formState: { isSubmitting },
-	} = useForm<ProductValues>({
-		defaultValues: { name: "", description: "", price: 0, marketplace_url: "" },
+	} = useForm<ProductCreateFormValues, undefined, ProductCreateValues>({
+		resolver: zodResolver(productCreateSchema),
+		defaultValues: {
+			name: "",
+			description: "",
+			price: 0,
+			marketplace_url: "",
+		},
 	});
 
-	const onCreateProduct = async (values: ProductValues) => {
+	const onCreateProduct = async (values: ProductCreateValues) => {
 		setError(null);
 		setStatus(null);
 		if (!thumbnailFile) {
@@ -61,8 +66,8 @@ function ProductCreatePage() {
 			name: values.name,
 			description: values.description,
 			price: values.price,
-			marketplace_url: values.marketplace_url,
 			thumbnail_url: publicUrl || null,
+			marketplace_url: values.marketplace_url,
 		});
 		setUploading(false);
 

@@ -2,37 +2,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import classNames from "classnames";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { useI18n } from "../i18n/I18nProvider";
-
-const formSchema = z.object({
-	name: z.string().min(1, "Required"),
-	role: z.string().min(1, "Required"),
-	organization: z.string().min(1, "Required"),
-	size: z.string().min(1, "Required"),
-	industry: z.string().optional(),
-	situation: z.array(z.string()).max(2, "Select up to two").optional(),
-	description: z.string().optional(),
-	expectation: z.string().optional(),
-	decisionFlow: z.string().optional(),
-	readiness: z.string().min(1, "Required"),
-	timeline: z.string().min(1, "Required"),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import {
+	type ApplyFormValues,
+	type ApplyFormValuesInput,
+	applySchema,
+} from "../schemas/applySchema";
 
 function ApplyPage() {
 	const { copy, language } = useI18n();
 	const text = copy.apply;
-	const [submitted, setSubmitted] = useState<FormValues | null>(null);
+	const [submitted, setSubmitted] = useState<ApplyFormValues | null>(null);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isSubmitting },
 		setValue,
 		watch,
-	} = useForm<FormValues>({
-		resolver: zodResolver(formSchema),
+	} = useForm<ApplyFormValuesInput, undefined, ApplyFormValues>({
+		resolver: zodResolver(applySchema),
 		defaultValues: {
 			name: "",
 			role: "",
@@ -56,7 +44,7 @@ function ApplyPage() {
 		[text.form.situationOptions],
 	);
 
-	const onSubmit = (values: FormValues) => {
+	const onSubmit = (values: ApplyFormValues) => {
 		setSubmitted(values);
 	};
 
