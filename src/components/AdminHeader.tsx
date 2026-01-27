@@ -57,7 +57,7 @@ export function AdminHeader() {
 								onClick={() => setMenuOpen((open) => !open)}
 								aria-expanded={menuOpen}
 								aria-haspopup="menu"
-								className="inline-flex items-center gap-2 rounded-full border border-sand px-4 py-2 text-ink transition hover:border-ink"
+								className="font-semibold font-display rounded-full px-4 py-2 text-ink hover:bg-gray-200"
 							>
 								{session?.user.user_metadata.full_name ?? "Administrator"}
 							</button>

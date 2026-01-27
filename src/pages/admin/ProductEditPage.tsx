@@ -155,9 +155,6 @@ function ProductEditPage() {
 			<section className="rounded-[24px] border border-sand bg-white p-8 shadow-soft">
 				<div className="flex flex-row flex-wrap items-center justify-between gap-3">
 					<div>
-						<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-							Admin
-						</p>
 						<h1 className="mt-2 font-display text-3xl font-semibold text-ink">
 							Edit product
 						</h1>
