@@ -69,7 +69,7 @@ function ProductCreatePage() {
 			<section className="rounded-[24px] border border-sand bg-white p-8 shadow-soft">
 				<div className="flex flex-row flex-wrap items-center justify-between gap-3">
 					<div>
-						<h1 className="mt-2 font-display text-3xl font-semibold text-ink">
+						<h1 className="mt-2 font-display text-2xl font-semibold text-ink">
 							Create product
 						</h1>
 						<p className="text-sm text-slate-600">
@@ -112,7 +112,7 @@ function ProductCreatePage() {
 							...register("price", { valueAsNumber: true }),
 						}}
 					/>
-					<label className="flex flex-col gap-1 text-sm font-medium text-ink">
+					<label className="flex w-full min-w-0 flex-col gap-1 text-sm font-medium text-ink">
 						Thumbnail image
 						<input
 							type="file"
@@ -122,7 +122,7 @@ function ProductCreatePage() {
 								const file = event.target.files?.[0];
 								if (file) setThumbnailFile(file);
 							}}
-							className="rounded-xl border border-sand bg-white px-2 py-1.5 text-sm text-ink file:mr-3 file:rounded-lg file:border-none file:bg-ink file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+							className="w-full rounded-xl border border-sand bg-white px-2 py-1.5 text-sm text-ink file:mr-3 file:rounded-lg file:border-none file:bg-ink file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
 						/>
 						<span className="text-xs font-normal text-slate-600">
 							Upload a small image (e.g., &lt;1MB). Stored in the public
@@ -138,11 +138,11 @@ function ProductCreatePage() {
 							...register("marketplace_url"),
 						}}
 					/>
-					<label className="md:col-span-2 flex flex-col gap-2 text-sm font-medium text-ink">
+					<label className="md:col-span-2 flex w-full min-w-0 flex-col gap-2 text-sm font-medium text-ink">
 						Description
 						<textarea
 							rows={3}
-							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
+							className="w-full rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
 							{...register("description")}
 						/>
 					</label>

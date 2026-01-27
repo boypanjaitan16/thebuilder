@@ -1,17 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import { useToast } from "../../components/ToastProvider";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
 import { useGetProducts } from "../../hooks/useGetProducts";
 import type { Product } from "../../types/Product";
-import { useToast } from "../../components/ToastProvider";
 
 function ProductsPage() {
 	const navigate = useNavigate();
 	const { showToast } = useToast();
 	const [products, setProducts] = useState<Product[]>([]);
-	
+
 	const { fetchProducts: fetchProductsApi, loading, error } = useGetProducts();
 	const {
 		deleteProduct,
@@ -61,7 +61,7 @@ function ProductsPage() {
 			<section className="glass-panel p-8">
 				<div className="flex flex-wrap items-center justify-between gap-3">
 					<div>
-						<h2 className="text-xl font-semibold text-ink">Products</h2>
+						<h2 className="text-2xl font-semibold text-ink">Products</h2>
 						<p className="text-sm text-slate-600">
 							Create, publish, and manage products.
 						</p>
@@ -79,7 +79,7 @@ function ProductsPage() {
 				{combinedError && (
 					<p className="mt-3 text-sm text-amber-700">{combinedError}</p>
 				)}
-								<div className="mt-6 overflow-x-auto">
+				<div className="mt-6 overflow-x-auto">
 					<table className="min-w-full text-sm">
 						<thead>
 							<tr className="border-b border-sand text-left text-xs uppercase tracking-wide text-slate-500">

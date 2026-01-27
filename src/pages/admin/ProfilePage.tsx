@@ -57,7 +57,7 @@ function ProfilePage() {
 			<section className="rounded-[24px] border border-sand bg-white p-8 shadow-soft">
 				<div className="flex flex-row flex-wrap items-center justify-between gap-3">
 					<div>
-						<h1 className="mt-2 font-display text-3xl font-semibold text-ink">
+						<h1 className="mt-2 font-display text-2xl font-semibold text-ink">
 							Update Profile
 						</h1>
 						<p className="text-sm text-slate-600">
