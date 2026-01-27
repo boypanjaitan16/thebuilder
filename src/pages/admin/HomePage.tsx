@@ -17,7 +17,7 @@ const HomePage = () => (
 					onClick={() => {
 						window.location.href = "/admin/products";
 					}}
-					className="rounded-full bg-ink px-5 py-3 text-white shadow-soft hover:bg-slate-900"
+					className="rounded-full w-full md:w-auto bg-ink px-5 py-3 text-white shadow-soft hover:bg-slate-900"
 				>
 					Manage Products
 				</button>
@@ -26,7 +26,7 @@ const HomePage = () => (
 					onClick={() => {
 						window.location.href = "/admin/products/new";
 					}}
-					className="rounded-full border border-ink px-5 py-3 text-ink hover:bg-white"
+					className="rounded-full w-full md:w-auto border border-ink px-5 py-3 text-ink hover:bg-white"
 				>
 					Add Product
 				</button>

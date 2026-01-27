@@ -1,13 +1,19 @@
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useSupabaseSession } from "../hooks/useSupabaseSession";
 import { supabase } from "../lib/supabaseClient";
 
 export function AdminHeader() {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const [signingOut, setSigningOut] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const [menuOpen, setMenuOpen] = useState(false);
 	const { isAuthenticated } = useSupabaseSession();
+
+	useEffect(() => {
+		setMenuOpen(false);
+	}, [location.pathname]);
 
 	const handleSignOut = async () => {
 		setSigningOut(true);
@@ -22,8 +28,8 @@ export function AdminHeader() {
 	};
 
 	return (
-		<header className="sticky top-0 z-20 border-b border-sand/70 bg-white/90 backdrop-blur px-5">
-			<div className="container-page flex flex-wrap items-center justify-between gap-4 py-4">
+		<header className="sticky top-0 z-20 border-b border-ink bg-white backdrop-blur px-5">
+			<div className="container-page flex flex-wrap items-center justify-between gap-4 py-2 md:py-4">
 				<NavLink to="/admin" className="flex items-center gap-3">
 					<div className="text-left leading-tight">
 						<p className="text-[11px] uppercase tracking-[0.25em] text-slate-500">
@@ -35,22 +41,70 @@ export function AdminHeader() {
 					</div>
 				</NavLink>
 
-				<div className="flex items-center gap-2 text-sm font-semibold">
-					<NavLink
-						to="/"
-						className="rounded-full border border-sand px-3 py-2 text-ink transition hover:border-ink"
-					>
-						Home
-					</NavLink>
-					{isAuthenticated && (
-						<button
-							type="button"
-							onClick={handleSignOut}
-							disabled={signingOut}
-							className="inline-flex items-center rounded-full bg-ink px-4 py-2 text-white shadow-soft transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-70"
+				<div className="flex items-center gap-2 text-sm">
+					{!isAuthenticated && (
+						<NavLink
+							to="/"
+							className="rounded-full border border-sand px-3 py-2 text-ink transition hover:border-ink"
 						>
-							{signingOut ? "Signing out…" : "Sign out"}
-						</button>
+							Home
+						</NavLink>
+					)}
+					{isAuthenticated && (
+						<div className="relative">
+							<button
+								type="button"
+								onClick={() => setMenuOpen((open) => !open)}
+								aria-expanded={menuOpen}
+								aria-haspopup="menu"
+								className="inline-flex items-center gap-2 rounded-full border border-sand px-4 py-2 text-ink transition hover:border-ink"
+							>
+								Account
+							</button>
+							{menuOpen && (
+								<div
+									role="menu"
+									className="absolute right-0 mt-2 w-52 rounded-2xl border border-sand bg-white p-2 shadow-soft"
+								>
+									<NavLink
+										to="/admin/profile"
+										role="menuitem"
+										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
+									>
+										Update Profile
+									</NavLink>
+									<NavLink
+										to="/admin/password"
+										role="menuitem"
+										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
+									>
+										Update Password
+									</NavLink>
+									<NavLink
+										to="/admin/products"
+										role="menuitem"
+										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
+									>
+										Products
+									</NavLink>
+									<NavLink
+										to="/"
+										role="menuitem"
+										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
+									>
+										The Builder
+									</NavLink>
+									<button
+										type="button"
+										onClick={handleSignOut}
+										disabled={signingOut}
+										className="mt-1 w-full rounded-xl px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-70"
+									>
+										{signingOut ? "Signing out…" : "Sign out"}
+									</button>
+								</div>
+							)}
+						</div>
 					)}
 				</div>
 			</div>

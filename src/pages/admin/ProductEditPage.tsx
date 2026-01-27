@@ -167,9 +167,9 @@ function ProductEditPage() {
 					<button
 						type="button"
 						onClick={() => navigate("/admin/products")}
-						className="rounded-full border border-ink px-4 py-2 text-sm font-semibold text-ink hover:bg-white"
+						className="rounded-full flex-grow md:flex-none border border-ink px-4 py-2 text-sm font-semibold text-ink hover:bg-white"
 					>
-						Back to products
+						Back to Products
 					</button>
 				</div>
 

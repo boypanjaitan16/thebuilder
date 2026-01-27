@@ -30,14 +30,14 @@ function HomePage() {
 								<button
 									type="button"
 									onClick={scrollToAreas}
-									className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-900"
+									className="rounded-full flex-grow md:flex-none bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-900"
 								>
 									{home.hero.ctaPrimary}
 								</button>
 								<button
 									type="button"
 									onClick={() => navigate("/architecture")}
-									className="rounded-full border border-sand px-5 py-3 text-sm font-semibold text-ink transition hover:border-ink hover:bg-white"
+									className="rounded-full flex-grow md:flex-none border border-sand px-5 py-3 text-sm font-semibold text-ink transition hover:border-ink hover:bg-white"
 								>
 									{home.hero.ctaSecondary}
 								</button>
@@ -153,7 +153,7 @@ function HomePage() {
 				<button
 					type="button"
 					onClick={() => navigate("/insights")}
-					className="mt-5 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-900"
+					className="mt-5 w-full md:w-auto rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-900"
 				>
 					{home.insights.viewAll} <span aria-hidden>→</span>
 				</button>

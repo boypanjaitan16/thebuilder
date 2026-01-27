@@ -9,6 +9,8 @@ import AdminLoginPage from "./pages/admin/LoginPage";
 import AdminProductCreatePage from "./pages/admin/ProductCreatePage";
 import AdminProductEditPage from "./pages/admin/ProductEditPage";
 import AdminProductsPage from "./pages/admin/ProductsPage";
+import AdminProfilePage from "./pages/admin/ProfilePage";
+import AdminPasswordPage from "./pages/admin/PasswordPage";
 import DiagnosticPage from "./pages/DiagnosticPage";
 import FutureTalentPage from "./pages/FutureTalentPage";
 import HomePage from "./pages/HomePage";
@@ -73,6 +75,8 @@ function App() {
 						path="products/:productId/edit"
 						element={<AdminProductEditPage />}
 					/>
+					<Route path="profile" element={<AdminProfilePage />} />
+					<Route path="password" element={<AdminPasswordPage />} />
 				</Route>
 				<Route path="*" element={<NotFoundPage />} />
 			</Route>
