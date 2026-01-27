@@ -1,37 +1,38 @@
 import { useEffect, useState } from "react";
 import LoadingIndicator from "../components/LoadingIndicator";
-import { supabase } from "../lib/supabaseClient";
+import { useGetProducts } from "../hooks/useGetProducts";
 import type { Product } from "../types/Product";
 
 function ResourcesProductsPage() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
 	const [products, setProducts] = useState<Product[]>([]);
+	const {
+		fetchProducts: fetchProductsApi,
+		loading: loadingProducts,
+		error: productsError,
+		setError: setProductsError,
+	} = useGetProducts();
 
 	const fetchProducts = async () => {
-		setLoading(true);
-		setError(null);
-		const { data, error: fetchError } = await supabase
-			.from("products")
-			.select("id,name,thumbnail_url,marketplace_url")
-			.order("created_at", { ascending: false });
-		if (fetchError) setError(fetchError.message);
-		else setProducts((data || []) as Product[]);
-		setLoading(false);
+		setProductsError(null);
+		const data = await fetchProductsApi();
+		setProducts(data);
 	};
 
 	useEffect(() => {
 		void fetchProducts();
 	}, []);
 
+	const combinedError = productsError;
+	const combinedLoading = loadingProducts;
+
 	return (
 		<div className="container-page flex flex-col gap-10">
-			{loading ? (
+			{combinedLoading ? (
 				<div className="flex justify-center">
 					<LoadingIndicator label="Loading products..." />
 				</div>
-			) : error ? (
-				<p>{error}</p>
+			) : combinedError ? (
+				<p>{combinedError}</p>
 			) : (
 				<section className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-5">
 					{products?.map((product) => (

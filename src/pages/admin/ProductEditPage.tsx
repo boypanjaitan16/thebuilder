@@ -1,25 +1,50 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import { supabase } from "../../lib/supabaseClient";
-import type { Product } from "../../types/Product";
+import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
+import { useGetProduct } from "../../hooks/useGetProduct";
+import { useUpdateProduct } from "../../hooks/useUpdateProduct";
+import { useUploadProductThumbnail } from "../../hooks/useUploadProductThumbnail";
 import {
 	type ProductUpdateFormValues,
-	productUpdateSchema,
 	type ProductUpdateValues,
+	productUpdateSchema,
 } from "../../schemas/productUpdateSchema";
+import type { Product } from "../../types/Product";
 
 function ProductEditPage() {
 	const navigate = useNavigate();
 	const { productId } = useParams<{ productId: string }>();
-	const [error, setError] = useState<string | null>(null);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [status, setStatus] = useState<string | null>(null);
 	const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-	const [uploading, setUploading] = useState(false);
-	const [loadingProduct, setLoadingProduct] = useState(true);
 	const [product, setProduct] = useState<Product | null>(null);
+	const {
+		fetchProduct: fetchProductApi,
+		loading: loadingProductApi,
+		error: productError,
+		setError: setProductError,
+	} = useGetProduct();
+	const {
+		updateProduct,
+		loading: updating,
+		error: updateError,
+		setError: setUpdateError,
+	} = useUpdateProduct();
+	const {
+		uploadThumbnail,
+		loading: uploading,
+		error: uploadError,
+		setError: setUploadError,
+	} = useUploadProductThumbnail();
+	const {
+		deleteThumbnail,
+		loading: deletingThumbnail,
+		error: deleteThumbnailError,
+		setError: setDeleteThumbnailError,
+	} = useDeleteProductThumbnail();
 
 	const {
 		register,
@@ -36,99 +61,87 @@ function ProductEditPage() {
 		},
 	});
 
+	const fetchProduct = useCallback(
+		async (id: string) => {
+			setErrorMessage(null);
+			setProductError(null);
+			const productData = await fetchProductApi(id);
+			if (!productData) {
+				return;
+			}
+			setProduct(productData);
+			reset({
+				name: productData.name || "",
+				description: productData.description || "",
+				price: productData.price || 0,
+				marketplace_url: productData.marketplace_url || "",
+			});
+		},
+		[fetchProductApi, reset, setProductError],
+	);
+
 	useEffect(() => {
 		if (!productId) {
-			setError("Invalid product id.");
-			setLoadingProduct(false);
+			setErrorMessage("Invalid product id.");
 			return;
 		}
 		void fetchProduct(productId);
-	}, [productId]);
-
-	const fetchProduct = async (id: string) => {
-		setLoadingProduct(true);
-		setError(null);
-		const { data, error: fetchError } = await supabase
-			.from("products")
-			.select("*")
-			.eq("id", id)
-			.single();
-
-		if (fetchError || !data) {
-			setError(fetchError?.message || "Product not found.");
-			setLoadingProduct(false);
-			return;
-		}
-
-		const productData = data as Product;
-		setProduct(productData);
-		reset({
-			name: productData.name || "",
-			description: productData.description || "",
-			price: productData.price || 0,
-			marketplace_url: productData.marketplace_url || "",
-		});
-		setLoadingProduct(false);
-	};
+	}, [fetchProduct, productId]);
 
 	const onUpdateProduct = async (values: ProductUpdateValues) => {
-		setError(null);
+		setErrorMessage(null);
+		setUpdateError(null);
+		setUploadError(null);
+		setDeleteThumbnailError(null);
 		setStatus(null);
 		if (!productId) {
-			setError("Invalid product id.");
+			setErrorMessage("Invalid product id.");
 			return;
 		}
 
-		let thumbnailUrl = product?.thumbnail_url || null;
+		const previousThumbnailUrl = product?.thumbnail_url || null;
+		let thumbnailUrl = previousThumbnailUrl;
 
 		if (thumbnailFile) {
-			const bucket =
-				import.meta.env.VITE_SUPABASE_THUMBNAIL_BUCKET || "product-thumbnails";
-			const fileExt = thumbnailFile.name.split(".").pop();
-			const filePath = `products/${crypto.randomUUID ? crypto.randomUUID() : Date.now()}.${fileExt || "jpg"}`;
-
-			setUploading(true);
-			const { data: uploadData, error: uploadError } = await supabase.storage
-				.from(bucket)
-				.upload(filePath, thumbnailFile, {
-					upsert: true,
-					contentType: thumbnailFile.type,
-				});
-
-			if (uploadError || !uploadData?.path) {
-				setError(uploadError?.message || "Failed to upload thumbnail.");
-				setUploading(false);
-				return;
-			}
-
-			const { data: publicUrlData } = supabase.storage
-				.from(bucket)
-				.getPublicUrl(uploadData.path);
-			thumbnailUrl = publicUrlData?.publicUrl || thumbnailUrl;
-			setUploading(false);
+			const uploadResult = await uploadThumbnail(thumbnailFile);
+			if (!uploadResult.success) return;
+			thumbnailUrl = uploadResult.url || thumbnailUrl;
 		}
 
-		const { error: updateError } = await supabase
-			.from("products")
-			.update({
-				name: values.name,
-				description: values.description,
-				price: values.price,
-				marketplace_url: values.marketplace_url,
-				thumbnail_url: thumbnailUrl,
-			})
-			.eq("id", productId);
+		const result = await updateProduct(productId, values, {
+			thumbnail_url: thumbnailUrl,
+		});
 
-		if (updateError) {
-			setError(updateError.message);
+		if (!result.success) {
 			return;
+		}
+
+		if (
+			thumbnailFile &&
+			previousThumbnailUrl &&
+			previousThumbnailUrl !== thumbnailUrl
+		) {
+			const deleteResult = await deleteThumbnail(previousThumbnailUrl);
+			if (!deleteResult.success) {
+				setErrorMessage(
+					"Product updated, but failed to delete the previous thumbnail.",
+				);
+				return;
+			}
 		}
 
 		setStatus("Product updated");
 		navigate("/admin/products");
 	};
 
-	if (loadingProduct) {
+	const displayedError =
+		errorMessage ||
+		productError ||
+		updateError ||
+		uploadError ||
+		deleteThumbnailError;
+
+	if (loadingProductApi || updating || uploading || deletingThumbnail) {
 		return (
 			<div className="container-page w-full flex flex-col flex-grow items-center justify-center">
 				<LoadingIndicator label="Loading product..." />
@@ -160,8 +173,10 @@ function ProductEditPage() {
 					</button>
 				</div>
 
-				{error && <p className="mt-3 text-sm text-amber-700">{error}</p>}
 				{status && <p className="mt-2 text-sm text-emerald-700">{status}</p>}
+				{displayedError && (
+					<p className="mt-2 text-sm text-amber-700">{displayedError}</p>
+				)}
 
 				<form
 					onSubmit={handleSubmit(onUpdateProduct)}

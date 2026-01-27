@@ -1,43 +1,56 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import { supabase } from "../../lib/supabaseClient";
+import { useDeleteProduct } from "../../hooks/useDeleteProduct";
+import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
+import { useGetProducts } from "../../hooks/useGetProducts";
 import type { Product } from "../../types/Product";
 
 function ProductsPage() {
 	const navigate = useNavigate();
 	const [products, setProducts] = useState<Product[]>([]);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
 	const [status, setStatus] = useState<string | null>(null);
+	const { fetchProducts: fetchProductsApi, loading, error } = useGetProducts();
+	const {
+		deleteProduct,
+		error: deleteError,
+		setError: setDeleteError,
+	} = useDeleteProduct();
+	const {
+		deleteThumbnail,
+		error: deleteThumbnailError,
+		setError: setDeleteThumbnailError,
+	} = useDeleteProductThumbnail();
+
+	const combinedError = useMemo(
+		() => error || deleteError || deleteThumbnailError,
+		[deleteError, deleteThumbnailError, error],
+	);
 
 	useEffect(() => {
 		void fetchProducts();
 	}, []);
 
 	const fetchProducts = async () => {
-		setLoading(true);
-		setError(null);
-		const { data, error: fetchError } = await supabase
-			.from("products")
-			.select("*")
-			.order("created_at", { ascending: false });
-		if (fetchError) setError(fetchError.message);
-		else setProducts((data || []) as Product[]);
-		setLoading(false);
+		const data = await fetchProductsApi();
+		setProducts(data);
 	};
 
-	const deleteProduct = async (product: Product) => {
-		setError(null);
-		const { error: deleteError } = await supabase
-			.from("products")
-			.delete()
-			.eq("id", product.id);
-		if (deleteError) {
-			setError(deleteError.message);
-			return;
+	const handleDeleteProduct = async (product: Product) => {
+		setDeleteError(null);
+		setDeleteThumbnailError(null);
+		const result = await deleteProduct(product.id);
+		if (!result.success) return;
+		let thumbnailDeleted = true;
+		if (product.thumbnail_url) {
+			const deleteResult = await deleteThumbnail(product.thumbnail_url);
+			thumbnailDeleted = deleteResult.success;
 		}
-		setStatus("Product deleted");
+		setStatus(
+			thumbnailDeleted
+				? "Product deleted"
+				: "Product deleted, but failed to remove thumbnail.",
+		);
 		await fetchProducts();
 	};
 
@@ -61,7 +74,7 @@ function ProductsPage() {
 						</button>
 					</div>
 				</div>
-				{error && <p className="mt-3 text-sm text-amber-700">{error}</p>}
+				{combinedError && <p className="mt-3 text-sm text-amber-700">{combinedError}</p>}
 				{status && <p className="mt-2 text-sm text-emerald-700">{status}</p>}
 				<div className="mt-6 overflow-x-auto">
 					<table className="min-w-full text-sm">
@@ -128,14 +141,14 @@ function ProductsPage() {
 											>
 												Edit
 											</button>
-											<button
-												type="button"
-												onClick={() => void deleteProduct(product)}
-												className="rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-red-700"
-											>
-												Delete
-											</button>
-										</div>
+						<button
+							type="button"
+							onClick={() => void handleDeleteProduct(product)}
+							className="rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-red-700"
+						>
+							Delete
+						</button>
+					</div>
 									</td>
 								</tr>
 							))}

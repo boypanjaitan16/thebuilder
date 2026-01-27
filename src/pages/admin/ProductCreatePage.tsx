@@ -2,7 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../lib/supabaseClient";
+import { useCreateProduct } from "../../hooks/useCreateProduct";
+import { useUploadProductThumbnail } from "../../hooks/useUploadProductThumbnail";
 import {
 	type ProductCreateFormValues,
 	type ProductCreateValues,
@@ -12,9 +13,20 @@ import {
 function ProductCreatePage() {
 	const navigate = useNavigate();
 	const [error, setError] = useState<string | null>(null);
-	const [status, setStatus] = useState<string | null>(null);
 	const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-	const [uploading, setUploading] = useState(false);
+	const {
+		createProduct,
+		loading,
+		error: createError,
+		setError: setCreateError,
+	} = useCreateProduct();
+	const {
+		uploadThumbnail,
+		loading: uploading,
+		error: uploadError,
+		setError: setUploadError,
+	} = useUploadProductThumbnail();
+	const combinedError = error || createError || uploadError;
 
 	const {
 		register,
@@ -32,49 +44,21 @@ function ProductCreatePage() {
 
 	const onCreateProduct = async (values: ProductCreateValues) => {
 		setError(null);
-		setStatus(null);
+		setCreateError(null);
+		setUploadError(null);
 		if (!thumbnailFile) {
 			setError("Please select a thumbnail image.");
 			return;
 		}
 
-		const bucket =
-			import.meta.env.VITE_SUPABASE_THUMBNAIL_BUCKET || "product-thumbnails";
-		const fileExt = thumbnailFile.name.split(".").pop();
-		const filePath = `products/${crypto.randomUUID ? crypto.randomUUID() : Date.now()}.${fileExt || "jpg"}`;
+		const uploadResult = await uploadThumbnail(thumbnailFile);
+		if (!uploadResult.success) return;
 
-		setUploading(true);
-		const { data: uploadData, error: uploadError } = await supabase.storage
-			.from(bucket)
-			.upload(filePath, thumbnailFile, {
-				upsert: true,
-				contentType: thumbnailFile.type,
-			});
-
-		if (uploadError || !uploadData?.path) {
-			setError(uploadError?.message || "Failed to upload thumbnail.");
-			setUploading(false);
-			return;
-		}
-
-		const { data: publicUrlData } = supabase.storage
-			.from(bucket)
-			.getPublicUrl(uploadData.path);
-		const publicUrl = publicUrlData?.publicUrl;
-
-		const { error: insertError } = await supabase.from("products").insert({
-			name: values.name,
-			description: values.description,
-			price: values.price,
-			thumbnail_url: publicUrl || null,
-			marketplace_url: values.marketplace_url,
+		const result = await createProduct(values, {
+			thumbnail_url: uploadResult.url,
 		});
-		setUploading(false);
 
-		if (insertError) {
-			setError(insertError.message);
-			return;
-		}
+		if (!result.success) return;
 
 		navigate("/admin/products");
 	};
@@ -104,8 +88,9 @@ function ProductCreatePage() {
 					</button>
 				</div>
 
-				{error && <p className="mt-3 text-sm text-amber-700">{error}</p>}
-				{status && <p className="mt-2 text-sm text-emerald-700">{status}</p>}
+				{combinedError && (
+					<p className="mt-3 text-sm text-amber-700">{combinedError}</p>
+				)}
 
 				<form
 					onSubmit={handleSubmit(onCreateProduct)}
@@ -169,10 +154,12 @@ function ProductCreatePage() {
 					<div className="md:col-span-2">
 						<button
 							type="submit"
-							disabled={isSubmitting || uploading}
+							disabled={isSubmitting || uploading || loading}
 							className="inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-70 w-full md:w-auto"
 						>
-							{isSubmitting || uploading ? "Saving…" : "Create product"}
+							{isSubmitting || uploading || loading
+								? "Saving…"
+								: "Create product"}
 						</button>
 					</div>
 				</form>

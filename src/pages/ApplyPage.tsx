@@ -48,7 +48,7 @@ function ApplyPage() {
 		setSubmitted(values);
 	};
 
-	const errorColor = "text-amber-700";
+	const errorColor = "text-red-600";
 
 	return (
 		<div className="container-page flex flex-col gap-10">
