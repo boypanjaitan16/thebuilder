@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AdminGuard > matches snapshot when loading 1`] = `
+<div>
+  <div
+    class="container-page w-full flex flex-col flex-grow items-center justify-center"
+  >
+    <div
+      aria-label="Checking session…"
+      class="inline-flex items-center gap-3 text-sm text-slate-600 "
+      role="status"
+    >
+      <span
+        class="inline-block animate-spin rounded-full border-2 border-slate-300 border-t-ink"
+        style="width: 32px; height: 32px;"
+      />
+      <span>
+        Checking session…
+      </span>
+    </div>
+  </div>
+</div>
+`;

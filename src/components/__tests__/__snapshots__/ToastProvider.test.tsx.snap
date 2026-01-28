@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ToastProvider > matches snapshot 1`] = `
+<div>
+  <div>
+    Child Content
+  </div>
+  <div
+    class="pointer-events-none fixed top-4 left-1/2 z-50 -translate-x-1/2 space-y-2"
+  />
+</div>
+`;
