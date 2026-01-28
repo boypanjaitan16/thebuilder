@@ -1,0 +1,160 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header > matches snapshot 1`] = `
+<div>
+  <header
+    class="sticky top-0 z-20 border-b border-ink  bg-white backdrop-blur"
+  >
+    <div
+      class="container-page flex flex-col gap-3 py-3 md:pt-5 md:pb-3 px-5 xl:px-0"
+    >
+      <div
+        class="flex flex-row items-center justify-between"
+      >
+        <a
+          aria-current="page"
+          class="flex items-center gap-3 active"
+          data-discover="true"
+          href="/"
+        >
+          <div
+            class="text-left leading-tight"
+          >
+            <p
+              class="font-bold font-display text-2xl uppercase text-ink"
+            >
+              The Builder
+            </p>
+            <p
+              class="font-display text-[10px] md:text-[11px] font-semibold text-slate-500"
+            >
+              Building Organization That Scale
+            </p>
+          </div>
+        </a>
+        <div
+          class="flex items-center gap-3"
+        >
+          <div
+            class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm"
+          >
+            <button
+              class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
+              type="button"
+            >
+              EN
+            </button>
+            <button
+              class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
+              type="button"
+            >
+              ID
+            </button>
+          </div>
+          <button
+            aria-label="Open navigation"
+            class="inline-flex size-9 md:size-11 items-center justify-center rounded-xl border border-sand bg-white text-ink shadow-sm transition hover:border-ink md:hidden"
+            type="button"
+          >
+            <div
+              class="relative h-4 w-4"
+            >
+              <span
+                class="absolute inset-x-0 top-0 h-0.5 bg-ink transition"
+              />
+              <span
+                class="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-ink transition"
+              />
+              <span
+                class="absolute inset-x-0 bottom-0 h-0.5 bg-ink transition"
+              />
+            </div>
+          </button>
+          <a
+            class="hidden items-center justify-center rounded-full border border-ink px-5 py-2 text-sm font-semibold text-ink shadow-soft transition hover:-translate-y-0.5 md:inline-flex"
+            data-discover="true"
+            href="/apply"
+          >
+            Apply
+          </a>
+        </div>
+      </div>
+      <div
+        class="w-full flex-col gap-5 md:w-auto md:flex-row md:items-center border-t pt-3 hidden md:flex"
+      >
+        <nav
+          class="flex flex-col gap-2 text-sm md:flex-row md:items-center md:gap-3 overflow-x-auto"
+        >
+          <a
+            aria-current="page"
+            class="rounded-full px-4 py-2 transition-all duration-150 truncate bg-ink text-white shadow-soft"
+            data-discover="true"
+            href="/"
+            title="Home"
+          >
+            Home
+          </a>
+          <a
+            class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
+            data-discover="true"
+            href="/organization-transformation"
+            title="Organization Transformation"
+          >
+            Organization Transformation
+          </a>
+          <a
+            class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
+            data-discover="true"
+            href="/future-talent-strategy"
+            title="Future Talent Strategy"
+          >
+            Future Talent Strategy
+          </a>
+          <a
+            class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
+            data-discover="true"
+            href="/risk-and-business-continuity"
+            title="Risk & Business Continuity"
+          >
+            Risk & Business Continuity
+          </a>
+          <a
+            class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
+            data-discover="true"
+            href="/insights"
+            title="Insights"
+          >
+            Insights
+          </a>
+          <a
+            class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
+            data-discover="true"
+            href="/work-with-me"
+            title="Work With Me"
+          >
+            Work With Me
+          </a>
+          <a
+            class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
+            data-discover="true"
+            href="/resources"
+            title="Resources"
+          >
+            Resources
+          </a>
+        </nav>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-ink px-4 py-3 text-sm font-semibold text-ink shadow-soft w-full md:hidden"
+          data-discover="true"
+          href="/apply"
+        >
+          Apply
+        </a>
+      </div>
+    </div>
+  </header>
+  <div
+    class="pointer-events-none fixed top-4 left-1/2 z-50 -translate-x-1/2 space-y-2"
+  />
+</div>
+`;

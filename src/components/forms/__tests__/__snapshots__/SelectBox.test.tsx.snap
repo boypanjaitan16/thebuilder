@@ -1,0 +1,72 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SelectBox > matches snapshot with default props 1`] = `
+<div>
+  <label
+    class="flex w-full flex-col gap-1 text-sm font-medium  text-ink"
+  >
+    Category
+    <select
+      aria-invalid="false"
+      class="w-full rounded-xl border bg-white px-4 py-3 text-base text-ink outline-none transition focus:ring-2 border-sand focus:border-ink focus:ring-ink/10"
+    >
+      <option
+        value="1"
+      >
+        Option 1
+      </option>
+      <option
+        value="2"
+      >
+        Option 2
+      </option>
+      <option
+        value="3"
+      >
+        Option 3
+      </option>
+    </select>
+  </label>
+</div>
+`;
+
+exports[`SelectBox > matches snapshot with error 1`] = `
+<div>
+  <label
+    class="flex w-full flex-col gap-1 text-sm font-medium  text-red-600"
+  >
+    Category
+    <select
+      aria-invalid="true"
+      class="w-full rounded-xl border bg-white px-4 py-3 text-base text-ink outline-none transition focus:ring-2 border-red-400 focus:border-red-500 focus:ring-red-200"
+    >
+      <option
+        disabled=""
+        value=""
+      >
+        Select...
+      </option>
+      <option
+        value="1"
+      >
+        Option 1
+      </option>
+      <option
+        value="2"
+      >
+        Option 2
+      </option>
+      <option
+        value="3"
+      >
+        Option 3
+      </option>
+    </select>
+    <span
+      class="text-xs text-red-600"
+    >
+      Required
+    </span>
+  </label>
+</div>
+`;

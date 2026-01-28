@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TextInput > matches snapshot with default props 1`] = `
+<div>
+  <label
+    class="flex w-full flex-col gap-1 text-sm font-medium  text-ink"
+  >
+    Email
+    <input
+      aria-invalid="false"
+      class="w-full rounded-xl border bg-white px-4 py-3 text-base text-ink outline-none transition focus:ring-2 border-sand focus:border-ink focus:ring-ink/10"
+    />
+  </label>
+</div>
+`;
+
+exports[`TextInput > matches snapshot with error 1`] = `
+<div>
+  <label
+    class="flex w-full flex-col gap-1 text-sm font-medium  text-red-600"
+  >
+    Email
+    <input
+      aria-invalid="true"
+      class="w-full rounded-xl border bg-white px-4 py-3 text-base text-ink outline-none transition focus:ring-2 border-red-400 focus:border-red-500 focus:ring-red-200"
+    />
+    <span
+      class="text-xs text-red-600"
+    >
+      Invalid email
+    </span>
+  </label>
+</div>
+`;
