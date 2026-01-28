@@ -4,12 +4,13 @@ import {
 	isSupported,
 	logEvent,
 } from "firebase/analytics";
+import { env } from "./env";
 import { getFirebaseApp } from "./firebase";
 
 let analyticsPromise: Promise<Analytics | null> | null = null;
 
 async function resolveAnalytics() {
-	if (!import.meta.env.VITE_FIREBASE_MEASUREMENT_ID) return null;
+	if (!env.firebaseMeasurementId) return null;
 	if (typeof window === "undefined") return null;
 	const supported = await isSupported();
 	if (!supported) return null;
@@ -24,7 +25,7 @@ export function initAnalytics() {
 }
 
 export async function trackPageView(path: string) {
-	// if (import.meta.env.MODE !== "production") return;
+	if (import.meta.env.MODE !== "production") return;
 	const analytics = await initAnalytics();
 
 	if (!analytics) return;

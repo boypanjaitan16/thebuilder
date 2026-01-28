@@ -33,7 +33,7 @@ export function Header() {
 								type="button"
 								onClick={() => setLanguage("en")}
 								className={classNames(
-									"rounded-full px-2 md:px-4 py-1 md:py-2 transition",
+									"rounded-full px-3 md:px-4 py-1 md:py-2 transition",
 									language === "en"
 										? "bg-ink text-white shadow-soft"
 										: "text-slate-700",
@@ -45,7 +45,7 @@ export function Header() {
 								type="button"
 								onClick={() => setLanguage("id")}
 								className={classNames(
-									"rounded-full px-2 md:px-4 py-1 md:py-2 transition",
+									"rounded-full px-3 md:px-4 py-1 md:py-2 transition",
 									language === "id"
 										? "bg-ink text-white shadow-soft"
 										: "text-slate-700",
