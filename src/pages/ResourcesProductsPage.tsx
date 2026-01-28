@@ -47,6 +47,8 @@ function ResourcesProductsPage() {
 									src={product.thumbnail_url}
 									className="w-full"
 									alt={product.name}
+									loading="lazy"
+									decoding="async"
 								/>
 								<div className="px-5 py-3">
 									<h4

@@ -112,6 +112,8 @@ function ProductsPage() {
 												src={product.thumbnail_url}
 												alt={`${product.name} thumbnail`}
 												className="h-14 w-14 rounded-lg object-cover ring-1 ring-sand"
+												loading="lazy"
+												decoding="async"
 											/>
 										) : (
 											<span className="text-xs text-slate-500">No image</span>

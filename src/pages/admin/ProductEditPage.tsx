@@ -217,6 +217,8 @@ function ProductEditPage() {
 									src={product.thumbnail_url}
 									alt={`${product.name} thumbnail`}
 									className="h-16 w-16 rounded-lg object-cover ring-1 ring-sand"
+									loading="lazy"
+									decoding="async"
 								/>
 								<span>Existing thumbnail</span>
 							</div>
