@@ -19,6 +19,12 @@ export const env = {
 	thumbnailBucket:
 		getEnvVar("VITE_SUPABASE_THUMBNAIL_BUCKET", false) || "product-thumbnails",
 
+	// Ghost Content API
+	ghostAdminDomain: getEnvVar("VITE_GHOST_ADMIN_DOMAIN", false),
+	ghostContentApiKey: getEnvVar("VITE_GHOST_CONTENT_API_KEY", false),
+	ghostContentApiVersion:
+		getEnvVar("VITE_GHOST_CONTENT_API_VERSION", false) || "v6.0",
+
 	// Firebase
 	firebaseApiKey: getEnvVar("VITE_FIREBASE_API_KEY", false),
 	firebaseAuthDomain: getEnvVar("VITE_FIREBASE_AUTH_DOMAIN", false),

@@ -200,6 +200,13 @@ export type Copy = {
 		heroTitle2: string;
 		heroBody1: string;
 		heroBody2: string;
+		publishedTitle: string;
+		publishedBody: string;
+		publishedLoading: string;
+		publishedEmpty: string;
+		publishedError: string;
+		publishedMissingConfig: string;
+		publishedNoImage: string;
 		featuredTitle: string;
 		featuredIntro: string;
 		featuredBody: string;
