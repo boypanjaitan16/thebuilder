@@ -2,7 +2,7 @@ import type { TableProps } from "antd";
 import { Alert, Button, Space, Table } from "antd";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ProductFormDrawer } from "../../components/ProductFormDrawer";
 import { useToast } from "../../components/ToastProvider";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
@@ -10,9 +10,10 @@ import { useGetProducts } from "../../hooks/useGetProducts";
 import type { Product } from "../../types/Product";
 
 function ProductsPage() {
-	const navigate = useNavigate();
 	const { showToast } = useToast();
 	const [products, setProducts] = useState<Product[]>([]);
+	const [drawerOpen, setDrawerOpen] = useState(false);
+	const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
 	const { fetchProducts: fetchProductsApi, loading, error } = useGetProducts();
 	const {
@@ -109,7 +110,10 @@ function ProductsPage() {
 				<Space>
 					<Button
 						icon={<Pencil size={14} />}
-						onClick={() => navigate(`/admin/products/${record.id}/edit`)}
+						onClick={() => {
+							setEditingProduct(record);
+							setDrawerOpen(true);
+						}}
 					>
 						Edit
 					</Button>
@@ -138,7 +142,10 @@ function ProductsPage() {
 					<Button
 						type="primary"
 						icon={<Plus size={16} />}
-						onClick={() => navigate("/admin/products/new")}
+						onClick={() => {
+							setEditingProduct(null);
+							setDrawerOpen(true);
+						}}
 						className="w-full md:w-auto"
 					>
 						Add Product
@@ -155,6 +162,15 @@ function ProductsPage() {
 				pagination={false}
 				locale={{ emptyText: "No products yet." }}
 				className="mt-5"
+			/>
+			<ProductFormDrawer
+				open={drawerOpen}
+				product={editingProduct}
+				onClose={() => setDrawerOpen(false)}
+				onSaved={() => {
+					setDrawerOpen(false);
+					void fetchProducts();
+				}}
 			/>
 		</section>
 	);

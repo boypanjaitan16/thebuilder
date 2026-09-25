@@ -78,7 +78,9 @@ describe("AdminHeader", () => {
 
 		renderWithMemoryRouter(<AdminHeader />);
 
-		expect(screen.getByRole("button", { name: "Home" })).toBeInTheDocument();
+		// Home button is icon-only (no accessible name) — it's the sole
+		// button AdminHeader renders in the unauthenticated state.
+		expect(screen.getByRole("button")).toBeInTheDocument();
 	});
 
 	it("shows user menu when authenticated", async () => {

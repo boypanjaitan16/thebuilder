@@ -33,7 +33,8 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
 - Routes under `/admin/**` guarded by `AdminGuard`.
 - Admin pages in `src/pages/admin/`.
 - Admin header uses dropdown (Profile/Password/Sign out).
-- UI built with Ant Design (`antd`) — `Form`/`Form.Item` used only as a layout shell (`onSubmitCapture={handleSubmit(fn)}`, no `name`/`rules`); `react-hook-form` + zod remain the only validation mechanism (`register()` spread directly onto antd `Input`/`Input.Password`/`Input.TextArea`). Icons from `lucide-react`.
+- Products: no separate create/edit pages — `src/pages/admin/ProductsPage.tsx` opens `src/components/ProductFormDrawer.tsx` (antd `Drawer`) for both create (`product: null`) and edit (`product: Product`). Edit reuses the row data already loaded by the table, no extra fetch.
+- UI built with Ant Design (`antd`) — `Form`/`Form.Item` used only as a layout shell (`onSubmitCapture={handleSubmit(fn)}`, no `name`/`rules`); `react-hook-form` + zod remain the only validation mechanism. **Wire every antd `Input`/`Input.Password`/`Input.TextArea` field via RHF's `Controller`, never a raw `register()` spread** — antd's `Input` forwards a custom `InputRef` object (`{focus, blur, input: HTMLInputElement, ...}`), not a native `HTMLInputElement`, so `register()`'s ref can't read `.value` at submit and every field silently validates as empty (real bug hit and fixed once already). Icons from `lucide-react`.
 - Admin pages, `AdminHeader`, and antd/lucide-react are all lazy-loaded (`React.lazy` in `src/App.tsx` and `src/components/Layout.tsx`) so the public site's bundle doesn't pay for admin-only dependencies. Keep new admin components behind these lazy boundaries rather than importing them eagerly from a public-reachable module.
 - Test env needs a `ResizeObserver` polyfill for antd overlays (`src/test/setup.ts`).
 
@@ -50,7 +51,7 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
 - Firestore: `src/lib/firebaseDb.ts` (`getFirestoreDb()`). Single `products` collection, doc id = `crypto.randomUUID()`, `created_at` stored as ISO string (not a Timestamp).
 - Storage: `src/lib/firebaseStorage.ts` (`getFirebaseStorage()`). Product thumbnails at `products/<uuid>.<ext>`, public read. Deletion uses `ref(storage, downloadURL)` + `deleteObject` — no URL parsing needed.
 - Hooks (one per API call):
-  - `useGetProducts`, `useGetProduct`, `useCreateProduct`, `useUpdateProduct`, `useDeleteProduct`
+  - `useGetProducts`, `useCreateProduct`, `useUpdateProduct`, `useDeleteProduct`
   - `useUploadProductThumbnail`, `useDeleteProductThumbnail`
 - Product delete also removes thumbnail from storage (orchestrated by the caller).
 - Analytics: `src/lib/analytics.ts`, route tracking via `src/components/AnalyticsTracker.tsx`, disabled in dev (`import.meta.env.MODE !== "production"`).

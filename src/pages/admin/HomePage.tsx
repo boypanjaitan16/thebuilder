@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { Package, Plus } from "lucide-react";
+import { Package } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -24,12 +24,6 @@ const HomePage = () => {
 					onClick={() => navigate("/admin/products")}
 				>
 					Manage Products
-				</Button>
-				<Button
-					icon={<Plus size={16} />}
-					onClick={() => navigate("/admin/products/new")}
-				>
-					Add Product
 				</Button>
 			</div>
 		</section>

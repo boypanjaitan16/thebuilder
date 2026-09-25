@@ -16,6 +16,12 @@ createRoot(document.getElementById("root")!).render(
 					// borderRadius: 10,
 					fontFamily: '"Work Sans", sans-serif',
 				},
+				components: {
+					Form: {
+						verticalLabelPadding: "0px",
+						labelColor: "#a5a5a5",
+					},
+				},
 			}}
 		>
 			<I18nProvider>

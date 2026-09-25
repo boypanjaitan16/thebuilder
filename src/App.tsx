@@ -29,12 +29,6 @@ import WorkWithMePage from "./pages/WorkWithMePage";
 const AdminPage = lazy(() => import("./pages/admin/HomePage"));
 const AdminLoginPage = lazy(() => import("./pages/admin/LoginPage"));
 const AdminPasswordPage = lazy(() => import("./pages/admin/PasswordPage"));
-const AdminProductCreatePage = lazy(
-	() => import("./pages/admin/ProductCreatePage"),
-);
-const AdminProductEditPage = lazy(
-	() => import("./pages/admin/ProductEditPage"),
-);
 const AdminProductsPage = lazy(() => import("./pages/admin/ProductsPage"));
 const AdminProfilePage = lazy(() => import("./pages/admin/ProfilePage"));
 
@@ -111,11 +105,6 @@ function App() {
 					>
 						<Route index element={<AdminPage />} />
 						<Route path="products" element={<AdminProductsPage />} />
-						<Route path="products/new" element={<AdminProductCreatePage />} />
-						<Route
-							path="products/:productId/edit"
-							element={<AdminProductEditPage />}
-						/>
 						<Route path="profile" element={<AdminProfilePage />} />
 						<Route path="password" element={<AdminPasswordPage />} />
 					</Route>
