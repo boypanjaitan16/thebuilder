@@ -60,7 +60,13 @@ export function prerender(paths: string[]): Plugin {
 			const baseUrl = `http://localhost:${address.port}`;
 
 			const { default: puppeteer } = await import("puppeteer");
-			const browser = await puppeteer.launch({ headless: true });
+			const browser = await puppeteer.launch({
+				headless: true,
+				// CI runners (Ubuntu 23.10+) restrict unprivileged user namespaces,
+				// which breaks Chrome's setuid sandbox. Safe here: we only crawl our
+				// own freshly built, trusted output, not external content.
+				args: ["--no-sandbox", "--disable-setuid-sandbox"],
+			});
 
 			try {
 				let homeHtml: string | undefined;
