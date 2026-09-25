@@ -82,3 +82,17 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
 ### Notes
 - Avoid `any` and type casts; prefer explicit input/output types from zod.
 - If you add new text fields, prefer `TextInput`; for selects use `SelectBox`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live as markdown files under `.scratch/<feature-slug>/`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default five-role vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout: one `CONTEXT.md` + `docs/adr/` at repo root. See `docs/agents/domain.md`.
