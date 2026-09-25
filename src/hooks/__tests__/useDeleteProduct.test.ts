@@ -2,24 +2,28 @@ import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useDeleteProduct } from "../useDeleteProduct";
 
-// Mock supabase
-vi.mock("../../lib/supabaseClient", () => ({
-	supabase: {
-		from: vi.fn(() => ({
-			delete: vi.fn(() => ({
-				eq: vi.fn(),
-			})),
-		})),
-	},
+vi.mock("firebase/firestore", () => ({
+	deleteDoc: vi.fn(),
+	doc: vi.fn(),
 }));
 
-import { supabase } from "../../lib/supabaseClient";
+vi.mock("../../lib/firebaseDb", () => ({
+	getFirestoreDb: vi.fn(),
+}));
 
-const mockFrom = supabase.from as ReturnType<typeof vi.fn>;
+import { deleteDoc, doc } from "firebase/firestore";
+import { getFirestoreDb } from "../../lib/firebaseDb";
+
+const mockGetFirestoreDb = vi.mocked(getFirestoreDb);
+const mockDoc = vi.mocked(doc);
+const mockDeleteDoc = vi.mocked(deleteDoc);
+
+const FAKE_DB = {} as ReturnType<typeof getFirestoreDb>;
 
 describe("useDeleteProduct", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
+		mockGetFirestoreDb.mockReturnValue(FAKE_DB);
 	});
 
 	it("initializes with default state", () => {
@@ -32,9 +36,7 @@ describe("useDeleteProduct", () => {
 	});
 
 	it("deletes product successfully", async () => {
-		const eqMock = vi.fn().mockResolvedValue({ error: null });
-		const deleteMock = vi.fn(() => ({ eq: eqMock }));
-		mockFrom.mockReturnValue({ delete: deleteMock });
+		mockDeleteDoc.mockResolvedValue(undefined);
 
 		const { result } = renderHook(() => useDeleteProduct());
 
@@ -45,17 +47,12 @@ describe("useDeleteProduct", () => {
 
 		expect(response!.success).toBe(true);
 		expect(result.current.error).toBeNull();
-		expect(mockFrom).toHaveBeenCalledWith("products");
-		expect(deleteMock).toHaveBeenCalled();
-		expect(eqMock).toHaveBeenCalledWith("id", "product-id-123");
+		expect(mockDoc).toHaveBeenCalledWith(FAKE_DB, "products", "product-id-123");
+		expect(mockDeleteDoc).toHaveBeenCalled();
 	});
 
 	it("handles error when deleting product fails", async () => {
-		const eqMock = vi.fn().mockResolvedValue({
-			error: { message: "Delete failed" },
-		});
-		const deleteMock = vi.fn(() => ({ eq: eqMock }));
-		mockFrom.mockReturnValue({ delete: deleteMock });
+		mockDeleteDoc.mockRejectedValue(new Error("Delete failed"));
 
 		const { result } = renderHook(() => useDeleteProduct());
 
@@ -69,28 +66,26 @@ describe("useDeleteProduct", () => {
 	});
 
 	it("sets loading state during deletion", async () => {
-		let resolveEq: (value: { error: null }) => void;
-		const eqPromise = new Promise<{ error: null }>((resolve) => {
-			resolveEq = resolve;
+		let resolveDelete: () => void;
+		const deletePromise = new Promise<void>((resolve) => {
+			resolveDelete = resolve;
 		});
-		const eqMock = vi.fn().mockReturnValue(eqPromise);
-		const deleteMock = vi.fn(() => ({ eq: eqMock }));
-		mockFrom.mockReturnValue({ delete: deleteMock });
+		mockDeleteDoc.mockReturnValue(deletePromise);
 
 		const { result } = renderHook(() => useDeleteProduct());
 
 		expect(result.current.loading).toBe(false);
 
-		let deletePromise: Promise<{ success: boolean }>;
+		let callPromise: Promise<{ success: boolean }>;
 		act(() => {
-			deletePromise = result.current.deleteProduct("product-id-123");
+			callPromise = result.current.deleteProduct("product-id-123");
 		});
 
 		expect(result.current.loading).toBe(true);
 
 		await act(async () => {
-			resolveEq!({ error: null });
-			await deletePromise;
+			resolveDelete?.();
+			await callPromise;
 		});
 
 		expect(result.current.loading).toBe(false);

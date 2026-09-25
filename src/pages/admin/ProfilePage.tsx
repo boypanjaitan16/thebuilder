@@ -1,10 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TextInput } from "../../components/forms/TextInput";
 import { useToast } from "../../components/ToastProvider";
-import { useSupabaseSession } from "../../hooks/useSupabaseSession";
-import { supabase } from "../../lib/supabaseClient";
+import { useFirebaseSession } from "../../hooks/useFirebaseSession";
+import { getFirebaseAuth, notifyAuthUserRefresh } from "../../lib/firebaseAuth";
 import {
 	type AdminProfileFormValues,
 	type AdminProfileFormValuesInput,
@@ -12,7 +13,7 @@ import {
 } from "../../schemas/adminProfileSchema";
 
 function ProfilePage() {
-	const { session } = useSupabaseSession();
+	const { user } = useFirebaseSession();
 	const { showToast } = useToast();
 	const [error, setError] = useState<string | null>(null);
 
@@ -29,27 +30,28 @@ function ProfilePage() {
 	});
 
 	useEffect(() => {
-		if (!session?.user) return;
-		const metadata = session.user.user_metadata || {};
+		if (!user) return;
 		reset({
-			fullName: (metadata.full_name as string) || "",
+			fullName: user.displayName || "",
 		});
-	}, [reset, session]);
+	}, [reset, user]);
 
 	const onSubmit = async (values: AdminProfileFormValues) => {
 		setError(null);
-		const { error: updateError } = await supabase.auth.updateUser({
-			data: {
-				full_name: values.fullName,
-			},
-		});
-
-		if (updateError) {
-			setError(updateError.message);
+		const auth = getFirebaseAuth();
+		if (!auth?.currentUser) {
+			setError("No authenticated user.");
 			return;
 		}
-
-		showToast("Profile updated successfully", { tone: "success" });
+		try {
+			await updateProfile(auth.currentUser, { displayName: values.fullName });
+			notifyAuthUserRefresh();
+			showToast("Profile updated successfully", { tone: "success" });
+		} catch (err) {
+			setError(
+				err instanceof Error ? err.message : "Failed to update profile.",
+			);
+		}
 	};
 
 	return (
@@ -75,7 +77,7 @@ function ProfilePage() {
 						inputProps={{
 							type: "email",
 							readOnly: true,
-							value: session?.user.email || "",
+							value: user?.email || "",
 						}}
 						inputClassName="border-sand bg-slate-50 text-slate-500"
 					/>

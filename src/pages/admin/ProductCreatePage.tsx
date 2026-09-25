@@ -73,8 +73,8 @@ function ProductCreatePage() {
 							Create product
 						</h1>
 						<p className="text-sm text-slate-600">
-							Save products into Supabase. RLS should allow only admins to
-							write.
+							Save products into Firestore. Any signed-in admin can create,
+							edit, or delete products.
 						</p>
 					</div>
 					<button
@@ -125,8 +125,8 @@ function ProductCreatePage() {
 							className="w-full rounded-xl border border-sand bg-white px-2 py-1.5 text-sm text-ink file:mr-3 file:rounded-lg file:border-none file:bg-ink file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
 						/>
 						<span className="text-xs font-normal text-slate-600">
-							Upload a small image (e.g., &lt;1MB). Stored in the public
-							thumbnail bucket.
+							Upload a small image (e.g., &lt;1MB). Stored in Firebase Storage
+							under the public products/ path.
 						</span>
 					</label>
 					<TextInput

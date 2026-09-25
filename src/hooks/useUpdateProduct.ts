@@ -1,5 +1,6 @@
+import { doc, updateDoc } from "firebase/firestore";
 import { useCallback, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { getFirestoreDb } from "../lib/firebaseDb";
 import type { ProductUpdateValues } from "../schemas/productUpdateSchema";
 
 export function useUpdateProduct() {
@@ -7,19 +8,33 @@ export function useUpdateProduct() {
 	const [error, setError] = useState<string | null>(null);
 
 	const updateProduct = useCallback(
-		async (id: string, values: ProductUpdateValues, extra: { thumbnail_url?: string | null }) => {
-			setLoading(true);
-			setError(null);
-			const { error: updateError } = await supabase
-				.from("products")
-				.update({ ...values, thumbnail_url: extra.thumbnail_url })
-				.eq("id", id);
-			setLoading(false);
-			if (updateError) {
-				setError(updateError.message);
+		async (
+			id: string,
+			values: ProductUpdateValues,
+			extra: { thumbnail_url?: string | null },
+		) => {
+			const db = getFirestoreDb();
+			if (!db) {
+				setError("Firebase is not configured.");
 				return { success: false };
 			}
-			return { success: true };
+
+			setLoading(true);
+			setError(null);
+			try {
+				await updateDoc(doc(db, "products", id), {
+					...values,
+					thumbnail_url: extra.thumbnail_url,
+				});
+				return { success: true };
+			} catch (err) {
+				setError(
+					err instanceof Error ? err.message : "Failed to update product.",
+				);
+				return { success: false };
+			} finally {
+				setLoading(false);
+			}
 		},
 		[],
 	);

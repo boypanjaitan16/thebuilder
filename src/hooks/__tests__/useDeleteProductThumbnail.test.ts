@@ -2,30 +2,28 @@ import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useDeleteProductThumbnail } from "../useDeleteProductThumbnail";
 
-// Mock dependencies
-vi.mock("../../lib/supabaseClient", () => ({
-	supabase: {
-		storage: {
-			from: vi.fn(() => ({
-				remove: vi.fn(),
-			})),
-		},
-	},
+vi.mock("firebase/storage", () => ({
+	deleteObject: vi.fn(),
+	ref: vi.fn(),
 }));
 
-vi.mock("../../lib/supabaseStorage", () => ({
-	getStoragePathFromPublicUrl: vi.fn(),
+vi.mock("../../lib/firebaseStorage", () => ({
+	getFirebaseStorage: vi.fn(),
 }));
 
-import { supabase } from "../../lib/supabaseClient";
-import { getStoragePathFromPublicUrl } from "../../lib/supabaseStorage";
+import { deleteObject, ref } from "firebase/storage";
+import { getFirebaseStorage } from "../../lib/firebaseStorage";
 
-const mockStorageFrom = supabase.storage.from as ReturnType<typeof vi.fn>;
-const MockedGetStoragePath = vi.mocked(getStoragePathFromPublicUrl);
+const mockGetFirebaseStorage = vi.mocked(getFirebaseStorage);
+const mockRef = vi.mocked(ref);
+const mockDeleteObject = vi.mocked(deleteObject);
+
+const FAKE_STORAGE = {} as ReturnType<typeof getFirebaseStorage>;
 
 describe("useDeleteProductThumbnail", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
+		mockGetFirebaseStorage.mockReturnValue(FAKE_STORAGE);
 	});
 
 	it("initializes with default state", () => {
@@ -46,61 +44,39 @@ describe("useDeleteProductThumbnail", () => {
 		});
 
 		expect(response!.success).toBe(true);
-		expect(mockStorageFrom).not.toHaveBeenCalled();
-	});
-
-	it("returns error when path cannot be extracted", async () => {
-		MockedGetStoragePath.mockReturnValue(null);
-
-		const { result } = renderHook(() => useDeleteProductThumbnail());
-
-		let response: { success: boolean };
-		await act(async () => {
-			response = await result.current.deleteThumbnail(
-				"https://invalid-url.com",
-			);
-		});
-
-		expect(response!.success).toBe(false);
-		expect(result.current.error).toBe("Invalid thumbnail URL.");
+		expect(mockDeleteObject).not.toHaveBeenCalled();
 	});
 
 	it("deletes thumbnail successfully", async () => {
-		MockedGetStoragePath.mockReturnValue("products/image.jpg");
-		const removeMock = vi.fn().mockResolvedValue({ error: null });
-		mockStorageFrom.mockReturnValue({
-			remove: removeMock,
-		});
+		mockDeleteObject.mockResolvedValue(undefined);
 
 		const { result } = renderHook(() => useDeleteProductThumbnail());
 
 		let response: { success: boolean };
 		await act(async () => {
 			response = await result.current.deleteThumbnail(
-				"https://supabase.co/storage/v1/object/public/product-thumbnails/products/image.jpg",
+				"https://firebasestorage.googleapis.com/v0/b/app/o/products%2Fimage.jpg?alt=media",
 			);
 		});
 
 		expect(response!.success).toBe(true);
 		expect(result.current.error).toBeNull();
-		expect(removeMock).toHaveBeenCalledWith(["products/image.jpg"]);
+		expect(mockRef).toHaveBeenCalledWith(
+			FAKE_STORAGE,
+			"https://firebasestorage.googleapis.com/v0/b/app/o/products%2Fimage.jpg?alt=media",
+		);
+		expect(mockDeleteObject).toHaveBeenCalled();
 	});
 
 	it("handles error when deleting fails", async () => {
-		MockedGetStoragePath.mockReturnValue("products/image.jpg");
-		const removeMock = vi.fn().mockResolvedValue({
-			error: { message: "Delete failed" },
-		});
-		mockStorageFrom.mockReturnValue({
-			remove: removeMock,
-		});
+		mockDeleteObject.mockRejectedValue(new Error("Delete failed"));
 
 		const { result } = renderHook(() => useDeleteProductThumbnail());
 
 		let response: { success: boolean };
 		await act(async () => {
 			response = await result.current.deleteThumbnail(
-				"https://supabase.co/storage/v1/object/public/product-thumbnails/products/image.jpg",
+				"https://firebasestorage.googleapis.com/v0/b/app/o/products%2Fimage.jpg?alt=media",
 			);
 		});
 
@@ -109,23 +85,19 @@ describe("useDeleteProductThumbnail", () => {
 	});
 
 	it("sets loading state during deletion", async () => {
-		MockedGetStoragePath.mockReturnValue("products/image.jpg");
-		let resolveRemove: (value: { error: null }) => void;
-		const removePromise = new Promise<{ error: null }>((resolve) => {
-			resolveRemove = resolve;
+		let resolveDelete: () => void;
+		const deletePromise = new Promise<void>((resolve) => {
+			resolveDelete = resolve;
 		});
-		const removeMock = vi.fn().mockReturnValue(removePromise);
-		mockStorageFrom.mockReturnValue({
-			remove: removeMock,
-		});
+		mockDeleteObject.mockReturnValue(deletePromise);
 
 		const { result } = renderHook(() => useDeleteProductThumbnail());
 
 		expect(result.current.loading).toBe(false);
 
-		let deletePromise: Promise<{ success: boolean }>;
+		let deletePromiseResult: Promise<{ success: boolean }>;
 		act(() => {
-			deletePromise = result.current.deleteThumbnail(
+			deletePromiseResult = result.current.deleteThumbnail(
 				"https://example.com/image.jpg",
 			);
 		});
@@ -133,8 +105,8 @@ describe("useDeleteProductThumbnail", () => {
 		expect(result.current.loading).toBe(true);
 
 		await act(async () => {
-			resolveRemove!({ error: null });
-			await deletePromise;
+			resolveDelete?.();
+			await deletePromiseResult;
 		});
 
 		expect(result.current.loading).toBe(false);

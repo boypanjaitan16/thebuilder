@@ -7,8 +7,7 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
 - TailwindCSS
 - Biome (formatter/linter)
 - react-hook-form + zod
-- Supabase (auth + DB + storage)
-- Firebase Analytics (GA4)
+- Firebase (Auth, Firestore, Storage, Analytics/GA4)
 
 ### Key directories
 - `src/pages/` public pages
@@ -17,7 +16,7 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
 - `src/components/forms/` input components
 - `src/i18n/` locales + provider
 - `src/hooks/` per-API hooks
-- `src/lib/` infra helpers (supabase, firebase, analytics)
+- `src/lib/` infra helpers (firebase, analytics)
 
 ### i18n
 - Locales: `src/i18n/locales/en.json`, `src/i18n/locales/id.json`
@@ -41,21 +40,18 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
   - `TextInput` supports `errorMessage` and renders red border + helper text.
   - `SelectBox` supports `errorMessage` and placeholder.
 
-### Supabase
-- Client: `src/lib/supabaseClient.ts`
-- Auth: admin login, profile update, password update.
-- Storage: product thumbnails uploaded to public bucket.
+### Firebase
+- App config: `src/lib/firebase.ts` (`getFirebaseApp()`, lazy singleton, null if config incomplete).
+- Auth: `src/lib/firebaseAuth.ts` (`getFirebaseAuth()`). Admin login, profile update (`displayName`), password update. Session hook: `useFirebaseSession` (`{ user, checking, isAuthenticated }`). No role/claims — any signed-in user is treated as admin.
+- Firestore: `src/lib/firebaseDb.ts` (`getFirestoreDb()`). Single `products` collection, doc id = `crypto.randomUUID()`, `created_at` stored as ISO string (not a Timestamp).
+- Storage: `src/lib/firebaseStorage.ts` (`getFirebaseStorage()`). Product thumbnails at `products/<uuid>.<ext>`, public read. Deletion uses `ref(storage, downloadURL)` + `deleteObject` — no URL parsing needed.
 - Hooks (one per API call):
   - `useGetProducts`, `useGetProduct`, `useCreateProduct`, `useUpdateProduct`, `useDeleteProduct`
   - `useUploadProductThumbnail`, `useDeleteProductThumbnail`
-- Product delete also removes thumbnail from storage.
-- Thumbnail deletion uses URL parsing in `src/lib/supabaseStorage.ts`.
-
-### Firebase Analytics
-- Firebase config: `src/lib/firebase.ts`
-- Analytics: `src/lib/analytics.ts`
-- Route tracking: `src/components/AnalyticsTracker.tsx`
-- Analytics disabled in dev (`import.meta.env.MODE !== "production"`).
+- Product delete also removes thumbnail from storage (orchestrated by the caller).
+- Analytics: `src/lib/analytics.ts`, route tracking via `src/components/AnalyticsTracker.tsx`, disabled in dev (`import.meta.env.MODE !== "production"`).
+- Security rules: `firestore.rules` + `storage.rules` (public read, `request.auth != null` for write), deployed manually via `firebase deploy --only storage,firestore:rules` (config in `firebase.json`/`.firebaserc`, not part of CI). Use `--only storage` (not `storage:rules`) since this project has no named storage deploy target — `storage:rules` only works with a target set up via `firebase target:apply`.
+- Admin accounts are created manually via Firebase Console → Authentication (no bootstrap script).
 - Env keys:
   - `VITE_FIREBASE_API_KEY`
   - `VITE_FIREBASE_AUTH_DOMAIN`

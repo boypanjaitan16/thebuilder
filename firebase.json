@@ -1,0 +1,9 @@
+{
+	"firestore": {
+		"rules": "firestore.rules"
+	},
+	"storage": {
+		"bucket": "the-builder-12fe5.firebasestorage.app",
+		"rules": "storage.rules"
+	}
+}

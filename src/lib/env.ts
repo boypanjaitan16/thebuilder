@@ -13,12 +13,6 @@ const getEnvVar = (key: string, required = true): string => {
 };
 
 export const env = {
-	// Supabase
-	supabaseUrl: getEnvVar("VITE_SUPABASE_URL"),
-	supabaseAnonKey: getEnvVar("VITE_SUPABASE_ANON_KEY"),
-	thumbnailBucket:
-		getEnvVar("VITE_SUPABASE_THUMBNAIL_BUCKET", false) || "product-thumbnails",
-
 	// Ghost Content API
 	ghostAdminDomain: getEnvVar("VITE_GHOST_ADMIN_DOMAIN", false),
 	ghostContentApiKey: getEnvVar("VITE_GHOST_CONTENT_API_KEY", false),

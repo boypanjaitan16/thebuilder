@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "the-builder-12fe5",
+    "thebuilder-production": "the-builder-12fe5"
+  },
+  "targets": {},
+  "etags": {}
+}

@@ -4,35 +4,37 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { renderWithMemoryRouter } from "../../test/test-utils";
 import { AdminHeader } from "../AdminHeader";
 
-// Mock dependencies
-vi.mock("../../hooks/useSupabaseSession", () => ({
-	useSupabaseSession: vi.fn(),
+vi.mock("../../hooks/useFirebaseSession", () => ({
+	useFirebaseSession: vi.fn(),
 }));
 
-vi.mock("../../lib/supabaseClient", () => ({
-	supabase: {
-		auth: {
-			signOut: vi.fn(),
-		},
-	},
+vi.mock("firebase/auth", () => ({
+	signOut: vi.fn(),
 }));
 
-import { useSupabaseSession } from "../../hooks/useSupabaseSession";
-import { supabase } from "../../lib/supabaseClient";
+vi.mock("../../lib/firebaseAuth", () => ({
+	getFirebaseAuth: vi.fn(),
+}));
 
-const MockedUseSupabaseSession = vi.mocked(useSupabaseSession);
-const mockSignOut = supabase.auth.signOut as ReturnType<typeof vi.fn>;
+import { signOut } from "firebase/auth";
+import { useFirebaseSession } from "../../hooks/useFirebaseSession";
+import { getFirebaseAuth } from "../../lib/firebaseAuth";
+
+const MockedUseFirebaseSession = vi.mocked(useFirebaseSession);
+const mockGetFirebaseAuth = vi.mocked(getFirebaseAuth);
+const mockSignOut = vi.mocked(signOut);
 
 describe("AdminHeader", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
+		mockGetFirebaseAuth.mockReturnValue({} as never);
 	});
 
 	it("matches snapshot when not authenticated", () => {
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: false,
-			session: null,
+			user: null,
 		});
 
 		const { container } = renderWithMemoryRouter(<AdminHeader />);
@@ -40,16 +42,14 @@ describe("AdminHeader", () => {
 	});
 
 	it("matches snapshot when authenticated", () => {
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: true,
-			session: {
-				user: {
-					id: "1",
-					email: "admin@example.com",
-					user_metadata: { full_name: "Test Admin" },
-				},
-			} as unknown as ReturnType<typeof useSupabaseSession>["session"],
+			user: {
+				uid: "1",
+				email: "admin@example.com",
+				displayName: "Test Admin",
+			} as unknown as ReturnType<typeof useFirebaseSession>["user"],
 		});
 
 		const { container } = renderWithMemoryRouter(<AdminHeader />);
@@ -57,10 +57,10 @@ describe("AdminHeader", () => {
 	});
 
 	it("renders header with brand name", () => {
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: false,
-			session: null,
+			user: null,
 		});
 
 		renderWithMemoryRouter(<AdminHeader />);
@@ -70,10 +70,10 @@ describe("AdminHeader", () => {
 	});
 
 	it("shows Home link when not authenticated", () => {
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: false,
-			session: null,
+			user: null,
 		});
 
 		renderWithMemoryRouter(<AdminHeader />);
@@ -83,16 +83,14 @@ describe("AdminHeader", () => {
 
 	it("shows user menu when authenticated", async () => {
 		const user = userEvent.setup();
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: true,
-			session: {
-				user: {
-					id: "1",
-					email: "admin@example.com",
-					user_metadata: { full_name: "Test Admin" },
-				},
-			} as unknown as ReturnType<typeof useSupabaseSession>["session"],
+			user: {
+				uid: "1",
+				email: "admin@example.com",
+				displayName: "Test Admin",
+			} as unknown as ReturnType<typeof useFirebaseSession>["user"],
 		});
 
 		renderWithMemoryRouter(<AdminHeader />);
@@ -114,17 +112,15 @@ describe("AdminHeader", () => {
 		).toBeInTheDocument();
 	});
 
-	it("shows 'Administrator' when no full_name in metadata", () => {
-		MockedUseSupabaseSession.mockReturnValue({
+	it("shows 'Administrator' when no displayName", () => {
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: true,
-			session: {
-				user: {
-					id: "1",
-					email: "admin@example.com",
-					user_metadata: {},
-				},
-			} as unknown as ReturnType<typeof useSupabaseSession>["session"],
+			user: {
+				uid: "1",
+				email: "admin@example.com",
+				displayName: null,
+			} as unknown as ReturnType<typeof useFirebaseSession>["user"],
 		});
 
 		renderWithMemoryRouter(<AdminHeader />);
@@ -136,26 +132,23 @@ describe("AdminHeader", () => {
 
 	it("handles sign out successfully", async () => {
 		const user = userEvent.setup();
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: true,
-			session: {
-				user: {
-					id: "1",
-					email: "admin@example.com",
-					user_metadata: { full_name: "Test Admin" },
-				},
-			} as unknown as ReturnType<typeof useSupabaseSession>["session"],
+			user: {
+				uid: "1",
+				email: "admin@example.com",
+				displayName: "Test Admin",
+			} as unknown as ReturnType<typeof useFirebaseSession>["user"],
 		});
 
-		mockSignOut.mockResolvedValue({ error: null });
+		mockSignOut.mockResolvedValue(undefined);
 
 		renderWithMemoryRouter(<AdminHeader />);
 
 		const menuButton = screen.getByRole("button", { name: "Test Admin" });
 		await user.click(menuButton);
 
-		// Wait for menu to appear and find Sign Out button
 		const signOutButton = await screen.findByRole("button", {
 			name: /sign out/i,
 		});
@@ -166,16 +159,14 @@ describe("AdminHeader", () => {
 
 	it("closes menu when navigating", async () => {
 		const user = userEvent.setup();
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: true,
-			session: {
-				user: {
-					id: "1",
-					email: "admin@example.com",
-					user_metadata: { full_name: "Test Admin" },
-				},
-			} as unknown as ReturnType<typeof useSupabaseSession>["session"],
+			user: {
+				uid: "1",
+				email: "admin@example.com",
+				displayName: "Test Admin",
+			} as unknown as ReturnType<typeof useFirebaseSession>["user"],
 		});
 
 		renderWithMemoryRouter(<AdminHeader />);
@@ -183,7 +174,6 @@ describe("AdminHeader", () => {
 		await user.click(screen.getByRole("button", { name: "Test Admin" }));
 		expect(screen.getByRole("menu")).toBeInTheDocument();
 
-		// Toggle the menu again
 		await user.click(screen.getByRole("button", { name: "Test Admin" }));
 		expect(screen.queryByRole("menu")).not.toBeInTheDocument();
 	});

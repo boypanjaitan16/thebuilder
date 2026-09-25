@@ -1,6 +1,6 @@
+import { deleteObject, ref } from "firebase/storage";
 import { useCallback, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
-import { getStoragePathFromPublicUrl } from "../lib/supabaseStorage";
+import { getFirebaseStorage } from "../lib/firebaseStorage";
 
 export function useDeleteProductThumbnail() {
 	const [loading, setLoading] = useState(false);
@@ -8,27 +8,26 @@ export function useDeleteProductThumbnail() {
 
 	const deleteThumbnail = useCallback(async (url: string | null) => {
 		if (!url) return { success: true };
-		const bucket =
-			import.meta.env.VITE_SUPABASE_THUMBNAIL_BUCKET || "product-thumbnails";
-		const path = getStoragePathFromPublicUrl(url, bucket);
-		if (!path) {
-			setError("Invalid thumbnail URL.");
+
+		const storage = getFirebaseStorage();
+		if (!storage) {
+			setError("Firebase is not configured.");
 			return { success: false };
 		}
 
 		setLoading(true);
 		setError(null);
-		const { error: deleteError } = await supabase.storage
-			.from(bucket)
-			.remove([path]);
-		setLoading(false);
-
-		if (deleteError) {
-			setError(deleteError.message);
+		try {
+			await deleteObject(ref(storage, url));
+			return { success: true };
+		} catch (err) {
+			setError(
+				err instanceof Error ? err.message : "Failed to delete thumbnail.",
+			);
 			return { success: false };
+		} finally {
+			setLoading(false);
 		}
-
-		return { success: true };
 	}, []);
 
 	return { deleteThumbnail, loading, error, setError };

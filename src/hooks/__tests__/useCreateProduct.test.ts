@@ -2,22 +2,28 @@ import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useCreateProduct } from "../useCreateProduct";
 
-// Mock supabase
-vi.mock("../../lib/supabaseClient", () => ({
-	supabase: {
-		from: vi.fn(() => ({
-			insert: vi.fn(),
-		})),
-	},
+vi.mock("firebase/firestore", () => ({
+	doc: vi.fn(),
+	setDoc: vi.fn(),
 }));
 
-import { supabase } from "../../lib/supabaseClient";
+vi.mock("../../lib/firebaseDb", () => ({
+	getFirestoreDb: vi.fn(),
+}));
 
-const mockFrom = supabase.from as ReturnType<typeof vi.fn>;
+import { doc, setDoc } from "firebase/firestore";
+import { getFirestoreDb } from "../../lib/firebaseDb";
+
+const mockGetFirestoreDb = vi.mocked(getFirestoreDb);
+const mockDoc = vi.mocked(doc);
+const mockSetDoc = vi.mocked(setDoc);
+
+const FAKE_DB = {} as ReturnType<typeof getFirestoreDb>;
 
 describe("useCreateProduct", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
+		mockGetFirestoreDb.mockReturnValue(FAKE_DB);
 	});
 
 	it("initializes with default state", () => {
@@ -30,8 +36,7 @@ describe("useCreateProduct", () => {
 	});
 
 	it("creates product successfully", async () => {
-		const insertMock = vi.fn().mockResolvedValue({ error: null });
-		mockFrom.mockReturnValue({ insert: insertMock });
+		mockSetDoc.mockResolvedValue(undefined);
 
 		const { result } = renderHook(() => useCreateProduct());
 
@@ -50,21 +55,27 @@ describe("useCreateProduct", () => {
 
 		expect(response!.success).toBe(true);
 		expect(result.current.error).toBeNull();
-		expect(mockFrom).toHaveBeenCalledWith("products");
-		expect(insertMock).toHaveBeenCalledWith({
-			name: "Test Product",
-			description: "Description",
-			price: 100,
-			marketplace_url: "https://example.com",
-			thumbnail_url: "https://example.com/thumb.jpg",
-		});
+		expect(mockDoc).toHaveBeenCalledWith(
+			FAKE_DB,
+			"products",
+			expect.any(String),
+		);
+		expect(mockSetDoc).toHaveBeenCalledWith(
+			undefined,
+			expect.objectContaining({
+				id: expect.any(String),
+				name: "Test Product",
+				description: "Description",
+				price: 100,
+				marketplace_url: "https://example.com",
+				thumbnail_url: "https://example.com/thumb.jpg",
+				created_at: expect.any(String),
+			}),
+		);
 	});
 
 	it("handles error when creating product fails", async () => {
-		const insertMock = vi.fn().mockResolvedValue({
-			error: { message: "Insert failed" },
-		});
-		mockFrom.mockReturnValue({ insert: insertMock });
+		mockSetDoc.mockRejectedValue(new Error("Insert failed"));
 
 		const { result } = renderHook(() => useCreateProduct());
 
@@ -86,12 +97,11 @@ describe("useCreateProduct", () => {
 	});
 
 	it("sets loading state during creation", async () => {
-		let resolveInsert: (value: { error: null }) => void;
-		const insertPromise = new Promise<{ error: null }>((resolve) => {
-			resolveInsert = resolve;
+		let resolveSetDoc: () => void;
+		const setDocPromise = new Promise<void>((resolve) => {
+			resolveSetDoc = resolve;
 		});
-		const insertMock = vi.fn().mockReturnValue(insertPromise);
-		mockFrom.mockReturnValue({ insert: insertMock });
+		mockSetDoc.mockReturnValue(setDocPromise);
 
 		const { result } = renderHook(() => useCreateProduct());
 
@@ -113,7 +123,7 @@ describe("useCreateProduct", () => {
 		expect(result.current.loading).toBe(true);
 
 		await act(async () => {
-			resolveInsert!({ error: null });
+			resolveSetDoc?.();
 			await createPromise;
 		});
 

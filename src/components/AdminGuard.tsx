@@ -1,10 +1,10 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useSupabaseSession } from "../hooks/useSupabaseSession";
+import { useFirebaseSession } from "../hooks/useFirebaseSession";
 import LoadingIndicator from "./LoadingIndicator";
 
 export function AdminGuard() {
 	const location = useLocation();
-	const { checking, isAuthenticated } = useSupabaseSession();
+	const { checking, isAuthenticated } = useFirebaseSession();
 
 	if (checking) {
 		return (

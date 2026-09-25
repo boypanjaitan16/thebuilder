@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import classNames from "classnames";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { TextInput } from "../../components/forms/TextInput";
-import { supabase } from "../../lib/supabaseClient";
+import { getFirebaseAuth } from "../../lib/firebaseAuth";
 import {
 	type AdminLoginValues,
 	adminLoginSchema,
@@ -23,13 +24,19 @@ function LoginPage() {
 	});
 
 	const onLogin = async (values: AdminLoginValues) => {
-		const { error: loginError } =
-			await supabase.auth.signInWithPassword(values);
-		if (loginError) {
-			setError("email", { message: loginError.message });
+		const auth = getFirebaseAuth();
+		if (!auth) {
+			setError("email", { message: "Firebase is not configured." });
 			return;
 		}
-		navigate("/admin");
+		try {
+			await signInWithEmailAndPassword(auth, values.email, values.password);
+			navigate("/admin");
+		} catch (err) {
+			setError("email", {
+				message: err instanceof Error ? err.message : "Failed to sign in.",
+			});
+		}
 	};
 
 	return (

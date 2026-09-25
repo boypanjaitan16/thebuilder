@@ -1,5 +1,6 @@
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { useCallback, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { getFirestoreDb } from "../lib/firebaseDb";
 import type { Product } from "../types/Product";
 
 export function useGetProducts() {
@@ -7,18 +8,27 @@ export function useGetProducts() {
 	const [error, setError] = useState<string | null>(null);
 
 	const fetchProducts = useCallback(async (): Promise<Product[]> => {
-		setLoading(true);
-		setError(null);
-		const { data, error: fetchError } = await supabase
-			.from("products")
-			.select("*")
-			.order("created_at", { ascending: false });
-		setLoading(false);
-		if (fetchError) {
-			setError(fetchError.message);
+		const db = getFirestoreDb();
+		if (!db) {
+			setError("Firebase is not configured.");
 			return [];
 		}
-		return (data || []) as Product[];
+
+		setLoading(true);
+		setError(null);
+		try {
+			const snapshot = await getDocs(
+				query(collection(db, "products"), orderBy("created_at", "desc")),
+			);
+			return snapshot.docs.map((doc) => doc.data() as Product);
+		} catch (err) {
+			setError(
+				err instanceof Error ? err.message : "Failed to fetch products.",
+			);
+			return [];
+		} finally {
+			setLoading(false);
+		}
 	}, []);
 
 	return { loading, error, fetchProducts, setError };

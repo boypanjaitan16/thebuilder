@@ -1,5 +1,6 @@
+import { doc, setDoc } from "firebase/firestore";
 import { useCallback, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { getFirestoreDb } from "../lib/firebaseDb";
 import type { ProductCreateValues } from "../schemas/productCreateSchema";
 
 export function useCreateProduct() {
@@ -7,19 +8,35 @@ export function useCreateProduct() {
 	const [error, setError] = useState<string | null>(null);
 
 	const createProduct = useCallback(
-		async (values: ProductCreateValues, extra: { thumbnail_url: string | null }) => {
-			setLoading(true);
-			setError(null);
-			const { error: insertError } = await supabase.from("products").insert({
-				...values,
-				thumbnail_url: extra.thumbnail_url,
-			});
-			setLoading(false);
-			if (insertError) {
-				setError(insertError.message);
+		async (
+			values: ProductCreateValues,
+			extra: { thumbnail_url: string | null },
+		) => {
+			const db = getFirestoreDb();
+			if (!db) {
+				setError("Firebase is not configured.");
 				return { success: false };
 			}
-			return { success: true };
+
+			setLoading(true);
+			setError(null);
+			try {
+				const id = crypto.randomUUID();
+				await setDoc(doc(db, "products", id), {
+					id,
+					...values,
+					thumbnail_url: extra.thumbnail_url,
+					created_at: new Date().toISOString(),
+				});
+				return { success: true };
+			} catch (err) {
+				setError(
+					err instanceof Error ? err.message : "Failed to create product.",
+				);
+				return { success: false };
+			} finally {
+				setLoading(false);
+			}
 		},
 		[],
 	);

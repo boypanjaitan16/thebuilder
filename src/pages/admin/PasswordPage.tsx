@@ -1,10 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+	EmailAuthProvider,
+	reauthenticateWithCredential,
+	updatePassword,
+} from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TextInput } from "../../components/forms/TextInput";
 import { useToast } from "../../components/ToastProvider";
-import { useSupabaseSession } from "../../hooks/useSupabaseSession";
-import { supabase } from "../../lib/supabaseClient";
+import { useFirebaseSession } from "../../hooks/useFirebaseSession";
+import { getFirebaseAuth } from "../../lib/firebaseAuth";
 import {
 	type AdminPasswordFormValues,
 	type AdminPasswordFormValuesInput,
@@ -12,7 +17,7 @@ import {
 } from "../../schemas/adminPasswordSchema";
 
 function PasswordPage() {
-	const { session } = useSupabaseSession();
+	const { user } = useFirebaseSession();
 	const { showToast } = useToast();
 	const [error, setError] = useState<string | null>(null);
 
@@ -34,30 +39,27 @@ function PasswordPage() {
 
 	const onSubmit = async (values: AdminPasswordFormValues) => {
 		setError(null);
-		const email = session?.user?.email;
-		if (!email) {
+		const auth = getFirebaseAuth();
+		const email = auth?.currentUser?.email ?? user?.email;
+		if (!auth?.currentUser || !email) {
 			setError("No email available for this account.");
 			return;
 		}
 
-		const { error: reauthError } = await supabase.auth.signInWithPassword({
-			email,
-			password: values.currentPassword,
-		});
-		if (reauthError) {
-			setError(reauthError.message);
-			return;
+		try {
+			const credential = EmailAuthProvider.credential(
+				email,
+				values.currentPassword,
+			);
+			await reauthenticateWithCredential(auth.currentUser, credential);
+			await updatePassword(auth.currentUser, values.newPassword);
+			reset();
+			showToast("Password updated successfully", { tone: "success" });
+		} catch (err) {
+			setError(
+				err instanceof Error ? err.message : "Failed to update password.",
+			);
 		}
-
-		const { error: updateError } = await supabase.auth.updateUser({
-			password: values.newPassword,
-		});
-		if (updateError) {
-			setError(updateError.message);
-			return;
-		}
-		reset();
-		showToast("Password updated successfully", { tone: "success" });
 	};
 
 	return (

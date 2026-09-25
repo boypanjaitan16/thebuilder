@@ -2,24 +2,28 @@ import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useUpdateProduct } from "../useUpdateProduct";
 
-// Mock supabase
-vi.mock("../../lib/supabaseClient", () => ({
-	supabase: {
-		from: vi.fn(() => ({
-			update: vi.fn(() => ({
-				eq: vi.fn(),
-			})),
-		})),
-	},
+vi.mock("firebase/firestore", () => ({
+	doc: vi.fn(),
+	updateDoc: vi.fn(),
 }));
 
-import { supabase } from "../../lib/supabaseClient";
+vi.mock("../../lib/firebaseDb", () => ({
+	getFirestoreDb: vi.fn(),
+}));
 
-const mockFrom = supabase.from as ReturnType<typeof vi.fn>;
+import { doc, updateDoc } from "firebase/firestore";
+import { getFirestoreDb } from "../../lib/firebaseDb";
+
+const mockGetFirestoreDb = vi.mocked(getFirestoreDb);
+const mockDoc = vi.mocked(doc);
+const mockUpdateDoc = vi.mocked(updateDoc);
+
+const FAKE_DB = {} as ReturnType<typeof getFirestoreDb>;
 
 describe("useUpdateProduct", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
+		mockGetFirestoreDb.mockReturnValue(FAKE_DB);
 	});
 
 	it("initializes with default state", () => {
@@ -32,9 +36,7 @@ describe("useUpdateProduct", () => {
 	});
 
 	it("updates product successfully", async () => {
-		const eqMock = vi.fn().mockResolvedValue({ error: null });
-		const updateMock = vi.fn(() => ({ eq: eqMock }));
-		mockFrom.mockReturnValue({ update: updateMock });
+		mockUpdateDoc.mockResolvedValue(undefined);
 
 		const { result } = renderHook(() => useUpdateProduct());
 
@@ -54,23 +56,18 @@ describe("useUpdateProduct", () => {
 
 		expect(response!.success).toBe(true);
 		expect(result.current.error).toBeNull();
-		expect(mockFrom).toHaveBeenCalledWith("products");
-		expect(updateMock).toHaveBeenCalledWith({
+		expect(mockDoc).toHaveBeenCalledWith(FAKE_DB, "products", "product-id-123");
+		expect(mockUpdateDoc).toHaveBeenCalledWith(undefined, {
 			name: "Updated Product",
 			description: "Updated Description",
 			price: 150,
 			marketplace_url: "https://example.com/updated",
 			thumbnail_url: "https://example.com/new-thumb.jpg",
 		});
-		expect(eqMock).toHaveBeenCalledWith("id", "product-id-123");
 	});
 
 	it("handles error when updating product fails", async () => {
-		const eqMock = vi.fn().mockResolvedValue({
-			error: { message: "Update failed" },
-		});
-		const updateMock = vi.fn(() => ({ eq: eqMock }));
-		mockFrom.mockReturnValue({ update: updateMock });
+		mockUpdateDoc.mockRejectedValue(new Error("Update failed"));
 
 		const { result } = renderHook(() => useUpdateProduct());
 
@@ -93,21 +90,19 @@ describe("useUpdateProduct", () => {
 	});
 
 	it("sets loading state during update", async () => {
-		let resolveEq: (value: { error: null }) => void;
-		const eqPromise = new Promise<{ error: null }>((resolve) => {
-			resolveEq = resolve;
+		let resolveUpdate: () => void;
+		const updatePromise = new Promise<void>((resolve) => {
+			resolveUpdate = resolve;
 		});
-		const eqMock = vi.fn().mockReturnValue(eqPromise);
-		const updateMock = vi.fn(() => ({ eq: eqMock }));
-		mockFrom.mockReturnValue({ update: updateMock });
+		mockUpdateDoc.mockReturnValue(updatePromise);
 
 		const { result } = renderHook(() => useUpdateProduct());
 
 		expect(result.current.loading).toBe(false);
 
-		let updatePromise: Promise<{ success: boolean }>;
+		let callPromise: Promise<{ success: boolean }>;
 		act(() => {
-			updatePromise = result.current.updateProduct(
+			callPromise = result.current.updateProduct(
 				"product-id-123",
 				{
 					name: "Test",
@@ -122,8 +117,8 @@ describe("useUpdateProduct", () => {
 		expect(result.current.loading).toBe(true);
 
 		await act(async () => {
-			resolveEq!({ error: null });
-			await updatePromise;
+			resolveUpdate?.();
+			await callPromise;
 		});
 
 		expect(result.current.loading).toBe(false);

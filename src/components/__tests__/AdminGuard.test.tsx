@@ -2,27 +2,14 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-// Mock supabaseClient FIRST
-vi.mock("../../lib/supabaseClient", () => ({
-	supabase: {
-		auth: {
-			getSession: vi.fn(),
-			onAuthStateChange: vi.fn(() => ({
-				data: { subscription: { unsubscribe: vi.fn() } },
-			})),
-		},
-	},
+vi.mock("../../hooks/useFirebaseSession", () => ({
+	useFirebaseSession: vi.fn(),
 }));
 
-// Mock useSupabaseSession
-vi.mock("../../hooks/useSupabaseSession", () => ({
-	useSupabaseSession: vi.fn(),
-}));
-
-import { useSupabaseSession } from "../../hooks/useSupabaseSession";
+import { useFirebaseSession } from "../../hooks/useFirebaseSession";
 import { AdminGuard } from "../AdminGuard";
 
-const MockedUseSupabaseSession = vi.mocked(useSupabaseSession);
+const MockedUseFirebaseSession = vi.mocked(useFirebaseSession);
 
 describe("AdminGuard", () => {
 	beforeEach(() => {
@@ -30,10 +17,10 @@ describe("AdminGuard", () => {
 	});
 
 	it("matches snapshot when loading", () => {
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: true,
 			isAuthenticated: false,
-			session: null,
+			user: null,
 		});
 
 		const { container } = render(
@@ -46,10 +33,10 @@ describe("AdminGuard", () => {
 	});
 
 	it("shows loading when checking", () => {
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: true,
 			isAuthenticated: false,
-			session: null,
+			user: null,
 		});
 
 		render(
@@ -63,12 +50,12 @@ describe("AdminGuard", () => {
 	});
 
 	it("does not show loading when authenticated", () => {
-		MockedUseSupabaseSession.mockReturnValue({
+		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: true,
-			session: {
-				user: { id: "1", email: "test@example.com", user_metadata: {} },
-			} as unknown as ReturnType<typeof useSupabaseSession>["session"],
+			user: { uid: "1", email: "test@example.com" } as unknown as ReturnType<
+				typeof useFirebaseSession
+			>["user"],
 		});
 
 		render(

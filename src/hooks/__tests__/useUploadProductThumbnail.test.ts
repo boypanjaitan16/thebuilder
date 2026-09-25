@@ -2,34 +2,36 @@ import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useUploadProductThumbnail } from "../useUploadProductThumbnail";
 
-// Mock dependencies
-vi.mock("../../lib/supabaseClient", () => ({
-	supabase: {
-		storage: {
-			from: vi.fn(() => ({
-				upload: vi.fn(),
-				getPublicUrl: vi.fn(),
-			})),
-		},
-	},
+vi.mock("firebase/storage", () => ({
+	getDownloadURL: vi.fn(),
+	ref: vi.fn(),
+	uploadBytes: vi.fn(),
+}));
+
+vi.mock("../../lib/firebaseStorage", () => ({
+	getFirebaseStorage: vi.fn(),
 }));
 
 vi.mock("../../lib/env", () => ({
-	env: {
-		thumbnailBucket: "product-thumbnails",
-	},
 	validateFileUpload: vi.fn(),
 }));
 
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { validateFileUpload } from "../../lib/env";
-import { supabase } from "../../lib/supabaseClient";
+import { getFirebaseStorage } from "../../lib/firebaseStorage";
 
-const mockStorageFrom = supabase.storage.from as ReturnType<typeof vi.fn>;
+const mockGetFirebaseStorage = vi.mocked(getFirebaseStorage);
+const mockRef = vi.mocked(ref);
+const mockUploadBytes = vi.mocked(uploadBytes);
+const mockGetDownloadURL = vi.mocked(getDownloadURL);
 const MockedValidateFileUpload = vi.mocked(validateFileUpload);
+
+const FAKE_STORAGE = {} as ReturnType<typeof getFirebaseStorage>;
 
 describe("useUploadProductThumbnail", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
+		mockGetFirebaseStorage.mockReturnValue(FAKE_STORAGE);
 	});
 
 	it("initializes with default state", () => {
@@ -59,23 +61,15 @@ describe("useUploadProductThumbnail", () => {
 		expect(response!.success).toBe(false);
 		expect(response!.url).toBeNull();
 		expect(result.current.error).toBe("Invalid file type");
+		expect(mockUploadBytes).not.toHaveBeenCalled();
 	});
 
 	it("uploads thumbnail successfully", async () => {
 		MockedValidateFileUpload.mockReturnValue({ valid: true });
-
-		const uploadMock = vi.fn().mockResolvedValue({
-			data: { path: "products/test-uuid.jpg" },
-			error: null,
-		});
-		const getPublicUrlMock = vi.fn().mockReturnValue({
-			data: { publicUrl: "https://supabase.co/storage/products/test-uuid.jpg" },
-		});
-
-		mockStorageFrom.mockReturnValue({
-			upload: uploadMock,
-			getPublicUrl: getPublicUrlMock,
-		});
+		mockUploadBytes.mockResolvedValue(undefined as never);
+		mockGetDownloadURL.mockResolvedValue(
+			"https://firebasestorage.googleapis.com/products/test-uuid.jpg",
+		);
 
 		const { result } = renderHook(() => useUploadProductThumbnail());
 
@@ -90,23 +84,18 @@ describe("useUploadProductThumbnail", () => {
 
 		expect(response!.success).toBe(true);
 		expect(response!.url).toBe(
-			"https://supabase.co/storage/products/test-uuid.jpg",
+			"https://firebasestorage.googleapis.com/products/test-uuid.jpg",
 		);
 		expect(result.current.error).toBeNull();
+		expect(mockRef).toHaveBeenCalledWith(
+			FAKE_STORAGE,
+			expect.stringMatching(/^products\/.+\.jpg$/),
+		);
 	});
 
 	it("handles upload error", async () => {
 		MockedValidateFileUpload.mockReturnValue({ valid: true });
-
-		const uploadMock = vi.fn().mockResolvedValue({
-			data: null,
-			error: { message: "Upload failed" },
-		});
-
-		mockStorageFrom.mockReturnValue({
-			upload: uploadMock,
-			getPublicUrl: vi.fn(),
-		});
+		mockUploadBytes.mockRejectedValue(new Error("Upload failed"));
 
 		const { result } = renderHook(() => useUploadProductThumbnail());
 
@@ -124,52 +113,15 @@ describe("useUploadProductThumbnail", () => {
 		expect(result.current.error).toBe("Upload failed");
 	});
 
-	it("handles missing upload path", async () => {
-		MockedValidateFileUpload.mockReturnValue({ valid: true });
-
-		const uploadMock = vi.fn().mockResolvedValue({
-			data: { path: null },
-			error: null,
-		});
-
-		mockStorageFrom.mockReturnValue({
-			upload: uploadMock,
-			getPublicUrl: vi.fn(),
-		});
-
-		const { result } = renderHook(() => useUploadProductThumbnail());
-
-		const mockFile = new File(["image data"], "test.jpg", {
-			type: "image/jpeg",
-		});
-
-		let response: { success: boolean; url: string | null };
-		await act(async () => {
-			response = await result.current.uploadThumbnail(mockFile);
-		});
-
-		expect(response!.success).toBe(false);
-		expect(result.current.error).toBe("Failed to upload thumbnail.");
-	});
-
 	it("sets loading state during upload", async () => {
 		MockedValidateFileUpload.mockReturnValue({ valid: true });
 
-		let resolveUpload: (value: { data: { path: string }; error: null }) => void;
-		const uploadPromise = new Promise<{ data: { path: string }; error: null }>(
-			(resolve) => {
-				resolveUpload = resolve;
-			},
-		);
-		const uploadMock = vi.fn().mockReturnValue(uploadPromise);
-		const getPublicUrlMock = vi.fn().mockReturnValue({
-			data: { publicUrl: "https://example.com/image.jpg" },
+		let resolveUpload: () => void;
+		const uploadPromise = new Promise<void>((resolve) => {
+			resolveUpload = resolve;
 		});
-
-		mockStorageFrom.mockReturnValue({
-			upload: uploadMock,
-			getPublicUrl: getPublicUrlMock,
-		});
+		mockUploadBytes.mockReturnValue(uploadPromise as never);
+		mockGetDownloadURL.mockResolvedValue("https://example.com/image.jpg");
 
 		const { result } = renderHook(() => useUploadProductThumbnail());
 
@@ -187,7 +139,7 @@ describe("useUploadProductThumbnail", () => {
 		expect(result.current.loading).toBe(true);
 
 		await act(async () => {
-			resolveUpload!({ data: { path: "test.jpg" }, error: null });
+			resolveUpload?.();
 			await uploadFilePromise;
 		});
 

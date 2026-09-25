@@ -1,7 +1,8 @@
+import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useSupabaseSession } from "../hooks/useSupabaseSession";
-import { supabase } from "../lib/supabaseClient";
+import { useFirebaseSession } from "../hooks/useFirebaseSession";
+import { getFirebaseAuth } from "../lib/firebaseAuth";
 
 export function AdminHeader() {
 	const navigate = useNavigate();
@@ -9,7 +10,7 @@ export function AdminHeader() {
 	const [signingOut, setSigningOut] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [menuOpen, setMenuOpen] = useState(false);
-	const { isAuthenticated, session } = useSupabaseSession();
+	const { isAuthenticated, user } = useFirebaseSession();
 
 	useEffect(() => {
 		setMenuOpen(false);
@@ -18,11 +19,17 @@ export function AdminHeader() {
 	const handleSignOut = async () => {
 		setSigningOut(true);
 		setError(null);
-		const { error: signOutError } = await supabase.auth.signOut();
-		if (signOutError) {
-			setError(signOutError.message);
-		} else {
+		const auth = getFirebaseAuth();
+		if (!auth) {
+			setError("Firebase is not configured.");
+			setSigningOut(false);
+			return;
+		}
+		try {
+			await signOut(auth);
 			navigate("/admin");
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "Failed to sign out.");
 		}
 		setSigningOut(false);
 	};
@@ -59,7 +66,7 @@ export function AdminHeader() {
 								aria-haspopup="menu"
 								className="font-semibold font-display rounded-full px-4 py-2 text-ink hover:bg-gray-200"
 							>
-								{session?.user.user_metadata.full_name ?? "Administrator"}
+								{user?.displayName ?? "Administrator"}
 							</button>
 							{menuOpen && (
 								<div

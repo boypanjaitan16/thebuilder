@@ -1,20 +1,31 @@
+import { deleteDoc, doc } from "firebase/firestore";
 import { useCallback, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { getFirestoreDb } from "../lib/firebaseDb";
 
 export function useDeleteProduct() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
 	const deleteProduct = useCallback(async (id: string) => {
-		setLoading(true);
-		setError(null);
-		const { error: deleteError } = await supabase.from("products").delete().eq("id", id);
-		setLoading(false);
-		if (deleteError) {
-			setError(deleteError.message);
+		const db = getFirestoreDb();
+		if (!db) {
+			setError("Firebase is not configured.");
 			return { success: false };
 		}
-		return { success: true };
+
+		setLoading(true);
+		setError(null);
+		try {
+			await deleteDoc(doc(db, "products", id));
+			return { success: true };
+		} catch (err) {
+			setError(
+				err instanceof Error ? err.message : "Failed to delete product.",
+			);
+			return { success: false };
+		} finally {
+			setLoading(false);
+		}
 	}, []);
 
 	return { loading, error, deleteProduct, setError };
