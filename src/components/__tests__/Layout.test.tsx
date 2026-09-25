@@ -24,8 +24,9 @@ describe("Layout", () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it("matches snapshot for admin layout", () => {
+	it("matches snapshot for admin layout", async () => {
 		const { container } = renderWithMemoryRouter(<Layout />, ["/admin"]);
+		await screen.findByTestId("admin-header");
 		expect(container).toMatchSnapshot();
 	});
 
@@ -36,17 +37,17 @@ describe("Layout", () => {
 		expect(screen.queryByTestId("admin-header")).not.toBeInTheDocument();
 	});
 
-	it("renders AdminHeader for admin routes", () => {
+	it("renders AdminHeader for admin routes", async () => {
 		renderWithMemoryRouter(<Layout />, ["/admin"]);
 
-		expect(screen.getByTestId("admin-header")).toBeInTheDocument();
+		expect(await screen.findByTestId("admin-header")).toBeInTheDocument();
 		expect(screen.queryByTestId("header")).not.toBeInTheDocument();
 	});
 
-	it("renders AdminHeader for nested admin routes", () => {
+	it("renders AdminHeader for nested admin routes", async () => {
 		renderWithMemoryRouter(<Layout />, ["/admin/products"]);
 
-		expect(screen.getByTestId("admin-header")).toBeInTheDocument();
+		expect(await screen.findByTestId("admin-header")).toBeInTheDocument();
 	});
 
 	it("renders footer with brand name", () => {

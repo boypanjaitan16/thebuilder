@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Form, Input } from "antd";
 import classNames from "classnames";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { TextInput } from "../../components/forms/TextInput";
 import { getFirebaseAuth } from "../../lib/firebaseAuth";
 import {
 	type AdminLoginValues,
@@ -14,7 +14,7 @@ function LoginPage() {
 	const navigate = useNavigate();
 
 	const {
-		register,
+		control,
 		handleSubmit,
 		setError,
 		formState: { errors, isSubmitting },
@@ -43,37 +43,59 @@ function LoginPage() {
 		<div className="flex flex-col flex-grow justify-center items-center">
 			<section
 				className={classNames(
-					"flex border bg-white rounded-2xl w-full max-w-lg p-8",
+					"flex border bg-white rounded-lg w-full max-w-lg p-8",
 					{
 						"border-red-600": errors.email || errors.password,
 					},
 				)}
 			>
-				<form onSubmit={handleSubmit(onLogin)} className="space-y-4 w-full">
-					<TextInput
+				<Form
+					size="large"
+					layout="vertical"
+					onSubmitCapture={handleSubmit(onLogin)}
+					className="w-full"
+				>
+					<Form.Item
 						label="Email"
-						errorMessage={errors.email?.message}
-						inputProps={{
-							type: "email",
-							...register("email"),
-						}}
-					/>
-					<TextInput
-						label="Password"
-						errorMessage={errors.password?.message}
-						inputProps={{
-							type: "password",
-							...register("password"),
-						}}
-					/>
-					<button
-						type="submit"
-						disabled={isSubmitting}
-						className="inline-flex items-center justify-center rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-70 w-full"
+						rules={[{ required: true }]}
+						validateStatus={errors.email ? "error" : ""}
+						help={errors.email?.message}
 					>
+						<Controller
+							name="email"
+							control={control}
+							render={({ field }) => (
+								<Input
+									type="email"
+									allowClear
+									status={errors.email ? "error" : undefined}
+									{...field}
+								/>
+							)}
+						/>
+					</Form.Item>
+					<Form.Item
+						label="Password"
+						rules={[{ required: true }]}
+						validateStatus={errors.password ? "error" : ""}
+						help={errors.password?.message}
+					>
+						<Controller
+							name="password"
+							control={control}
+							render={({ field }) => (
+								<Input.Password
+									allowClear
+									status={errors.password ? "error" : undefined}
+									{...field}
+								/>
+							)}
+						/>
+					</Form.Item>
+					<Button type="primary" htmlType="submit" loading={isSubmitting} block>
 						{isSubmitting ? "Signing in…" : "Sign In"}
-					</button>
-				</form>
+					</Button>
+				</Form>
 			</section>
 		</div>
 	);

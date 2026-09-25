@@ -1,17 +1,12 @@
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AdminGuard } from "./components/AdminGuard";
 import { AnalyticsTracker } from "./components/AnalyticsTracker";
 import { Layout } from "./components/Layout";
+import LoadingIndicator from "./components/LoadingIndicator";
 import AboutPage from "./pages/AboutPage";
 import ApplyPage from "./pages/ApplyPage";
 import ArchitecturePage from "./pages/ArchitecturePage";
-import AdminPage from "./pages/admin/HomePage";
-import AdminLoginPage from "./pages/admin/LoginPage";
-import AdminPasswordPage from "./pages/admin/PasswordPage";
-import AdminProductCreatePage from "./pages/admin/ProductCreatePage";
-import AdminProductEditPage from "./pages/admin/ProductEditPage";
-import AdminProductsPage from "./pages/admin/ProductsPage";
-import AdminProfilePage from "./pages/admin/ProfilePage";
 import DiagnosticPage from "./pages/DiagnosticPage";
 import FutureTalentPage from "./pages/FutureTalentPage";
 import HomePage from "./pages/HomePage";
@@ -27,6 +22,29 @@ import ResourcesProductsPage from "./pages/ResourcesProductsPage";
 import RiskContinuityPage from "./pages/RiskContinuityPage";
 import RiskReadinessDiagnosticPage from "./pages/RiskReadinessDiagnosticPage";
 import WorkWithMePage from "./pages/WorkWithMePage";
+
+// Lazy-loaded: admin pages pull in antd + lucide-react, which would
+// otherwise bloat the public site's initial bundle for a route tree
+// public visitors never touch.
+const AdminPage = lazy(() => import("./pages/admin/HomePage"));
+const AdminLoginPage = lazy(() => import("./pages/admin/LoginPage"));
+const AdminPasswordPage = lazy(() => import("./pages/admin/PasswordPage"));
+const AdminProductCreatePage = lazy(
+	() => import("./pages/admin/ProductCreatePage"),
+);
+const AdminProductEditPage = lazy(
+	() => import("./pages/admin/ProductEditPage"),
+);
+const AdminProductsPage = lazy(() => import("./pages/admin/ProductsPage"));
+const AdminProfilePage = lazy(() => import("./pages/admin/ProfilePage"));
+
+function AdminRouteFallback() {
+	return (
+		<div className="container-page w-full flex flex-col flex-grow items-center justify-center">
+			<LoadingIndicator label="Loading…" />
+		</div>
+	);
+}
 
 function App() {
 	return (
@@ -75,8 +93,22 @@ function App() {
 					<Route path="/about" element={<AboutPage />} />
 					<Route path="/architecture" element={<ArchitecturePage />} />
 					<Route path="/privacy" element={<PrivacyPage />} />
-					<Route path="/admin/login" element={<AdminLoginPage />} />
-					<Route path="/admin" element={<AdminGuard />}>
+					<Route
+						path="/admin/login"
+						element={
+							<Suspense fallback={<AdminRouteFallback />}>
+								<AdminLoginPage />
+							</Suspense>
+						}
+					/>
+					<Route
+						path="/admin"
+						element={
+							<Suspense fallback={<AdminRouteFallback />}>
+								<AdminGuard />
+							</Suspense>
+						}
+					>
 						<Route index element={<AdminPage />} />
 						<Route path="products" element={<AdminProductsPage />} />
 						<Route path="products/new" element={<AdminProductCreatePage />} />

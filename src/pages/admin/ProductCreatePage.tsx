@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Form, Input, Upload } from "antd";
+import { ArrowLeft, ImageUp } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { TextInput } from "../../components/forms/TextInput";
 import { useCreateProduct } from "../../hooks/useCreateProduct";
 import { useUploadProductThumbnail } from "../../hooks/useUploadProductThumbnail";
 import {
@@ -30,7 +31,7 @@ function ProductCreatePage() {
 	const combinedError = error || createError || uploadError;
 
 	const {
-		register,
+		control,
 		handleSubmit,
 		formState: { errors, isSubmitting },
 	} = useForm<ProductCreateFormValues, undefined, ProductCreateValues>({
@@ -77,87 +78,115 @@ function ProductCreatePage() {
 							edit, or delete products.
 						</p>
 					</div>
-					<button
-						type="button"
+					<Button
+						icon={<ArrowLeft size={16} />}
 						onClick={() => navigate("/admin/products")}
-						className="rounded-full flex-grow md:flex-none border border-ink px-4 py-2 text-sm font-semibold text-ink hover:bg-white"
+						className="flex-grow md:flex-none"
 					>
 						Back to Products
-					</button>
+					</Button>
 				</div>
 
 				{combinedError && (
 					<p className="mt-3 text-sm text-amber-700">{combinedError}</p>
 				)}
 
-				<form
-					onSubmit={handleSubmit(onCreateProduct)}
+				<Form
+					layout="vertical"
+					onSubmitCapture={handleSubmit(onCreateProduct)}
 					className="mt-4 grid gap-4 md:grid-cols-2"
 				>
-					<TextInput
+					<Form.Item
 						label="Name"
-						errorMessage={errors.name?.message}
-						inputProps={{
-							type: "text",
-							...register("name"),
-						}}
-					/>
-					<TextInput
+						validateStatus={errors.name ? "error" : ""}
+						help={errors.name?.message}
+					>
+						<Controller
+							name="name"
+							control={control}
+							render={({ field }) => (
+								<Input
+									type="text"
+									status={errors.name ? "error" : undefined}
+									{...field}
+								/>
+							)}
+						/>
+					</Form.Item>
+					<Form.Item
 						label="Price (IDR)"
-						errorMessage={errors.price?.message}
-						inputProps={{
-							type: "number",
-							step: "0.01",
-							min: 0,
-							...register("price", { valueAsNumber: true }),
-						}}
-					/>
-					<label className="flex w-full min-w-0 flex-col gap-1 text-sm font-medium text-ink">
-						Thumbnail image
-						<input
-							type="file"
+						validateStatus={errors.price ? "error" : ""}
+						help={errors.price?.message}
+					>
+						<Controller
+							name="price"
+							control={control}
+							render={({ field }) => (
+								<Input
+									type="number"
+									step="0.01"
+									min={0}
+									status={errors.price ? "error" : undefined}
+									{...field}
+									value={field.value as number}
+								/>
+							)}
+						/>
+					</Form.Item>
+					<Form.Item
+						label="Thumbnail image"
+						help="Upload a small image (e.g., <1MB). Stored in Firebase Storage under the public products/ path."
+					>
+						<Upload
 							accept="image/*"
-							required
-							onChange={(event) => {
-								const file = event.target.files?.[0];
-								if (file) setThumbnailFile(file);
+							maxCount={1}
+							listType="picture"
+							beforeUpload={(file) => {
+								setThumbnailFile(file);
+								return false;
 							}}
-							className="w-full rounded-xl border border-sand bg-white px-2 py-1.5 text-sm text-ink file:mr-3 file:rounded-lg file:border-none file:bg-ink file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
-						/>
-						<span className="text-xs font-normal text-slate-600">
-							Upload a small image (e.g., &lt;1MB). Stored in Firebase Storage
-							under the public products/ path.
-						</span>
-					</label>
-					<TextInput
+						>
+							<Button icon={<ImageUp size={16} />}>Select image</Button>
+						</Upload>
+					</Form.Item>
+					<Form.Item
 						label="Marketplace Url"
-						errorMessage={errors.marketplace_url?.message}
-						inputProps={{
-							type: "url",
-							placeholder: "https://shopee.co.id/xxxxx",
-							...register("marketplace_url"),
-						}}
-					/>
-					<label className="md:col-span-2 flex w-full min-w-0 flex-col gap-2 text-sm font-medium text-ink">
-						Description
-						<textarea
-							rows={3}
-							className="w-full rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
-							{...register("description")}
+						validateStatus={errors.marketplace_url ? "error" : ""}
+						help={errors.marketplace_url?.message}
+					>
+						<Controller
+							name="marketplace_url"
+							control={control}
+							render={({ field }) => (
+								<Input
+									type="url"
+									placeholder="https://shopee.co.id/xxxxx"
+									status={errors.marketplace_url ? "error" : undefined}
+									{...field}
+								/>
+							)}
 						/>
-					</label>
+					</Form.Item>
+					<Form.Item label="Description" className="md:col-span-2">
+						<Controller
+							name="description"
+							control={control}
+							render={({ field }) => <Input.TextArea rows={3} {...field} />}
+						/>
+					</Form.Item>
 					<div className="md:col-span-2">
-						<button
-							type="submit"
-							disabled={isSubmitting || uploading || loading}
-							className="inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-70 w-full md:w-auto"
+						<Button
+							type="primary"
+							htmlType="submit"
+							loading={isSubmitting || uploading || loading}
+							className="w-full md:w-auto"
 						>
 							{isSubmitting || uploading || loading
 								? "Saving…"
 								: "Create product"}
-						</button>
+						</Button>
 					</div>
-				</form>
+				</Form>
 			</section>
 		</div>
 	);

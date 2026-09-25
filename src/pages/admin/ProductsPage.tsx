@@ -1,6 +1,8 @@
+import type { TableProps } from "antd";
+import { Alert, Button, Space, Table } from "antd";
+import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoadingIndicator from "../../components/LoadingIndicator";
 import { useToast } from "../../components/ToastProvider";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
@@ -56,112 +58,105 @@ function ProductsPage() {
 		await fetchProducts();
 	};
 
-	return (
-		<div className="container-page w-full">
-			<section className="glass-panel p-8">
-				<div className="flex flex-wrap items-center justify-between gap-3">
-					<div>
-						<h2 className="text-2xl font-semibold text-ink">Products</h2>
-						<p className="text-sm text-slate-600">
-							Create, publish, and manage products.
-						</p>
-					</div>
-					<div className="flex-grow md:flex-none">
-						<button
-							type="button"
-							onClick={() => navigate("/admin/products/new")}
-							className="rounded-full w-full md:w-auto bg-white px-4 py-2 text-sm font-semibold text-ink shadow-soft border border-ink"
-						>
-							Add Product
-						</button>
-					</div>
-				</div>
-				{combinedError && (
-					<p className="mt-3 text-sm text-amber-700">{combinedError}</p>
-				)}
-				<div className="mt-6 overflow-x-auto">
-					<table className="min-w-full text-sm">
-						<thead>
-							<tr className="border-b border-sand text-left text-xs uppercase tracking-wide text-slate-500">
-								<th className="px-2 py-2">Thumbnail</th>
-								<th className="px-2 py-2">Name</th>
-								<th className="px-2 py-2">Price</th>
-								<th className="px-2 py-2">Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{loading && (
-								<tr>
-									<td className="px-2 py-3 text-slate-600" colSpan={6}>
-										<LoadingIndicator label="Loading products..." />
-									</td>
-								</tr>
-							)}
-							{!loading && products.length === 0 && (
-								<tr>
-									<td className="px-2 py-3 text-slate-600" colSpan={6}>
-										No products yet.
-									</td>
-								</tr>
-							)}
-							{products.map((product) => (
-								<tr key={product.id} className="border-b border-sand/70">
-									<td className="px-2 py-3">
-										{product.thumbnail_url ? (
-											<img
-												src={product.thumbnail_url}
-												alt={`${product.name} thumbnail`}
-												className="h-14 w-14 rounded-lg object-cover ring-1 ring-sand"
-												loading="lazy"
-												decoding="async"
-											/>
-										) : (
-											<span className="text-xs text-slate-500">No image</span>
-										)}
-									</td>
-									<td className="px-2 py-3 font-semibold text-ink">
-										<a
-											target="_blank"
-											href={product.marketplace_url}
-											className="text-blue-600"
-										>
-											{product.name}
-										</a>
-									</td>
-									<td className="px-2 py-3 text-slate-700">
-										{new Intl.NumberFormat("id-ID", {
-											style: "currency",
-											currency: "IDR",
-										}).format(product.price)}
-									</td>
+	const columns: TableProps<Product>["columns"] = [
+		{
+			title: "Thumbnail",
+			dataIndex: "thumbnail_url",
+			key: "thumbnail",
+			render: (url: string, record) =>
+				url ? (
+					<img
+						src={url}
+						alt={`${record.name} thumbnail`}
+						className="h-14 w-14 rounded-lg object-cover ring-1 ring-sand"
+						loading="lazy"
+						decoding="async"
+					/>
+				) : (
+					<span className="text-xs text-slate-500">No image</span>
+				),
+		},
+		{
+			title: "Name",
+			dataIndex: "name",
+			key: "name",
+			render: (name: string, record) => (
+				<a
+					target="_blank"
+					rel="noreferrer"
+					href={record.marketplace_url}
+					className="text-blue-600 font-semibold"
+				>
+					{name}
+				</a>
+			),
+		},
+		{
+			title: "Price",
+			dataIndex: "price",
+			key: "price",
+			render: (price: number) =>
+				new Intl.NumberFormat("id-ID", {
+					style: "currency",
+					currency: "IDR",
+				}).format(price),
+		},
+		{
+			title: "Actions",
+			key: "actions",
+			width: 150,
+			render: (_, record) => (
+				<Space>
+					<Button
+						icon={<Pencil size={14} />}
+						onClick={() => navigate(`/admin/products/${record.id}/edit`)}
+					>
+						Edit
+					</Button>
+					<Button
+						danger
+						icon={<Trash2 size={14} />}
+						onClick={() => void handleDeleteProduct(record)}
+					>
+						Delete
+					</Button>
+				</Space>
+			),
+		},
+	];
 
-									<td className="px-2 py-3">
-										<div className="flex flex-wrap gap-2">
-											<button
-												type="button"
-												onClick={() =>
-													navigate(`/admin/products/${product.id}/edit`)
-												}
-												className="rounded-full border border-ink px-3 py-1 text-xs font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-white"
-											>
-												Edit
-											</button>
-											<button
-												type="button"
-												onClick={() => void handleDeleteProduct(product)}
-												className="rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-red-700"
-											>
-												Delete
-											</button>
-										</div>
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
+	return (
+		<section className="container-page w-full">
+			<div className="flex flex-wrap items-center justify-between gap-3">
+				<div>
+					<h2 className="text-2xl font-semibold text-ink">Products</h2>
+					<p className="text-sm text-slate-600">
+						Create, publish, and manage products.
+					</p>
 				</div>
-			</section>
-		</div>
+				<div className="flex-grow md:flex-none">
+					<Button
+						type="primary"
+						icon={<Plus size={16} />}
+						onClick={() => navigate("/admin/products/new")}
+						className="w-full md:w-auto"
+					>
+						Add Product
+					</Button>
+				</div>
+			</div>
+			{combinedError && <Alert type="error" showIcon title={combinedError} />}
+			<Table<Product>
+				bordered
+				columns={columns}
+				dataSource={products}
+				rowKey="id"
+				loading={loading}
+				pagination={false}
+				locale={{ emptyText: "No products yet." }}
+				className="mt-5"
+			/>
+		</section>
 	);
 }
 

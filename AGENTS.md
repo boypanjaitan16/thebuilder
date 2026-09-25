@@ -8,6 +8,7 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
 - Biome (formatter/linter)
 - react-hook-form + zod
 - Firebase (Auth, Firestore, Storage, Analytics/GA4)
+- Ant Design (antd) + lucide-react — admin portal UI only (see Admin portal)
 
 ### Key directories
 - `src/pages/` public pages
@@ -32,6 +33,9 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
 - Routes under `/admin/**` guarded by `AdminGuard`.
 - Admin pages in `src/pages/admin/`.
 - Admin header uses dropdown (Profile/Password/Sign out).
+- UI built with Ant Design (`antd`) — `Form`/`Form.Item` used only as a layout shell (`onSubmitCapture={handleSubmit(fn)}`, no `name`/`rules`); `react-hook-form` + zod remain the only validation mechanism (`register()` spread directly onto antd `Input`/`Input.Password`/`Input.TextArea`). Icons from `lucide-react`.
+- Admin pages, `AdminHeader`, and antd/lucide-react are all lazy-loaded (`React.lazy` in `src/App.tsx` and `src/components/Layout.tsx`) so the public site's bundle doesn't pay for admin-only dependencies. Keep new admin components behind these lazy boundaries rather than importing them eagerly from a public-reachable module.
+- Test env needs a `ResizeObserver` polyfill for antd overlays (`src/test/setup.ts`).
 
 ### Forms & validation
 - Use `react-hook-form` + zod schemas.
@@ -77,7 +81,7 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
 
 ### Notes
 - Avoid `any` and type casts; prefer explicit input/output types from zod.
-- If you add new text fields, prefer `TextInput`; for selects use `SelectBox`.
+- Public pages: if you add new text fields, prefer `TextInput`; for selects use `SelectBox`. Admin pages use antd's `Input`/`Select`/etc. directly instead (see Admin portal).
 
 ## Agent skills
 

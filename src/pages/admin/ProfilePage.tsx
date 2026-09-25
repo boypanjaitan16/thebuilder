@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Form, Input } from "antd";
 import { updateProfile } from "firebase/auth";
+import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { TextInput } from "../../components/forms/TextInput";
+import { Controller, useForm } from "react-hook-form";
 import { useToast } from "../../components/ToastProvider";
 import { useFirebaseSession } from "../../hooks/useFirebaseSession";
 import { getFirebaseAuth, notifyAuthUserRefresh } from "../../lib/firebaseAuth";
@@ -18,7 +19,7 @@ function ProfilePage() {
 	const [error, setError] = useState<string | null>(null);
 
 	const {
-		register,
+		control,
 		handleSubmit,
 		reset,
 		formState: { errors, isSubmitting },
@@ -55,55 +56,65 @@ function ProfilePage() {
 	};
 
 	return (
-		<div className="container-page w-full">
-			<section className="rounded-[24px] border border-sand bg-white p-8 shadow-soft">
-				<div className="flex flex-row flex-wrap items-center justify-between gap-3">
-					<div>
-						<h1 className="mt-2 font-display text-2xl font-semibold text-ink">
-							Update Profile
-						</h1>
-						<p className="text-sm text-slate-600">
-							Keep your admin profile details up to date.
-						</p>
-					</div>
+		<section className="container-page w-full">
+			<div className="flex flex-row flex-wrap items-center justify-between gap-3">
+				<div>
+					<h1 className="mt-2 font-display text-2xl font-semibold text-ink">
+						Update Profile
+					</h1>
+					<p className="text-sm text-slate-600">
+						Keep your admin profile details up to date.
+					</p>
 				</div>
+			</div>
 
-				<form
-					onSubmit={handleSubmit(onSubmit)}
-					className="mt-6 flex flex-col gap-5"
+			<Form
+				layout="vertical"
+				size="large"
+				onSubmitCapture={handleSubmit(onSubmit)}
+				className="mt-6 flex flex-col"
+			>
+				<Form.Item label="Email">
+					<Input
+						type="email"
+						readOnly
+						value={user?.email || ""}
+						className="bg-slate-50 text-slate-500"
+					/>
+				</Form.Item>
+				<Form.Item
+					label="Full name"
+					validateStatus={errors.fullName ? "error" : ""}
+					help={errors.fullName?.message}
 				>
-					<TextInput
-						label="Email"
-						inputProps={{
-							type: "email",
-							readOnly: true,
-							value: user?.email || "",
-						}}
-						inputClassName="border-sand bg-slate-50 text-slate-500"
+					<Controller
+						name="fullName"
+						control={control}
+						render={({ field }) => (
+							<Input
+								status={errors.fullName ? "error" : undefined}
+								{...field}
+							/>
+						)}
 					/>
-					<TextInput
-						label="Full name"
-						errorMessage={errors.fullName?.message}
-						inputProps={{
-							type: "text",
-							...register("fullName"),
-						}}
-					/>
+				</Form.Item>
 
-					{error && <p className="text-sm text-amber-700">{error}</p>}
+				{error && <p className="text-sm text-amber-700">{error}</p>}
 
-					<div className="md:col-span-2">
-						<button
-							type="submit"
-							disabled={isSubmitting}
-							className="w-full md:w-auto rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-70"
-						>
-							{isSubmitting ? "Saving…" : "Save changes"}
-						</button>
-					</div>
-				</form>
-			</section>
-		</div>
+				<div className="md:col-span-2">
+					<Button
+						type="primary"
+						shape="round"
+						htmlType="submit"
+						loading={isSubmitting}
+						className="w-full md:w-auto"
+						icon={<CheckCircle />}
+					>
+						{isSubmitting ? "Saving…" : "Save changes"}
+					</Button>
+				</div>
+			</Form>
+		</section>
 	);
 }
 

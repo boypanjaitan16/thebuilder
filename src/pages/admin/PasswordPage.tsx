@@ -1,12 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Form, Input } from "antd";
 import {
 	EmailAuthProvider,
 	reauthenticateWithCredential,
 	updatePassword,
 } from "firebase/auth";
+import { CheckCircle } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { TextInput } from "../../components/forms/TextInput";
+import { Controller, useForm } from "react-hook-form";
 import { useToast } from "../../components/ToastProvider";
 import { useFirebaseSession } from "../../hooks/useFirebaseSession";
 import { getFirebaseAuth } from "../../lib/firebaseAuth";
@@ -22,7 +23,7 @@ function PasswordPage() {
 	const [error, setError] = useState<string | null>(null);
 
 	const {
-		register,
+		control,
 		handleSubmit,
 		reset,
 		formState: { errors, isSubmitting },
@@ -63,62 +64,89 @@ function PasswordPage() {
 	};
 
 	return (
-		<div className="container-page w-full">
-			<section className="rounded-[24px] border border-sand bg-white p-8 shadow-soft">
-				<div className="flex flex-row flex-wrap items-center justify-between gap-3">
-					<div>
-						<h1 className="mt-2 font-display text-2xl font-semibold text-ink">
-							Update Password
-						</h1>
-						<p className="text-sm text-slate-600">
-							Choose a strong password you do not reuse elsewhere.
-						</p>
-					</div>
+		<section className="container-page w-full">
+			<div className="flex flex-row flex-wrap items-center justify-between gap-3">
+				<div>
+					<h1 className="mt-2 font-display text-2xl font-semibold text-ink">
+						Update Password
+					</h1>
+					<p className="text-sm text-slate-600">
+						Choose a strong password you do not reuse elsewhere.
+					</p>
 				</div>
+			</div>
 
-				<form
-					onSubmit={handleSubmit(onSubmit)}
-					className="mt-6 flex flex-col gap-5"
+			<Form
+				size="large"
+				layout="vertical"
+				onSubmitCapture={handleSubmit(onSubmit)}
+				className="mt-6 flex flex-col"
+			>
+				<Form.Item
+					label="Current password"
+					validateStatus={errors.currentPassword ? "error" : ""}
+					help={errors.currentPassword?.message}
 				>
-					<TextInput
-						label="Current password"
-						errorMessage={errors.currentPassword?.message}
-						inputProps={{
-							type: "password",
-							...register("currentPassword"),
-						}}
+					<Controller
+						name="currentPassword"
+						control={control}
+						render={({ field }) => (
+							<Input.Password
+								status={errors.currentPassword ? "error" : undefined}
+								{...field}
+							/>
+						)}
 					/>
-					<TextInput
-						label="New password"
-						errorMessage={errors.newPassword?.message}
-						inputProps={{
-							type: "password",
-							...register("newPassword"),
-						}}
+				</Form.Item>
+				<Form.Item
+					label="New password"
+					validateStatus={errors.newPassword ? "error" : ""}
+					help={errors.newPassword?.message}
+				>
+					<Controller
+						name="newPassword"
+						control={control}
+						render={({ field }) => (
+							<Input.Password
+								status={errors.newPassword ? "error" : undefined}
+								{...field}
+							/>
+						)}
 					/>
-					<TextInput
-						label="Confirm password"
-						errorMessage={errors.confirmPassword?.message}
-						inputProps={{
-							type: "password",
-							...register("confirmPassword"),
-						}}
+				</Form.Item>
+				<Form.Item
+					label="Confirm password"
+					validateStatus={errors.confirmPassword ? "error" : ""}
+					help={errors.confirmPassword?.message}
+				>
+					<Controller
+						name="confirmPassword"
+						control={control}
+						render={({ field }) => (
+							<Input.Password
+								status={errors.confirmPassword ? "error" : undefined}
+								{...field}
+							/>
+						)}
 					/>
+				</Form.Item>
 
-					{error && <p className="text-sm text-amber-700">{error}</p>}
+				{error && <p className="text-sm text-amber-700">{error}</p>}
 
-					<div className="md:col-span-2">
-						<button
-							type="submit"
-							disabled={isSubmitting}
-							className="w-full md:w-auto rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-70"
-						>
-							{isSubmitting ? "Saving…" : "Update password"}
-						</button>
-					</div>
-				</form>
-			</section>
-		</div>
+				<div className="md:col-span-2">
+					<Button
+						shape="round"
+						type="primary"
+						htmlType="submit"
+						loading={isSubmitting}
+						className="w-full md:w-auto"
+						icon={<CheckCircle />}
+					>
+						{isSubmitting ? "Saving…" : "Update password"}
+					</Button>
+				</div>
+			</Form>
+		</section>
 	);
 }
 

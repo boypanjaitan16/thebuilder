@@ -1,8 +1,13 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useI18n } from "../i18n/I18nProvider";
-import { AdminHeader } from "./AdminHeader";
 import { Header } from "./Header";
+
+// Lazy-loaded: pulls in antd + lucide-react, kept out of the public
+// site's bundle since only /admin/** routes ever render it.
+const AdminHeader = lazy(() =>
+	import("./AdminHeader").then((m) => ({ default: m.AdminHeader })),
+);
 
 export function Layout() {
 	const location = useLocation();
@@ -15,7 +20,13 @@ export function Layout() {
 
 	return (
 		<div className="min-h-screen bg-mist text-ink flex flex-col">
-			{isAdminRoute ? <AdminHeader /> : <Header />}
+			{isAdminRoute ? (
+				<Suspense fallback={<div className="h-16" />}>
+					<AdminHeader />
+				</Suspense>
+			) : (
+				<Header />
+			)}
 
 			<main className="py-5 xl:py-10 px-5 flex flex-grow flex-col">
 				<Outlet />

@@ -78,7 +78,7 @@ describe("AdminHeader", () => {
 
 		renderWithMemoryRouter(<AdminHeader />);
 
-		expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Home" })).toBeInTheDocument();
 	});
 
 	it("shows user menu when authenticated", async () => {
@@ -149,7 +149,7 @@ describe("AdminHeader", () => {
 		const menuButton = screen.getByRole("button", { name: "Test Admin" });
 		await user.click(menuButton);
 
-		const signOutButton = await screen.findByRole("button", {
+		const signOutButton = await screen.findByRole("menuitem", {
 			name: /sign out/i,
 		});
 		await user.click(signOutButton);

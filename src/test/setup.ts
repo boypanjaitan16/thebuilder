@@ -44,6 +44,14 @@ Object.defineProperty(globalThis, "crypto", {
 // Mock scrollTo
 window.scrollTo = vi.fn();
 
+// Mock ResizeObserver (used internally by antd's Dropdown/Select overlays)
+class ResizeObserverMock {
+	observe = vi.fn();
+	unobserve = vi.fn();
+	disconnect = vi.fn();
+}
+vi.stubGlobal("ResizeObserver", ResizeObserverMock);
+
 // Mock import.meta.env
 vi.stubGlobal("import.meta", {
 	env: {

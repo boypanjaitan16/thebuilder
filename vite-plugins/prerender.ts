@@ -73,8 +73,12 @@ export function prerender(paths: string[]): Plugin {
 
 				for (const routePath of paths) {
 					const page = await browser.newPage();
+					// networkidle2, not networkidle0: Firestore's SDK keeps a
+					// persistent long-polling channel open even after a one-shot
+					// getDocs() read, so the page never reaches zero open
+					// connections and networkidle0 would hang forever.
 					await page.goto(`${baseUrl}${routePath}`, {
-						waitUntil: "networkidle0",
+						waitUntil: "networkidle2",
 					});
 					const html = await page.content();
 					await page.close();

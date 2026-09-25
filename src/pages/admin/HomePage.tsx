@@ -1,6 +1,12 @@
-const HomePage = () => (
-	<div className="container-page w-full">
-		<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
+import { Button } from "antd";
+import { Package, Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
+const HomePage = () => {
+	const navigate = useNavigate();
+
+	return (
+		<section className="container-page w-full">
 			<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
 				Admin Portal
 			</p>
@@ -8,31 +14,26 @@ const HomePage = () => (
 				Welcome back
 			</h1>
 			<p className="mt-2 text-slate-700">
-				Use the navigation to manage products. Remember to keep RLS policies
-				tight and never expose service keys on the client.
+				Use the navigation below to manage your product catalog, stored in
+				Firestore.
 			</p>
-			<div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold text-ink">
-				<button
-					type="button"
-					onClick={() => {
-						window.location.href = "/admin/products";
-					}}
-					className="rounded-full w-full md:w-auto bg-ink px-5 py-3 text-white shadow-soft hover:bg-slate-900"
+			<div className="mt-4 flex flex-wrap gap-3">
+				<Button
+					type="primary"
+					icon={<Package size={16} />}
+					onClick={() => navigate("/admin/products")}
 				>
 					Manage Products
-				</button>
-				<button
-					type="button"
-					onClick={() => {
-						window.location.href = "/admin/products/new";
-					}}
-					className="rounded-full w-full md:w-auto border border-ink px-5 py-3 text-ink hover:bg-white"
+				</Button>
+				<Button
+					icon={<Plus size={16} />}
+					onClick={() => navigate("/admin/products/new")}
 				>
 					Add Product
-				</button>
+				</Button>
 			</div>
 		</section>
-	</div>
-);
+	);
+};
 
 export default HomePage;

@@ -1,4 +1,7 @@
+import type { MenuProps } from "antd";
+import { Button, Dropdown } from "antd";
 import { signOut } from "firebase/auth";
+import { Home, HomeIcon, LogOut, UserCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useFirebaseSession } from "../hooks/useFirebaseSession";
@@ -34,6 +37,40 @@ export function AdminHeader() {
 		setSigningOut(false);
 	};
 
+	const items: MenuProps["items"] = [
+		{
+			key: "home",
+			label: "The Builder",
+			icon: <Home size={16} />,
+			onClick: () => navigate("/"),
+		},
+		{ type: "divider" },
+		{
+			key: "profile",
+			label: "Update Profile",
+			onClick: () => navigate("/admin/profile"),
+		},
+		{
+			key: "password",
+			label: "Update Password",
+			onClick: () => navigate("/admin/password"),
+		},
+		{
+			key: "products",
+			label: "Products",
+			onClick: () => navigate("/admin/products"),
+		},
+		{ type: "divider" },
+		{
+			key: "signout",
+			label: signingOut ? "Signing out…" : "Sign out",
+			icon: <LogOut size={16} />,
+			danger: true,
+			disabled: signingOut,
+			onClick: handleSignOut,
+		},
+	];
+
 	return (
 		<header className="sticky top-0 z-20 border-b border-ink bg-white backdrop-blur px-5">
 			<div className="container-page flex flex-wrap items-center justify-between gap-4 py-2 md:py-4">
@@ -50,70 +87,28 @@ export function AdminHeader() {
 
 				<div className="flex items-center gap-2 text-sm">
 					{!isAuthenticated && (
-						<NavLink
-							to="/"
-							className="rounded-full border border-sand px-3 py-2 text-ink transition hover:border-ink"
-						>
-							Home
-						</NavLink>
+						<Button
+							onClick={() => navigate("/")}
+							icon={<HomeIcon />}
+							type="text"
+						/>
 					)}
 					{isAuthenticated && (
-						<div className="relative">
+						<Dropdown
+							menu={{ items }}
+							trigger={["click", "hover"]}
+							open={menuOpen}
+							onOpenChange={setMenuOpen}
+							arrow
+						>
 							<button
 								type="button"
-								onClick={() => setMenuOpen((open) => !open)}
-								aria-expanded={menuOpen}
-								aria-haspopup="menu"
-								className="font-semibold font-display rounded-full px-4 py-2 text-ink hover:bg-gray-200"
+								className="font-semibold flex flex-row items-center gap-2"
 							>
-								{user?.displayName ?? "Administrator"}
+								<UserCircle />
+								<span>{user?.displayName ?? "Administrator"}</span>
 							</button>
-							{menuOpen && (
-								<div
-									role="menu"
-									className="absolute right-0 mt-2 w-52 rounded-2xl border border-sand bg-white p-2 shadow-soft"
-								>
-									<NavLink
-										to="/"
-										role="menuitem"
-										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
-									>
-										The Builder
-									</NavLink>
-									<hr className="my-2" />
-									<NavLink
-										to="/admin/profile"
-										role="menuitem"
-										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
-									>
-										Update Profile
-									</NavLink>
-									<NavLink
-										to="/admin/password"
-										role="menuitem"
-										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
-									>
-										Update Password
-									</NavLink>
-									<NavLink
-										to="/admin/products"
-										role="menuitem"
-										className="block rounded-xl px-3 py-2 text-sm text-ink hover:bg-mist"
-									>
-										Products
-									</NavLink>
-									<hr className="my-2" />
-									<button
-										type="button"
-										onClick={handleSignOut}
-										disabled={signingOut}
-										className="w-full rounded-xl px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-70"
-									>
-										{signingOut ? "Signing out…" : "Sign out"}
-									</button>
-								</div>
-							)}
-						</div>
+						</Dropdown>
 					)}
 				</div>
 			</div>
