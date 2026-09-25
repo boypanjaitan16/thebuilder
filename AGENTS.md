@@ -27,7 +27,7 @@ React + TypeScript SPA built with Vite, TailwindCSS, and Biome. Deployed to GitH
 
 ### Routing
 - App routes in `src/App.tsx`
-- 404 page: `src/pages/NotFoundPage.tsx` and `postbuild` copies `dist/index.html` to `dist/404.html` for SPA routing on GitHub Pages.
+- 404 page: `src/pages/NotFoundPage.tsx`. `vite-plugins/prerender.ts` writes `dist/404.html` (copy of the prerendered home page) for SPA routing on GitHub Pages, and prerenders all public routes listed in `vite-plugins/publicPaths.ts` (mirrors `src/App.tsx` and `public/sitemap.xml`, excludes `/admin/**`) into static `dist/<path>/index.html` files so those routes serve real HTML on first request instead of a 404.
 
 ### Admin portal
 - Routes under `/admin/**` guarded by `AdminGuard`.
