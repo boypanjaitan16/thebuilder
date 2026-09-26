@@ -114,7 +114,7 @@ function ArticlesPage() {
 				<button
 					type="button"
 					onClick={() => navigate(`/admin/articles/${record.id}/preview`)}
-					className="text-left font-semibold text-blue-600 hover:underline"
+					className="text-left font-semibold text-blue-600 hover:underline lg:max-w-[30vw]"
 				>
 					{title}
 				</button>
@@ -202,7 +202,6 @@ function ArticlesPage() {
 				]}
 			/>
 			<Table<Article>
-				bordered
 				columns={columns}
 				dataSource={filteredArticles}
 				rowKey="id"

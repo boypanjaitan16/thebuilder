@@ -53,6 +53,7 @@ function ProductsPage() {
 			title: "Thumbnail",
 			dataIndex: "thumbnail_url",
 			key: "thumbnail",
+			width: 100,
 			render: (url: string, record) =>
 				url ? (
 					<img
@@ -75,7 +76,7 @@ function ProductsPage() {
 					target="_blank"
 					rel="noreferrer"
 					href={record.marketplace_url}
-					className="text-blue-600 font-semibold"
+					className="text-blue-600 font-semibold max-w-[30vw]"
 				>
 					{name}
 				</a>
@@ -150,7 +151,6 @@ function ProductsPage() {
 			</div>
 			{combinedError && <Alert type="error" showIcon title={combinedError} />}
 			<Table<Product>
-				bordered
 				columns={columns}
 				dataSource={products}
 				rowKey="id"

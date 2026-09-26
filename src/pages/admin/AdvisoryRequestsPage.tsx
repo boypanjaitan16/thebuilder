@@ -96,7 +96,6 @@ function AdvisoryRequestsPage() {
 			</div>
 			{combinedError && <Alert type="error" showIcon title={combinedError} />}
 			<Table<AdvisoryRequest>
-				bordered
 				columns={columns}
 				dataSource={requests}
 				rowKey="id"

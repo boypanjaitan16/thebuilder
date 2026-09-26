@@ -43,12 +43,15 @@ function LoginPage() {
 		<div className="flex flex-col flex-grow justify-center items-center">
 			<section
 				className={classNames(
-					"flex border bg-white rounded-lg w-full max-w-lg p-8",
+					"flex flex-col border bg-white rounded-xl w-full max-w-lg p-8",
 					{
 						"border-red-600": errors.email || errors.password,
 					},
 				)}
 			>
+				<h1 className="font-semibold text-2xl mb-5">
+					Sign-in as Administrator
+				</h1>
 				<Form
 					size="large"
 					layout="vertical"

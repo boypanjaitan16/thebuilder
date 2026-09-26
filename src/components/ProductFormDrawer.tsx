@@ -146,6 +146,7 @@ export function ProductFormDrawer({
 			destroyOnHidden
 			footer={
 				<Button
+					shape="round"
 					type="primary"
 					size="large"
 					htmlType="submit"

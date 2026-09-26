@@ -74,7 +74,7 @@ function ProfilePage() {
 				layout="vertical"
 				size="large"
 				onSubmitCapture={handleSubmit(onSubmit)}
-				className="mt-6 flex flex-col"
+				className="mt-6 flex flex-col max-w-xl"
 			>
 				<Form.Item label="Email">
 					<Input

@@ -133,7 +133,7 @@ function ArticleFormPage() {
 
 	const displayedError = errorMessage || articleError;
 
-	if (isEditing && loadingArticle) {
+	if (isEditing && (loadingArticle || (fetchedArticle && !article))) {
 		return (
 			<div className="container-page w-full flex flex-col flex-grow items-center justify-center">
 				<LoadingIndicator label="Loading article..." />

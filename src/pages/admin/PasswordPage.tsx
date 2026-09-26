@@ -82,12 +82,13 @@ function PasswordPage() {
 				size="large"
 				layout="vertical"
 				onSubmitCapture={handleSubmit(onSubmit)}
-				className="mt-6 flex flex-col"
+				className="mt-6 flex flex-col max-w-xl"
 			>
 				<Form.Item
 					label="Current password"
 					validateStatus={errors.currentPassword ? "error" : ""}
 					help={errors.currentPassword?.message}
+					className="mb-0"
 				>
 					<Controller
 						name="currentPassword"
@@ -104,6 +105,7 @@ function PasswordPage() {
 					label="New password"
 					validateStatus={errors.newPassword ? "error" : ""}
 					help={errors.newPassword?.message}
+					className="mb-0"
 				>
 					<Controller
 						name="newPassword"
