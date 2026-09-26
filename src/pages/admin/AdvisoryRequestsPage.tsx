@@ -104,6 +104,7 @@ function AdvisoryRequestsPage() {
 				pagination={false}
 				locale={{ emptyText: "No advisory requests yet." }}
 				className="mt-5"
+				scroll={{ x: "max-content" }}
 			/>
 			<AdvisoryRequestDrawer
 				open={drawerOpen}

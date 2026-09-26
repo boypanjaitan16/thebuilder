@@ -158,6 +158,7 @@ function ProductsPage() {
 				pagination={false}
 				locale={{ emptyText: "No products yet." }}
 				className="mt-5"
+				scroll={{ x: "max-content" }}
 			/>
 			<ProductFormDrawer
 				open={drawerOpen}

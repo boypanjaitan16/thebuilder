@@ -210,6 +210,7 @@ function ArticlesPage() {
 				pagination={false}
 				locale={{ emptyText: "No articles yet." }}
 				className="mt-5"
+				scroll={{ x: "max-content" }}
 			/>
 		</section>
 	);
