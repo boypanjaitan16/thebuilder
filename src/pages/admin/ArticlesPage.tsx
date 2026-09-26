@@ -9,6 +9,7 @@ import { useDeleteArticle } from "../../hooks/useDeleteArticle";
 import { useDeleteArticleImage } from "../../hooks/useDeleteArticleImage";
 import { useGetArticles } from "../../hooks/useGetArticles";
 import { useUpdateArticle } from "../../hooks/useUpdateArticle";
+import { confirmDelete } from "../../lib/confirmDelete";
 import { formatDate } from "../../lib/date";
 import { toErrorMessage } from "../../lib/errors";
 import type { Article, ArticleStatus } from "../../types/Article";
@@ -153,7 +154,13 @@ function ArticlesPage() {
 					<Button
 						danger
 						icon={<Trash2 size={14} />}
-						onClick={() => void handleDeleteArticle(record)}
+						onClick={() =>
+							confirmDelete({
+								title: `Delete "${record.title}"?`,
+								content: "This action cannot be undone.",
+								onConfirm: () => handleDeleteArticle(record),
+							})
+						}
 					>
 						Delete
 					</Button>

@@ -7,6 +7,7 @@ import { AdvisoryRequestDrawer } from "../../components/AdvisoryRequestDrawer";
 import { useToast } from "../../components/ToastProvider";
 import { useDeleteAdvisoryRequest } from "../../hooks/useDeleteAdvisoryRequest";
 import { useGetAdvisoryRequests } from "../../hooks/useGetAdvisoryRequests";
+import { confirmDelete } from "../../lib/confirmDelete";
 import { formatDate } from "../../lib/date";
 import { toErrorMessage } from "../../lib/errors";
 import type { AdvisoryRequest } from "../../types/AdvisoryRequest";
@@ -67,7 +68,13 @@ function AdvisoryRequestsPage() {
 					<Button
 						danger
 						icon={<Trash2 size={14} />}
-						onClick={() => void handleDelete(record)}
+						onClick={() =>
+							confirmDelete({
+								title: `Delete request from "${record.name}"?`,
+								content: "This action cannot be undone.",
+								onConfirm: () => handleDelete(record),
+							})
+						}
 					>
 						Delete
 					</Button>

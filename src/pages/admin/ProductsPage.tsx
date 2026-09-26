@@ -8,6 +8,7 @@ import { useToast } from "../../components/ToastProvider";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
 import { useGetProducts } from "../../hooks/useGetProducts";
+import { confirmDelete } from "../../lib/confirmDelete";
 import { toErrorMessage } from "../../lib/errors";
 import type { Product } from "../../types/Product";
 
@@ -108,7 +109,13 @@ function ProductsPage() {
 					<Button
 						danger
 						icon={<Trash2 size={14} />}
-						onClick={() => void handleDeleteProduct(record)}
+						onClick={() =>
+							confirmDelete({
+								title: `Delete "${record.name}"?`,
+								content: "This action cannot be undone.",
+								onConfirm: () => handleDeleteProduct(record),
+							})
+						}
 					>
 						Delete
 					</Button>
