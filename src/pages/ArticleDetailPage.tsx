@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
@@ -5,6 +6,11 @@ import { ShareButtons } from "../components/ShareButtons";
 import { useGetArticleBySlug } from "../hooks/useGetArticleBySlug";
 import { useI18n } from "../i18n/I18nProvider";
 import { formatDate } from "../lib/date";
+import { setCanonicalLink, setMetaContent } from "../lib/documentMeta";
+import { stripHtmlAndTruncate } from "../lib/textExcerpt";
+
+const PRODUCTION_ORIGIN = "https://thebuilder.co.id";
+const DEFAULT_OG_IMAGE = `${PRODUCTION_ORIGIN}/thebuilder.png`;
 
 function ArticleDetailPage() {
 	const { copy } = useI18n();
@@ -14,6 +20,31 @@ function ArticleDetailPage() {
 		isLoading: loading,
 		error,
 	} = useGetArticleBySlug(slug);
+
+	useEffect(() => {
+		if (!article) return;
+
+		const previousTitle = document.title;
+		const excerpt = stripHtmlAndTruncate(article.content, 155);
+		const pageTitle = `The Builder — ${article.title}`;
+		const canonicalUrl = `${PRODUCTION_ORIGIN}/insights/${article.slug}`;
+		const ogImage = article.cover_image_url || DEFAULT_OG_IMAGE;
+
+		document.title = pageTitle;
+		const cleanups = [
+			setMetaContent("name", "description", excerpt),
+			setMetaContent("property", "og:title", pageTitle),
+			setMetaContent("property", "og:description", excerpt),
+			setMetaContent("property", "og:image", ogImage),
+			setMetaContent("property", "og:url", canonicalUrl),
+			setCanonicalLink(canonicalUrl),
+		];
+
+		return () => {
+			document.title = previousTitle;
+			for (const cleanup of cleanups) cleanup();
+		};
+	}, [article]);
 
 	if (loading) {
 		return (
