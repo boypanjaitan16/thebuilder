@@ -15,8 +15,13 @@
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.2.2",
+		"@tiptap/extension-image": "^3.31.3",
+		"@tiptap/pm": "^3.31.3",
+		"@tiptap/react": "^3.31.3",
+		"@tiptap/starter-kit": "^3.31.3",
 		"antd": "^6.6.5",
 		"classnames": "^2.5.1",
+		"dayjs": "^1.11.23",
 		"dotenv": "^17.2.3",
 		"firebase": "^10.13.0",
 		"lucide-react": "^1.48.0",
@@ -28,6 +33,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.11",
+		"@tailwindcss/typography": "^0.5.20",
 		"@testing-library/jest-dom": "^6.9.1",
 		"@testing-library/react": "^16.3.2",
 		"@testing-library/user-event": "^14.6.1",

@@ -205,7 +205,6 @@ export type Copy = {
 		publishedLoading: string;
 		publishedEmpty: string;
 		publishedError: string;
-		publishedMissingConfig: string;
 		publishedNoImage: string;
 		featuredTitle: string;
 		featuredIntro: string;

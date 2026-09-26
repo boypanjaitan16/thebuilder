@@ -7,6 +7,7 @@ import LoadingIndicator from "./components/LoadingIndicator";
 import AboutPage from "./pages/AboutPage";
 import ApplyPage from "./pages/ApplyPage";
 import ArchitecturePage from "./pages/ArchitecturePage";
+import ArticleDetailPage from "./pages/ArticleDetailPage";
 import DiagnosticPage from "./pages/DiagnosticPage";
 import FutureTalentPage from "./pages/FutureTalentPage";
 import HomePage from "./pages/HomePage";
@@ -31,6 +32,13 @@ const AdminLoginPage = lazy(() => import("./pages/admin/LoginPage"));
 const AdminPasswordPage = lazy(() => import("./pages/admin/PasswordPage"));
 const AdminProductsPage = lazy(() => import("./pages/admin/ProductsPage"));
 const AdminProfilePage = lazy(() => import("./pages/admin/ProfilePage"));
+const AdminArticlesPage = lazy(() => import("./pages/admin/ArticlesPage"));
+const AdminArticleFormPage = lazy(
+	() => import("./pages/admin/ArticleFormPage"),
+);
+const AdminArticlePreviewPage = lazy(
+	() => import("./pages/admin/ArticlePreviewPage"),
+);
 
 function AdminRouteFallback() {
 	return (
@@ -60,6 +68,7 @@ function App() {
 						element={<RiskContinuityPage />}
 					/>
 					<Route path="/insights" element={<InsightsPage />} />
+					<Route path="/insights/:slug" element={<ArticleDetailPage />} />
 					<Route path="/work-with-me" element={<WorkWithMePage />} />
 					<Route path="/apply" element={<ApplyPage />} />
 					<Route path="/diagnostic" element={<DiagnosticPage />} />
@@ -105,6 +114,16 @@ function App() {
 					>
 						<Route index element={<AdminPage />} />
 						<Route path="products" element={<AdminProductsPage />} />
+						<Route path="articles" element={<AdminArticlesPage />} />
+						<Route path="articles/new" element={<AdminArticleFormPage />} />
+						<Route
+							path="articles/:articleId/edit"
+							element={<AdminArticleFormPage />}
+						/>
+						<Route
+							path="articles/:articleId/preview"
+							element={<AdminArticlePreviewPage />}
+						/>
 						<Route path="profile" element={<AdminProfilePage />} />
 						<Route path="password" element={<AdminPasswordPage />} />
 					</Route>

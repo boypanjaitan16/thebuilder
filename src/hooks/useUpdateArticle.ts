@@ -1,17 +1,18 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { useCallback, useState } from "react";
 import { nowIso } from "../lib/date";
 import { getFirestoreDb } from "../lib/firebaseDb";
-import type { ProductCreateValues } from "../schemas/productCreateSchema";
+import type { ArticleValues } from "../schemas/articleSchema";
 
-export function useCreateProduct() {
+export function useUpdateArticle() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const createProduct = useCallback(
+	const updateArticle = useCallback(
 		async (
-			values: ProductCreateValues,
-			extra: { thumbnail_url: string | null },
+			id: string,
+			values: ArticleValues,
+			extra: { cover_image_url?: string | null },
 		) => {
 			const db = getFirestoreDb();
 			if (!db) {
@@ -22,17 +23,15 @@ export function useCreateProduct() {
 			setLoading(true);
 			setError(null);
 			try {
-				const id = crypto.randomUUID();
-				await setDoc(doc(db, "products", id), {
-					id,
+				await updateDoc(doc(db, "articles", id), {
 					...values,
-					thumbnail_url: extra.thumbnail_url,
-					created_at: nowIso(),
+					cover_image_url: extra.cover_image_url,
+					updated_at: nowIso(),
 				});
 				return { success: true };
 			} catch (err) {
 				setError(
-					err instanceof Error ? err.message : "Failed to create product.",
+					err instanceof Error ? err.message : "Failed to update article.",
 				);
 				return { success: false };
 			} finally {
@@ -42,5 +41,5 @@ export function useCreateProduct() {
 		[],
 	);
 
-	return { loading, error, createProduct, setError };
+	return { loading, error, updateArticle, setError };
 }

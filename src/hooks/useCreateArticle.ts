@@ -2,16 +2,16 @@ import { doc, setDoc } from "firebase/firestore";
 import { useCallback, useState } from "react";
 import { nowIso } from "../lib/date";
 import { getFirestoreDb } from "../lib/firebaseDb";
-import type { ProductCreateValues } from "../schemas/productCreateSchema";
+import type { ArticleValues } from "../schemas/articleSchema";
 
-export function useCreateProduct() {
+export function useCreateArticle() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const createProduct = useCallback(
+	const createArticle = useCallback(
 		async (
-			values: ProductCreateValues,
-			extra: { thumbnail_url: string | null },
+			values: ArticleValues,
+			extra: { cover_image_url: string | null },
 		) => {
 			const db = getFirestoreDb();
 			if (!db) {
@@ -23,16 +23,18 @@ export function useCreateProduct() {
 			setError(null);
 			try {
 				const id = crypto.randomUUID();
-				await setDoc(doc(db, "products", id), {
+				const now = nowIso();
+				await setDoc(doc(db, "articles", id), {
 					id,
 					...values,
-					thumbnail_url: extra.thumbnail_url,
-					created_at: nowIso(),
+					cover_image_url: extra.cover_image_url,
+					created_at: now,
+					updated_at: now,
 				});
 				return { success: true };
 			} catch (err) {
 				setError(
-					err instanceof Error ? err.message : "Failed to create product.",
+					err instanceof Error ? err.message : "Failed to create article.",
 				);
 				return { success: false };
 			} finally {
@@ -42,5 +44,5 @@ export function useCreateProduct() {
 		[],
 	);
 
-	return { loading, error, createProduct, setError };
+	return { loading, error, createArticle, setError };
 }

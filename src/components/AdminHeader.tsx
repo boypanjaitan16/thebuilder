@@ -60,6 +60,11 @@ export function AdminHeader() {
 			label: "Products",
 			onClick: () => navigate("/admin/products"),
 		},
+		{
+			key: "articles",
+			label: "Articles",
+			onClick: () => navigate("/admin/articles"),
+		},
 		{ type: "divider" },
 		{
 			key: "signout",

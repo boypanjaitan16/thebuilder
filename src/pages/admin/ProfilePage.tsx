@@ -4,6 +4,7 @@ import { updateProfile } from "firebase/auth";
 import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { Breadcrumb } from "../../components/Breadcrumb";
 import { useToast } from "../../components/ToastProvider";
 import { useFirebaseSession } from "../../hooks/useFirebaseSession";
 import { getFirebaseAuth, notifyAuthUserRefresh } from "../../lib/firebaseAuth";
@@ -57,6 +58,7 @@ function ProfilePage() {
 
 	return (
 		<section className="container-page w-full">
+			<Breadcrumb items={[{ label: "Profile" }]} />
 			<div className="flex flex-row flex-wrap items-center justify-between gap-3">
 				<div>
 					<h1 className="mt-2 font-display text-2xl font-semibold text-ink">
