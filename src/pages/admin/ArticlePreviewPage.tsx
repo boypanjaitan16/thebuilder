@@ -1,24 +1,15 @@
 import { Button, Tag } from "antd";
 import { PencilLine } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { useGetArticle } from "../../hooks/useGetArticle";
 import { formatDate } from "../../lib/date";
-import type { Article } from "../../types/Article";
 
 function ArticlePreviewPage() {
 	const navigate = useNavigate();
 	const { articleId } = useParams<{ articleId: string }>();
-	const [article, setArticle] = useState<Article | null>(null);
-
-	const { fetchArticle, loading, error } = useGetArticle();
-
-	useEffect(() => {
-		if (!articleId) return;
-		void fetchArticle(articleId).then((data) => setArticle(data));
-	}, [articleId, fetchArticle]);
+	const { data: article, isLoading: loading, error } = useGetArticle(articleId);
 
 	if (loading) {
 		return (

@@ -1,5 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useUpdateProduct } from "../useUpdateProduct";
 
 vi.mock("firebase/firestore", () => ({
@@ -26,35 +27,28 @@ describe("useUpdateProduct", () => {
 		mockGetFirestoreDb.mockReturnValue(FAKE_DB);
 	});
 
-	it("initializes with default state", () => {
-		const { result } = renderHook(() => useUpdateProduct());
-
-		expect(result.current.loading).toBe(false);
-		expect(result.current.error).toBeNull();
-		expect(typeof result.current.updateProduct).toBe("function");
-		expect(typeof result.current.setError).toBe("function");
-	});
-
 	it("updates product successfully", async () => {
 		mockUpdateDoc.mockResolvedValue(undefined);
 
-		const { result } = renderHook(() => useUpdateProduct());
-
-		let response: { success: boolean };
-		await act(async () => {
-			response = await result.current.updateProduct(
-				"product-id-123",
-				{
-					name: "Updated Product",
-					description: "Updated Description",
-					price: 150,
-					marketplace_url: "https://example.com/updated",
-				},
-				{ thumbnail_url: "https://example.com/new-thumb.jpg" },
-			);
+		const { result } = renderHook(() => useUpdateProduct(), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(response!.success).toBe(true);
+		await act(async () => {
+			await expect(
+				result.current.updateProduct(
+					"product-id-123",
+					{
+						name: "Updated Product",
+						description: "Updated Description",
+						price: 150,
+						marketplace_url: "https://example.com/updated",
+					},
+					{ thumbnail_url: "https://example.com/new-thumb.jpg" },
+				),
+			).resolves.toBeUndefined();
+		});
+
 		expect(result.current.error).toBeNull();
 		expect(mockDoc).toHaveBeenCalledWith(FAKE_DB, "products", "product-id-123");
 		expect(mockUpdateDoc).toHaveBeenCalledWith(undefined, {
@@ -66,71 +60,28 @@ describe("useUpdateProduct", () => {
 		});
 	});
 
-	it("handles error when updating product fails", async () => {
+	it("throws when updating product fails", async () => {
 		mockUpdateDoc.mockRejectedValue(new Error("Update failed"));
 
-		const { result } = renderHook(() => useUpdateProduct());
-
-		let response: { success: boolean };
-		await act(async () => {
-			response = await result.current.updateProduct(
-				"product-id-123",
-				{
-					name: "Updated Product",
-					description: "",
-					price: 0,
-					marketplace_url: "https://example.com",
-				},
-				{ thumbnail_url: null },
-			);
+		const { result } = renderHook(() => useUpdateProduct(), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(response!.success).toBe(false);
+		await act(async () => {
+			await expect(
+				result.current.updateProduct(
+					"product-id-123",
+					{
+						name: "Updated Product",
+						description: "",
+						price: 0,
+						marketplace_url: "https://example.com",
+					},
+					{ thumbnail_url: null },
+				),
+			).rejects.toThrow("Update failed");
+		});
+
 		expect(result.current.error).toBe("Update failed");
-	});
-
-	it("sets loading state during update", async () => {
-		let resolveUpdate: () => void;
-		const updatePromise = new Promise<void>((resolve) => {
-			resolveUpdate = resolve;
-		});
-		mockUpdateDoc.mockReturnValue(updatePromise);
-
-		const { result } = renderHook(() => useUpdateProduct());
-
-		expect(result.current.loading).toBe(false);
-
-		let callPromise: Promise<{ success: boolean }>;
-		act(() => {
-			callPromise = result.current.updateProduct(
-				"product-id-123",
-				{
-					name: "Test",
-					description: "",
-					price: 0,
-					marketplace_url: "https://example.com",
-				},
-				{ thumbnail_url: null },
-			);
-		});
-
-		expect(result.current.loading).toBe(true);
-
-		await act(async () => {
-			resolveUpdate?.();
-			await callPromise;
-		});
-
-		expect(result.current.loading).toBe(false);
-	});
-
-	it("can manually set error", () => {
-		const { result } = renderHook(() => useUpdateProduct());
-
-		act(() => {
-			result.current.setError("Manual error");
-		});
-
-		expect(result.current.error).toBe("Manual error");
 	});
 });

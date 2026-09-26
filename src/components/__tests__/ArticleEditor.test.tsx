@@ -6,9 +6,8 @@ import { ArticleEditor } from "../ArticleEditor";
 vi.mock("../../hooks/useUploadArticleImage", () => ({
 	useUploadArticleImage: () => ({
 		uploadImage: vi.fn(),
-		loading: false,
+		isPending: false,
 		error: null,
-		setError: vi.fn(),
 	}),
 }));
 

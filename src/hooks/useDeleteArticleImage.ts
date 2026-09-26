@@ -1,32 +1,27 @@
+import { useMutation } from "@tanstack/react-query";
 import { deleteObject, ref } from "firebase/storage";
-import { useCallback, useState } from "react";
+import { toErrorMessage } from "../lib/errors";
 import { getFirebaseStorage } from "../lib/firebaseStorage";
 
+async function deleteArticleImage(url: string | null): Promise<void> {
+	if (!url) return;
+
+	const storage = getFirebaseStorage();
+	if (!storage) {
+		throw new Error("Firebase is not configured.");
+	}
+
+	await deleteObject(ref(storage, url));
+}
+
 export function useDeleteArticleImage() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const mutation = useMutation({ mutationFn: deleteArticleImage });
 
-	const deleteImage = useCallback(async (url: string | null) => {
-		if (!url) return { success: true };
-
-		const storage = getFirebaseStorage();
-		if (!storage) {
-			setError("Firebase is not configured.");
-			return { success: false };
-		}
-
-		setLoading(true);
-		setError(null);
-		try {
-			await deleteObject(ref(storage, url));
-			return { success: true };
-		} catch (err) {
-			setError(err instanceof Error ? err.message : "Failed to delete image.");
-			return { success: false };
-		} finally {
-			setLoading(false);
-		}
-	}, []);
-
-	return { deleteImage, loading, error, setError };
+	return {
+		deleteImage: mutation.mutateAsync,
+		isPending: mutation.isPending,
+		error: mutation.error
+			? toErrorMessage(mutation.error, "Failed to delete image.")
+			: null,
+	};
 }

@@ -1,45 +1,55 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { doc, updateDoc } from "firebase/firestore";
-import { useCallback, useState } from "react";
 import { nowIso } from "../lib/date";
+import { toErrorMessage } from "../lib/errors";
 import { getFirestoreDb } from "../lib/firebaseDb";
+import { articleKeys } from "../lib/queryKeys";
 import type { ArticleValues } from "../schemas/articleSchema";
 
-export function useUpdateArticle() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+async function updateArticle(
+	id: string,
+	values: ArticleValues,
+	extra: { cover_image_url?: string | null },
+): Promise<void> {
+	const db = getFirestoreDb();
+	if (!db) {
+		throw new Error("Firebase is not configured.");
+	}
 
-	const updateArticle = useCallback(
-		async (
+	await updateDoc(doc(db, "articles", id), {
+		...values,
+		cover_image_url: extra.cover_image_url,
+		updated_at: nowIso(),
+	});
+}
+
+export function useUpdateArticle() {
+	const queryClient = useQueryClient();
+	const mutation = useMutation({
+		mutationFn: ({
+			id,
+			values,
+			extra,
+		}: {
+			id: string;
+			values: ArticleValues;
+			extra: { cover_image_url?: string | null };
+		}) => updateArticle(id, values, extra),
+		onSuccess: (_data, { id }) => {
+			queryClient.invalidateQueries({ queryKey: articleKeys.lists() });
+			queryClient.invalidateQueries({ queryKey: articleKeys.detail(id) });
+		},
+	});
+
+	return {
+		updateArticle: (
 			id: string,
 			values: ArticleValues,
 			extra: { cover_image_url?: string | null },
-		) => {
-			const db = getFirestoreDb();
-			if (!db) {
-				setError("Firebase is not configured.");
-				return { success: false };
-			}
-
-			setLoading(true);
-			setError(null);
-			try {
-				await updateDoc(doc(db, "articles", id), {
-					...values,
-					cover_image_url: extra.cover_image_url,
-					updated_at: nowIso(),
-				});
-				return { success: true };
-			} catch (err) {
-				setError(
-					err instanceof Error ? err.message : "Failed to update article.",
-				);
-				return { success: false };
-			} finally {
-				setLoading(false);
-			}
-		},
-		[],
-	);
-
-	return { loading, error, updateArticle, setError };
+		) => mutation.mutateAsync({ id, values, extra }),
+		isPending: mutation.isPending,
+		error: mutation.error
+			? toErrorMessage(mutation.error, "Failed to update article.")
+			: null,
+	};
 }

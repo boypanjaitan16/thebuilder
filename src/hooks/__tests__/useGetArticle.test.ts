@@ -1,5 +1,6 @@
-import { act, renderHook } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useGetArticle } from "../useGetArticle";
 
 vi.mock("firebase/firestore", () => ({
@@ -27,13 +28,14 @@ describe("useGetArticle", () => {
 		mockGetFirestoreDb.mockReturnValue(FAKE_DB);
 	});
 
-	it("initializes with default state", () => {
-		const { result } = renderHook(() => useGetArticle());
+	it("does not fetch when id is undefined", () => {
+		const { result } = renderHook(() => useGetArticle(undefined), {
+			wrapper: createQueryWrapper(),
+		});
 
-		expect(result.current.loading).toBe(false);
-		expect(result.current.error).toBeNull();
-		expect(typeof result.current.fetchArticle).toBe("function");
-		expect(typeof result.current.setError).toBe("function");
+		expect(result.current.isLoading).toBe(false);
+		expect(result.current.data).toBeNull();
+		expect(mockGetDoc).not.toHaveBeenCalled();
 	});
 
 	it("fetches article successfully", async () => {
@@ -53,69 +55,40 @@ describe("useGetArticle", () => {
 			data: () => mockArticle,
 		} as never);
 
-		const { result } = renderHook(() => useGetArticle());
-
-		let article: Article | null = null;
-		await act(async () => {
-			article = await result.current.fetchArticle("valid-id");
+		const { result } = renderHook(() => useGetArticle("valid-id"), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(article).toEqual(mockArticle);
+		await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+		expect(result.current.data).toEqual(mockArticle);
 		expect(result.current.error).toBeNull();
 		expect(mockDoc).toHaveBeenCalledWith(FAKE_DB, "articles", "valid-id");
 	});
 
-	it("returns null and sets error when article does not exist", async () => {
+	it("surfaces an error when article does not exist", async () => {
 		mockGetDoc.mockResolvedValue({ exists: () => false } as never);
 
-		const { result } = renderHook(() => useGetArticle());
-
-		let article: Article | null = null;
-		await act(async () => {
-			article = await result.current.fetchArticle("missing-id");
+		const { result } = renderHook(() => useGetArticle("missing-id"), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(article).toBeNull();
+		await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+		expect(result.current.data).toBeNull();
 		expect(result.current.error).toBe("Article not found.");
 	});
 
-	it("handles fetch error", async () => {
+	it("surfaces the fetch error", async () => {
 		mockGetDoc.mockRejectedValue(new Error("Not found"));
 
-		const { result } = renderHook(() => useGetArticle());
-
-		let article: Article | null = null;
-		await act(async () => {
-			article = await result.current.fetchArticle("valid-id");
+		const { result } = renderHook(() => useGetArticle("valid-id"), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(article).toBeNull();
+		await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+		expect(result.current.data).toBeNull();
 		expect(result.current.error).toBe("Not found");
-	});
-
-	it("sets loading state during fetch", async () => {
-		let resolveGetDoc: (value: { exists: () => boolean }) => void;
-		const getDocPromise = new Promise<{ exists: () => boolean }>((resolve) => {
-			resolveGetDoc = resolve;
-		});
-		mockGetDoc.mockReturnValue(getDocPromise as never);
-
-		const { result } = renderHook(() => useGetArticle());
-
-		expect(result.current.loading).toBe(false);
-
-		let fetchPromise: Promise<unknown>;
-		act(() => {
-			fetchPromise = result.current.fetchArticle("valid-id");
-		});
-
-		expect(result.current.loading).toBe(true);
-
-		await act(async () => {
-			resolveGetDoc?.({ exists: () => false });
-			await fetchPromise;
-		});
-
-		expect(result.current.loading).toBe(false);
 	});
 });

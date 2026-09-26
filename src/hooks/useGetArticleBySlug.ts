@@ -1,6 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
-import { useCallback, useState } from "react";
+import { toErrorMessage } from "../lib/errors";
 import { getFirestoreDb } from "../lib/firebaseDb";
+import { PUBLIC_CONTENT_STALE_TIME } from "../lib/queryClient";
+import { articleKeys } from "../lib/queryKeys";
 import type { Article } from "../types/Article";
 
 /**
@@ -9,50 +12,50 @@ import type { Article } from "../types/Article";
  * `useGetPublishedArticles` — firestore.rules requires the query to be
  * constrained to published docs for an anonymous read to be allowed.
  */
-export function useGetArticleBySlug() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+async function fetchPublishedArticleBySlug(slug: string): Promise<Article> {
+	const db = getFirestoreDb();
+	if (!db) {
+		throw new Error("Firebase is not configured.");
+	}
 
-	const fetchArticleBySlug = useCallback(
-		async (slug: string): Promise<Article | null> => {
-			const db = getFirestoreDb();
-			if (!db) {
-				setError("Firebase is not configured.");
-				return null;
-			}
+	let snapshot: Awaited<ReturnType<typeof getDocs>>;
+	try {
+		snapshot = await getDocs(
+			query(
+				collection(db, "articles"),
+				where("slug", "==", slug),
+				where("status", "==", "PUBLISHED"),
+				limit(1),
+			),
+		);
+	} catch (err) {
+		if (import.meta.env.DEV) {
+			// biome-ignore lint/suspicious/noConsole: surfaces the real Firestore error in dev, since the UI only ever shows a generic message
+			console.error("useGetArticleBySlug:", err);
+		}
+		throw err;
+	}
 
-			setLoading(true);
-			setError(null);
-			try {
-				const snapshot = await getDocs(
-					query(
-						collection(db, "articles"),
-						where("slug", "==", slug),
-						where("status", "==", "PUBLISHED"),
-						limit(1),
-					),
-				);
-				const doc = snapshot.docs[0];
-				if (!doc) {
-					setError("Article not found.");
-					return null;
-				}
-				return doc.data() as Article;
-			} catch (err) {
-				if (import.meta.env.DEV) {
-					// biome-ignore lint/suspicious/noConsole: surfaces the real Firestore error in dev, since the UI only ever shows a generic message
-					console.error("useGetArticleBySlug:", err);
-				}
-				setError(
-					err instanceof Error ? err.message : "Failed to fetch article.",
-				);
-				return null;
-			} finally {
-				setLoading(false);
-			}
-		},
-		[],
-	);
+	const doc = snapshot.docs[0];
+	if (!doc) {
+		throw new Error("Article not found.");
+	}
+	return doc.data() as Article;
+}
 
-	return { loading, error, fetchArticleBySlug, setError };
+export function useGetArticleBySlug(slug: string | undefined) {
+	const articleQuery = useQuery({
+		queryKey: articleKeys.bySlug(slug ?? ""),
+		queryFn: () => fetchPublishedArticleBySlug(slug as string),
+		enabled: !!slug,
+		staleTime: PUBLIC_CONTENT_STALE_TIME,
+	});
+
+	return {
+		data: articleQuery.data ?? null,
+		isLoading: articleQuery.isLoading,
+		error: articleQuery.error
+			? toErrorMessage(articleQuery.error, "Failed to fetch article.")
+			: null,
+	};
 }

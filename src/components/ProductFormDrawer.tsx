@@ -8,6 +8,7 @@ import { useCreateProduct } from "../hooks/useCreateProduct";
 import { useDeleteProductThumbnail } from "../hooks/useDeleteProductThumbnail";
 import { useUpdateProduct } from "../hooks/useUpdateProduct";
 import { useUploadProductThumbnail } from "../hooks/useUploadProductThumbnail";
+import { toErrorMessage } from "../lib/errors";
 import {
 	type ProductCreateFormValues,
 	type ProductCreateValues,
@@ -41,32 +42,12 @@ export function ProductFormDrawer({
 	const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
 	const isEditing = Boolean(product);
 
-	const {
-		createProduct,
-		loading: creating,
-		error: createError,
-		setError: setCreateError,
-	} = useCreateProduct();
-	const {
-		updateProduct,
-		loading: updating,
-		error: updateError,
-		setError: setUpdateError,
-	} = useUpdateProduct();
-	const {
-		uploadThumbnail,
-		loading: uploading,
-		error: uploadError,
-		setError: setUploadError,
-	} = useUploadProductThumbnail();
-	const {
-		deleteThumbnail,
-		error: deleteThumbnailError,
-		setError: setDeleteThumbnailError,
-	} = useDeleteProductThumbnail();
+	const { createProduct, isPending: creating } = useCreateProduct();
+	const { updateProduct, isPending: updating } = useUpdateProduct();
+	const { uploadThumbnail, isPending: uploading } = useUploadProductThumbnail();
+	const { deleteThumbnail } = useDeleteProductThumbnail();
 
-	const combinedError =
-		error || createError || updateError || uploadError || deleteThumbnailError;
+	const combinedError = error;
 	const submitting = creating || updating || uploading;
 
 	const {
@@ -82,10 +63,6 @@ export function ProductFormDrawer({
 	useEffect(() => {
 		if (!open) return;
 		setError(null);
-		setCreateError(null);
-		setUpdateError(null);
-		setUploadError(null);
-		setDeleteThumbnailError(null);
 		setThumbnailFile(null);
 		reset(
 			product
@@ -97,15 +74,7 @@ export function ProductFormDrawer({
 					}
 				: emptyValues,
 		);
-	}, [
-		open,
-		product,
-		reset,
-		setCreateError,
-		setUpdateError,
-		setUploadError,
-		setDeleteThumbnailError,
-	]);
+	}, [open, product, reset]);
 
 	const existingThumbnailFileList: UploadFile[] = product?.thumbnail_url
 		? [
@@ -120,59 +89,52 @@ export function ProductFormDrawer({
 
 	const onSubmit = async (values: ProductCreateValues) => {
 		setError(null);
-		setCreateError(null);
-		setUpdateError(null);
-		setUploadError(null);
-		setDeleteThumbnailError(null);
 
-		if (isEditing && product) {
-			const previousThumbnailUrl = product.thumbnail_url || null;
-			let thumbnailUrl = previousThumbnailUrl;
+		try {
+			if (isEditing && product) {
+				const previousThumbnailUrl = product.thumbnail_url || null;
+				let thumbnailUrl = previousThumbnailUrl;
 
-			if (thumbnailFile) {
-				const uploadResult = await uploadThumbnail(thumbnailFile);
-				if (!uploadResult.success) return;
-				thumbnailUrl = uploadResult.url || thumbnailUrl;
-			}
+				if (thumbnailFile) {
+					thumbnailUrl = await uploadThumbnail(thumbnailFile);
+				}
 
-			const result = await updateProduct(product.id, values, {
-				thumbnail_url: thumbnailUrl,
-			});
-			if (!result.success) return;
+				await updateProduct(product.id, values, {
+					thumbnail_url: thumbnailUrl,
+				});
 
-			if (
-				thumbnailFile &&
-				previousThumbnailUrl &&
-				previousThumbnailUrl !== thumbnailUrl
-			) {
-				const deleteResult = await deleteThumbnail(previousThumbnailUrl);
-				if (!deleteResult.success) {
-					setError(
-						"Product updated, but failed to delete the previous thumbnail.",
-					);
+				if (
+					thumbnailFile &&
+					previousThumbnailUrl &&
+					previousThumbnailUrl !== thumbnailUrl
+				) {
+					try {
+						await deleteThumbnail(previousThumbnailUrl);
+					} catch {
+						setError(
+							"Product updated, but failed to delete the previous thumbnail.",
+						);
+						return;
+					}
+				}
+
+				showToast("Product updated successfully", { tone: "success" });
+			} else {
+				if (!thumbnailFile) {
+					setError("Please select a thumbnail image.");
 					return;
 				}
+
+				const thumbnailUrl = await uploadThumbnail(thumbnailFile);
+				await createProduct(values, { thumbnail_url: thumbnailUrl });
+
+				showToast("Product created successfully", { tone: "success" });
 			}
 
-			showToast("Product updated successfully", { tone: "success" });
-		} else {
-			if (!thumbnailFile) {
-				setError("Please select a thumbnail image.");
-				return;
-			}
-
-			const uploadResult = await uploadThumbnail(thumbnailFile);
-			if (!uploadResult.success) return;
-
-			const result = await createProduct(values, {
-				thumbnail_url: uploadResult.url,
-			});
-			if (!result.success) return;
-
-			showToast("Product created successfully", { tone: "success" });
+			onSaved();
+		} catch (err) {
+			setError(toErrorMessage(err, "Something went wrong."));
 		}
-
-		onSaved();
 	};
 
 	return (

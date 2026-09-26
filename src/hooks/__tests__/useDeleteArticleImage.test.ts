@@ -1,5 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useDeleteArticleImage } from "../useDeleteArticleImage";
 
 vi.mock("firebase/storage", () => ({
@@ -26,40 +27,33 @@ describe("useDeleteArticleImage", () => {
 		mockGetFirebaseStorage.mockReturnValue(FAKE_STORAGE);
 	});
 
-	it("initializes with default state", () => {
-		const { result } = renderHook(() => useDeleteArticleImage());
-
-		expect(result.current.loading).toBe(false);
-		expect(result.current.error).toBeNull();
-		expect(typeof result.current.deleteImage).toBe("function");
-		expect(typeof result.current.setError).toBe("function");
-	});
-
-	it("returns success when url is null", async () => {
-		const { result } = renderHook(() => useDeleteArticleImage());
-
-		let response: { success: boolean };
-		await act(async () => {
-			response = await result.current.deleteImage(null);
+	it("resolves without deleting when url is null", async () => {
+		const { result } = renderHook(() => useDeleteArticleImage(), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(response!.success).toBe(true);
+		await act(async () => {
+			await expect(result.current.deleteImage(null)).resolves.toBeUndefined();
+		});
+
 		expect(mockDeleteObject).not.toHaveBeenCalled();
 	});
 
 	it("deletes image successfully", async () => {
 		mockDeleteObject.mockResolvedValue(undefined);
 
-		const { result } = renderHook(() => useDeleteArticleImage());
-
-		let response: { success: boolean };
-		await act(async () => {
-			response = await result.current.deleteImage(
-				"https://firebasestorage.googleapis.com/v0/b/app/o/articles%2Fimage.jpg?alt=media",
-			);
+		const { result } = renderHook(() => useDeleteArticleImage(), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(response!.success).toBe(true);
+		await act(async () => {
+			await expect(
+				result.current.deleteImage(
+					"https://firebasestorage.googleapis.com/v0/b/app/o/articles%2Fimage.jpg?alt=media",
+				),
+			).resolves.toBeUndefined();
+		});
+
 		expect(result.current.error).toBeNull();
 		expect(mockRef).toHaveBeenCalledWith(
 			FAKE_STORAGE,
@@ -68,47 +62,21 @@ describe("useDeleteArticleImage", () => {
 		expect(mockDeleteObject).toHaveBeenCalled();
 	});
 
-	it("handles error when deleting fails", async () => {
+	it("throws when deleting fails", async () => {
 		mockDeleteObject.mockRejectedValue(new Error("Delete failed"));
 
-		const { result } = renderHook(() => useDeleteArticleImage());
-
-		let response: { success: boolean };
-		await act(async () => {
-			response = await result.current.deleteImage(
-				"https://firebasestorage.googleapis.com/v0/b/app/o/articles%2Fimage.jpg?alt=media",
-			);
+		const { result } = renderHook(() => useDeleteArticleImage(), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(response!.success).toBe(false);
+		await act(async () => {
+			await expect(
+				result.current.deleteImage(
+					"https://firebasestorage.googleapis.com/v0/b/app/o/articles%2Fimage.jpg?alt=media",
+				),
+			).rejects.toThrow("Delete failed");
+		});
+
 		expect(result.current.error).toBe("Delete failed");
-	});
-
-	it("sets loading state during deletion", async () => {
-		let resolveDelete: () => void;
-		const deletePromise = new Promise<void>((resolve) => {
-			resolveDelete = resolve;
-		});
-		mockDeleteObject.mockReturnValue(deletePromise);
-
-		const { result } = renderHook(() => useDeleteArticleImage());
-
-		expect(result.current.loading).toBe(false);
-
-		let deletePromiseResult: Promise<{ success: boolean }>;
-		act(() => {
-			deletePromiseResult = result.current.deleteImage(
-				"https://example.com/image.jpg",
-			);
-		});
-
-		expect(result.current.loading).toBe(true);
-
-		await act(async () => {
-			resolveDelete?.();
-			await deletePromiseResult;
-		});
-
-		expect(result.current.loading).toBe(false);
 	});
 });

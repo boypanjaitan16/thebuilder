@@ -63,9 +63,14 @@ export function Layout() {
 			<footer className="border-t border-sand/70 bg-white py-10">
 				<div className="container-page flex flex-col gap-6 md:flex-row md:items-center md:justify-between px-5 xl:px-0">
 					<div>
-						<p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+						<p className="text-xs uppercase tracking-[0.2em] text-slate-500 mb-3">
 							The Builder
 						</p>
+						<img
+							src="/thebuilder.png"
+							alt="The builder logo"
+							className="size-16 rounded"
+						/>
 						<p className="mt-2 max-w-xl text-sm text-slate-600">
 							{copy.footer.line}
 						</p>

@@ -53,9 +53,11 @@ export function ArticleEditor({ content, onChange }: ArticleEditorProps) {
 		const file = event.target.files?.[0];
 		event.target.value = "";
 		if (!file) return;
-		const result = await uploadImage(file);
-		if (result.success && result.url) {
-			editor.chain().focus().setImage({ src: result.url }).run();
+		try {
+			const url = await uploadImage(file);
+			editor.chain().focus().setImage({ src: url }).run();
+		} catch {
+			// silently ignore, matching the previous behavior on upload failure
 		}
 	};
 

@@ -80,6 +80,11 @@ export function AdminHeader() {
 		<header className="sticky top-0 z-20 border-b border-ink bg-white backdrop-blur px-5">
 			<div className="container-page flex flex-wrap items-center justify-between gap-4 py-2 md:py-4">
 				<NavLink to="/admin" className="flex items-center gap-3">
+					<img
+						src="/thebuilder.png"
+						alt="The builder logo"
+						className="size-10 rounded"
+					/>
 					<div className="text-left leading-tight">
 						<p className="text-[11px] uppercase tracking-[0.25em] text-slate-500">
 							Admin

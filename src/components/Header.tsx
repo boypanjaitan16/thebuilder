@@ -17,6 +17,11 @@ export function Header() {
 			<div className="container-page flex flex-col gap-3 py-3 md:pt-5 md:pb-3 px-5 xl:px-0">
 				<div className="flex flex-row items-center justify-between">
 					<NavLink to="/" className="flex items-center gap-3">
+						<img
+							src="/thebuilder.png"
+							alt="The builder logo"
+							className="size-[2.5rem] rounded"
+						/>
 						<div className="text-left leading-tight">
 							<p className="font-bold font-display text-2xl uppercase text-ink">
 								The Builder

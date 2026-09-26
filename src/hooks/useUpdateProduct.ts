@@ -1,43 +1,52 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { doc, updateDoc } from "firebase/firestore";
-import { useCallback, useState } from "react";
+import { toErrorMessage } from "../lib/errors";
 import { getFirestoreDb } from "../lib/firebaseDb";
+import { productKeys } from "../lib/queryKeys";
 import type { ProductUpdateValues } from "../schemas/productUpdateSchema";
 
-export function useUpdateProduct() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+async function updateProduct(
+	id: string,
+	values: ProductUpdateValues,
+	extra: { thumbnail_url?: string | null },
+): Promise<void> {
+	const db = getFirestoreDb();
+	if (!db) {
+		throw new Error("Firebase is not configured.");
+	}
 
-	const updateProduct = useCallback(
-		async (
+	await updateDoc(doc(db, "products", id), {
+		...values,
+		thumbnail_url: extra.thumbnail_url,
+	});
+}
+
+export function useUpdateProduct() {
+	const queryClient = useQueryClient();
+	const mutation = useMutation({
+		mutationFn: ({
+			id,
+			values,
+			extra,
+		}: {
+			id: string;
+			values: ProductUpdateValues;
+			extra: { thumbnail_url?: string | null };
+		}) => updateProduct(id, values, extra),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: productKeys.lists() });
+		},
+	});
+
+	return {
+		updateProduct: (
 			id: string,
 			values: ProductUpdateValues,
 			extra: { thumbnail_url?: string | null },
-		) => {
-			const db = getFirestoreDb();
-			if (!db) {
-				setError("Firebase is not configured.");
-				return { success: false };
-			}
-
-			setLoading(true);
-			setError(null);
-			try {
-				await updateDoc(doc(db, "products", id), {
-					...values,
-					thumbnail_url: extra.thumbnail_url,
-				});
-				return { success: true };
-			} catch (err) {
-				setError(
-					err instanceof Error ? err.message : "Failed to update product.",
-				);
-				return { success: false };
-			} finally {
-				setLoading(false);
-			}
-		},
-		[],
-	);
-
-	return { loading, error, updateProduct, setError };
+		) => mutation.mutateAsync({ id, values, extra }),
+		isPending: mutation.isPending,
+		error: mutation.error
+			? toErrorMessage(mutation.error, "Failed to update product.")
+			: null,
+	};
 }

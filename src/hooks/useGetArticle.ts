@@ -1,40 +1,35 @@
+import { useQuery } from "@tanstack/react-query";
 import { doc, getDoc } from "firebase/firestore";
-import { useCallback, useState } from "react";
+import { toErrorMessage } from "../lib/errors";
 import { getFirestoreDb } from "../lib/firebaseDb";
+import { articleKeys } from "../lib/queryKeys";
 import type { Article } from "../types/Article";
 
-export function useGetArticle() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+async function fetchArticleById(id: string): Promise<Article> {
+	const db = getFirestoreDb();
+	if (!db) {
+		throw new Error("Firebase is not configured.");
+	}
 
-	const fetchArticle = useCallback(
-		async (id: string): Promise<Article | null> => {
-			const db = getFirestoreDb();
-			if (!db) {
-				setError("Firebase is not configured.");
-				return null;
-			}
+	const snap = await getDoc(doc(db, "articles", id));
+	if (!snap.exists()) {
+		throw new Error("Article not found.");
+	}
+	return snap.data() as Article;
+}
 
-			setLoading(true);
-			setError(null);
-			try {
-				const snap = await getDoc(doc(db, "articles", id));
-				if (!snap.exists()) {
-					setError("Article not found.");
-					return null;
-				}
-				return snap.data() as Article;
-			} catch (err) {
-				setError(
-					err instanceof Error ? err.message : "Failed to fetch article.",
-				);
-				return null;
-			} finally {
-				setLoading(false);
-			}
-		},
-		[],
-	);
+export function useGetArticle(id: string | undefined) {
+	const articleQuery = useQuery({
+		queryKey: articleKeys.detail(id ?? ""),
+		queryFn: () => fetchArticleById(id as string),
+		enabled: !!id,
+	});
 
-	return { loading, error, fetchArticle, setError };
+	return {
+		data: articleQuery.data ?? null,
+		isLoading: articleQuery.isLoading,
+		error: articleQuery.error
+			? toErrorMessage(articleQuery.error, "Failed to fetch article.")
+			: null,
+	};
 }

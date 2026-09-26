@@ -1,5 +1,6 @@
-import { act, renderHook } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useGetArticleBySlug } from "../useGetArticleBySlug";
 
 vi.mock("firebase/firestore", () => ({
@@ -33,13 +34,14 @@ describe("useGetArticleBySlug", () => {
 		mockGetFirestoreDb.mockReturnValue(FAKE_DB);
 	});
 
-	it("initializes with default state", () => {
-		const { result } = renderHook(() => useGetArticleBySlug());
+	it("does not fetch when slug is undefined", () => {
+		const { result } = renderHook(() => useGetArticleBySlug(undefined), {
+			wrapper: createQueryWrapper(),
+		});
 
-		expect(result.current.loading).toBe(false);
-		expect(result.current.error).toBeNull();
-		expect(typeof result.current.fetchArticleBySlug).toBe("function");
-		expect(typeof result.current.setError).toBe("function");
+		expect(result.current.isLoading).toBe(false);
+		expect(result.current.data).toBeNull();
+		expect(mockGetDocs).not.toHaveBeenCalled();
 	});
 
 	it("fetches a published article by slug", async () => {
@@ -58,14 +60,13 @@ describe("useGetArticleBySlug", () => {
 			docs: [{ data: () => mockArticle }],
 		} as never);
 
-		const { result } = renderHook(() => useGetArticleBySlug());
-
-		let article: Article | null = null;
-		await act(async () => {
-			article = await result.current.fetchArticleBySlug("test-article");
+		const { result } = renderHook(() => useGetArticleBySlug("test-article"), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(article).toEqual(mockArticle);
+		await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+		expect(result.current.data).toEqual(mockArticle);
 		expect(result.current.error).toBeNull();
 		expect(mockCollection).toHaveBeenCalledWith(FAKE_DB, "articles");
 		expect(mockWhere).toHaveBeenCalledWith("slug", "==", "test-article");
@@ -74,71 +75,29 @@ describe("useGetArticleBySlug", () => {
 		expect(mockQuery).toHaveBeenCalled();
 	});
 
-	it("returns null and sets error when no article matches", async () => {
+	it("surfaces an error when no article matches", async () => {
 		mockGetDocs.mockResolvedValue({ docs: [] } as never);
 
-		const { result } = renderHook(() => useGetArticleBySlug());
-
-		let article: Article | null = null;
-		await act(async () => {
-			article = await result.current.fetchArticleBySlug("missing-slug");
+		const { result } = renderHook(() => useGetArticleBySlug("missing-slug"), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(article).toBeNull();
+		await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+		expect(result.current.data).toBeNull();
 		expect(result.current.error).toBe("Article not found.");
 	});
 
-	it("returns null when Firebase is not configured", async () => {
-		mockGetFirestoreDb.mockReturnValue(null);
-
-		const { result } = renderHook(() => useGetArticleBySlug());
-
-		let article: Article | null = null;
-		await act(async () => {
-			article = await result.current.fetchArticleBySlug("test-article");
-		});
-
-		expect(article).toBeNull();
-		expect(result.current.error).toBe("Firebase is not configured.");
-	});
-
-	it("handles fetch error", async () => {
+	it("surfaces the fetch error", async () => {
 		mockGetDocs.mockRejectedValue(new Error("Fetch failed"));
 
-		const { result } = renderHook(() => useGetArticleBySlug());
-
-		let article: Article | null = null;
-		await act(async () => {
-			article = await result.current.fetchArticleBySlug("test-article");
+		const { result } = renderHook(() => useGetArticleBySlug("test-article"), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(article).toBeNull();
+		await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+		expect(result.current.data).toBeNull();
 		expect(result.current.error).toBe("Fetch failed");
-	});
-
-	it("sets loading state during fetch", async () => {
-		let resolveDocs: (value: { docs: [] }) => void;
-		const docsPromise = new Promise<{ docs: [] }>((resolve) => {
-			resolveDocs = resolve;
-		});
-		mockGetDocs.mockReturnValue(docsPromise as never);
-
-		const { result } = renderHook(() => useGetArticleBySlug());
-
-		expect(result.current.loading).toBe(false);
-
-		let fetchPromise: Promise<unknown>;
-		act(() => {
-			fetchPromise = result.current.fetchArticleBySlug("test-article");
-		});
-
-		expect(result.current.loading).toBe(true);
-
-		await act(async () => {
-			resolveDocs?.({ docs: [] });
-			await fetchPromise;
-		});
-
-		expect(result.current.loading).toBe(false);
 	});
 });

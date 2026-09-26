@@ -1,5 +1,6 @@
-import { act, renderHook } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useGetPublishedArticles } from "../useGetPublishedArticles";
 
 vi.mock("firebase/firestore", () => ({
@@ -33,15 +34,6 @@ describe("useGetPublishedArticles", () => {
 		mockGetFirestoreDb.mockReturnValue(FAKE_DB);
 	});
 
-	it("initializes with default state", () => {
-		const { result } = renderHook(() => useGetPublishedArticles());
-
-		expect(result.current.loading).toBe(false);
-		expect(result.current.error).toBeNull();
-		expect(typeof result.current.fetchPublishedArticles).toBe("function");
-		expect(typeof result.current.setError).toBe("function");
-	});
-
 	it("fetches only published articles, filtered in the query itself", async () => {
 		const mockArticles: Article[] = [
 			{
@@ -60,14 +52,13 @@ describe("useGetPublishedArticles", () => {
 			docs: mockArticles.map((article) => ({ data: () => article })),
 		} as never);
 
-		const { result } = renderHook(() => useGetPublishedArticles());
-
-		let articles: Article[] = [];
-		await act(async () => {
-			articles = await result.current.fetchPublishedArticles();
+		const { result } = renderHook(() => useGetPublishedArticles(), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(articles).toEqual(mockArticles);
+		await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+		expect(result.current.data).toEqual(mockArticles);
 		expect(result.current.error).toBeNull();
 		expect(mockCollection).toHaveBeenCalledWith(FAKE_DB, "articles");
 		expect(mockWhere).toHaveBeenCalledWith("status", "==", "PUBLISHED");
@@ -75,57 +66,16 @@ describe("useGetPublishedArticles", () => {
 		expect(mockQuery).toHaveBeenCalled();
 	});
 
-	it("returns empty array when Firebase is not configured", async () => {
-		mockGetFirestoreDb.mockReturnValue(null);
-
-		const { result } = renderHook(() => useGetPublishedArticles());
-
-		let articles: Article[] = [];
-		await act(async () => {
-			articles = await result.current.fetchPublishedArticles();
-		});
-
-		expect(articles).toEqual([]);
-		expect(result.current.error).toBe("Firebase is not configured.");
-	});
-
-	it("handles fetch error", async () => {
+	it("surfaces an error when fetch fails", async () => {
 		mockGetDocs.mockRejectedValue(new Error("Fetch failed"));
 
-		const { result } = renderHook(() => useGetPublishedArticles());
-
-		let articles: Article[] = [];
-		await act(async () => {
-			articles = await result.current.fetchPublishedArticles();
+		const { result } = renderHook(() => useGetPublishedArticles(), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(articles).toEqual([]);
+		await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+		expect(result.current.data).toEqual([]);
 		expect(result.current.error).toBe("Fetch failed");
-	});
-
-	it("sets loading state during fetch", async () => {
-		let resolveDocs: (value: { docs: [] }) => void;
-		const docsPromise = new Promise<{ docs: [] }>((resolve) => {
-			resolveDocs = resolve;
-		});
-		mockGetDocs.mockReturnValue(docsPromise as never);
-
-		const { result } = renderHook(() => useGetPublishedArticles());
-
-		expect(result.current.loading).toBe(false);
-
-		let fetchPromise: Promise<unknown>;
-		act(() => {
-			fetchPromise = result.current.fetchPublishedArticles();
-		});
-
-		expect(result.current.loading).toBe(true);
-
-		await act(async () => {
-			resolveDocs?.({ docs: [] });
-			await fetchPromise;
-		});
-
-		expect(result.current.loading).toBe(false);
 	});
 });

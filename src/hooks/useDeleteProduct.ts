@@ -1,32 +1,32 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDoc, doc } from "firebase/firestore";
-import { useCallback, useState } from "react";
+import { toErrorMessage } from "../lib/errors";
 import { getFirestoreDb } from "../lib/firebaseDb";
+import { productKeys } from "../lib/queryKeys";
+
+async function deleteProduct(id: string): Promise<void> {
+	const db = getFirestoreDb();
+	if (!db) {
+		throw new Error("Firebase is not configured.");
+	}
+
+	await deleteDoc(doc(db, "products", id));
+}
 
 export function useDeleteProduct() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const queryClient = useQueryClient();
+	const mutation = useMutation({
+		mutationFn: deleteProduct,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: productKeys.lists() });
+		},
+	});
 
-	const deleteProduct = useCallback(async (id: string) => {
-		const db = getFirestoreDb();
-		if (!db) {
-			setError("Firebase is not configured.");
-			return { success: false };
-		}
-
-		setLoading(true);
-		setError(null);
-		try {
-			await deleteDoc(doc(db, "products", id));
-			return { success: true };
-		} catch (err) {
-			setError(
-				err instanceof Error ? err.message : "Failed to delete product.",
-			);
-			return { success: false };
-		} finally {
-			setLoading(false);
-		}
-	}, []);
-
-	return { loading, error, deleteProduct, setError };
+	return {
+		deleteProduct: mutation.mutateAsync,
+		isPending: mutation.isPending,
+		error: mutation.error
+			? toErrorMessage(mutation.error, "Failed to delete product.")
+			: null,
+	};
 }

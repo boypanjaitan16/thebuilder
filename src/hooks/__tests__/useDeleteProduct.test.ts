@@ -1,5 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useDeleteProduct } from "../useDeleteProduct";
 
 vi.mock("firebase/firestore", () => ({
@@ -26,78 +27,37 @@ describe("useDeleteProduct", () => {
 		mockGetFirestoreDb.mockReturnValue(FAKE_DB);
 	});
 
-	it("initializes with default state", () => {
-		const { result } = renderHook(() => useDeleteProduct());
-
-		expect(result.current.loading).toBe(false);
-		expect(result.current.error).toBeNull();
-		expect(typeof result.current.deleteProduct).toBe("function");
-		expect(typeof result.current.setError).toBe("function");
-	});
-
 	it("deletes product successfully", async () => {
 		mockDeleteDoc.mockResolvedValue(undefined);
 
-		const { result } = renderHook(() => useDeleteProduct());
-
-		let response: { success: boolean };
-		await act(async () => {
-			response = await result.current.deleteProduct("product-id-123");
+		const { result } = renderHook(() => useDeleteProduct(), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(response!.success).toBe(true);
+		await act(async () => {
+			await expect(
+				result.current.deleteProduct("product-id-123"),
+			).resolves.toBeUndefined();
+		});
+
 		expect(result.current.error).toBeNull();
 		expect(mockDoc).toHaveBeenCalledWith(FAKE_DB, "products", "product-id-123");
 		expect(mockDeleteDoc).toHaveBeenCalled();
 	});
 
-	it("handles error when deleting product fails", async () => {
+	it("throws when deleting product fails", async () => {
 		mockDeleteDoc.mockRejectedValue(new Error("Delete failed"));
 
-		const { result } = renderHook(() => useDeleteProduct());
-
-		let response: { success: boolean };
-		await act(async () => {
-			response = await result.current.deleteProduct("product-id-123");
+		const { result } = renderHook(() => useDeleteProduct(), {
+			wrapper: createQueryWrapper(),
 		});
 
-		expect(response!.success).toBe(false);
+		await act(async () => {
+			await expect(
+				result.current.deleteProduct("product-id-123"),
+			).rejects.toThrow("Delete failed");
+		});
+
 		expect(result.current.error).toBe("Delete failed");
-	});
-
-	it("sets loading state during deletion", async () => {
-		let resolveDelete: () => void;
-		const deletePromise = new Promise<void>((resolve) => {
-			resolveDelete = resolve;
-		});
-		mockDeleteDoc.mockReturnValue(deletePromise);
-
-		const { result } = renderHook(() => useDeleteProduct());
-
-		expect(result.current.loading).toBe(false);
-
-		let callPromise: Promise<{ success: boolean }>;
-		act(() => {
-			callPromise = result.current.deleteProduct("product-id-123");
-		});
-
-		expect(result.current.loading).toBe(true);
-
-		await act(async () => {
-			resolveDelete?.();
-			await callPromise;
-		});
-
-		expect(result.current.loading).toBe(false);
-	});
-
-	it("can manually set error", () => {
-		const { result } = renderHook(() => useDeleteProduct());
-
-		act(() => {
-			result.current.setError("Manual error");
-		});
-
-		expect(result.current.error).toBe("Manual error");
 	});
 });

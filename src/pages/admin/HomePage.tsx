@@ -1,35 +1,21 @@
 import { Card, Statistic } from "antd";
 import { FileText, Package } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetArticles } from "../../hooks/useGetArticles";
 import { useGetProducts } from "../../hooks/useGetProducts";
 
 const HomePage = () => {
 	const navigate = useNavigate();
-	const [productCount, setProductCount] = useState<number | null>(null);
-	const [publishedArticleCount, setPublishedArticleCount] = useState<
-		number | null
-	>(null);
+	const { data: products, isLoading: loadingProducts } = useGetProducts();
+	const { data: articles, isLoading: loadingArticles } = useGetArticles();
 
-	const { fetchProducts } = useGetProducts();
-	const { fetchArticles } = useGetArticles();
-
-	useEffect(() => {
-		void fetchProducts().then((products) => setProductCount(products.length));
-		void fetchArticles().then((articles) =>
-			setPublishedArticleCount(
-				articles.filter((article) => article.status === "PUBLISHED").length,
-			),
-		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const productCount = loadingProducts ? null : products.length;
+	const publishedArticleCount = loadingArticles
+		? null
+		: articles.filter((article) => article.status === "PUBLISHED").length;
 
 	return (
 		<section className="container-page w-full">
-			<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-				Admin Portal
-			</p>
 			<h1 className="mt-3 font-display text-3xl font-semibold text-ink">
 				Welcome back
 			</h1>

@@ -1,32 +1,33 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDoc, doc } from "firebase/firestore";
-import { useCallback, useState } from "react";
+import { toErrorMessage } from "../lib/errors";
 import { getFirestoreDb } from "../lib/firebaseDb";
+import { articleKeys } from "../lib/queryKeys";
+
+async function deleteArticle(id: string): Promise<void> {
+	const db = getFirestoreDb();
+	if (!db) {
+		throw new Error("Firebase is not configured.");
+	}
+
+	await deleteDoc(doc(db, "articles", id));
+}
 
 export function useDeleteArticle() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const queryClient = useQueryClient();
+	const mutation = useMutation({
+		mutationFn: deleteArticle,
+		onSuccess: (_data, id) => {
+			queryClient.invalidateQueries({ queryKey: articleKeys.lists() });
+			queryClient.removeQueries({ queryKey: articleKeys.detail(id) });
+		},
+	});
 
-	const deleteArticle = useCallback(async (id: string) => {
-		const db = getFirestoreDb();
-		if (!db) {
-			setError("Firebase is not configured.");
-			return { success: false };
-		}
-
-		setLoading(true);
-		setError(null);
-		try {
-			await deleteDoc(doc(db, "articles", id));
-			return { success: true };
-		} catch (err) {
-			setError(
-				err instanceof Error ? err.message : "Failed to delete article.",
-			);
-			return { success: false };
-		} finally {
-			setLoading(false);
-		}
-	}, []);
-
-	return { loading, error, deleteArticle, setError };
+	return {
+		deleteArticle: mutation.mutateAsync,
+		isPending: mutation.isPending,
+		error: mutation.error
+			? toErrorMessage(mutation.error, "Failed to delete article.")
+			: null,
+	};
 }

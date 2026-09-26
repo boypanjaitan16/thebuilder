@@ -1,23 +1,20 @@
 import { Alert } from "antd";
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { useGetPublishedArticles } from "../hooks/useGetPublishedArticles";
 import { useI18n } from "../i18n/I18nProvider";
 import { formatDate } from "../lib/date";
-import type { Article } from "../types/Article";
 
 function InsightsPage() {
 	const navigate = useNavigate();
 	const { copy } = useI18n();
 	const page = copy.insightsPage;
 	const shared = copy.shared;
-	const [articles, setArticles] = useState<Article[]>([]);
-	const { fetchPublishedArticles, loading, error } = useGetPublishedArticles();
-
-	useEffect(() => {
-		void fetchPublishedArticles().then(setArticles);
-	}, [fetchPublishedArticles]);
+	const {
+		data: articles,
+		isLoading: loading,
+		error,
+	} = useGetPublishedArticles();
 
 	const showEmptyState = !loading && !error && articles.length === 0;
 

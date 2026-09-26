@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Form, Input, Select, Upload } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
-import { ImageUp } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { CheckCircle, ImageUp } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
@@ -14,6 +14,7 @@ import { useDeleteArticleImage } from "../../hooks/useDeleteArticleImage";
 import { useGetArticle } from "../../hooks/useGetArticle";
 import { useUpdateArticle } from "../../hooks/useUpdateArticle";
 import { useUploadArticleImage } from "../../hooks/useUploadArticleImage";
+import { toErrorMessage } from "../../lib/errors";
 import {
 	type ArticleFormValues,
 	type ArticleValues,
@@ -42,34 +43,14 @@ function ArticleFormPage() {
 	const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
 
 	const {
-		fetchArticle,
-		loading: loadingArticle,
+		data: fetchedArticle,
+		isLoading: loadingArticle,
 		error: articleError,
-		setError: setArticleError,
-	} = useGetArticle();
-	const {
-		createArticle,
-		loading: creating,
-		error: createError,
-		setError: setCreateError,
-	} = useCreateArticle();
-	const {
-		updateArticle,
-		loading: updating,
-		error: updateError,
-		setError: setUpdateError,
-	} = useUpdateArticle();
-	const {
-		uploadImage,
-		loading: uploading,
-		error: uploadError,
-		setError: setUploadError,
-	} = useUploadArticleImage();
-	const {
-		deleteImage,
-		error: deleteImageError,
-		setError: setDeleteImageError,
-	} = useDeleteArticleImage();
+	} = useGetArticle(articleId);
+	const { createArticle, isPending: creating } = useCreateArticle();
+	const { updateArticle, isPending: updating } = useUpdateArticle();
+	const { uploadImage, isPending: uploading } = useUploadArticleImage();
+	const { deleteImage } = useDeleteArticleImage();
 
 	const {
 		control,
@@ -88,27 +69,17 @@ function ArticleFormPage() {
 		},
 	});
 
-	const loadArticle = useCallback(
-		async (id: string) => {
-			setErrorMessage(null);
-			setArticleError(null);
-			const data = await fetchArticle(id);
-			if (!data) return;
-			setArticle(data);
-			setSlugManuallyEdited(true);
-			reset({
-				title: data.title,
-				slug: data.slug,
-				content: data.content,
-				status: data.status,
-			});
-		},
-		[fetchArticle, reset, setArticleError],
-	);
-
 	useEffect(() => {
-		if (articleId) void loadArticle(articleId);
-	}, [articleId, loadArticle]);
+		if (!fetchedArticle) return;
+		setArticle(fetchedArticle);
+		setSlugManuallyEdited(true);
+		reset({
+			title: fetchedArticle.title,
+			slug: fetchedArticle.slug,
+			content: fetchedArticle.content,
+			status: fetchedArticle.status,
+		});
+	}, [fetchedArticle, reset]);
 
 	const titleValue = watch("title");
 	useEffect(() => {
@@ -118,60 +89,49 @@ function ArticleFormPage() {
 
 	const onSubmit = async (values: ArticleValues) => {
 		setErrorMessage(null);
-		setCreateError(null);
-		setUpdateError(null);
-		setUploadError(null);
-		setDeleteImageError(null);
 
-		const previousCoverUrl = article?.cover_image_url || null;
-		let coverImageUrl = previousCoverUrl;
+		try {
+			const previousCoverUrl = article?.cover_image_url || null;
+			let coverImageUrl = previousCoverUrl;
 
-		if (coverImageFile) {
-			const uploadResult = await uploadImage(coverImageFile);
-			if (!uploadResult.success) return;
-			coverImageUrl = uploadResult.url || coverImageUrl;
-		}
-
-		if (isEditing && articleId) {
-			const result = await updateArticle(articleId, values, {
-				cover_image_url: coverImageUrl,
-			});
-			if (!result.success) return;
-
-			if (
-				coverImageFile &&
-				previousCoverUrl &&
-				previousCoverUrl !== coverImageUrl
-			) {
-				const deleteResult = await deleteImage(previousCoverUrl);
-				if (!deleteResult.success) {
-					setErrorMessage(
-						"Article updated, but failed to delete the previous cover image.",
-					);
-					return;
-				}
+			if (coverImageFile) {
+				coverImageUrl = await uploadImage(coverImageFile);
 			}
 
-			showToast("Article updated successfully", { tone: "success" });
-		} else {
-			const result = await createArticle(values, {
-				cover_image_url: coverImageUrl,
-			});
-			if (!result.success) return;
+			if (isEditing && articleId) {
+				await updateArticle(articleId, values, {
+					cover_image_url: coverImageUrl,
+				});
 
-			showToast("Article created successfully", { tone: "success" });
+				if (
+					coverImageFile &&
+					previousCoverUrl &&
+					previousCoverUrl !== coverImageUrl
+				) {
+					try {
+						await deleteImage(previousCoverUrl);
+					} catch {
+						setErrorMessage(
+							"Article updated, but failed to delete the previous cover image.",
+						);
+						return;
+					}
+				}
+
+				showToast("Article updated successfully", { tone: "success" });
+			} else {
+				await createArticle(values, { cover_image_url: coverImageUrl });
+
+				showToast("Article created successfully", { tone: "success" });
+			}
+
+			navigate("/admin/articles");
+		} catch (err) {
+			setErrorMessage(toErrorMessage(err, "Something went wrong."));
 		}
-
-		navigate("/admin/articles");
 	};
 
-	const displayedError =
-		errorMessage ||
-		articleError ||
-		createError ||
-		updateError ||
-		uploadError ||
-		deleteImageError;
+	const displayedError = errorMessage || articleError;
 
 	if (isEditing && loadingArticle) {
 		return (
@@ -307,9 +267,11 @@ function ArticleFormPage() {
 				<div className="md:col-span-2">
 					<Button
 						type="primary"
+						shape="round"
 						htmlType="submit"
 						loading={isSubmitting || creating || updating || uploading}
 						className="w-full md:w-auto"
+						icon={<CheckCircle />}
 					>
 						{isSubmitting || creating || updating || uploading
 							? "Saving…"

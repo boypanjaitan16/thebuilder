@@ -1,26 +1,12 @@
-import { useEffect, useState } from "react";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { useGetProducts } from "../hooks/useGetProducts";
-import type { Product } from "../types/Product";
 
 function ResourcesProductsPage() {
-	const [products, setProducts] = useState<Product[]>([]);
 	const {
-		fetchProducts: fetchProductsApi,
-		loading: loadingProducts,
+		data: products,
+		isLoading: loadingProducts,
 		error: productsError,
-		setError: setProductsError,
 	} = useGetProducts();
-
-	const fetchProducts = async () => {
-		setProductsError(null);
-		const data = await fetchProductsApi();
-		setProducts(data);
-	};
-
-	useEffect(() => {
-		void fetchProducts();
-	}, []);
 
 	const combinedError = productsError;
 	const combinedLoading = loadingProducts;

@@ -1,35 +1,35 @@
+import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { useCallback, useState } from "react";
+import { toErrorMessage } from "../lib/errors";
 import { getFirestoreDb } from "../lib/firebaseDb";
+import { PUBLIC_CONTENT_STALE_TIME } from "../lib/queryClient";
+import { productKeys } from "../lib/queryKeys";
 import type { Product } from "../types/Product";
 
+async function fetchAllProducts(): Promise<Product[]> {
+	const db = getFirestoreDb();
+	if (!db) {
+		throw new Error("Firebase is not configured.");
+	}
+
+	const snapshot = await getDocs(
+		query(collection(db, "products"), orderBy("created_at", "desc")),
+	);
+	return snapshot.docs.map((doc) => doc.data() as Product);
+}
+
 export function useGetProducts() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const productsQuery = useQuery({
+		queryKey: productKeys.list(),
+		queryFn: fetchAllProducts,
+		staleTime: PUBLIC_CONTENT_STALE_TIME,
+	});
 
-	const fetchProducts = useCallback(async (): Promise<Product[]> => {
-		const db = getFirestoreDb();
-		if (!db) {
-			setError("Firebase is not configured.");
-			return [];
-		}
-
-		setLoading(true);
-		setError(null);
-		try {
-			const snapshot = await getDocs(
-				query(collection(db, "products"), orderBy("created_at", "desc")),
-			);
-			return snapshot.docs.map((doc) => doc.data() as Product);
-		} catch (err) {
-			setError(
-				err instanceof Error ? err.message : "Failed to fetch products.",
-			);
-			return [];
-		} finally {
-			setLoading(false);
-		}
-	}, []);
-
-	return { loading, error, fetchProducts, setError };
+	return {
+		data: productsQuery.data ?? [],
+		isLoading: productsQuery.isLoading,
+		error: productsQuery.error
+			? toErrorMessage(productsQuery.error, "Failed to fetch products.")
+			: null,
+	};
 }

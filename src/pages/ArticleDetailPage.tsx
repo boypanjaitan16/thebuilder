@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { PageBreadcrumb } from "../components/PageBreadcrumb";
@@ -6,18 +5,15 @@ import { ShareButtons } from "../components/ShareButtons";
 import { useGetArticleBySlug } from "../hooks/useGetArticleBySlug";
 import { useI18n } from "../i18n/I18nProvider";
 import { formatDate } from "../lib/date";
-import type { Article } from "../types/Article";
 
 function ArticleDetailPage() {
 	const { copy } = useI18n();
 	const { slug } = useParams<{ slug: string }>();
-	const [article, setArticle] = useState<Article | null>(null);
-	const { fetchArticleBySlug, loading, error } = useGetArticleBySlug();
-
-	useEffect(() => {
-		if (!slug) return;
-		void fetchArticleBySlug(slug).then(setArticle);
-	}, [slug, fetchArticleBySlug]);
+	const {
+		data: article,
+		isLoading: loading,
+		error,
+	} = useGetArticleBySlug(slug);
 
 	if (loading) {
 		return (

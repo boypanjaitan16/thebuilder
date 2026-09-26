@@ -1,7 +1,7 @@
 import type { TableProps } from "antd";
 import { Alert, Button, Segmented, Space, Switch, Table } from "antd";
 import { Pencil, Plus, Trash2 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Breadcrumb } from "../../components/Breadcrumb";
 import { useToast } from "../../components/ToastProvider";
@@ -10,6 +10,7 @@ import { useDeleteArticleImage } from "../../hooks/useDeleteArticleImage";
 import { useGetArticles } from "../../hooks/useGetArticles";
 import { useUpdateArticle } from "../../hooks/useUpdateArticle";
 import { formatDate } from "../../lib/date";
+import { toErrorMessage } from "../../lib/errors";
 import type { Article, ArticleStatus } from "../../types/Article";
 
 type StatusFilter = "ALL" | ArticleStatus;
@@ -17,40 +18,16 @@ type StatusFilter = "ALL" | ArticleStatus;
 function ArticlesPage() {
 	const navigate = useNavigate();
 	const { showToast } = useToast();
-	const [articles, setArticles] = useState<Article[]>([]);
 	const [statusFilter, setStatusFilter] = useState<StatusFilter>("ALL");
 	const [togglingId, setTogglingId] = useState<string | null>(null);
+	const [actionError, setActionError] = useState<string | null>(null);
 
-	const { fetchArticles: fetchArticlesApi, loading, error } = useGetArticles();
-	const {
-		deleteArticle,
-		error: deleteError,
-		setError: setDeleteError,
-	} = useDeleteArticle();
-	const {
-		deleteImage,
-		error: deleteImageError,
-		setError: setDeleteImageError,
-	} = useDeleteArticleImage();
-	const {
-		updateArticle,
-		error: updateError,
-		setError: setUpdateError,
-	} = useUpdateArticle();
+	const { data: articles, isLoading: loading, error } = useGetArticles();
+	const { deleteArticle } = useDeleteArticle();
+	const { deleteImage } = useDeleteArticleImage();
+	const { updateArticle } = useUpdateArticle();
 
-	const combinedError = useMemo(
-		() => error || deleteError || deleteImageError || updateError,
-		[deleteError, deleteImageError, error, updateError],
-	);
-
-	useEffect(() => {
-		void fetchArticles();
-	}, []);
-
-	const fetchArticles = async () => {
-		const data = await fetchArticlesApi();
-		setArticles(data);
-	};
+	const combinedError = error || actionError;
 
 	const filteredArticles = useMemo(
 		() =>
@@ -61,45 +38,52 @@ function ArticlesPage() {
 	);
 
 	const handleDeleteArticle = async (article: Article) => {
-		setDeleteError(null);
-		setDeleteImageError(null);
-		const result = await deleteArticle(article.id);
-		if (!result.success) return;
-		let imageDeleted = true;
-		if (article.cover_image_url) {
-			const deleteResult = await deleteImage(article.cover_image_url);
-			imageDeleted = deleteResult.success;
+		setActionError(null);
+		try {
+			await deleteArticle(article.id);
+			let imageDeleted = true;
+			if (article.cover_image_url) {
+				try {
+					await deleteImage(article.cover_image_url);
+				} catch {
+					imageDeleted = false;
+				}
+			}
+			if (imageDeleted) {
+				showToast("Article deleted", { tone: "success" });
+			} else {
+				showToast("Article deleted, cover image removal failed", {
+					tone: "info",
+				});
+			}
+		} catch (err) {
+			setActionError(toErrorMessage(err, "Failed to delete article."));
 		}
-		if (imageDeleted) {
-			showToast("Article deleted", { tone: "success" });
-		} else {
-			showToast("Article deleted, cover image removal failed", {
-				tone: "info",
-			});
-		}
-		await fetchArticles();
 	};
 
 	const handleTogglePublished = async (article: Article, checked: boolean) => {
-		setUpdateError(null);
+		setActionError(null);
 		setTogglingId(article.id);
 		const nextStatus: ArticleStatus = checked ? "PUBLISHED" : "DRAFT";
-		const result = await updateArticle(
-			article.id,
-			{
-				title: article.title,
-				slug: article.slug,
-				content: article.content,
-				status: nextStatus,
-			},
-			{ cover_image_url: article.cover_image_url },
-		);
-		setTogglingId(null);
-		if (!result.success) return;
-		showToast(checked ? "Article published" : "Article unpublished", {
-			tone: "success",
-		});
-		await fetchArticles();
+		try {
+			await updateArticle(
+				article.id,
+				{
+					title: article.title,
+					slug: article.slug,
+					content: article.content,
+					status: nextStatus,
+				},
+				{ cover_image_url: article.cover_image_url },
+			);
+			showToast(checked ? "Article published" : "Article unpublished", {
+				tone: "success",
+			});
+		} catch (err) {
+			setActionError(toErrorMessage(err, "Failed to update article."));
+		} finally {
+			setTogglingId(null);
+		}
 	};
 
 	const columns: TableProps<Article>["columns"] = [

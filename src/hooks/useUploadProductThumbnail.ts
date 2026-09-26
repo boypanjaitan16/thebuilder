@@ -1,43 +1,35 @@
+import { useMutation } from "@tanstack/react-query";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useCallback, useState } from "react";
 import { validateFileUpload } from "../lib/env";
+import { toErrorMessage } from "../lib/errors";
 import { getFirebaseStorage } from "../lib/firebaseStorage";
 
+async function uploadProductThumbnail(file: File): Promise<string> {
+	const validation = validateFileUpload(file);
+	if (!validation.valid) {
+		throw new Error(validation.error || "Invalid file");
+	}
+
+	const storage = getFirebaseStorage();
+	if (!storage) {
+		throw new Error("Firebase is not configured.");
+	}
+
+	const fileExt = file.name.split(".").pop();
+	const filePath = `products/${crypto.randomUUID()}.${fileExt || "jpg"}`;
+	const storageRef = ref(storage, filePath);
+	await uploadBytes(storageRef, file, { contentType: file.type });
+	return getDownloadURL(storageRef);
+}
+
 export function useUploadProductThumbnail() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const mutation = useMutation({ mutationFn: uploadProductThumbnail });
 
-	const uploadThumbnail = useCallback(async (file: File) => {
-		const validation = validateFileUpload(file);
-		if (!validation.valid) {
-			setError(validation.error || "Invalid file");
-			return { success: false, url: null as string | null };
-		}
-
-		const storage = getFirebaseStorage();
-		if (!storage) {
-			setError("Firebase is not configured.");
-			return { success: false, url: null as string | null };
-		}
-
-		setLoading(true);
-		setError(null);
-		try {
-			const fileExt = file.name.split(".").pop();
-			const filePath = `products/${crypto.randomUUID()}.${fileExt || "jpg"}`;
-			const storageRef = ref(storage, filePath);
-			await uploadBytes(storageRef, file, { contentType: file.type });
-			const url = await getDownloadURL(storageRef);
-			return { success: true, url };
-		} catch (err) {
-			setError(
-				err instanceof Error ? err.message : "Failed to upload thumbnail.",
-			);
-			return { success: false, url: null as string | null };
-		} finally {
-			setLoading(false);
-		}
-	}, []);
-
-	return { uploadThumbnail, loading, error, setError };
+	return {
+		uploadThumbnail: mutation.mutateAsync,
+		isPending: mutation.isPending,
+		error: mutation.error
+			? toErrorMessage(mutation.error, "Failed to upload thumbnail.")
+			: null,
+	};
 }

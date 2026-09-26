@@ -1,63 +1,50 @@
 import type { TableProps } from "antd";
 import { Alert, Button, Space, Table } from "antd";
 import { Pencil, Plus, Trash2 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
 import { ProductFormDrawer } from "../../components/ProductFormDrawer";
 import { useToast } from "../../components/ToastProvider";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
 import { useGetProducts } from "../../hooks/useGetProducts";
+import { toErrorMessage } from "../../lib/errors";
 import type { Product } from "../../types/Product";
 
 function ProductsPage() {
 	const { showToast } = useToast();
-	const [products, setProducts] = useState<Product[]>([]);
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+	const [actionError, setActionError] = useState<string | null>(null);
 
-	const { fetchProducts: fetchProductsApi, loading, error } = useGetProducts();
-	const {
-		deleteProduct,
-		error: deleteError,
-		setError: setDeleteError,
-	} = useDeleteProduct();
-	const {
-		deleteThumbnail,
-		error: deleteThumbnailError,
-		setError: setDeleteThumbnailError,
-	} = useDeleteProductThumbnail();
+	const { data: products, isLoading: loading, error } = useGetProducts();
+	const { deleteProduct } = useDeleteProduct();
+	const { deleteThumbnail } = useDeleteProductThumbnail();
 
-	const combinedError = useMemo(
-		() => error || deleteError || deleteThumbnailError,
-		[deleteError, deleteThumbnailError, error],
-	);
-
-	useEffect(() => {
-		void fetchProducts();
-	}, []);
-
-	const fetchProducts = async () => {
-		const data = await fetchProductsApi();
-		setProducts(data);
-	};
+	const combinedError = error || actionError;
 
 	const handleDeleteProduct = async (product: Product) => {
-		setDeleteError(null);
-		setDeleteThumbnailError(null);
-		const result = await deleteProduct(product.id);
-		if (!result.success) return;
-		let thumbnailDeleted = true;
-		if (product.thumbnail_url) {
-			const deleteResult = await deleteThumbnail(product.thumbnail_url);
-			thumbnailDeleted = deleteResult.success;
+		setActionError(null);
+		try {
+			await deleteProduct(product.id);
+			let thumbnailDeleted = true;
+			if (product.thumbnail_url) {
+				try {
+					await deleteThumbnail(product.thumbnail_url);
+				} catch {
+					thumbnailDeleted = false;
+				}
+			}
+			if (thumbnailDeleted) {
+				showToast("Product deleted", { tone: "success" });
+			} else {
+				showToast("Product deleted, thumbnail removal failed", {
+					tone: "info",
+				});
+			}
+		} catch (err) {
+			setActionError(toErrorMessage(err, "Failed to delete product."));
 		}
-		if (thumbnailDeleted) {
-			showToast("Product deleted", { tone: "success" });
-		} else {
-			showToast("Product deleted, thumbnail removal failed", { tone: "info" });
-		}
-		await fetchProducts();
 	};
 
 	const columns: TableProps<Product>["columns"] = [
@@ -169,10 +156,7 @@ function ProductsPage() {
 				open={drawerOpen}
 				product={editingProduct}
 				onClose={() => setDrawerOpen(false)}
-				onSaved={() => {
-					setDrawerOpen(false);
-					void fetchProducts();
-				}}
+				onSaved={() => setDrawerOpen(false)}
 			/>
 		</section>
 	);
