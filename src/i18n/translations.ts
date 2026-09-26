@@ -8,6 +8,25 @@ type InsightArticle = { title: string; lens: string };
 type DiagnosticQuestion = { id: string; section: string; text: string };
 
 export type Copy = {
+	breadcrumb: {
+		home: string;
+		organization: string;
+		future: string;
+		risk: string;
+		insights: string;
+		work: string;
+		apply: string;
+		diagnostic: string;
+		riskReadinessDiagnostic: string;
+		resources: string;
+		resourcesFoundational: string;
+		resourcesGuides: string;
+		resourcesCourses: string;
+		resourcesProducts: string;
+		about: string;
+		architecture: string;
+		privacy: string;
+	};
 	nav: {
 		home: string;
 		organization: string;

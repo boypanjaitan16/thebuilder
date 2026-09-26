@@ -122,7 +122,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
 	];
 
 	return (
-		<div className="flex flex-row items-center gap-2 md:sticky md:top-40 md:flex-col md:items-stretch md:gap-3 md:self-start">
+		<div className="flex flex-row items-center justify-center gap-2 md:sticky md:top-40 md:flex-col md:items-stretch md:gap-3 md:self-start">
 			{canNativeShare && (
 				<button
 					type="button"

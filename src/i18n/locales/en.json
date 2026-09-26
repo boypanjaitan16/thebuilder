@@ -1,4 +1,23 @@
 {
+	"breadcrumb": {
+		"home": "Home",
+		"organization": "Organization Transformation",
+		"future": "Future Talent Strategy",
+		"risk": "Risk & Business Continuity",
+		"insights": "Insights",
+		"work": "Work With Me",
+		"apply": "Apply",
+		"diagnostic": "Diagnostic",
+		"riskReadinessDiagnostic": "Risk Readiness Diagnostic",
+		"resources": "Resources",
+		"resourcesFoundational": "Foundational Thinking",
+		"resourcesGuides": "Guides & Playbooks",
+		"resourcesCourses": "Courses & Deep Dives",
+		"resourcesProducts": "Products",
+		"about": "About",
+		"architecture": "How We Work",
+		"privacy": "Privacy Policy"
+	},
 	"nav": {
 		"home": "Home",
 		"organization": "Organization Transformation",

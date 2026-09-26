@@ -5,8 +5,8 @@ import { ImageUp } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
+import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
 import { ArticleEditor } from "../../components/ArticleEditor";
-import { Breadcrumb } from "../../components/Breadcrumb";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { useToast } from "../../components/ToastProvider";
 import { useCreateArticle } from "../../hooks/useCreateArticle";
@@ -194,7 +194,7 @@ function ArticleFormPage() {
 
 	return (
 		<section className="container-page w-full">
-			<Breadcrumb
+			<AdminBreadcrumb
 				items={[
 					{ label: "Articles", to: "/admin/articles" },
 					{ label: isEditing ? "Edit" : "New" },

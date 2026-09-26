@@ -1,4 +1,23 @@
 {
+	"breadcrumb": {
+		"home": "Beranda",
+		"organization": "Transformasi Organisasi",
+		"future": "Strategi Talenta Masa Depan",
+		"risk": "Risiko & Business Continuity",
+		"insights": "Insights",
+		"work": "Bekerja Bersama",
+		"apply": "Ajukan",
+		"diagnostic": "Diagnostik",
+		"riskReadinessDiagnostic": "Diagnostik Kesiapan Risiko",
+		"resources": "Sumber Daya",
+		"resourcesFoundational": "Pemikiran Fondasional",
+		"resourcesGuides": "Panduan & Playbook",
+		"resourcesCourses": "Kursus & Pendalaman",
+		"resourcesProducts": "Produk",
+		"about": "Tentang",
+		"architecture": "Cara Kami Bekerja",
+		"privacy": "Kebijakan Privasi"
+	},
 	"nav": {
 		"home": "Beranda",
 		"organization": "Transformasi Organisasi",

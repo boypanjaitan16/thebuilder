@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import LoadingIndicator from "../components/LoadingIndicator";
+import { PageBreadcrumb } from "../components/PageBreadcrumb";
 import { ShareButtons } from "../components/ShareButtons";
 import { useGetArticleBySlug } from "../hooks/useGetArticleBySlug";
+import { useI18n } from "../i18n/I18nProvider";
 import { formatDate } from "../lib/date";
 import type { Article } from "../types/Article";
 
 function ArticleDetailPage() {
+	const { copy } = useI18n();
 	const { slug } = useParams<{ slug: string }>();
 	const [article, setArticle] = useState<Article | null>(null);
 	const { fetchArticleBySlug, loading, error } = useGetArticleBySlug();
@@ -27,6 +30,9 @@ function ArticleDetailPage() {
 	if (error || !article) {
 		return (
 			<div className="container-page flex flex-col gap-6">
+				<PageBreadcrumb
+					items={[{ label: copy.breadcrumb.insights, to: "/insights" }]}
+				/>
 				<p className="text-sm text-rose-600">{error || "Article not found."}</p>
 				<Link
 					to="/insights"
@@ -40,7 +46,13 @@ function ArticleDetailPage() {
 
 	return (
 		<div className="container-page">
-			<div className="grid gap-6 md:grid-cols-[56px_1fr] md:gap-10">
+			<PageBreadcrumb
+				items={[
+					{ label: copy.breadcrumb.insights, to: "/insights" },
+					{ label: article.title },
+				]}
+			/>
+			<div className="grid gap-6 md:grid-cols-[56px_1fr] md:">
 				<ShareButtons title={article.title} url={window.location.href} />
 				<article className="flex flex-col gap-6">
 					<div>
@@ -59,7 +71,7 @@ function ArticleDetailPage() {
 						/>
 					)}
 
-					<section className="border border-sand bg-white p-8 shadow-soft rounded-2xl">
+					<section className="lg:border lg:border-sand lg:bg-white lg:p-8 lg:shadow-soft lg:rounded-2xl">
 						<div
 							className="prose prose-slate max-w-none prose-p:my-2 prose-li:my-1 prose-ul:my-3 prose-ol:my-3 prose-headings:mt-4 prose-headings:mb-2"
 							// Content is authored exclusively by signed-in admins via the

@@ -1,7 +1,10 @@
 import { lazy, Suspense, useEffect } from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { matchPath, NavLink, Outlet, useLocation } from "react-router-dom";
+import { breadcrumbRoutes } from "../config/breadcrumbs";
 import { useI18n } from "../i18n/I18nProvider";
+import type { BreadcrumbItem } from "./Breadcrumb";
 import { Header } from "./Header";
+import { PageBreadcrumb } from "./PageBreadcrumb";
 
 // Lazy-loaded: pulls in antd + lucide-react, kept out of the public
 // site's bundle since only /admin/** routes ever render it.
@@ -18,6 +21,26 @@ export function Layout() {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	}, [location.pathname]);
 
+	const matchedRoute = breadcrumbRoutes.find((route) =>
+		matchPath({ path: route.path, end: true }, location.pathname),
+	);
+	const parentRoute = matchedRoute?.parentPath
+		? breadcrumbRoutes.find((route) => route.path === matchedRoute.parentPath)
+		: undefined;
+	const breadcrumbItems: BreadcrumbItem[] | null = matchedRoute
+		? [
+				...(parentRoute
+					? [
+							{
+								label: copy.breadcrumb[parentRoute.labelKey],
+								to: parentRoute.path,
+							},
+						]
+					: []),
+				{ label: copy.breadcrumb[matchedRoute.labelKey] },
+			]
+		: null;
+
 	return (
 		<div className="min-h-screen bg-mist text-ink flex flex-col">
 			{isAdminRoute ? (
@@ -29,6 +52,11 @@ export function Layout() {
 			)}
 
 			<main className="py-5 xl:py-10 px-5 flex flex-grow flex-col">
+				{breadcrumbItems && (
+					<div className="breadcrumb-container">
+						<PageBreadcrumb items={breadcrumbItems} />
+					</div>
+				)}
 				<Outlet />
 			</main>
 

@@ -2,7 +2,7 @@ import { Button, Tag } from "antd";
 import { PencilLine } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Breadcrumb } from "../../components/Breadcrumb";
+import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { useGetArticle } from "../../hooks/useGetArticle";
 import { formatDate } from "../../lib/date";
@@ -31,7 +31,7 @@ function ArticlePreviewPage() {
 	if (error || !article) {
 		return (
 			<section className="container-page w-full">
-				<Breadcrumb
+				<AdminBreadcrumb
 					items={[
 						{ label: "Articles", to: "/admin/articles" },
 						{ label: "Preview" },
@@ -46,7 +46,7 @@ function ArticlePreviewPage() {
 
 	return (
 		<section className="container-page w-full">
-			<Breadcrumb
+			<AdminBreadcrumb
 				items={[
 					{ label: "Articles", to: "/admin/articles" },
 					{ label: "Preview" },

@@ -32,6 +32,12 @@ a {
 	margin: 0 auto;
 }
 
+.breadcrumb-container {
+	width: 100%;
+	max-width: var(--page-max-width);
+	margin: 0 auto;
+}
+
 .glass-panel {
 	background: white;
 	border: 1px solid #e2e8f0;

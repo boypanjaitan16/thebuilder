@@ -2,7 +2,7 @@ import type { TableProps } from "antd";
 import { Alert, Button, Space, Table } from "antd";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { Breadcrumb } from "../../components/Breadcrumb";
+import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
 import { ProductFormDrawer } from "../../components/ProductFormDrawer";
 import { useToast } from "../../components/ToastProvider";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
@@ -132,7 +132,7 @@ function ProductsPage() {
 
 	return (
 		<section className="container-page w-full">
-			<Breadcrumb items={[{ label: "Products" }]} />
+			<AdminBreadcrumb items={[{ label: "Products" }]} />
 			<div className="flex flex-wrap items-center justify-between gap-3">
 				<div>
 					<h2 className="text-2xl font-semibold text-ink">Products</h2>
