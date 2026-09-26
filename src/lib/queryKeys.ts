@@ -13,3 +13,9 @@ export const productKeys = {
 	lists: () => [...productKeys.all, "list"] as const,
 	list: () => [...productKeys.lists()] as const,
 };
+
+export const advisoryRequestKeys = {
+	all: ["advisoryRequests"] as const,
+	lists: () => [...advisoryRequestKeys.all, "list"] as const,
+	list: () => [...advisoryRequestKeys.lists()] as const,
+};

@@ -5,7 +5,6 @@ import { AnalyticsTracker } from "./components/AnalyticsTracker";
 import { Layout } from "./components/Layout";
 import LoadingIndicator from "./components/LoadingIndicator";
 import AboutPage from "./pages/AboutPage";
-import ApplyPage from "./pages/ApplyPage";
 import ArchitecturePage from "./pages/ArchitecturePage";
 import ArticleDetailPage from "./pages/ArticleDetailPage";
 import DiagnosticPage from "./pages/DiagnosticPage";
@@ -39,6 +38,13 @@ const AdminArticleFormPage = lazy(
 const AdminArticlePreviewPage = lazy(
 	() => import("./pages/admin/ArticlePreviewPage"),
 );
+const AdminAdvisoryRequestsPage = lazy(
+	() => import("./pages/admin/AdvisoryRequestsPage"),
+);
+
+// Also lazy-loaded: ApplyPage is public, but it uses antd form controls,
+// so it gets the same treatment as the admin pages above.
+const ApplyPage = lazy(() => import("./pages/ApplyPage"));
 
 function AdminRouteFallback() {
 	return (
@@ -70,7 +76,14 @@ function App() {
 					<Route path="/insights" element={<InsightsPage />} />
 					<Route path="/insights/:slug" element={<ArticleDetailPage />} />
 					<Route path="/work-with-me" element={<WorkWithMePage />} />
-					<Route path="/apply" element={<ApplyPage />} />
+					<Route
+						path="/apply"
+						element={
+							<Suspense fallback={<AdminRouteFallback />}>
+								<ApplyPage />
+							</Suspense>
+						}
+					/>
 					<Route path="/diagnostic" element={<DiagnosticPage />} />
 					<Route
 						path="/risk-readiness-diagnostic"
@@ -114,6 +127,10 @@ function App() {
 					>
 						<Route index element={<AdminPage />} />
 						<Route path="products" element={<AdminProductsPage />} />
+						<Route
+							path="advisory-requests"
+							element={<AdminAdvisoryRequestsPage />}
+						/>
 						<Route path="articles" element={<AdminArticlesPage />} />
 						<Route path="articles/new" element={<AdminArticleFormPage />} />
 						<Route

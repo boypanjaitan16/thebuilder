@@ -561,6 +561,7 @@
 		},
 		"form": {
 			"name": "Full Name",
+			"email": "Email Address",
 			"role": "Role / Title",
 			"organization": "Organization Name",
 			"size": "Organization Size",
@@ -603,7 +604,7 @@
 			],
 			"submit": "Submit Application",
 			"successTitle": "Your application has been received.",
-			"successBody": "We will be in touch if there is alignment. Summary:"
+			"successBody": "We will be in touch if there is alignment."
 		}
 	},
 	"diagnostic": {

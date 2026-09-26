@@ -285,6 +285,7 @@ export type Copy = {
 		};
 		form: {
 			name: string;
+			email: string;
 			role: string;
 			organization: string;
 			size: string;

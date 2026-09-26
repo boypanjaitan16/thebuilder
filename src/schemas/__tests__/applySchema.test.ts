@@ -4,6 +4,7 @@ import { applySchema } from "../applySchema";
 describe("applySchema", () => {
 	const validData = {
 		name: "John Doe",
+		email: "john@example.com",
 		role: "CEO",
 		organization: "Acme Inc",
 		size: "100-500",
@@ -23,6 +24,24 @@ describe("applySchema", () => {
 		const result = applySchema.safeParse({
 			...validData,
 			name: "",
+		});
+
+		expect(result.success).toBe(false);
+	});
+
+	it("rejects empty email", () => {
+		const result = applySchema.safeParse({
+			...validData,
+			email: "",
+		});
+
+		expect(result.success).toBe(false);
+	});
+
+	it("rejects invalid email format", () => {
+		const result = applySchema.safeParse({
+			...validData,
+			email: "not-an-email",
 		});
 
 		expect(result.success).toBe(false);

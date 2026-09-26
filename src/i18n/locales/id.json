@@ -565,6 +565,7 @@
 		},
 		"form": {
 			"name": "Nama Lengkap",
+			"email": "Alamat Email",
 			"role": "Peran / Jabatan",
 			"organization": "Nama Organisasi",
 			"size": "Ukuran Organisasi",
@@ -607,7 +608,7 @@
 			],
 			"submit": "Kirim Aplikasi",
 			"successTitle": "Aplikasi Anda telah diterima.",
-			"successBody": "Kami akan menghubungi jika ada keselarasan. Ringkasan:"
+			"successBody": "Kami akan menghubungi jika ada keselarasan."
 		}
 	},
 	"diagnostic": {

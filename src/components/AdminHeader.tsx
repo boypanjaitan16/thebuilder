@@ -65,6 +65,11 @@ export function AdminHeader() {
 			label: "Articles",
 			onClick: () => navigate("/admin/articles"),
 		},
+		{
+			key: "advisory-requests",
+			label: "Advisory Requests",
+			onClick: () => navigate("/admin/advisory-requests"),
+		},
 		{ type: "divider" },
 		{
 			key: "signout",
