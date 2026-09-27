@@ -2,16 +2,16 @@ import type { TableProps } from "antd";
 import { Alert, Button, Segmented, Space, Switch, Table } from "antd";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
-import { ProductFormDrawer } from "../../components/ProductFormDrawer";
-import { useToast } from "../../components/ToastProvider";
-import { useDeleteProduct } from "../../hooks/useDeleteProduct";
-import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
-import { useGetProducts } from "../../hooks/useGetProducts";
-import { useUpdateProduct } from "../../hooks/useUpdateProduct";
-import { confirmDelete } from "../../lib/confirmDelete";
-import { toErrorMessage } from "../../lib/errors";
-import type { Product, ProductStatus } from "../../types/Product";
+import { AdminBreadcrumb } from "../../../components/AdminBreadcrumb";
+import { ProductFormDrawer } from "../../../components/ProductFormDrawer";
+import { useToast } from "../../../components/ToastProvider";
+import { useDeleteProduct } from "../../../hooks/useDeleteProduct";
+import { useDeleteProductThumbnail } from "../../../hooks/useDeleteProductThumbnail";
+import { useGetProducts } from "../../../hooks/useGetProducts";
+import { useUpdateProduct } from "../../../hooks/useUpdateProduct";
+import { confirmDelete } from "../../../lib/confirmDelete";
+import { toErrorMessage } from "../../../lib/errors";
+import type { Product, ProductStatus } from "../../../types/Product";
 
 type StatusFilter = "ALL" | ProductStatus;
 

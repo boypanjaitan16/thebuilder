@@ -35,68 +35,74 @@ exports[`Layout > matches snapshot for admin layout 1`] = `
           >
             Konsultasi strategis berbasis di Indonesia. Bekerja selektif dengan organisasi untuk merancang struktur tangguh, kontinuitas kepemimpinan, dan mitigasi risiko manusia.
           </p>
+          <div
+            class="flex mt-3"
+          >
+            <div
+              class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm self-start md:self-auto"
+            >
+              <button
+                class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
+                type="button"
+              >
+                EN
+              </button>
+              <button
+                class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
+                type="button"
+              >
+                ID
+              </button>
+            </div>
+          </div>
         </div>
-        <div
-          class="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700"
-        >
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/about"
+        <div>
+          <div
+            class="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700"
           >
-            Tentang
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/insights"
-          >
-            Insights
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/work-with-me"
-          >
-            Bekerja Bersama
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/privacy"
-          >
-            Kebijakan Privasi
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/resources"
-          >
-            Sumber Daya
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/risk-readiness-diagnostic"
-          >
-            Diagnostik Kesiapan Risiko
-          </a>
-        </div>
-        <div
-          class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm self-start md:self-auto"
-        >
-          <button
-            class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
-            type="button"
-          >
-            EN
-          </button>
-          <button
-            class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
-            type="button"
-          >
-            ID
-          </button>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/about"
+            >
+              Tentang
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/insights"
+            >
+              Insights
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/work-with-me"
+            >
+              Bekerja Bersama
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/privacy"
+            >
+              Kebijakan Privasi
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/resources"
+            >
+              Sumber Daya
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/risk-readiness-diagnostic"
+            >
+              Diagnostik Kesiapan Risiko
+            </a>
+          </div>
         </div>
       </div>
     </footer>
@@ -142,68 +148,74 @@ exports[`Layout > matches snapshot for regular layout 1`] = `
           >
             Konsultasi strategis berbasis di Indonesia. Bekerja selektif dengan organisasi untuk merancang struktur tangguh, kontinuitas kepemimpinan, dan mitigasi risiko manusia.
           </p>
+          <div
+            class="flex mt-3"
+          >
+            <div
+              class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm self-start md:self-auto"
+            >
+              <button
+                class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
+                type="button"
+              >
+                EN
+              </button>
+              <button
+                class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
+                type="button"
+              >
+                ID
+              </button>
+            </div>
+          </div>
         </div>
-        <div
-          class="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700"
-        >
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/about"
+        <div>
+          <div
+            class="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700"
           >
-            Tentang
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/insights"
-          >
-            Insights
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/work-with-me"
-          >
-            Bekerja Bersama
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/privacy"
-          >
-            Kebijakan Privasi
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/resources"
-          >
-            Sumber Daya
-          </a>
-          <a
-            class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-            data-discover="true"
-            href="/risk-readiness-diagnostic"
-          >
-            Diagnostik Kesiapan Risiko
-          </a>
-        </div>
-        <div
-          class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm self-start md:self-auto"
-        >
-          <button
-            class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
-            type="button"
-          >
-            EN
-          </button>
-          <button
-            class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
-            type="button"
-          >
-            ID
-          </button>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/about"
+            >
+              Tentang
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/insights"
+            >
+              Insights
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/work-with-me"
+            >
+              Bekerja Bersama
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/privacy"
+            >
+              Kebijakan Privasi
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/resources"
+            >
+              Sumber Daya
+            </a>
+            <a
+              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              data-discover="true"
+              href="/risk-readiness-diagnostic"
+            >
+              Diagnostik Kesiapan Risiko
+            </a>
+          </div>
         </div>
       </div>
     </footer>

@@ -6,21 +6,21 @@ import { Layout } from "./components/Layout";
 import LoadingIndicator from "./components/LoadingIndicator";
 import AboutPage from "./pages/AboutPage";
 import ArchitecturePage from "./pages/ArchitecturePage";
-import ArticleDetailPage from "./pages/ArticleDetailPage";
 import DiagnosticPage from "./pages/DiagnosticPage";
 import FutureTalentPage from "./pages/FutureTalentPage";
 import HomePage from "./pages/HomePage";
-import InsightsPage from "./pages/InsightsPage";
+import ArticleDetailPage from "./pages/insights/ArticleDetailPage";
+import InsightsPage from "./pages/insights/InsightsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import OrganizationPage from "./pages/OrganizationPage";
 import PrivacyPage from "./pages/PrivacyPage";
-import ResourcesCoursesPage from "./pages/ResourcesCoursesPage";
-import ResourcesFoundationalPage from "./pages/ResourcesFoundationalPage";
-import ResourcesGuidesPage from "./pages/ResourcesGuidesPage";
-import ResourcesPage from "./pages/ResourcesPage";
-import ResourcesProductsPage from "./pages/ResourcesProductsPage";
 import RiskContinuityPage from "./pages/RiskContinuityPage";
 import RiskReadinessDiagnosticPage from "./pages/RiskReadinessDiagnosticPage";
+import ResourcesCoursesPage from "./pages/resources/ResourcesCoursesPage";
+import ResourcesFoundationalPage from "./pages/resources/ResourcesFoundationalPage";
+import ResourcesGuidesPage from "./pages/resources/ResourcesGuidesPage";
+import ResourcesPage from "./pages/resources/ResourcesPage";
+import ResourcesProductsPage from "./pages/resources/ResourcesProductsPage";
 import WorkWithMePage from "./pages/WorkWithMePage";
 
 // Lazy-loaded: admin pages pull in antd + lucide-react, which would
@@ -29,17 +29,21 @@ import WorkWithMePage from "./pages/WorkWithMePage";
 const AdminPage = lazy(() => import("./pages/admin/HomePage"));
 const AdminLoginPage = lazy(() => import("./pages/admin/LoginPage"));
 const AdminPasswordPage = lazy(() => import("./pages/admin/PasswordPage"));
-const AdminProductsPage = lazy(() => import("./pages/admin/ProductsPage"));
+const AdminProductsPage = lazy(
+	() => import("./pages/admin/products/ProductsPage"),
+);
 const AdminProfilePage = lazy(() => import("./pages/admin/ProfilePage"));
-const AdminArticlesPage = lazy(() => import("./pages/admin/ArticlesPage"));
+const AdminArticlesPage = lazy(
+	() => import("./pages/admin/articles/ArticlesPage"),
+);
 const AdminArticleFormPage = lazy(
-	() => import("./pages/admin/ArticleFormPage"),
+	() => import("./pages/admin/articles/ArticleFormPage"),
 );
 const AdminArticlePreviewPage = lazy(
-	() => import("./pages/admin/ArticlePreviewPage"),
+	() => import("./pages/admin/articles/ArticlePreviewPage"),
 );
 const AdminAdvisoryRequestsPage = lazy(
-	() => import("./pages/admin/AdvisoryRequestsPage"),
+	() => import("./pages/admin/advisory-requests/AdvisoryRequestsPage"),
 );
 
 // Also lazy-loaded: ApplyPage is public, but it uses antd form controls,

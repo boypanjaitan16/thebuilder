@@ -1,9 +1,9 @@
 import { Alert } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import LoadingIndicator from "../components/LoadingIndicator";
-import { useGetPublishedArticles } from "../hooks/useGetPublishedArticles";
-import { useI18n } from "../i18n/I18nProvider";
-import { formatDate } from "../lib/date";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import { useGetPublishedArticles } from "../../hooks/useGetPublishedArticles";
+import { useI18n } from "../../i18n/I18nProvider";
+import { formatDate } from "../../lib/date";
 
 function InsightsPage() {
 	const navigate = useNavigate();

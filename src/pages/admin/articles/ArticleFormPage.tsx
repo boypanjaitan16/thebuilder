@@ -5,23 +5,23 @@ import { CheckCircle, ImageUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
-import { ArticleEditor } from "../../components/ArticleEditor";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import { useToast } from "../../components/ToastProvider";
-import { useCreateArticle } from "../../hooks/useCreateArticle";
-import { useDeleteArticleImage } from "../../hooks/useDeleteArticleImage";
-import { useGetArticle } from "../../hooks/useGetArticle";
-import { useUpdateArticle } from "../../hooks/useUpdateArticle";
-import { useUploadArticleImage } from "../../hooks/useUploadArticleImage";
-import { toErrorMessage } from "../../lib/errors";
+import { AdminBreadcrumb } from "../../../components/AdminBreadcrumb";
+import { ArticleEditor } from "../../../components/ArticleEditor";
+import LoadingIndicator from "../../../components/LoadingIndicator";
+import { useToast } from "../../../components/ToastProvider";
+import { useCreateArticle } from "../../../hooks/useCreateArticle";
+import { useDeleteArticleImage } from "../../../hooks/useDeleteArticleImage";
+import { useGetArticle } from "../../../hooks/useGetArticle";
+import { useUpdateArticle } from "../../../hooks/useUpdateArticle";
+import { useUploadArticleImage } from "../../../hooks/useUploadArticleImage";
+import { toErrorMessage } from "../../../lib/errors";
 import {
 	type ArticleFormValues,
 	type ArticleValues,
 	articleSchema,
 	articleStatusValues,
-} from "../../schemas/articleSchema";
-import type { Article } from "../../types/Article";
+} from "../../../schemas/articleSchema";
+import type { Article } from "../../../types/Article";
 
 function slugify(value: string) {
 	return value

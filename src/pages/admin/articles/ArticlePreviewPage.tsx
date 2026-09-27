@@ -1,10 +1,10 @@
 import { Button, Tag } from "antd";
 import { PencilLine } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import { useGetArticle } from "../../hooks/useGetArticle";
-import { formatDate } from "../../lib/date";
+import { AdminBreadcrumb } from "../../../components/AdminBreadcrumb";
+import LoadingIndicator from "../../../components/LoadingIndicator";
+import { useGetArticle } from "../../../hooks/useGetArticle";
+import { formatDate } from "../../../lib/date";
 
 function ArticlePreviewPage() {
 	const navigate = useNavigate();

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import LoadingIndicator from "../components/LoadingIndicator";
-import { PageBreadcrumb } from "../components/PageBreadcrumb";
-import { ShareButtons } from "../components/ShareButtons";
-import { useGetArticleBySlug } from "../hooks/useGetArticleBySlug";
-import { useI18n } from "../i18n/I18nProvider";
-import { formatDate } from "../lib/date";
-import { setCanonicalLink, setMetaContent } from "../lib/documentMeta";
-import { stripHtmlAndTruncate } from "../lib/textExcerpt";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import { PageBreadcrumb } from "../../components/PageBreadcrumb";
+import { ShareButtons } from "../../components/ShareButtons";
+import { useGetArticleBySlug } from "../../hooks/useGetArticleBySlug";
+import { useI18n } from "../../i18n/I18nProvider";
+import { formatDate } from "../../lib/date";
+import { setCanonicalLink, setMetaContent } from "../../lib/documentMeta";
+import { stripHtmlAndTruncate } from "../../lib/textExcerpt";
 
 const PRODUCTION_ORIGIN = "https://thebuilder.co.id";
 const DEFAULT_OG_IMAGE = `${PRODUCTION_ORIGIN}/thebuilder.png`;

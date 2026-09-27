@@ -1,5 +1,5 @@
-import LoadingIndicator from "../components/LoadingIndicator";
-import { useActiveProducts } from "../hooks/useActiveProducts";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import { useActiveProducts } from "../../hooks/useActiveProducts";
 
 function ResourcesProductsPage() {
 	const {

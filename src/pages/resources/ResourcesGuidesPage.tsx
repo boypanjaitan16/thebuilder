@@ -1,8 +1,8 @@
-import { useI18n } from "../i18n/I18nProvider";
+import { useI18n } from "../../i18n/I18nProvider";
 
-function ResourcesCoursesPage() {
+function ResourcesGuidesPage() {
 	const { copy } = useI18n();
-	const page = copy.resourcesCourses;
+	const page = copy.resourcesGuides;
 
 	return (
 		<div className="container-page flex flex-col gap-10">
@@ -13,7 +13,7 @@ function ResourcesCoursesPage() {
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.heroTitle}
 				</h1>
-				<p className="mt-3 text-lg text-slate-700">{page.heroBody}</p>
+				<p className="mt-3">{page.heroBody}</p>
 			</section>
 
 			<section>
@@ -47,4 +47,4 @@ function ResourcesCoursesPage() {
 	);
 }
 
-export default ResourcesCoursesPage;
+export default ResourcesGuidesPage;
