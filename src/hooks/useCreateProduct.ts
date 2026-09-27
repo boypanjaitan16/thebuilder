@@ -22,6 +22,7 @@ async function createProduct(
 		...values,
 		thumbnail_url: extra.thumbnail_url,
 		created_at: nowIso(),
+		status: "ACTIVE",
 	} as Product;
 	await setDoc(doc(db, "products", id), product);
 	return product;

@@ -4,11 +4,12 @@ import { toErrorMessage } from "../lib/errors";
 import { getFirestoreDb } from "../lib/firebaseDb";
 import { productKeys } from "../lib/queryKeys";
 import type { ProductUpdateValues } from "../schemas/productUpdateSchema";
+import type { ProductStatus } from "../types/Product";
 
 async function updateProduct(
 	id: string,
 	values: ProductUpdateValues,
-	extra: { thumbnail_url?: string | null },
+	extra: { thumbnail_url?: string | null; status?: ProductStatus },
 ): Promise<void> {
 	const db = getFirestoreDb();
 	if (!db) {
@@ -18,6 +19,7 @@ async function updateProduct(
 	await updateDoc(doc(db, "products", id), {
 		...values,
 		thumbnail_url: extra.thumbnail_url,
+		...(extra.status ? { status: extra.status } : {}),
 	});
 }
 
@@ -31,7 +33,7 @@ export function useUpdateProduct() {
 		}: {
 			id: string;
 			values: ProductUpdateValues;
-			extra: { thumbnail_url?: string | null };
+			extra: { thumbnail_url?: string | null; status?: ProductStatus };
 		}) => updateProduct(id, values, extra),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: productKeys.lists() });
@@ -42,7 +44,7 @@ export function useUpdateProduct() {
 		updateProduct: (
 			id: string,
 			values: ProductUpdateValues,
-			extra: { thumbnail_url?: string | null },
+			extra: { thumbnail_url?: string | null; status?: ProductStatus },
 		) => mutation.mutateAsync({ id, values, extra }),
 		isPending: mutation.isPending,
 		error: mutation.error

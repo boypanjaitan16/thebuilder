@@ -42,6 +42,7 @@ describe("useGetProducts", () => {
 				created_at: "2024-01-01",
 				thumbnail_url: "https://example.com/thumb.jpg",
 				marketplace_url: "https://example.com",
+				status: "ACTIVE",
 			},
 		];
 		mockGetDocs.mockResolvedValue({

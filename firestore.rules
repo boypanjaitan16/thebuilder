@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /products/{productId} {
-      allow read: if true;
+      allow read: if resource.data.status == 'ACTIVE' || request.auth != null;
       allow write: if request.auth != null;
     }
     match /articles/{articleId} {

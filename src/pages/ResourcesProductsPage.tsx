@@ -1,12 +1,12 @@
 import LoadingIndicator from "../components/LoadingIndicator";
-import { useGetProducts } from "../hooks/useGetProducts";
+import { useActiveProducts } from "../hooks/useActiveProducts";
 
 function ResourcesProductsPage() {
 	const {
 		data: products,
 		isLoading: loadingProducts,
 		error: productsError,
-	} = useGetProducts();
+	} = useActiveProducts();
 
 	const combinedError = productsError;
 	const combinedLoading = loadingProducts;

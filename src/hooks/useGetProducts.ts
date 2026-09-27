@@ -20,7 +20,7 @@ async function fetchAllProducts(): Promise<Product[]> {
 
 export function useGetProducts() {
 	const productsQuery = useQuery({
-		queryKey: productKeys.list(),
+		queryKey: productKeys.adminList(),
 		queryFn: fetchAllProducts,
 		staleTime: PUBLIC_CONTENT_STALE_TIME,
 	});

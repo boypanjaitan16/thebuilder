@@ -1,28 +1,67 @@
 import type { TableProps } from "antd";
-import { Alert, Button, Space, Table } from "antd";
+import { Alert, Button, Segmented, Space, Switch, Table } from "antd";
 import { Pencil, Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { AdminBreadcrumb } from "../../components/AdminBreadcrumb";
 import { ProductFormDrawer } from "../../components/ProductFormDrawer";
 import { useToast } from "../../components/ToastProvider";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import { useDeleteProductThumbnail } from "../../hooks/useDeleteProductThumbnail";
 import { useGetProducts } from "../../hooks/useGetProducts";
+import { useUpdateProduct } from "../../hooks/useUpdateProduct";
 import { confirmDelete } from "../../lib/confirmDelete";
 import { toErrorMessage } from "../../lib/errors";
-import type { Product } from "../../types/Product";
+import type { Product, ProductStatus } from "../../types/Product";
+
+type StatusFilter = "ALL" | ProductStatus;
 
 function ProductsPage() {
 	const { showToast } = useToast();
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 	const [actionError, setActionError] = useState<string | null>(null);
+	const [statusFilter, setStatusFilter] = useState<StatusFilter>("ALL");
+	const [togglingId, setTogglingId] = useState<string | null>(null);
 
 	const { data: products, isLoading: loading, error } = useGetProducts();
 	const { deleteProduct } = useDeleteProduct();
 	const { deleteThumbnail } = useDeleteProductThumbnail();
+	const { updateProduct } = useUpdateProduct();
 
 	const combinedError = error || actionError;
+
+	const filteredProducts = useMemo(
+		() =>
+			statusFilter === "ALL"
+				? products
+				: products.filter((product) => product.status === statusFilter),
+		[products, statusFilter],
+	);
+
+	const handleToggleStatus = async (product: Product, checked: boolean) => {
+		setActionError(null);
+		setTogglingId(product.id);
+		const nextStatus: ProductStatus = checked ? "ACTIVE" : "NON-ACTIVE";
+		try {
+			await updateProduct(
+				product.id,
+				{
+					name: product.name,
+					description: product.description,
+					price: product.price,
+					marketplace_url: product.marketplace_url,
+				},
+				{ thumbnail_url: product.thumbnail_url, status: nextStatus },
+			);
+			showToast(checked ? "Product activated" : "Product deactivated", {
+				tone: "success",
+			});
+		} catch (err) {
+			setActionError(toErrorMessage(err, "Failed to update product."));
+		} finally {
+			setTogglingId(null);
+		}
+	};
 
 	const handleDeleteProduct = async (product: Product) => {
 		setActionError(null);
@@ -93,6 +132,18 @@ function ProductsPage() {
 				}).format(price),
 		},
 		{
+			title: "Status",
+			dataIndex: "status",
+			key: "status",
+			render: (status: ProductStatus, record) => (
+				<Switch
+					checked={status === "ACTIVE"}
+					loading={togglingId === record.id}
+					onChange={(checked) => void handleToggleStatus(record, checked)}
+				/>
+			),
+		},
+		{
 			title: "Actions",
 			key: "actions",
 			width: 150,
@@ -150,9 +201,19 @@ function ProductsPage() {
 				</div>
 			</div>
 			{combinedError && <Alert type="error" showIcon title={combinedError} />}
+			<Segmented
+				className="mt-4"
+				value={statusFilter}
+				onChange={(value) => setStatusFilter(value as StatusFilter)}
+				options={[
+					{ label: "All", value: "ALL" },
+					{ label: "Active", value: "ACTIVE" },
+					{ label: "Non-active", value: "NON-ACTIVE" },
+				]}
+			/>
 			<Table<Product>
 				columns={columns}
-				dataSource={products}
+				dataSource={filteredProducts}
 				rowKey="id"
 				loading={loading}
 				pagination={false}
