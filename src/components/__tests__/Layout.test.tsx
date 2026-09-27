@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { renderWithMemoryRouter } from "../../test/test-utils";
 import { Layout } from "../Layout";
@@ -59,15 +60,17 @@ describe("Layout", () => {
 	it("renders footer navigation links", () => {
 		renderWithMemoryRouter(<Layout />, ["/"]);
 
-		expect(screen.getByRole("link", { name: "About" })).toBeInTheDocument();
+		expect(screen.getByRole("link", { name: "Tentang" })).toBeInTheDocument();
 		expect(screen.getByRole("link", { name: "Insights" })).toBeInTheDocument();
 		expect(
-			screen.getByRole("link", { name: "Work With Me" }),
+			screen.getByRole("link", { name: "Bekerja Bersama" }),
 		).toBeInTheDocument();
 		expect(
-			screen.getByRole("link", { name: "Privacy Policy" }),
+			screen.getByRole("link", { name: "Kebijakan Privasi" }),
 		).toBeInTheDocument();
-		expect(screen.getByRole("link", { name: "Resources" })).toBeInTheDocument();
+		expect(
+			screen.getByRole("link", { name: "Sumber Daya" }),
+		).toBeInTheDocument();
 	});
 
 	it("scrolls to top on route change", () => {
@@ -77,5 +80,22 @@ describe("Layout", () => {
 			top: 0,
 			behavior: "smooth",
 		});
+	});
+
+	it("renders language switcher buttons in the footer", () => {
+		renderWithMemoryRouter(<Layout />, ["/"]);
+
+		expect(screen.getByRole("button", { name: "EN" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "ID" })).toBeInTheDocument();
+	});
+
+	it("switches language when clicking language button", async () => {
+		const user = userEvent.setup();
+		renderWithMemoryRouter(<Layout />, ["/"]);
+
+		const enButton = screen.getByRole("button", { name: "EN" });
+		await user.click(enButton);
+
+		expect(window.localStorage.setItem).toHaveBeenCalledWith("tb_lang", "en");
 	});
 });

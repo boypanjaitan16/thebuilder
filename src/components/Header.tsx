@@ -6,7 +6,7 @@ import { useI18n } from "../i18n/I18nProvider";
 export function Header() {
 	const [open, setOpen] = useState(false);
 	const location = useLocation();
-	const { copy, language, setLanguage } = useI18n();
+	const { copy } = useI18n();
 
 	useEffect(() => {
 		setOpen(false);
@@ -33,32 +33,6 @@ export function Header() {
 					</NavLink>
 
 					<div className="flex items-center gap-3">
-						<div className="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm">
-							<button
-								type="button"
-								onClick={() => setLanguage("en")}
-								className={classNames(
-									"rounded-full px-3 md:px-4 py-1 md:py-2 transition",
-									language === "en"
-										? "bg-ink text-white shadow-soft"
-										: "text-slate-700",
-								)}
-							>
-								EN
-							</button>
-							<button
-								type="button"
-								onClick={() => setLanguage("id")}
-								className={classNames(
-									"rounded-full px-3 md:px-4 py-1 md:py-2 transition",
-									language === "id"
-										? "bg-ink text-white shadow-soft"
-										: "text-slate-700",
-								)}
-							>
-								ID
-							</button>
-						</div>
 						<button
 							type="button"
 							className="inline-flex size-9 md:size-11 items-center justify-center rounded-xl border border-sand bg-white text-ink shadow-sm transition hover:border-ink md:hidden"

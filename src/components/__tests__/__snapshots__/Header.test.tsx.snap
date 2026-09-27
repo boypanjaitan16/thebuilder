@@ -17,6 +17,11 @@ exports[`Header > matches snapshot 1`] = `
           data-discover="true"
           href="/"
         >
+          <img
+            alt="The builder logo"
+            class="size-[2.5rem] rounded"
+            src="/thebuilder.png"
+          />
           <div
             class="text-left leading-tight"
           >
@@ -35,22 +40,6 @@ exports[`Header > matches snapshot 1`] = `
         <div
           class="flex items-center gap-3"
         >
-          <div
-            class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm"
-          >
-            <button
-              class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
-              type="button"
-            >
-              EN
-            </button>
-            <button
-              class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
-              type="button"
-            >
-              ID
-            </button>
-          </div>
           <button
             aria-label="Open navigation"
             class="inline-flex size-9 md:size-11 items-center justify-center rounded-xl border border-sand bg-white text-ink shadow-sm transition hover:border-ink md:hidden"
@@ -75,7 +64,7 @@ exports[`Header > matches snapshot 1`] = `
             data-discover="true"
             href="/apply"
           >
-            Apply
+            Ajukan
           </a>
         </div>
       </div>
@@ -90,33 +79,33 @@ exports[`Header > matches snapshot 1`] = `
             class="rounded-full px-4 py-2 transition-all duration-150 truncate bg-ink text-white shadow-soft"
             data-discover="true"
             href="/"
-            title="Home"
+            title="Beranda"
           >
-            Home
+            Beranda
           </a>
           <a
             class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
             data-discover="true"
             href="/organization-transformation"
-            title="Organization Transformation"
+            title="Transformasi Organisasi"
           >
-            Organization Transformation
+            Transformasi Organisasi
           </a>
           <a
             class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
             data-discover="true"
             href="/future-talent-strategy"
-            title="Future Talent Strategy"
+            title="Strategi Talenta Masa Depan"
           >
-            Future Talent Strategy
+            Strategi Talenta Masa Depan
           </a>
           <a
             class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
             data-discover="true"
             href="/risk-and-business-continuity"
-            title="Risk & Business Continuity"
+            title="Risiko & Business Continuity"
           >
-            Risk & Business Continuity
+            Risiko & Business Continuity
           </a>
           <a
             class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
@@ -130,17 +119,17 @@ exports[`Header > matches snapshot 1`] = `
             class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
             data-discover="true"
             href="/work-with-me"
-            title="Work With Me"
+            title="Bekerja Bersama"
           >
-            Work With Me
+            Bekerja Bersama
           </a>
           <a
             class="rounded-full px-4 py-2 transition-all duration-150 truncate text-slate-700 hover:bg-sand/70 hover:text-ink"
             data-discover="true"
             href="/resources"
-            title="Resources"
+            title="Sumber Daya"
           >
-            Resources
+            Sumber Daya
           </a>
         </nav>
         <a
@@ -148,7 +137,7 @@ exports[`Header > matches snapshot 1`] = `
           data-discover="true"
           href="/apply"
         >
-          Apply
+          Ajukan
         </a>
       </div>
     </div>

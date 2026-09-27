@@ -9,13 +9,13 @@ type I18nContextValue = {
 };
 
 const I18nContext = createContext<I18nContextValue>({
-	language: "en",
+	language: "id",
 	setLanguage: () => undefined,
-	copy: translations.en,
+	copy: translations.id,
 });
 
 export function I18nProvider({ children }: PropsWithChildren) {
-	const [language, setLanguage] = useState<Language>("en");
+	const [language, setLanguage] = useState<Language>("id");
 
 	useEffect(() => {
 		const stored = window.localStorage.getItem("tb_lang") as Language | null;

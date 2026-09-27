@@ -27,24 +27,24 @@ describe("I18nProvider", () => {
 		window.localStorage.setItem = vi.fn();
 	});
 
-	it("provides default language as English", () => {
+	it("provides default language as Indonesian", () => {
 		render(
 			<I18nProvider>
 				<TestConsumer />
 			</I18nProvider>,
 		);
 
-		expect(screen.getByTestId("language")).toHaveTextContent("en");
+		expect(screen.getByTestId("language")).toHaveTextContent("id");
 	});
 
-	it("provides English copy by default", () => {
+	it("provides Indonesian copy by default", () => {
 		render(
 			<I18nProvider>
 				<TestConsumer />
 			</I18nProvider>,
 		);
 
-		expect(screen.getByTestId("home-text")).toHaveTextContent("Home");
+		expect(screen.getByTestId("home-text")).toHaveTextContent("Beranda");
 	});
 
 	it("switches to Indonesian language", async () => {
@@ -97,10 +97,10 @@ describe("I18nProvider", () => {
 			</I18nProvider>,
 		);
 
-		expect(screen.getByTestId("language")).toHaveTextContent("en");
+		expect(screen.getByTestId("language")).toHaveTextContent("id");
 	});
 
-	it("switches back to English", async () => {
+	it("switches back to Indonesian", async () => {
 		const user = userEvent.setup();
 
 		render(
@@ -109,11 +109,11 @@ describe("I18nProvider", () => {
 			</I18nProvider>,
 		);
 
-		await user.click(screen.getByText("Set ID"));
-		expect(screen.getByTestId("language")).toHaveTextContent("id");
-
 		await user.click(screen.getByText("Set EN"));
 		expect(screen.getByTestId("language")).toHaveTextContent("en");
+
+		await user.click(screen.getByText("Set ID"));
+		expect(screen.getByTestId("language")).toHaveTextContent("id");
 	});
 });
 
@@ -132,7 +132,7 @@ describe("useI18n", () => {
 
 		render(<DirectConsumer />);
 
-		expect(screen.getByTestId("lang")).toHaveTextContent("en");
-		expect(screen.getByTestId("copy")).toHaveTextContent("Home");
+		expect(screen.getByTestId("lang")).toHaveTextContent("id");
+		expect(screen.getByTestId("copy")).toHaveTextContent("Beranda");
 	});
 });

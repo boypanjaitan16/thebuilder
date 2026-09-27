@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { lazy, Suspense, useEffect } from "react";
 import { matchPath, NavLink, Outlet, useLocation } from "react-router-dom";
 import { breadcrumbRoutes } from "../config/breadcrumbs";
@@ -14,7 +15,7 @@ const AdminHeader = lazy(() =>
 
 export function Layout() {
 	const location = useLocation();
-	const { copy } = useI18n();
+	const { copy, language, setLanguage } = useI18n();
 	const isAdminRoute = location.pathname.startsWith("/admin");
 
 	useEffect(() => {
@@ -74,27 +75,57 @@ export function Layout() {
 						<p className="mt-2 max-w-xl text-sm text-slate-600">
 							{copy.footer.line}
 						</p>
+						<div className="flex mt-3">
+							<div className="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm self-start md:self-auto">
+								<button
+									type="button"
+									onClick={() => setLanguage("en")}
+									className={classNames(
+										"rounded-full px-3 md:px-4 py-1 md:py-2 transition",
+										language === "en"
+											? "bg-ink text-white shadow-soft"
+											: "text-slate-700",
+									)}
+								>
+									EN
+								</button>
+								<button
+									type="button"
+									onClick={() => setLanguage("id")}
+									className={classNames(
+										"rounded-full px-3 md:px-4 py-1 md:py-2 transition",
+										language === "id"
+											? "bg-ink text-white shadow-soft"
+											: "text-slate-700",
+									)}
+								>
+									ID
+								</button>
+							</div>
+						</div>
 					</div>
-					<div className="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700">
-						{[
-							{ label: copy.footer.about, to: "/about" },
-							{ label: copy.nav.insights, to: "/insights" },
-							{ label: copy.nav.work, to: "/work-with-me" },
-							{ label: copy.footer.privacyPolicy, to: "/privacy" },
-							{ label: copy.footer.resources, to: "/resources" },
-							{
-								label: copy.footer.riskReadinessDiagnostic,
-								to: "/risk-readiness-diagnostic",
-							},
-						].map((link) => (
-							<NavLink
-								key={link.to}
-								to={link.to}
-								className="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-							>
-								{link.label}
-							</NavLink>
-						))}
+					<div>
+						<div className="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700">
+							{[
+								{ label: copy.footer.about, to: "/about" },
+								{ label: copy.nav.insights, to: "/insights" },
+								{ label: copy.nav.work, to: "/work-with-me" },
+								{ label: copy.footer.privacyPolicy, to: "/privacy" },
+								{ label: copy.footer.resources, to: "/resources" },
+								{
+									label: copy.footer.riskReadinessDiagnostic,
+									to: "/risk-readiness-diagnostic",
+								},
+							].map((link) => (
+								<NavLink
+									key={link.to}
+									to={link.to}
+									className="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+								>
+									{link.label}
+								</NavLink>
+							))}
+						</div>
 					</div>
 				</div>
 			</footer>

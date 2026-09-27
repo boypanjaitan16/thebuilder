@@ -21,14 +21,19 @@ exports[`Layout > matches snapshot for admin layout 1`] = `
       >
         <div>
           <p
-            class="text-xs uppercase tracking-[0.2em] text-slate-500"
+            class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-3"
           >
             The Builder
           </p>
+          <img
+            alt="The builder logo"
+            class="size-16 rounded"
+            src="/thebuilder.png"
+          />
           <p
             class="mt-2 max-w-xl text-sm text-slate-600"
           >
-            Strategic advisory based in Indonesia. Working with organizations selectively to design resilient structures, leadership continuity, and human risk safeguards.
+            Konsultasi strategis berbasis di Indonesia. Bekerja selektif dengan organisasi untuk merancang struktur tangguh, kontinuitas kepemimpinan, dan mitigasi risiko manusia.
           </p>
         </div>
         <div
@@ -39,7 +44,7 @@ exports[`Layout > matches snapshot for admin layout 1`] = `
             data-discover="true"
             href="/about"
           >
-            About
+            Tentang
           </a>
           <a
             class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
@@ -53,29 +58,45 @@ exports[`Layout > matches snapshot for admin layout 1`] = `
             data-discover="true"
             href="/work-with-me"
           >
-            Work With Me
+            Bekerja Bersama
           </a>
           <a
             class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
             data-discover="true"
             href="/privacy"
           >
-            Privacy Policy
+            Kebijakan Privasi
           </a>
           <a
             class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
             data-discover="true"
             href="/resources"
           >
-            Resources
+            Sumber Daya
           </a>
           <a
             class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
             data-discover="true"
             href="/risk-readiness-diagnostic"
           >
-            Risk Readiness Diagnostic
+            Diagnostik Kesiapan Risiko
           </a>
+        </div>
+        <div
+          class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm self-start md:self-auto"
+        >
+          <button
+            class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
+            type="button"
+          >
+            EN
+          </button>
+          <button
+            class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
+            type="button"
+          >
+            ID
+          </button>
         </div>
       </div>
     </footer>
@@ -107,14 +128,19 @@ exports[`Layout > matches snapshot for regular layout 1`] = `
       >
         <div>
           <p
-            class="text-xs uppercase tracking-[0.2em] text-slate-500"
+            class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-3"
           >
             The Builder
           </p>
+          <img
+            alt="The builder logo"
+            class="size-16 rounded"
+            src="/thebuilder.png"
+          />
           <p
             class="mt-2 max-w-xl text-sm text-slate-600"
           >
-            Strategic advisory based in Indonesia. Working with organizations selectively to design resilient structures, leadership continuity, and human risk safeguards.
+            Konsultasi strategis berbasis di Indonesia. Bekerja selektif dengan organisasi untuk merancang struktur tangguh, kontinuitas kepemimpinan, dan mitigasi risiko manusia.
           </p>
         </div>
         <div
@@ -125,7 +151,7 @@ exports[`Layout > matches snapshot for regular layout 1`] = `
             data-discover="true"
             href="/about"
           >
-            About
+            Tentang
           </a>
           <a
             class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
@@ -139,29 +165,45 @@ exports[`Layout > matches snapshot for regular layout 1`] = `
             data-discover="true"
             href="/work-with-me"
           >
-            Work With Me
+            Bekerja Bersama
           </a>
           <a
             class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
             data-discover="true"
             href="/privacy"
           >
-            Privacy Policy
+            Kebijakan Privasi
           </a>
           <a
             class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
             data-discover="true"
             href="/resources"
           >
-            Resources
+            Sumber Daya
           </a>
           <a
             class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
             data-discover="true"
             href="/risk-readiness-diagnostic"
           >
-            Risk Readiness Diagnostic
+            Diagnostik Kesiapan Risiko
           </a>
+        </div>
+        <div
+          class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm self-start md:self-auto"
+        >
+          <button
+            class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
+            type="button"
+          >
+            EN
+          </button>
+          <button
+            class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
+            type="button"
+          >
+            ID
+          </button>
         </div>
       </div>
     </footer>
