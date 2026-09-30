@@ -582,9 +582,9 @@
 		"intro2": "This work is advisory and system-focused. It is designed for organizations seeking clarity at a leadership and structural level — not for operational execution or training delivery.",
 		"contextNote": "Required fields keep the conversation focused and relevant.",
 		"sections": {
-			"basic": "A. Basic information",
-			"context": "B. Context & challenge",
-			"readiness": "C. Investment & commitment readiness",
+			"basic": "Basic information",
+			"context": "Context & challenge",
+			"readiness": "Investment & commitment readiness",
 			"closing": "Thank you for providing this context. Applications are reviewed carefully to ensure alignment and respect for both parties’ time. If there is a potential fit, you will be contacted to schedule an initial advisory conversation."
 		},
 		"form": {

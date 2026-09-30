@@ -1,3 +1,4 @@
+import ServiceIcon from "../components/ServiceIcon";
 import { useI18n } from "../i18n/I18nProvider";
 
 function ArchitecturePage() {
@@ -6,7 +7,7 @@ function ArchitecturePage() {
 	const areas = copy.shared.areasOfFocus;
 
 	return (
-		<div className="blueprint-page container-page flex flex-col gap-10">
+		<div className="blueprint-page blueprint-page--architecture container-page flex flex-col gap-10">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.title}
@@ -18,7 +19,7 @@ function ArchitecturePage() {
 				<h3 className="text-2xl font-semibold font-display text-ink">
 					{page.principlesTitle}
 				</h3>
-				<ul className="list-disc list-inside pl-5 mt-3">
+				<ul className="blueprint-list blueprint-list--check mt-3">
 					{page.principles.map((item) => (
 						<li key={item}>{item}</li>
 					))}
@@ -31,6 +32,7 @@ function ArchitecturePage() {
 						key={area.slug}
 						className="rounded-2xl border border-ink bg-white p-6 shadow-soft"
 					>
+						<ServiceIcon slug={area.slug} />
 						<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
 							{area.slug.replaceAll("-", " ")}
 						</p>

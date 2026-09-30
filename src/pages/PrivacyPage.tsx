@@ -11,7 +11,7 @@ function PrivacyPage() {
 					{page.title}
 				</h1>
 				<p className="my-3">{page.intro}</p>
-				<ul className="list-disc list-inside pl-5">
+				<ul className="blueprint-list blueprint-list--point">
 					{page.bullets.map((item) => (
 						<li key={item}>{item}</li>
 					))}

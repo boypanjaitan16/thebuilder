@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import ResourceIcon from "../../components/ResourceIcon";
 import { useI18n } from "../../i18n/I18nProvider";
 
 function ResourcesPage() {
@@ -30,11 +31,12 @@ function ResourcesPage() {
 						key={category.slug}
 						className="rounded-2xl border border-slate-800 bg-white p-6 shadow-soft transition hover:-translate-y-1"
 					>
+						<ResourceIcon slug={category.slug} />
 						<h2 className="font-display text-xl font-semibold text-ink">
 							{category.title}
 						</h2>
 						<p className="mt-3 text-slate-700">{category.body}</p>
-						<ul className="mt-4 list-disc list-inside">
+						<ul className="blueprint-list blueprint-list--point mt-4">
 							{category.items.map((item) => (
 								<li key={item}>{item}</li>
 							))}

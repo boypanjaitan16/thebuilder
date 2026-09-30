@@ -469,8 +469,21 @@
 		12px "IBM Plex Mono",
 		monospace;
 }
+.blueprint-service-icon {
+	width: 58px;
+	height: 58px;
+	display: inline-grid;
+	place-items: center;
+	flex: none;
+	border: 1px solid #74a8a0;
+	background: #c8e2db;
+	color: #215960;
+}
+.bp-layer .blueprint-service-icon {
+	margin-top: 47px;
+}
 .bp-layer h3 {
-	margin: 70px 0 15px;
+	margin: 20px 0 15px;
 	font-size: clamp(24px, 2.5vw, 34px);
 	line-height: 1.2;
 }
@@ -490,6 +503,19 @@
 .bp-org-method {
 	padding-top: 115px;
 	padding-bottom: 120px;
+}
+.bp-approach-photo {
+	margin: 56px 0 0;
+	height: clamp(245px, 29vw, 390px);
+	overflow: hidden;
+	border: 1px solid #8ca8a5;
+	background: #102a35;
+}
+.bp-approach-photo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 55%;
 }
 .bp-approach-grid {
 	display: grid;
@@ -840,8 +866,8 @@
 	.bp-layer:last-child {
 		border-bottom: 0;
 	}
-	.bp-layer h3 {
-		margin-top: 45px;
+	.bp-layer .blueprint-service-icon {
+		margin-top: 35px;
 	}
 	.bp-engagement-note {
 		display: block;
@@ -913,9 +939,6 @@
 	padding: 25px var(--blueprint-inline);
 	background: #102a35;
 	color: #acd1c8;
-	font:
-		11px "IBM Plex Mono",
-		monospace;
 	letter-spacing: 0.06em;
 }
 .blueprint-breadcrumb a:hover {
@@ -1094,6 +1117,44 @@
 	border-radius: 0;
 	font-weight: 700;
 }
+.blueprint-page--about .blueprint-about-story {
+	display: grid;
+	grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+	align-items: center;
+	gap: clamp(32px, 6vw, 100px);
+}
+.blueprint-about-image {
+	min-width: 0;
+	height: clamp(320px, 36vw, 470px);
+	margin: 0;
+	overflow: hidden;
+	border: 1px solid #9bb4b1;
+	background: #102a35;
+}
+.blueprint-about-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.blueprint-about-story-copy {
+	min-width: 0;
+}
+.blueprint-about-story-copy h2 {
+	margin-bottom: 30px;
+	font-size: clamp(34px, 3.6vw, 54px);
+	line-height: 1.12;
+}
+.blueprint-page--architecture .blueprint-service-icon {
+	margin-bottom: 22px;
+}
+@media (max-width: 800px) {
+	.blueprint-page--about .blueprint-about-story {
+		grid-template-columns: 1fr;
+	}
+	.blueprint-about-image {
+		height: clamp(260px, 56vw, 390px);
+	}
+}
 .blueprint-page--privacy > section:first-child {
 	background: #d9e7e4;
 	border-color: #9bb4b1;
@@ -1216,11 +1277,7 @@
 	list-style: decimal;
 	padding-left: 1.5em;
 }
-.blueprint-page--article .ant-breadcrumb {
-	font:
-		11px "IBM Plex Mono",
-		monospace;
-}
+
 @media (max-width: 800px) {
 	.blueprint-page--products .blueprint-product-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1291,4 +1348,143 @@
 }
 .blueprint-page--privacy > section:first-child::after {
 	opacity: 0.14;
+}
+
+/* Editorial imagery remains a quiet break between content sections. */
+.blueprint-editorial-image {
+	position: relative;
+	width: 100%;
+	height: clamp(240px, 28vw, 390px);
+	margin: 0;
+	overflow: hidden;
+	border-block: 1px solid #7d9f9b;
+	background: #102a35;
+}
+.blueprint-editorial-image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+.blueprint-editorial-image::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-block: 1px solid #e7faf255;
+	box-shadow: inset 0 0 0 1px #102a3522;
+	pointer-events: none;
+}
+.blueprint-resource-icon {
+	display: inline-grid;
+	width: 56px;
+	height: 56px;
+	place-items: center;
+	margin-bottom: 22px;
+	border: 1px solid #74a8a0;
+	background: #c8e2db;
+	color: #215960;
+}
+.blueprint-page > section:first-child .blueprint-resource-icon {
+	border-color: #679f95;
+	background: #173c45;
+	color: #a0e3d0;
+}
+.blueprint-page--products .blueprint-resource-icon {
+	margin-bottom: 28px;
+}
+.blueprint-article-placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 14px;
+	background: #183d47;
+	color: #a0e3d0;
+	font-family: "IBM Plex Mono", monospace;
+	font-size: 11px;
+	letter-spacing: 0.08em;
+	text-align: center;
+}
+.blueprint-form-heading {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+}
+.blueprint-form-heading svg,
+.blueprint-info-heading svg {
+	flex: none;
+	color: #397c79;
+}
+.blueprint-info-heading {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+}
+@media (max-width: 700px) {
+	.blueprint-editorial-image {
+		height: 255px;
+	}
+}
+
+/* Meaningful markers for editorial lists; ordered steps keep their numbers. */
+.blueprint-page section ul.blueprint-list {
+	list-style: none;
+	padding-left: 0;
+}
+.blueprint-page section ul.blueprint-list > li {
+	position: relative;
+	padding: 12px 0 12px 38px;
+	border-top: 1px solid #aac2be;
+}
+.blueprint-page section ul.blueprint-list > li::before {
+	content: "";
+	position: absolute;
+	top: 20px;
+	left: 7px;
+	display: grid;
+	width: 8px;
+	height: 8px;
+	place-items: center;
+	transform: rotate(45deg);
+	background: #397c79;
+	color: #286f70;
+	line-height: 1;
+}
+.blueprint-page section ul.blueprint-list--check > li::before {
+	content: "✓";
+	top: 13px;
+	left: 0;
+	width: 22px;
+	height: 22px;
+	transform: none;
+	border: 1px solid #78aaa1;
+	background: #c6e8dd;
+	font:
+		700 13px "Manrope",
+		sans-serif;
+}
+.blueprint-page section ul.blueprint-list--minus > li::before {
+	content: "−";
+	top: 13px;
+	left: 0;
+	width: 22px;
+	height: 22px;
+	transform: none;
+	border: 1px solid #9aaead;
+	background: #e8efed;
+	color: #4b6668;
+	font:
+		600 17px "IBM Plex Mono",
+		monospace;
+}
+.blueprint-page section ul.blueprint-list--signal > li::before {
+	transform: none;
+	border-radius: 50%;
+	box-shadow: 0 0 0 4px #c9dfd9;
+}
+@media (max-width: 700px) {
+	.blueprint-page section ul.blueprint-list > li {
+		padding-left: 34px;
+	}
 }

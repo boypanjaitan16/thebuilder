@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { BlueprintDiagram } from "../components/BlueprintDiagram";
+import ServiceIcon from "../components/ServiceIcon";
 import { useI18n } from "../i18n/I18nProvider";
 
 function HomePage() {
@@ -45,6 +46,7 @@ function HomePage() {
 									<span>0{index + 1}</span>
 									<span aria-hidden="true">↗</span>
 								</div>
+								<ServiceIcon slug={area.slug} />
 								<h3>{area.title}</h3>
 								<p>{area.summary}</p>
 								<span className="bp-layer-cta">{p.viewService}</span>
@@ -58,6 +60,16 @@ function HomePage() {
 					<span>03 / {p.home.approachLabel}</span>
 					<h2>{p.home.approachLabel}</h2>
 				</div>
+				<figure className="bp-approach-photo" aria-hidden="true">
+					<img
+						src={`${import.meta.env.BASE_URL}images/blueprint-approach.webp`}
+						alt=""
+						width="1672"
+						height="941"
+						loading="lazy"
+						decoding="async"
+					/>
+				</figure>
 				<div className="bp-approach-grid">
 					<div>
 						<h3>{home.approach.title}</h3>

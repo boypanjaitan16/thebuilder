@@ -586,9 +586,9 @@
 		"intro2": "Pekerjaan ini bersifat advisory dan berfokus pada sistem. Ditujukan bagi organisasi yang mencari kejelasan di level kepemimpinan dan struktur — bukan untuk eksekusi operasional atau delivery pelatihan.",
 		"contextNote": "Isian wajib menjaga percakapan tetap fokus dan relevan.",
 		"sections": {
-			"basic": "A. Informasi dasar",
-			"context": "B. Konteks & tantangan",
-			"readiness": "C. Kesiapan investasi & komitmen",
+			"basic": "Informasi dasar",
+			"context": "Konteks & tantangan",
+			"readiness": "Kesiapan investasi & komitmen",
 			"closing": "Terima kasih atas konteks yang Anda berikan. Aplikasi ditinjau dengan cermat untuk menjaga keselarasan dan menghargai waktu kedua pihak. Jika ada potensi kecocokan, Anda akan dihubungi untuk menjadwalkan percakapan awal."
 		},
 		"form": {

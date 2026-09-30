@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, Button, Checkbox, Input, Radio, Select } from "antd";
 import classNames from "classnames";
-import { Send } from "lucide-react";
+import { CircleCheck, ScanSearch, Send, UserRound } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useCreateAdvisoryRequest } from "../hooks/useCreateAdvisoryRequest";
@@ -78,7 +78,8 @@ function ApplyPage() {
 				className="glass-panel flex flex-col gap-8 px-6 py-8 md:px-10"
 			>
 				<div className="flex flex-col gap-1">
-					<h3 className="text-sm font-semibold font-display uppercase text-slate-500">
+					<h3 className="blueprint-form-heading font-semibold uppercase text-slate-500">
+						<UserRound size={20} strokeWidth={1.5} aria-hidden="true" />
 						{text.sections.basic}
 					</h3>
 					<p className="text-sm text-slate-600">{text.contextNote}</p>
@@ -208,7 +209,8 @@ function ApplyPage() {
 				</div>
 
 				<div className="flex flex-col gap-1">
-					<h3 className="text-sm font-semibold font-display uppercase text-slate-500">
+					<h3 className="blueprint-form-heading font-semibold uppercase text-slate-500">
+						<ScanSearch size={20} strokeWidth={1.5} aria-hidden="true" />
 						{text.sections.context}
 					</h3>
 					<p className="text-sm text-slate-600">{text.form.situationTitle}</p>
@@ -299,7 +301,8 @@ function ApplyPage() {
 				</div>
 
 				<div className="flex flex-col gap-1">
-					<h3 className="text-sm font-semibold font-display uppercase text-slate-500">
+					<h3 className="blueprint-form-heading font-semibold uppercase text-slate-500">
+						<CircleCheck size={20} strokeWidth={1.5} aria-hidden="true" />
 						{text.sections.readiness}
 					</h3>
 				</div>
@@ -307,8 +310,8 @@ function ApplyPage() {
 					<div>
 						<div
 							className={classNames(
-								"rounded-2xl border bg-white px-5 py-5 shadow-sm",
-								errors.readiness?.message ? "border-red-600" : "border-sand",
+								"rounded-2xl border p-5 shadow-sm",
+								errors.readiness?.message ? "border-red-600" : "border-primary",
 							)}
 						>
 							<p className="text-sm font-semibold text-ink">
@@ -335,8 +338,8 @@ function ApplyPage() {
 					<div>
 						<div
 							className={classNames(
-								"rounded-2xl border bg-white px-5 py-5 shadow-sm",
-								errors.timeline?.message ? "border-red-600" : "border-sand",
+								"rounded-2xl border p-5 shadow-sm",
+								errors.timeline?.message ? "border-red-600" : "border-primary",
 							)}
 						>
 							<p className="text-sm font-semibold text-ink">

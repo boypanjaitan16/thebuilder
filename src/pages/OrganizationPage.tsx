@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import BlueprintEditorialImage from "../components/BlueprintEditorialImage";
 import { useI18n } from "../i18n/I18nProvider";
 
 function OrganizationPage() {
@@ -19,7 +20,7 @@ function OrganizationPage() {
 					{org.coreProblemTitle}
 				</h2>
 				<p>{org.coreProblemIntro}</p>
-				<ul>
+				<ul className="blueprint-list blueprint-list--signal">
 					{org.coreProblemBullets.map((item) => (
 						<li key={item}>{item}</li>
 					))}
@@ -27,12 +28,14 @@ function OrganizationPage() {
 				<p className="font-semibold">{org.coreProblemNote}</p>
 			</section>
 
+			<BlueprintEditorialImage name="organization" />
+
 			<section className="space-y-6">
 				<h2 className="font-display text-3xl font-semibold text-ink">
 					{org.resilienceTitle}
 				</h2>
 				<p>{org.resilienceIntro}</p>
-				<ul>
+				<ul className="blueprint-list blueprint-list--check">
 					{org.resilienceList.map((item) => (
 						<li key={item}>{item}</li>
 					))}
@@ -47,7 +50,7 @@ function OrganizationPage() {
 				<p>{org.approachBody1}</p>
 				<p>{org.approachBody2}</p>
 				<p>{org.approachBody3}</p>
-				<ul>
+				<ul className="blueprint-list blueprint-list--point">
 					{org.approachList.map((item) => (
 						<li key={item}>{item}</li>
 					))}
@@ -65,7 +68,7 @@ function OrganizationPage() {
 						<h3 className="font-display text-2xl font-semibold">
 							{org.scopeIncludesNote}
 						</h3>
-						<ul className="mt-4">
+						<ul className="blueprint-list blueprint-list--check mt-4">
 							{org.scopeIncludes.map((item) => (
 								<li key={item}>{item}</li>
 							))}
@@ -75,7 +78,7 @@ function OrganizationPage() {
 						<h3 className="font-display text-2xl font-semibold">
 							{org.scopeExcludesNote}
 						</h3>
-						<ul className="mt-4">
+						<ul className="blueprint-list blueprint-list--minus mt-4">
 							{org.scopeExcludes.map((item) => (
 								<li key={item}>{item}</li>
 							))}
@@ -93,7 +96,7 @@ function OrganizationPage() {
 						<h3 className="font-display text-2xl font-semibold">
 							{org.relevance}
 						</h3>
-						<ul className="mt-4">
+						<ul className="blueprint-list blueprint-list--signal mt-4">
 							{org.relevancePoints.map((item) => (
 								<li key={item}>{item}</li>
 							))}
@@ -103,7 +106,7 @@ function OrganizationPage() {
 						<h3 className="font-display text-2xl font-semibold">
 							{org.designedFor}
 						</h3>
-						<ul className="mt-4">
+						<ul className="blueprint-list blueprint-list--point mt-4">
 							{org.designedForPoints.map((item) => (
 								<li key={item}>{item}</li>
 							))}
@@ -116,7 +119,7 @@ function OrganizationPage() {
 						{org.connectedAreasTitle}
 					</h3>
 					<p>{org.connectedAreasIntro}</p>
-					<ul>
+					<ul className="blueprint-list blueprint-list--point">
 						{org.connectedAreasList.map((item) => (
 							<li key={item}>{item}</li>
 						))}

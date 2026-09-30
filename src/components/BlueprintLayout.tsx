@@ -2,6 +2,7 @@ import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import { breadcrumbRoutes } from "../config/breadcrumbs";
 import { useI18n } from "../i18n/I18nProvider";
 import "../pages/blueprint.css";
+import { ChevronDown } from "lucide-react";
 
 function BlueprintHeader() {
 	const location = useLocation();
@@ -31,7 +32,7 @@ function BlueprintHeader() {
 					<details className="blueprint-services" key={location.pathname}>
 						<summary className={onServicePage ? "is-active" : ""}>
 							{copy.brand.services}
-							<span aria-hidden="true">⌄</span>
+							<ChevronDown size={16} />
 						</summary>
 						<div className="blueprint-services-menu">
 							<Link to="/organization-transformation">

@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ScanSearch } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useI18n } from "../i18n/I18nProvider";
@@ -73,7 +74,8 @@ function DiagnosticPage() {
 
 			<section className="glass-panel px-6 py-8 md:px-10">
 				<div className="flex flex-col gap-1">
-					<h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+					<h3 className="blueprint-info-heading text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+						<ScanSearch size={22} strokeWidth={1.5} aria-hidden="true" />
 						{page.whoTitle}
 					</h3>
 					<p className="text-slate-700">{page.whoBody}</p>
@@ -82,7 +84,7 @@ function DiagnosticPage() {
 					<h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
 						{page.receiveTitle}
 					</h4>
-					<ul className="mt-3 grid gap-2 text-slate-700 md:grid-cols-2">
+					<ul className="blueprint-list blueprint-list--check mt-3 grid gap-2 text-slate-700 md:grid-cols-2">
 						{page.receiveList.map((item) => (
 							<li key={item}>{item}</li>
 						))}

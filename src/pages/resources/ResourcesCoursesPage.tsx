@@ -1,3 +1,4 @@
+import ResourceIcon from "../../components/ResourceIcon";
 import { useI18n } from "../../i18n/I18nProvider";
 
 function ResourcesCoursesPage() {
@@ -14,11 +15,12 @@ function ResourcesCoursesPage() {
 			</section>
 
 			<section>
+				<ResourceIcon slug="courses-deep-dives" />
 				<h3 className="text-xl font-semibold font-display text-ink">
 					{page.whatInsideTitle}
 				</h3>
 				<p className="text-slate-700 mt-2">{page.topicsBody}</p>
-				<ul className="mt-3 list-disc list-inside">
+				<ul className="blueprint-list blueprint-list--point mt-3">
 					{page.topicsList.map((item) => (
 						<li key={item}>{item}</li>
 					))}

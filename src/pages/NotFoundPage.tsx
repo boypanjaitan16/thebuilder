@@ -1,3 +1,4 @@
+import { House } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useI18n } from "../i18n/I18nProvider";
 
@@ -16,7 +17,8 @@ function NotFoundPage() {
 					to="/"
 					className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-slate-900"
 				>
-					{copy.notFound.cta}
+					<House size={17} strokeWidth={1.5} aria-hidden="true" />
+					<span className="ml-2">{copy.notFound.cta}</span>
 				</Link>
 			</section>
 		</div>
