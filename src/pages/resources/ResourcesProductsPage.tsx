@@ -1,53 +1,53 @@
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { useActiveProducts } from "../../hooks/useActiveProducts";
+import { useI18n } from "../../i18n/I18nProvider";
 
 function ResourcesProductsPage() {
-	const {
-		data: products,
-		isLoading: loadingProducts,
-		error: productsError,
-	} = useActiveProducts();
-
-	const combinedError = productsError;
-	const combinedLoading = loadingProducts;
+	const { copy } = useI18n();
+	const { data: products, isLoading, error } = useActiveProducts();
 
 	return (
-		<div className="container-page flex flex-col gap-10">
-			{combinedLoading ? (
-				<div className="flex justify-center">
-					<LoadingIndicator label="Loading products..." />
+		<div className="blueprint-page blueprint-page--products container-page flex flex-col">
+			<section className="blueprint-product-intro">
+				<h1>{copy.breadcrumb.resourcesProducts}</h1>
+				<p>{copy.resources.closingNote}</p>
+			</section>
+			{isLoading ? (
+				<div className="blueprint-product-state">
+					<LoadingIndicator label={copy.brand.productsLoading} />
 				</div>
-			) : combinedError ? (
-				<p>{combinedError}</p>
-			) : (
-				<section className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-5">
-					{products?.map((product) => (
+			) : error ? (
+				<p className="blueprint-product-state" role="alert">
+					{error}
+				</p>
+			) : products?.length ? (
+				<section className="blueprint-product-grid">
+					{products.map((product, index) => (
 						<a
 							href={product.marketplace_url}
 							key={product.id}
 							target="_blank"
 							rel="noopener noreferrer"
+							className="blueprint-product"
 						>
-							<article className="bg-white rounded-2xl border hover:border-ink overflow-hidden">
-								<img
-									src={product.thumbnail_url}
-									className="w-full"
-									alt={product.name}
-									loading="lazy"
-									decoding="async"
-								/>
-								<div className="px-5 py-3">
-									<h4
-										className="font-semibold text-lg leading-tight truncate"
-										title={product.name}
-									>
-										{product.name}
-									</h4>
-								</div>
-							</article>
+							<img
+								src={product.thumbnail_url}
+								alt={product.name}
+								loading="lazy"
+								decoding="async"
+							/>
+							<div>
+								<span>
+									0{index + 1} / {copy.breadcrumb.resourcesProducts}
+								</span>
+								<h2>{product.name}</h2>
+								<span aria-hidden="true">↗</span>
+							</div>
 						</a>
 					))}
 				</section>
+			) : (
+				<p className="blueprint-product-state">{copy.brand.productsEmpty}</p>
 			)}
 		</div>
 	);

@@ -63,11 +63,8 @@ function ApplyPage() {
 	const errorColor = "text-red-600";
 
 	return (
-		<div className="container-page flex flex-col gap-10">
+		<div className="blueprint-page blueprint-page--apply container-page flex flex-col gap-10">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					Apply
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{text.heroTitle}
 				</h1>
@@ -94,6 +91,7 @@ function ApplyPage() {
 							control={control}
 							render={({ field }) => (
 								<Input
+									size="large"
 									id="name"
 									type="text"
 									status={errors.name ? "error" : undefined}
@@ -110,6 +108,7 @@ function ApplyPage() {
 							control={control}
 							render={({ field }) => (
 								<Input
+									size="large"
 									id="email"
 									type="email"
 									status={errors.email ? "error" : undefined}
@@ -130,6 +129,7 @@ function ApplyPage() {
 							control={control}
 							render={({ field }) => (
 								<Input
+									size="large"
 									id="role"
 									type="text"
 									placeholder="e.g. CEO, Founder, Director, CHRO"
@@ -147,6 +147,7 @@ function ApplyPage() {
 							control={control}
 							render={({ field }) => (
 								<Input
+									size="large"
 									id="organization"
 									type="text"
 									status={errors.organization ? "error" : undefined}
@@ -167,6 +168,7 @@ function ApplyPage() {
 							control={control}
 							render={({ field }) => (
 								<Select
+									size="large"
 									id="size"
 									status={errors.size ? "error" : undefined}
 									placeholder={
@@ -191,6 +193,7 @@ function ApplyPage() {
 							control={control}
 							render={({ field }) => (
 								<Input
+									size="large"
 									id="industry"
 									type="text"
 									status={errors.industry ? "error" : undefined}
@@ -210,7 +213,7 @@ function ApplyPage() {
 					</h3>
 					<p className="text-sm text-slate-600">{text.form.situationTitle}</p>
 				</div>
-				<div className="rounded-2xl border border-sand bg-white px-5 py-5 shadow-sm">
+				<div className="">
 					<Controller
 						name="situation"
 						control={control}
@@ -234,7 +237,12 @@ function ApplyPage() {
 							name="description"
 							control={control}
 							render={({ field }) => (
-								<Input.TextArea id="description" rows={4} {...field} />
+								<Input.TextArea
+									id="description"
+									rows={4}
+									size="large"
+									{...field}
+								/>
 							)}
 						/>
 					</div>
@@ -248,6 +256,7 @@ function ApplyPage() {
 							control={control}
 							render={({ field }) => (
 								<Select
+									size="large"
 									id="expectation"
 									status={errors.expectation ? "error" : undefined}
 									placeholder={
@@ -274,6 +283,7 @@ function ApplyPage() {
 							control={control}
 							render={({ field }) => (
 								<Input
+									size="large"
 									id="decisionFlow"
 									type="text"
 									placeholder="e.g. leadership team discussion, founder-led, board-driven"

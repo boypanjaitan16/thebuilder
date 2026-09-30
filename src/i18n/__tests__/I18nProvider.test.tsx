@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { StrictMode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { I18nProvider, useI18n } from "../I18nProvider";
 
@@ -86,6 +87,24 @@ describe("I18nProvider", () => {
 
 		// Need to wait for useEffect to run
 		expect(window.localStorage.getItem).toHaveBeenCalledWith("tb_lang");
+	});
+
+	it("keeps a saved English selection in StrictMode", () => {
+		window.localStorage.getItem = vi.fn().mockReturnValue("en");
+
+		render(
+			<StrictMode>
+				<I18nProvider>
+					<TestConsumer />
+				</I18nProvider>
+			</StrictMode>,
+		);
+
+		expect(screen.getByTestId("language")).toHaveTextContent("en");
+		expect(window.localStorage.setItem).toHaveBeenLastCalledWith(
+			"tb_lang",
+			"en",
+		);
 	});
 
 	it("ignores invalid language in localStorage", () => {

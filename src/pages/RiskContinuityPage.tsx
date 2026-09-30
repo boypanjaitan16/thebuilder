@@ -7,11 +7,8 @@ function RiskContinuityPage() {
 	const page = copy.risk;
 
 	return (
-		<div className="container-page flex flex-col gap-12">
+		<div className="blueprint-page container-page flex flex-col gap-12">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					{page.heroSubtitle}
-				</p>
 				<h1 className="my-3 font-display text-4xl font-semibold text-ink">
 					{page.heroTitle}
 				</h1>

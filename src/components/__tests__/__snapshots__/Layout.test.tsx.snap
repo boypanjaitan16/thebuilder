@@ -1,9 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Layout > matches snapshot for admin layout 1`] = `
+exports[`Layout > matches the admin layout snapshot 1`] = `
 <div>
   <div
-    class="min-h-screen bg-mist text-ink flex flex-col"
+    class="admin-shell min-h-screen bg-mist text-ink flex flex-col"
   >
     <div
       data-testid="admin-header"
@@ -14,208 +14,102 @@ exports[`Layout > matches snapshot for admin layout 1`] = `
       class="py-5 xl:py-10 px-5 flex flex-grow flex-col"
     />
     <footer
-      class="border-t border-sand/70 bg-white py-10"
+      class="admin-footer"
     >
       <div
-        class="container-page flex flex-col gap-6 md:flex-row md:items-center md:justify-between px-5 xl:px-0"
+        class="admin-footer-inner"
       >
-        <div>
+        <div
+          class="admin-footer-intro"
+        >
           <p
-            class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-3"
+            class="admin-footer-eyebrow"
           >
-            The Builder
+            THE BUILDER / ADMIN
           </p>
-          <img
-            alt="The builder logo"
-            class="size-16 rounded"
-            src="/thebuilder.png"
-          />
           <p
-            class="mt-2 max-w-xl text-sm text-slate-600"
+            class="admin-footer-brand"
+          >
+            THE BUILDER
+            <span>
+              .
+            </span>
+          </p>
+          <p
+            class="admin-footer-description"
           >
             Konsultasi strategis berbasis di Indonesia. Bekerja selektif dengan organisasi untuk merancang struktur tangguh, kontinuitas kepemimpinan, dan mitigasi risiko manusia.
           </p>
-          <div
-            class="flex mt-3"
-          >
-            <div
-              class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm self-start md:self-auto"
-            >
-              <button
-                class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
-                type="button"
-              >
-                EN
-              </button>
-              <button
-                class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
-                type="button"
-              >
-                ID
-              </button>
-            </div>
-          </div>
         </div>
-        <div>
-          <div
-            class="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700"
+        <div
+          class="admin-footer-actions"
+        >
+          <nav
+            aria-label="Language"
+            class="admin-footer-language"
+          >
+            <button
+              aria-pressed="true"
+              class="is-active"
+              type="button"
+            >
+              ID
+            </button>
+            <button
+              aria-pressed="false"
+              class=""
+              type="button"
+            >
+              EN
+            </button>
+          </nav>
+          <nav
+            aria-label="Site links"
+            class="admin-footer-links"
           >
             <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              class=""
               data-discover="true"
               href="/about"
             >
               Tentang
             </a>
             <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              class=""
               data-discover="true"
               href="/insights"
             >
               Insights
             </a>
             <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              class=""
               data-discover="true"
               href="/work-with-me"
             >
               Bekerja Bersama
             </a>
             <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-              data-discover="true"
-              href="/privacy"
-            >
-              Kebijakan Privasi
-            </a>
-            <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              class=""
               data-discover="true"
               href="/resources"
             >
               Sumber Daya
             </a>
             <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              class=""
               data-discover="true"
               href="/risk-readiness-diagnostic"
             >
               Diagnostik Kesiapan Risiko
             </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </div>
-  <div
-    class="pointer-events-none fixed top-4 left-1/2 z-50 -translate-x-1/2 space-y-2"
-  />
-</div>
-`;
-
-exports[`Layout > matches snapshot for regular layout 1`] = `
-<div>
-  <div
-    class="min-h-screen bg-mist text-ink flex flex-col"
-  >
-    <div
-      data-testid="header"
-    >
-      Header
-    </div>
-    <main
-      class="py-5 xl:py-10 px-5 flex flex-grow flex-col"
-    />
-    <footer
-      class="border-t border-sand/70 bg-white py-10"
-    >
-      <div
-        class="container-page flex flex-col gap-6 md:flex-row md:items-center md:justify-between px-5 xl:px-0"
-      >
-        <div>
-          <p
-            class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-3"
-          >
-            The Builder
-          </p>
-          <img
-            alt="The builder logo"
-            class="size-16 rounded"
-            src="/thebuilder.png"
-          />
-          <p
-            class="mt-2 max-w-xl text-sm text-slate-600"
-          >
-            Konsultasi strategis berbasis di Indonesia. Bekerja selektif dengan organisasi untuk merancang struktur tangguh, kontinuitas kepemimpinan, dan mitigasi risiko manusia.
-          </p>
-          <div
-            class="flex mt-3"
-          >
-            <div
-              class="flex rounded-full border border-sand bg-white p-1 text-xs font-semibold shadow-sm self-start md:self-auto"
-            >
-              <button
-                class="rounded-full px-3 md:px-4 py-1 md:py-2 transition text-slate-700"
-                type="button"
-              >
-                EN
-              </button>
-              <button
-                class="rounded-full px-3 md:px-4 py-1 md:py-2 transition bg-ink text-white shadow-soft"
-                type="button"
-              >
-                ID
-              </button>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div
-            class="flex flex-col md:flex-row md:flex-wrap gap-3 text-sm font-medium text-slate-700"
-          >
             <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-              data-discover="true"
-              href="/about"
-            >
-              Tentang
-            </a>
-            <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-              data-discover="true"
-              href="/insights"
-            >
-              Insights
-            </a>
-            <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-              data-discover="true"
-              href="/work-with-me"
-            >
-              Bekerja Bersama
-            </a>
-            <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
+              class=""
               data-discover="true"
               href="/privacy"
             >
               Kebijakan Privasi
             </a>
-            <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-              data-discover="true"
-              href="/resources"
-            >
-              Sumber Daya
-            </a>
-            <a
-              class="md:rounded-full md:border border-sand md:px-3 md:py-1 hover:border-ink hover:text-ink"
-              data-discover="true"
-              href="/risk-readiness-diagnostic"
-            >
-              Diagnostik Kesiapan Risiko
-            </a>
-          </div>
+          </nav>
         </div>
       </div>
     </footer>

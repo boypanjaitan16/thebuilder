@@ -6,11 +6,8 @@ function ArchitecturePage() {
 	const areas = copy.shared.areasOfFocus;
 
 	return (
-		<div className="container-page flex flex-col gap-10">
+		<div className="blueprint-page container-page flex flex-col gap-10">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					Our Integrated Architecture
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.title}
 				</h1>

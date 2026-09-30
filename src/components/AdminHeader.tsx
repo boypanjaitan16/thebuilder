@@ -1,11 +1,19 @@
 import type { MenuProps } from "antd";
-import { Button, Dropdown } from "antd";
+import { Dropdown } from "antd";
 import { signOut } from "firebase/auth";
-import { Home, HomeIcon, LogOut, UserCircle } from "lucide-react";
+import { ArrowUpRight, Home, LogOut, UserCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useFirebaseSession } from "../hooks/useFirebaseSession";
 import { getFirebaseAuth } from "../lib/firebaseAuth";
+import "./admin-chrome.css";
+
+const adminLinks = [
+	{ to: "/admin", label: "Overview" },
+	{ to: "/admin/products", label: "Products" },
+	{ to: "/admin/articles", label: "Articles" },
+	{ to: "/admin/advisory-requests", label: "Requests" },
+];
 
 export function AdminHeader() {
 	const navigate = useNavigate();
@@ -67,45 +75,52 @@ export function AdminHeader() {
 	];
 
 	return (
-		<header className="sticky top-0 z-20 border-b border-ink bg-white backdrop-blur px-5">
-			<div className="container-page flex flex-wrap items-center justify-between gap-4 py-2 md:py-4">
-				<NavLink to="/admin" className="flex items-center gap-3">
-					<img
-						src="/thebuilder.png"
-						alt="The builder logo"
-						className="size-10 rounded"
-					/>
-					<div className="text-left leading-tight">
-						<p className="text-[11px] uppercase tracking-[0.25em] text-slate-500">
-							Admin
-						</p>
-						<p className="font-display text-lg font-semibold text-ink">
-							The Builder
-						</p>
-					</div>
+		<header className="admin-header">
+			<div className="admin-header-inner">
+				<NavLink
+					to="/admin"
+					className="admin-brand"
+					aria-label="The Builder Admin"
+				>
+					<span className="admin-brand-mark" aria-hidden="true">
+						TB<span>.</span>
+					</span>
+					<span className="admin-brand-copy">
+						<strong>The Builder</strong>
+						<small>Admin workspace</small>
+					</span>
 				</NavLink>
 
-				<div className="flex items-center gap-2 text-sm">
-					{!isAuthenticated && (
-						<Button
-							onClick={() => navigate("/")}
-							icon={<HomeIcon />}
-							type="text"
-						/>
-					)}
+				{isAuthenticated && (
+					<nav className="admin-nav" aria-label="Admin navigation">
+						{adminLinks.map(({ to, label }) => (
+							<NavLink
+								key={to}
+								to={to}
+								end={to === "/admin"}
+								className={({ isActive }) => (isActive ? "is-active" : "")}
+							>
+								{label}
+							</NavLink>
+						))}
+					</nav>
+				)}
+
+				<div className="admin-header-actions">
+					<NavLink className="admin-site-link" to="/">
+						<span>View site</span>
+						<ArrowUpRight size={16} aria-hidden="true" />
+					</NavLink>
 					{isAuthenticated && (
 						<Dropdown
 							menu={{ items }}
-							trigger={["click", "hover"]}
+							trigger={["click"]}
 							open={menuOpen}
 							onOpenChange={setMenuOpen}
 							arrow
 						>
-							<button
-								type="button"
-								className="font-semibold flex flex-row items-center gap-2"
-							>
-								<UserCircle />
+							<button type="button" className="admin-account-button">
+								<UserCircle size={18} aria-hidden="true" />
 								<span>{user?.displayName ?? "Administrator"}</span>
 							</button>
 						</Dropdown>
@@ -113,7 +128,7 @@ export function AdminHeader() {
 				</div>
 			</div>
 			{error && (
-				<div className="border-t border-amber-200 bg-amber-50 px-6 py-2 text-sm text-amber-800">
+				<div className="admin-header-error" role="alert">
 					{error}
 				</div>
 			)}

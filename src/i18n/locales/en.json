@@ -1,4 +1,32 @@
 {
+	"brand": {
+		"services": "Services",
+		"viewService": "Explore service",
+		"system": "Organization system",
+		"leadership": "Leadership",
+		"decisions": "Decisions",
+		"continuity": "Continuity",
+		"home": {
+			"kicker": "Strategic advisory for organizations in motion",
+			"title": "Strong organizations do not depend on one person.",
+			"problemLabel": "The real challenge",
+			"areasLabel": "Three layers of work",
+			"approachLabel": "Clarity before action",
+			"insightsLabel": "Selected thinking"
+		},
+		"organization": {
+			"kicker": "01 / Organization Transformation & Resilience",
+			"title": "Transformation that lasts begins with system design.",
+			"problemLabel": "Where change becomes fragile",
+			"systemLabel": "A system that keeps working",
+			"methodLabel": "What we examine",
+			"scopeLabel": "Scope of work",
+			"fitLabel": "When this work matters"
+		},
+		"productsEmpty": "Products will appear here when they are published.",
+		"productsLoading": "Loading products...",
+		"articleLoading": "Loading article..."
+	},
 	"breadcrumb": {
 		"home": "Home",
 		"organization": "Organization Transformation",

@@ -1,180 +1,122 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { BlueprintDiagram } from "../components/BlueprintDiagram";
 import { useI18n } from "../i18n/I18nProvider";
 
 function HomePage() {
-	const navigate = useNavigate();
 	const { copy } = useI18n();
-	const { home, shared } = copy;
-
-	const scrollToAreas = () => {
-		const element = document.getElementById("areas-of-focus");
-		if (element) {
-			element.scrollIntoView({ behavior: "smooth" });
-		}
-	};
-
+	const { home, shared, brand: p } = copy;
 	return (
-		<div className="container-page flex flex-col gap-16">
-			<section className="mt-4 grid gap-10 rounded-[26px] bg-gradient-to-br from-white via-white to-mist px-6 py-10 shadow-soft md:px-10">
-				<div className="flex flex-col gap-5">
-					<h1 className="font-display text-4xl font-semibold leading-tight text-ink md:text-5xl">
-						{home.hero.title}
-					</h1>
-					<p className="text-xl text-slate-500">{home.hero.subtitle}</p>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-						<div className="flex flex-col gap-3">
-							<p>{home.hero.body1}</p>
-							<p>{home.hero.body2}</p>
-							<p>{home.hero.body3}</p>
-							<div className="flex flex-wrap gap-3 pt-2">
-								<button
-									type="button"
-									onClick={scrollToAreas}
-									className="rounded-full flex-grow md:flex-none bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-900"
-								>
-									{home.hero.ctaPrimary}
-								</button>
-								<button
-									type="button"
-									onClick={() => navigate("/architecture")}
-									className="rounded-full flex-grow md:flex-none border border-sand px-5 py-3 text-sm font-semibold text-ink transition hover:border-ink hover:bg-white"
-								>
-									{home.hero.ctaSecondary}
-								</button>
-							</div>
-						</div>
-						<div className="flex flex-col justify-center">
-							<div className="glass-panel relative overflow-hidden p-6">
-								<div className="absolute -left-6 -top-6 h-32 w-32 rounded-full bg-sand/60 blur-2xl" />
-								<div className="absolute -bottom-10 right-0 h-36 w-36 rounded-full bg-accent/20 blur-3xl" />
-								<div className="relative flex flex-col gap-4 text-sm text-slate-700">
-									{home.hero.points.map((point) => (
-										<div key={point} className="flex gap-3 items-center">
-											<span className="mt-1 size-2 rounded-full bg-black flex-none" />
-											<p>{point}</p>
-										</div>
-									))}
+		<>
+			<section className="bp-hero">
+				<div className="blueprint-wrap bp-hero-inner">
+					<div className="bp-hero-copy">
+						<p className="blueprint-kicker">
+							<span>SYS / 001</span>
+							{p.home.kicker}
+						</p>
+						<h1>{p.home.title}</h1>
+						<p>{home.hero.subtitle}</p>
+						<Link className="bp-button" to="/apply">
+							{home.cta.button}
+							<span aria-hidden="true">↗</span>
+						</Link>
+					</div>
+					<BlueprintDiagram copy={copy} />
+				</div>
+			</section>
+			<section className="blueprint-wrap bp-problem">
+				<div className="bp-section-head">
+					<span>01 / {p.home.problemLabel}</span>
+					<h2>{p.home.problemLabel}</h2>
+				</div>
+				<div className="bp-problem-main">
+					<strong>{home.hero.body2}</strong>
+					<p>{home.hero.body1}</p>
+				</div>
+				<p className="bp-problem-note">{home.hero.body3}</p>
+			</section>
+			<section className="bp-layers" id="bp-layers">
+				<div className="blueprint-wrap">
+					<div className="bp-section-head">
+						<span>02 / {p.home.areasLabel}</span>
+						<h2>{p.home.areasLabel}</h2>
+					</div>
+					<p className="bp-section-deck">{home.areas.description}</p>
+					<div className="bp-layer-grid">
+						{shared.areasOfFocus.map((area, index) => (
+							<Link to={area.to} className="bp-layer" key={area.slug}>
+								<div className="bp-layer-top">
+									<span>0{index + 1}</span>
+									<span aria-hidden="true">↗</span>
 								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<section id="areas-of-focus" className="flex flex-col gap-6">
-				<div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-					<div>
-						<h2 className="font-display text-3xl font-semibold text-ink">
-							{home.areas.title}
-						</h2>
-						<p className="mt-2 text-slate-700">{home.areas.description}</p>
-					</div>
-				</div>
-				<div className="grid gap-4 md:grid-cols-3">
-					{shared.areasOfFocus.map((area) => (
-						<div
-							key={area.slug}
-							className="group flex h-full flex-col justify-between rounded-2xl border border-sand bg-gradient-to-br from-white via-white to-mist px-6 py-6 transition hover:-translate-y-1 hover:border-ink hover:shadow-soft"
-						>
-							<div className="flex flex-col gap-3">
-								<h3 className="font-display text-xl font-semibold text-ink">
-									{area.title}
-								</h3>
-								<p className="text-slate-700">{area.summary}</p>
-							</div>
-							<button
-								type="button"
-								className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-ink"
-								onClick={() => navigate(area.to)}
-							>
-								{home.areas.cardCtaPrefix} {area.title.split(" & ")[0]}
-								<span className="transition group-hover:translate-x-1">→</span>
-							</button>
-						</div>
-					))}
-				</div>
-			</section>
-
-			<section>
-				<div className="glass-panel p-8">
-					<p className="mt-3 font-display text-2xl font-semibold text-ink">
-						{home.positioning.title}
-					</p>
-					<p className="mt-4 text-slate-700">{home.positioning.body}</p>
-					<p className="mt-4 text-sm font-semibold uppercase tracking-[0.15em] text-slate-500">
-						{home.positioning.founderNote}
-					</p>
-				</div>
-			</section>
-
-			<section className="grid gap-6 grid-cols-1 md:grid-cols-2">
-				<div className="rounded-[24px] border border-sand bg-white p-8 shadow-soft">
-					<h2 className="font-display text-2xl font-semibold text-ink">
-						{home.approach.title}
-					</h2>
-					<p className="mt-3">{home.approach.description}</p>
-					<ul className="mt-4 list-disc list-inside">
-						{home.approach.bullets.map((item) => (
-							<li key={item}>{item}</li>
+								<h3>{area.title}</h3>
+								<p>{area.summary}</p>
+								<span className="bp-layer-cta">{p.viewService}</span>
+							</Link>
 						))}
-					</ul>
-					<p className="mt-4 text-slate-600">{home.approach.notThis}</p>
+					</div>
 				</div>
-				<div className="rounded-[24px] border border-sand bg-white p-8 shadow-soft flex flex-col gap-3">
-					<h2 className="font-display text-2xl font-semibold text-ink">
-						{home.howWeWork.title}
-					</h2>
+			</section>
+			<section className="blueprint-wrap bp-approach">
+				<div className="bp-section-head">
+					<span>03 / {p.home.approachLabel}</span>
+					<h2>{p.home.approachLabel}</h2>
+				</div>
+				<div className="bp-approach-grid">
+					<div>
+						<h3>{home.approach.title}</h3>
+						<p className="bp-approach-positioning">{home.positioning.title}</p>
+						<p>{home.positioning.body}</p>
+						<small>{home.positioning.founderNote}</small>
+						<p>{home.approach.notThis}</p>
+					</div>
+					<ol>
+						{home.approach.bullets.map((item, index) => (
+							<li key={item}>
+								<span>0{index + 1}</span>
+								{item}
+							</li>
+						))}
+					</ol>
+				</div>
+				<div className="bp-engagement-note">
+					<h3>{home.howWeWork.title}</h3>
 					<p>{home.howWeWork.description1}</p>
 					<p>{home.howWeWork.description2}</p>
 					<p>{home.howWeWork.description3}</p>
 				</div>
 			</section>
-
-			<section>
-				<h2 className="font-display text-3xl font-semibold text-ink">
-					{home.insights.title}
-				</h2>
-				<p className="mt-2">{home.insights.description}</p>
-				<div className="mt-4 space-y-3">
-					{shared.insightArticles.slice(0, 3).map((article) => (
-						<div
-							key={article.title}
-							className="rounded-xl bg-white px-4 py-3 shadow-sm border border-slate-800"
-						>
-							<p className="font-semibold font-display text-ink">
-								{article.title}
-							</p>
-							<p className="text-xs uppercase tracking-wide text-slate-500">
-								{article.lens}
-							</p>
-						</div>
+			<section className="bp-insights">
+				<div className="blueprint-wrap">
+					<div className="bp-section-head">
+						<span>04 / {p.home.insightsLabel}</span>
+						<h2>{p.home.insightsLabel}</h2>
+					</div>
+					{shared.insightArticles.slice(0, 3).map((article, index) => (
+						<Link className="bp-insight-row" to="/insights" key={article.title}>
+							<span>0{index + 1}</span>
+							<strong>{article.title}</strong>
+							<small>{article.lens}</small>
+						</Link>
 					))}
+					<Link className="blueprint-text-link" to="/insights">
+						{home.insights.viewAll}
+						<span aria-hidden="true">↗</span>
+					</Link>
 				</div>
-				<button
-					type="button"
-					onClick={() => navigate("/insights")}
-					className="mt-5 w-full md:w-auto rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-900"
-				>
-					{home.insights.viewAll} <span aria-hidden>→</span>
-				</button>
 			</section>
-
-			<section className="glass-panel flex flex-col gap-4 px-8 py-8 md:flex-row md:items-center md:justify-between">
-				<div className="max-w-2xl">
-					<h3 className="font-display text-2xl font-semibold text-ink">
-						{home.cta.title}
-					</h3>
-					<p className="mt-2 text-slate-700">{home.cta.description}</p>
+			<section className="bp-close">
+				<div className="blueprint-wrap">
+					<span>05 / {home.cta.title}</span>
+					<h2>{home.cta.title}</h2>
+					<p>{home.cta.description}</p>
+					<Link className="bp-button" to="/apply">
+						{home.cta.button}
+						<span aria-hidden="true">↗</span>
+					</Link>
 				</div>
-				<button
-					type="button"
-					onClick={() => navigate("/apply")}
-					className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-900"
-				>
-					{home.cta.button}
-				</button>
 			</section>
-		</div>
+		</>
 	);
 }
 

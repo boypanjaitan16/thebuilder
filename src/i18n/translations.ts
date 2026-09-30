@@ -8,6 +8,34 @@ type InsightArticle = { title: string; lens: string };
 type DiagnosticQuestion = { id: string; section: string; text: string };
 
 export type Copy = {
+	brand: {
+		services: string;
+		viewService: string;
+		productsEmpty: string;
+		productsLoading: string;
+		articleLoading: string;
+		system: string;
+		leadership: string;
+		decisions: string;
+		continuity: string;
+		home: {
+			kicker: string;
+			title: string;
+			problemLabel: string;
+			areasLabel: string;
+			approachLabel: string;
+			insightsLabel: string;
+		};
+		organization: {
+			kicker: string;
+			title: string;
+			problemLabel: string;
+			systemLabel: string;
+			methodLabel: string;
+			scopeLabel: string;
+			fitLabel: string;
+		};
+	};
 	breadcrumb: {
 		home: string;
 		organization: string;

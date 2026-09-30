@@ -1,16 +1,14 @@
 import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { renderWithMemoryRouter } from "../../test/test-utils";
 import { Layout } from "../Layout";
 
-// Mock child components
-vi.mock("../Header", () => ({
-	Header: () => <div data-testid="header">Header</div>,
-}));
-
 vi.mock("../AdminHeader", () => ({
 	AdminHeader: () => <div data-testid="admin-header">AdminHeader</div>,
+}));
+
+vi.mock("../BlueprintLayout", () => ({
+	default: () => <div data-testid="blueprint-layout">BlueprintLayout</div>,
 }));
 
 describe("Layout", () => {
@@ -20,82 +18,51 @@ describe("Layout", () => {
 		window.localStorage.getItem = vi.fn().mockReturnValue(null);
 	});
 
-	it("matches snapshot for regular layout", () => {
-		const { container } = renderWithMemoryRouter(<Layout />, ["/"]);
-		expect(container).toMatchSnapshot();
+	it.each([
+		"/",
+		"/organization-transformation",
+		"/future-talent-strategy",
+		"/risk-and-business-continuity",
+		"/insights",
+		"/insights/article-slug",
+		"/work-with-me",
+		"/apply",
+		"/diagnostic",
+		"/risk-readiness-diagnostic",
+		"/resources",
+		"/resources/foundational-thinking",
+		"/resources/products",
+		"/about",
+		"/architecture",
+		"/privacy",
+		"/unknown",
+	])("renders Blueprint layout for %s", async (path) => {
+		renderWithMemoryRouter(<Layout />, [path]);
+		expect(await screen.findByTestId("blueprint-layout")).toBeInTheDocument();
+		expect(screen.queryByTestId("admin-header")).not.toBeInTheDocument();
 	});
 
-	it("matches snapshot for admin layout", async () => {
+	it.each([
+		"/admin",
+		"/admin/login",
+		"/admin/products",
+	])("keeps the admin layout for %s", async (path) => {
+		renderWithMemoryRouter(<Layout />, [path]);
+		expect(await screen.findByTestId("admin-header")).toBeInTheDocument();
+		expect(screen.queryByTestId("blueprint-layout")).not.toBeInTheDocument();
+	});
+
+	it("matches the admin layout snapshot", async () => {
 		const { container } = renderWithMemoryRouter(<Layout />, ["/admin"]);
 		await screen.findByTestId("admin-header");
 		expect(container).toMatchSnapshot();
 	});
 
-	it("renders regular Header for non-admin routes", () => {
-		renderWithMemoryRouter(<Layout />, ["/"]);
-
-		expect(screen.getByTestId("header")).toBeInTheDocument();
-		expect(screen.queryByTestId("admin-header")).not.toBeInTheDocument();
-	});
-
-	it("renders AdminHeader for admin routes", async () => {
-		renderWithMemoryRouter(<Layout />, ["/admin"]);
-
-		expect(await screen.findByTestId("admin-header")).toBeInTheDocument();
-		expect(screen.queryByTestId("header")).not.toBeInTheDocument();
-	});
-
-	it("renders AdminHeader for nested admin routes", async () => {
-		renderWithMemoryRouter(<Layout />, ["/admin/products"]);
-
-		expect(await screen.findByTestId("admin-header")).toBeInTheDocument();
-	});
-
-	it("renders footer with brand name", () => {
-		renderWithMemoryRouter(<Layout />, ["/"]);
-
-		expect(screen.getByText("The Builder")).toBeInTheDocument();
-	});
-
-	it("renders footer navigation links", () => {
-		renderWithMemoryRouter(<Layout />, ["/"]);
-
-		expect(screen.getByRole("link", { name: "Tentang" })).toBeInTheDocument();
-		expect(screen.getByRole("link", { name: "Insights" })).toBeInTheDocument();
-		expect(
-			screen.getByRole("link", { name: "Bekerja Bersama" }),
-		).toBeInTheDocument();
-		expect(
-			screen.getByRole("link", { name: "Kebijakan Privasi" }),
-		).toBeInTheDocument();
-		expect(
-			screen.getByRole("link", { name: "Sumber Daya" }),
-		).toBeInTheDocument();
-	});
-
 	it("scrolls to top on route change", () => {
-		renderWithMemoryRouter(<Layout />, ["/"]);
-
+		renderWithMemoryRouter(<Layout />, ["/insights"]);
 		expect(window.scrollTo).toHaveBeenCalledWith({
 			top: 0,
 			behavior: "smooth",
 		});
-	});
-
-	it("renders language switcher buttons in the footer", () => {
-		renderWithMemoryRouter(<Layout />, ["/"]);
-
-		expect(screen.getByRole("button", { name: "EN" })).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: "ID" })).toBeInTheDocument();
-	});
-
-	it("switches language when clicking language button", async () => {
-		const user = userEvent.setup();
-		renderWithMemoryRouter(<Layout />, ["/"]);
-
-		const enButton = screen.getByRole("button", { name: "EN" });
-		await user.click(enButton);
-
-		expect(window.localStorage.setItem).toHaveBeenCalledWith("tb_lang", "en");
 	});
 });
