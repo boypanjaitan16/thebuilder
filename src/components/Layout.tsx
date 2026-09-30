@@ -66,31 +66,12 @@ export function Layout() {
 				<footer className="admin-footer">
 					<div className="admin-footer-inner">
 						<div className="admin-footer-intro">
-							<p className="admin-footer-eyebrow">THE BUILDER / ADMIN</p>
 							<p className="admin-footer-brand">
 								THE BUILDER<span>.</span>
 							</p>
 							<p className="admin-footer-description">{copy.footer.line}</p>
 						</div>
 						<div className="admin-footer-actions">
-							<nav className="admin-footer-language" aria-label="Language">
-								<button
-									type="button"
-									onClick={() => setLanguage("id")}
-									className={language === "id" ? "is-active" : ""}
-									aria-pressed={language === "id"}
-								>
-									ID
-								</button>
-								<button
-									type="button"
-									onClick={() => setLanguage("en")}
-									className={language === "en" ? "is-active" : ""}
-									aria-pressed={language === "en"}
-								>
-									EN
-								</button>
-							</nav>
 							<nav className="admin-footer-links" aria-label="Site links">
 								{[
 									{ label: copy.footer.about, to: "/about" },

@@ -81,9 +81,7 @@ function BlueprintFooter() {
 				<div>
 					<p className="blueprint-footer-brand">THE BUILDER</p>
 					<p>{copy.footer.line}</p>
-				</div>
-				<div className="blueprint-footer-actions">
-					<div className="blueprint-language">
+					<div className="blueprint-language mt-5">
 						<button
 							type="button"
 							className={language === "id" ? "is-active" : ""}
@@ -101,6 +99,8 @@ function BlueprintFooter() {
 							EN
 						</button>
 					</div>
+				</div>
+				<div className="blueprint-footer-actions">
 					<Link to="/about">{copy.footer.about}</Link>
 					<Link to="/architecture">{copy.breadcrumb.architecture}</Link>
 					<Link to="/resources">{copy.footer.resources}</Link>
