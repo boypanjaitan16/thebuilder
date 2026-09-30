@@ -10,7 +10,7 @@ import { setCanonicalLink, setMetaContent } from "../../lib/documentMeta";
 import { stripHtmlAndTruncate } from "../../lib/textExcerpt";
 
 const PRODUCTION_ORIGIN = "https://thebuilder.co.id";
-const DEFAULT_OG_IMAGE = `${PRODUCTION_ORIGIN}/thebuilder.png`;
+const DEFAULT_OG_IMAGE = `${PRODUCTION_ORIGIN}/thebuilder.png?v=blueprint`;
 
 function ArticleDetailPage() {
 	const { copy } = useI18n();
