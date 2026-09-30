@@ -2,7 +2,7 @@ import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import { breadcrumbRoutes } from "../config/breadcrumbs";
 import { useI18n } from "../i18n/I18nProvider";
 import "../pages/blueprint.css";
-import { ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 
 function BlueprintHeader() {
 	const location = useLocation();
@@ -67,7 +67,7 @@ function BlueprintHeader() {
 				</nav>
 				<Link className="blueprint-header-cta" to="/apply">
 					{copy.nav.apply}
-					<span aria-hidden="true">↗</span>
+					<ArrowUpRight size={15} />
 				</Link>
 			</div>
 		</header>

@@ -6,10 +6,7 @@ export function BlueprintDiagram({ copy }: { copy: Copy }) {
 		<div className="bp-system-diagram" aria-label={p.system} role="img">
 			<div className="bp-system-ring bp-system-ring-one" />
 			<div className="bp-system-ring bp-system-ring-two" />
-			<div className="bp-system-center">
-				<span>TB</span>
-				<small>{p.system}</small>
-			</div>
+			<div className="bp-system-center"></div>
 			<div className="bp-system-node bp-node-one">
 				<span>01</span>
 				{p.leadership}

@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BlueprintDiagram } from "../components/BlueprintDiagram";
 import ServiceIcon from "../components/ServiceIcon";
@@ -15,7 +16,7 @@ function HomePage() {
 						<p>{home.hero.subtitle}</p>
 						<Link className="bp-button" to="/apply">
 							{home.cta.button}
-							<span aria-hidden="true">↗</span>
+							<ArrowUpRight />
 						</Link>
 					</div>
 					<BlueprintDiagram copy={copy} />
@@ -109,7 +110,7 @@ function HomePage() {
 					))}
 					<Link className="blueprint-text-link" to="/insights">
 						{home.insights.viewAll}
-						<span aria-hidden="true">↗</span>
+						<ArrowUpRight size={17} />
 					</Link>
 				</div>
 			</section>
@@ -120,7 +121,7 @@ function HomePage() {
 					<p>{home.cta.description}</p>
 					<Link className="bp-button" to="/apply">
 						{home.cta.button}
-						<span aria-hidden="true">↗</span>
+						<ArrowUpRight />
 					</Link>
 				</div>
 			</section>
