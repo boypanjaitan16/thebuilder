@@ -145,14 +145,12 @@ function BlueprintBreadcrumb() {
 
 export default function BlueprintLayout() {
 	const location = useLocation();
-	const isFeaturePage =
-		location.pathname === "/" ||
-		location.pathname === "/organization-transformation";
+	const isHomePage = location.pathname === "/";
 	return (
 		<div className="builder-blueprint">
 			<BlueprintHeader />
 			<main id="main-content">
-				{isFeaturePage ? (
+				{isHomePage ? (
 					<Outlet />
 				) : (
 					<div className="blueprint-interior flex flex-col">

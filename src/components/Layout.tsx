@@ -14,7 +14,7 @@ const BlueprintLayout = lazy(() => import("./BlueprintLayout"));
 
 export function Layout() {
 	const location = useLocation();
-	const { copy, language, setLanguage } = useI18n();
+	const { copy } = useI18n();
 	const isAdminRoute = location.pathname.startsWith("/admin");
 
 	useEffect(() => {

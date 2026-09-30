@@ -10,10 +10,6 @@ function HomePage() {
 			<section className="bp-hero">
 				<div className="blueprint-wrap bp-hero-inner">
 					<div className="bp-hero-copy">
-						<p className="blueprint-kicker">
-							<span>SYS / 001</span>
-							{p.home.kicker}
-						</p>
 						<h1>{p.home.title}</h1>
 						<p>{home.hero.subtitle}</p>
 						<Link className="bp-button" to="/apply">
