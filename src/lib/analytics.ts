@@ -1,6 +1,6 @@
 import {
 	type Analytics,
-	getAnalytics,
+	initializeAnalytics,
 	isSupported,
 	logEvent,
 } from "firebase/analytics";
@@ -16,7 +16,9 @@ async function resolveAnalytics() {
 	if (!supported) return null;
 	const app = getFirebaseApp();
 	if (!app) return null;
-	return getAnalytics(app);
+	// Page views are sent manually by trackPageView, so admin routes can be
+	// excluded and the initial load isn't counted twice.
+	return initializeAnalytics(app, { config: { send_page_view: false } });
 }
 
 export function initAnalytics() {
@@ -24,8 +26,14 @@ export function initAnalytics() {
 	return analyticsPromise;
 }
 
+// The admin portal (/admin and /admin/**) is never tracked.
+export function isTrackedPath(path: string) {
+	return !/^\/admin(\/|\?|#|$)/.test(path);
+}
+
 export async function trackPageView(path: string) {
 	if (import.meta.env.MODE !== "production") return;
+	if (!isTrackedPath(path)) return;
 	const analytics = await initAnalytics();
 
 	if (!analytics) return;

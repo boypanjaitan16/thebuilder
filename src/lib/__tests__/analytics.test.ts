@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // We need to mock the dependencies before importing the module
 vi.mock("firebase/analytics", () => ({
-	getAnalytics: vi.fn(),
+	initializeAnalytics: vi.fn(),
 	isSupported: vi.fn(),
 	logEvent: vi.fn(),
 }));
@@ -71,6 +71,46 @@ describe("analytics", () => {
 
 			expect(result).toBeNull();
 		});
+
+		it("disables automatic page views", async () => {
+			const { initializeAnalytics, isSupported } = await import(
+				"firebase/analytics"
+			);
+			const { getFirebaseApp } = await import("../firebase");
+			const app = {} as ReturnType<typeof getFirebaseApp>;
+
+			vi.mocked(isSupported).mockResolvedValue(true);
+			vi.mocked(getFirebaseApp).mockReturnValue(app);
+
+			const { initAnalytics } = await import("../analytics");
+			await initAnalytics();
+
+			expect(initializeAnalytics).toHaveBeenCalledWith(app, {
+				config: { send_page_view: false },
+			});
+		});
+	});
+
+	describe("isTrackedPath", () => {
+		it.each([
+			"/",
+			"/insights",
+			"/insights/some-slug?x=1",
+			"/administration",
+		])("tracks %s", async (path) => {
+			const { isTrackedPath } = await import("../analytics");
+			expect(isTrackedPath(path)).toBe(true);
+		});
+
+		it.each([
+			"/admin",
+			"/admin/",
+			"/admin?x=1",
+			"/admin/articles/new",
+		])("does not track %s", async (path) => {
+			const { isTrackedPath } = await import("../analytics");
+			expect(isTrackedPath(path)).toBe(false);
+		});
 	});
 
 	describe("trackPageView", () => {
@@ -82,6 +122,50 @@ describe("analytics", () => {
 			await trackPageView("/test-page");
 
 			expect(logEvent).not.toHaveBeenCalled();
+		});
+
+		describe("in production mode", () => {
+			beforeEach(async () => {
+				vi.stubEnv("MODE", "production");
+				const { initializeAnalytics, isSupported } = await import(
+					"firebase/analytics"
+				);
+				const { getFirebaseApp } = await import("../firebase");
+				vi.mocked(isSupported).mockResolvedValue(true);
+				vi.mocked(getFirebaseApp).mockReturnValue(
+					{} as ReturnType<typeof getFirebaseApp>,
+				);
+				vi.mocked(initializeAnalytics).mockReturnValue(
+					{} as ReturnType<typeof initializeAnalytics>,
+				);
+			});
+
+			afterEach(() => {
+				vi.unstubAllEnvs();
+			});
+
+			it("logs a page_view for public pages", async () => {
+				const { logEvent } = await import("firebase/analytics");
+				const { trackPageView } = await import("../analytics");
+				await trackPageView("/insights");
+
+				expect(logEvent).toHaveBeenCalledWith(
+					expect.anything(),
+					"page_view",
+					expect.objectContaining({ page_path: "/insights" }),
+				);
+			});
+
+			it("skips admin pages without initializing analytics", async () => {
+				const { initializeAnalytics, logEvent } = await import(
+					"firebase/analytics"
+				);
+				const { trackPageView } = await import("../analytics");
+				await trackPageView("/admin/articles/new");
+
+				expect(initializeAnalytics).not.toHaveBeenCalled();
+				expect(logEvent).not.toHaveBeenCalled();
+			});
 		});
 	});
 });
