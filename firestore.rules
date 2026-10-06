@@ -1,6 +1,33 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isText(value, minSize, maxSize) {
+      return value is string && value.size() >= minSize && value.size() <= maxSize;
+    }
+
+    function isValidAdvisoryRequest(data, requestId) {
+      let fields = ['id', 'name', 'email', 'role', 'organization', 'size',
+        'industry', 'situation', 'description', 'expectation', 'decisionFlow',
+        'readiness', 'timeline', 'created_at'];
+      return data.keys().hasOnly(fields)
+        && data.keys().hasAll(fields)
+        && data.id == requestId
+        && isText(data.name, 1, 200)
+        && isText(data.email, 3, 254)
+        && data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+        && isText(data.role, 1, 200)
+        && isText(data.organization, 1, 200)
+        && isText(data.size, 1, 200)
+        && isText(data.industry, 1, 200)
+        && (data.situation == null || (data.situation is list && data.situation.size() <= 2))
+        && (data.description == null || isText(data.description, 0, 5000))
+        && isText(data.expectation, 1, 500)
+        && isText(data.decisionFlow, 1, 500)
+        && isText(data.readiness, 1, 500)
+        && isText(data.timeline, 1, 500)
+        && isText(data.created_at, 1, 40);
+    }
+
     match /products/{productId} {
       allow read: if resource.data.status == 'ACTIVE' || request.auth != null;
       allow write: if request.auth != null;
@@ -10,7 +37,10 @@ service cloud.firestore {
       allow write: if request.auth != null;
     }
     match /advisoryRequests/{requestId} {
-      allow create: if true;
+      // Public /apply form. Shape must stay in sync with src/schemas/applySchema.ts
+      // and src/types/AdvisoryRequest.ts (useCreateAdvisoryRequest always writes
+      // every key). Firestore is also App Check-enforced, see src/lib/firebaseAppCheck.ts.
+      allow create: if isValidAdvisoryRequest(request.resource.data, requestId);
       allow read, delete: if request.auth != null;
     }
   }

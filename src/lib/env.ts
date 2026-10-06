@@ -24,6 +24,11 @@ export const env = {
 	),
 	firebaseAppId: getEnvVar("VITE_FIREBASE_APP_ID", false),
 	firebaseMeasurementId: getEnvVar("VITE_FIREBASE_MEASUREMENT_ID", false),
+	firebaseAppCheckSiteKey: getEnvVar("VITE_FIREBASE_APPCHECK_SITE_KEY", false),
+	firebaseAppCheckDebugToken: getEnvVar(
+		"VITE_FIREBASE_APPCHECK_DEBUG_TOKEN",
+		false,
+	),
 
 	// App
 	mode: import.meta.env.MODE,

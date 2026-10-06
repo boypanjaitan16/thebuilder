@@ -15,8 +15,13 @@ vi.mock("../../lib/firebaseDb", () => ({
 	getFirestoreDb: vi.fn(),
 }));
 
+vi.mock("../../lib/prerender", () => ({
+	isPrerendering: vi.fn(() => false),
+}));
+
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { getFirestoreDb } from "../../lib/firebaseDb";
+import { isPrerendering } from "../../lib/prerender";
 import type { Article } from "../../types/Article";
 
 const mockGetFirestoreDb = vi.mocked(getFirestoreDb);
@@ -25,6 +30,7 @@ const mockCollection = vi.mocked(collection);
 const mockOrderBy = vi.mocked(orderBy);
 const mockQuery = vi.mocked(query);
 const mockWhere = vi.mocked(where);
+const mockIsPrerendering = vi.mocked(isPrerendering);
 
 const FAKE_DB = {} as ReturnType<typeof getFirestoreDb>;
 
@@ -32,6 +38,7 @@ describe("useGetPublishedArticles", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
 		mockGetFirestoreDb.mockReturnValue(FAKE_DB);
+		mockIsPrerendering.mockReturnValue(false);
 	});
 
 	it("fetches only published articles, filtered in the query itself", async () => {
@@ -77,5 +84,17 @@ describe("useGetPublishedArticles", () => {
 
 		expect(result.current.data).toEqual([]);
 		expect(result.current.error).toBe("Fetch failed");
+	});
+
+	it("skips the read and stays loading while prerendering", async () => {
+		mockIsPrerendering.mockReturnValue(true);
+
+		const { result } = renderHook(() => useGetPublishedArticles(), {
+			wrapper: createQueryWrapper(),
+		});
+
+		expect(result.current.isLoading).toBe(true);
+		expect(result.current.error).toBeNull();
+		expect(mockGetDocs).not.toHaveBeenCalled();
 	});
 });

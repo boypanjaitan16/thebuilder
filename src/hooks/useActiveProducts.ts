@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { toErrorMessage } from "../lib/errors";
 import { getFirestoreDb } from "../lib/firebaseDb";
+import { isPrerendering } from "../lib/prerender";
 import { PUBLIC_CONTENT_STALE_TIME } from "../lib/queryClient";
 import { productKeys } from "../lib/queryKeys";
 import type { Product } from "../types/Product";
@@ -44,11 +45,14 @@ export function useActiveProducts() {
 		queryKey: productKeys.publishedList(),
 		queryFn: fetchActiveProducts,
 		staleTime: PUBLIC_CONTENT_STALE_TIME,
+		// No App Check token during prerender, so the read would fail under
+		// enforcement — skip it and prerender the loading state instead.
+		enabled: !isPrerendering(),
 	});
 
 	return {
 		data: productsQuery.data ?? [],
-		isLoading: productsQuery.isLoading,
+		isLoading: productsQuery.isLoading || isPrerendering(),
 		error: productsQuery.error
 			? toErrorMessage(productsQuery.error, "Failed to fetch products.")
 			: null,
