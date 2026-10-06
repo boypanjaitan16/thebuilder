@@ -1,154 +1,147 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import BlueprintEditorialImage from "../components/BlueprintEditorialImage";
 import { useI18n } from "../i18n/I18nProvider";
 
 function OrganizationPage() {
-	const navigate = useNavigate();
 	const { copy } = useI18n();
-	const org = copy.organization;
+	const { organization: org, brand } = copy;
 
 	return (
-		<div className="container-page flex flex-col gap-12">
+		<div className="blueprint-page container-page flex flex-col gap-12">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					{org.subtitle}
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
-					{org.heroTitle}
+					{brand.organization.title}
 				</h1>
-				<p className="mt-3 max-w-3xl text-lg text-slate-700">{org.heroBody}</p>
+				<p className="mt-3 text-lg text-slate-700">{org.heroBody}</p>
 			</section>
 
-			<section className="flex flex-col md:flex-row gap-8 md:gap-0 md:px-5 md:py-8 md:border-t md:border-b border-slate-800">
-				<div className="flex-1 space-y-3">
-					<h2 className="text-2xl font-semibold font-display text-ink">
-						{org.coreProblemTitle}
-					</h2>
-					<p className="text-slate-700">{org.coreProblemIntro}</p>
-					<ul className="list-disc list-inside pl-5">
-						{org.coreProblemBullets.map((item) => (
-							<li key={item}>{item}</li>
-						))}
-					</ul>
-					<p className="text-slate-600">{org.coreProblemNote}</p>
-				</div>
-				<div className="w-[1px] bg-slate-800 mx-7 hidden md:block" />
-				<div className="flex-1 space-y-3">
-					<h2 className="text-2xl font-semibold font-display text-ink">
-						{org.resilienceTitle}
-					</h2>
-					<p className="text-slate-700">{org.resilienceIntro}</p>
-					<ul className="list-disc list-inside pl-5">
-						{org.resilienceList.map((item) => (
-							<li key={item}>{item}</li>
-						))}
-					</ul>
-					<p className="text-slate-600">{org.resilienceNote}</p>
-				</div>
-			</section>
-
-			<section>
-				<div className="glass-panel p-8 space-y-3">
-					<h3 className="text-2xl font-semibold font-display text-ink">
-						{org.approachTitle}
-					</h3>
-					<p>{org.approachBody1}</p>
-					<p>{org.approachBody2}</p>
-					<p>{org.approachBody3}</p>
-					<ul className="list-disc list-inside pl-5">
-						{org.approachList.map((item) => (
-							<li key={item}>{item}</li>
-						))}
-					</ul>
-					<p>{org.approachNote1}</p>
-					<p>{org.approachNote2}</p>
-				</div>
-			</section>
-
-			<section>
-				<h3 className="text-2xl font-semibold font-display text-ink text-center mb-5">
-					{org.scopeTitle}
-				</h3>
-				<div className="mt-3 gap-7 grid grid-cols-1 md:grid-cols-2">
-					<div className="flex bg-white border border-ink rounded-2xl p-8">
-						<div className="space-y-2">
-							<p className="text-lg font-semibold font-display uppercase text-ink underline-offset-4">
-								{org.scopeIncludesNote}
-							</p>
-							<ul className="list-disc list-inside pl-5">
-								{org.scopeIncludes.map((item) => (
-									<li key={item}>{item}</li>
-								))}
-							</ul>
-						</div>
-					</div>
-					<div className="flex bg-white border border-ink rounded-2xl p-8">
-						<div className="space-y-2">
-							<p className="text-lg font-semibold font-display uppercase text-ink underline-offset-4">
-								{org.scopeExcludesNote}
-							</p>
-							<ul className="list-disc list-inside pl-5">
-								{org.scopeExcludes.map((item) => (
-									<li key={item}>{item}</li>
-								))}
-							</ul>
-							<p>{org.scopeExcludesNote}</p>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<section className="flex flex-col md:flex-row rounded-2xl bg-white shadow-soft border border-ink">
-				<div className="flex-1 p-8">
-					<h4 className="text-xl font-semibold font-display text-ink">
-						{org.relevance}
-					</h4>
-					<ul className="list-disc list-inside mt-5 pl-5">
-						{org.relevancePoints.map((item) => (
-							<li key={item}>{item}</li>
-						))}
-					</ul>
-				</div>
-				<div className="bg-ink w-[1px]" />
-				<div className="flex-1 p-8">
-					<h4 className="text-xl font-semibold font-display text-ink">
-						{org.designedFor}
-					</h4>
-					<ul className="list-disc list-inside mt-5 pl-5">
-						{org.designedForPoints.map((item) => (
-							<li key={item}>{item}</li>
-						))}
-					</ul>
-					<p className="mt-3 text-slate-700">{org.designedForNote}</p>
-				</div>
-			</section>
-
-			<section>
-				<h3 className="text-2xl font-semibold font-display text-ink mb-5">
-					{org.connectedAreasTitle}
-				</h3>
-				<p>{org.connectedAreasIntro}</p>
-				<ul className="list-disc list-inside pl-5">
-					{org.connectedAreasList.map((item) => (
+			<section className="space-y-6">
+				<h2 className="font-display text-3xl font-semibold text-ink">
+					{org.coreProblemTitle}
+				</h2>
+				<p>{org.coreProblemIntro}</p>
+				<ul className="blueprint-list blueprint-list--signal">
+					{org.coreProblemBullets.map((item) => (
 						<li key={item}>{item}</li>
 					))}
 				</ul>
-				<p>{org.connectedAreasNote}</p>
+				<p className="font-semibold">{org.coreProblemNote}</p>
 			</section>
 
-			<section className="glass-panel flex flex-col gap-4 px-8 py-8 md:flex-row md:items-center md:justify-between">
-				<div className="max-w-2xl">
-					<h3 className="font-display text-2xl font-semibold text-ink">
-						{org.ctaTitle}
-					</h3>
-					<p className="mt-2 text-slate-700">{org.ctaBody}</p>
+			<BlueprintEditorialImage name="organization" />
+
+			<section className="space-y-6">
+				<h2 className="font-display text-3xl font-semibold text-ink">
+					{org.resilienceTitle}
+				</h2>
+				<p>{org.resilienceIntro}</p>
+				<ul className="blueprint-list blueprint-list--check">
+					{org.resilienceList.map((item) => (
+						<li key={item}>{item}</li>
+					))}
+				</ul>
+				<p className="font-semibold">{org.resilienceNote}</p>
+			</section>
+
+			<section className="space-y-6">
+				<h2 className="font-display text-3xl font-semibold text-ink">
+					{org.approachTitle}
+				</h2>
+				<p>{org.approachBody1}</p>
+				<p>{org.approachBody2}</p>
+				<p>{org.approachBody3}</p>
+				<ul className="blueprint-list blueprint-list--point">
+					{org.approachList.map((item) => (
+						<li key={item}>{item}</li>
+					))}
+				</ul>
+				<p className="font-semibold">{org.approachNote1}.</p>
+				<p>{org.approachNote2}</p>
+			</section>
+
+			<section className="space-y-6">
+				<h2 className="font-display text-3xl font-semibold text-ink">
+					{org.scopeTitle}
+				</h2>
+				<div className="grid gap-6 md:grid-cols-2">
+					<div className="rounded-2xl border border-slate-800 p-8">
+						<h3 className="font-display text-2xl font-semibold">
+							{org.scopeIncludesNote}
+						</h3>
+						<ul className="blueprint-list blueprint-list--check mt-4">
+							{org.scopeIncludes.map((item) => (
+								<li key={item}>{item}</li>
+							))}
+						</ul>
+					</div>
+					<div className="rounded-2xl border border-slate-800 p-8">
+						<h3 className="font-display text-2xl font-semibold">
+							{org.scopeExcludesNote}
+						</h3>
+						<ul className="blueprint-list blueprint-list--minus mt-4">
+							{org.scopeExcludes.map((item) => (
+								<li key={item}>{item}</li>
+							))}
+						</ul>
+					</div>
 				</div>
-				<button
-					type="button"
-					onClick={() => navigate("/apply")}
-					className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-900"
+			</section>
+
+			<section className="space-y-8">
+				<h2 className="font-display text-3xl font-semibold text-ink">
+					{brand.organization.fitLabel}
+				</h2>
+				<div className="grid gap-6 md:grid-cols-2">
+					<div className="rounded-2xl border border-slate-800 p-8">
+						<h3 className="font-display text-2xl font-semibold">
+							{org.relevance}
+						</h3>
+						<ul className="blueprint-list blueprint-list--signal mt-4">
+							{org.relevancePoints.map((item) => (
+								<li key={item}>{item}</li>
+							))}
+						</ul>
+					</div>
+					<div className="rounded-2xl border border-slate-800 p-8">
+						<h3 className="font-display text-2xl font-semibold">
+							{org.designedFor}
+						</h3>
+						<ul className="blueprint-list blueprint-list--point mt-4">
+							{org.designedForPoints.map((item) => (
+								<li key={item}>{item}</li>
+							))}
+						</ul>
+						<p className="mt-4">{org.designedForNote}</p>
+					</div>
+				</div>
+				<div className="max-w-4xl space-y-4">
+					<h3 className="font-display text-2xl font-semibold">
+						{org.connectedAreasTitle}
+					</h3>
+					<p>{org.connectedAreasIntro}</p>
+					<ul className="blueprint-list blueprint-list--point">
+						{org.connectedAreasList.map((item) => (
+							<li key={item}>{item}</li>
+						))}
+					</ul>
+					<p>{org.connectedAreasNote}</p>
+				</div>
+			</section>
+
+			<section className="space-y-6">
+				<h2 className="font-display text-3xl font-semibold text-ink">
+					{org.ctaTitle}
+				</h2>
+				<p>{org.ctaBody}</p>
+				<Link
+					className="inline-flex rounded-full px-6 py-3 text-sm font-semibold"
+					to="/apply"
 				>
 					{org.ctaButton}
-				</button>
+					<span className="ml-4" aria-hidden="true">
+						↗
+					</span>
+				</Link>
 			</section>
 		</div>
 	);

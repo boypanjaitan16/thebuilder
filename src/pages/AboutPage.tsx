@@ -5,11 +5,8 @@ function AboutPage() {
 	const page = copy.about;
 
 	return (
-		<div className="container-page flex flex-col gap-10">
+		<div className="blueprint-page blueprint-page--about container-page flex flex-col gap-10">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					About
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.title}
 				</h1>
@@ -17,13 +14,27 @@ function AboutPage() {
 				<p className="mt-3 text-slate-700">{page.body2}</p>
 			</section>
 
-			<section className="space-y-3">
-				<h3 className="text-xl font-semibold text-ink">{page.showTitle}</h3>
-				<ul className="list-disc list-inside pl-5">
-					{page.showList.map((item) => (
-						<li key={item}>{item}</li>
-					))}
-				</ul>
+			<section className="blueprint-about-story">
+				<figure className="blueprint-about-image" aria-hidden="true">
+					<img
+						src={`${import.meta.env.BASE_URL}images/blueprint-about.webp`}
+						alt=""
+						width="1672"
+						height="941"
+						loading="lazy"
+						decoding="async"
+					/>
+				</figure>
+				<div className="blueprint-about-story-copy">
+					<h2 className="font-display font-semibold text-ink">
+						{page.showTitle}
+					</h2>
+					<ul className="blueprint-list blueprint-list--check">
+						{page.showList.map((item) => (
+							<li key={item}>{item}</li>
+						))}
+					</ul>
+				</div>
 			</section>
 		</div>
 	);

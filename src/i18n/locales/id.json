@@ -1,4 +1,32 @@
 {
+	"brand": {
+		"services": "Layanan",
+		"viewService": "Lihat layanan",
+		"system": "Sistem organisasi",
+		"leadership": "Kepemimpinan",
+		"decisions": "Keputusan",
+		"continuity": "Kontinuitas",
+		"home": {
+			"kicker": "Advisory strategis untuk organisasi yang terus berubah",
+			"title": "Organisasi yang kuat tidak bergantung pada satu orang.",
+			"problemLabel": "Tantangan yang sebenarnya",
+			"areasLabel": "Tiga lapisan pekerjaan",
+			"approachLabel": "Kejelasan sebelum tindakan",
+			"insightsLabel": "Pemikiran pilihan"
+		},
+		"organization": {
+			"kicker": "01 / Transformasi & Resiliensi Organisasi",
+			"title": "Transformasi yang bertahan dimulai dari desain sistem.",
+			"problemLabel": "Di mana perubahan mulai rapuh",
+			"systemLabel": "Sistem yang tetap bekerja",
+			"methodLabel": "Apa yang kami telusuri",
+			"scopeLabel": "Cakupan kerja",
+			"fitLabel": "Kapan pekerjaan ini relevan"
+		},
+		"productsEmpty": "Produk akan tersedia di sini setelah diterbitkan.",
+		"productsLoading": "Memuat produk...",
+		"articleLoading": "Memuat artikel..."
+	},
 	"breadcrumb": {
 		"home": "Beranda",
 		"organization": "Transformasi Organisasi",
@@ -558,9 +586,9 @@
 		"intro2": "Pekerjaan ini bersifat advisory dan berfokus pada sistem. Ditujukan bagi organisasi yang mencari kejelasan di level kepemimpinan dan struktur — bukan untuk eksekusi operasional atau delivery pelatihan.",
 		"contextNote": "Isian wajib menjaga percakapan tetap fokus dan relevan.",
 		"sections": {
-			"basic": "A. Informasi dasar",
-			"context": "B. Konteks & tantangan",
-			"readiness": "D. Kesiapan investasi & komitmen",
+			"basic": "Informasi dasar",
+			"context": "Konteks & tantangan",
+			"readiness": "Kesiapan investasi & komitmen",
 			"closing": "Terima kasih atas konteks yang Anda berikan. Aplikasi ditinjau dengan cermat untuk menjaga keselarasan dan menghargai waktu kedua pihak. Jika ada potensi kecocokan, Anda akan dihubungi untuk menjadwalkan percakapan awal."
 		},
 		"form": {

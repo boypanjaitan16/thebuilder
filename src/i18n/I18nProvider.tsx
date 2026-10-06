@@ -16,17 +16,19 @@ const I18nContext = createContext<I18nContextValue>({
 
 export function I18nProvider({ children }: PropsWithChildren) {
 	const [language, setLanguage] = useState<Language>("id");
+	const [initialized, setInitialized] = useState(false);
 
 	useEffect(() => {
-		const stored = window.localStorage.getItem("tb_lang") as Language | null;
+		const stored = window.localStorage.getItem("tb_lang");
 		if (stored === "en" || stored === "id") {
 			setLanguage(stored);
 		}
+		setInitialized(true);
 	}, []);
 
 	useEffect(() => {
-		window.localStorage.setItem("tb_lang", language);
-	}, [language]);
+		if (initialized) window.localStorage.setItem("tb_lang", language);
+	}, [initialized, language]);
 
 	const value = useMemo<I18nContextValue>(
 		() => ({

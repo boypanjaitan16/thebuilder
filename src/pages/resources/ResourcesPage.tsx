@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import ResourceIcon from "../../components/ResourceIcon";
 import { useI18n } from "../../i18n/I18nProvider";
 
 function ResourcesPage() {
@@ -7,11 +8,8 @@ function ResourcesPage() {
 	const page = copy.resources;
 
 	return (
-		<div className="container-page flex flex-col gap-10">
+		<div className="blueprint-page container-page flex flex-col gap-10">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					{page.heroSubtitle}
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.heroTitle}
 				</h1>
@@ -33,11 +31,12 @@ function ResourcesPage() {
 						key={category.slug}
 						className="rounded-2xl border border-slate-800 bg-white p-6 shadow-soft transition hover:-translate-y-1"
 					>
+						<ResourceIcon slug={category.slug} />
 						<h2 className="font-display text-xl font-semibold text-ink">
 							{category.title}
 						</h2>
 						<p className="mt-3 text-slate-700">{category.body}</p>
-						<ul className="mt-4 list-disc list-inside">
+						<ul className="blueprint-list blueprint-list--point mt-4">
 							{category.items.map((item) => (
 								<li key={item}>{item}</li>
 							))}

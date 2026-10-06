@@ -1,4 +1,5 @@
 import { Alert } from "antd";
+import { BookOpenText } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { useGetPublishedArticles } from "../../hooks/useGetPublishedArticles";
@@ -19,11 +20,8 @@ function InsightsPage() {
 	const showEmptyState = !loading && !error && articles.length === 0;
 
 	return (
-		<div className="container-page flex flex-col gap-12">
+		<div className="blueprint-page container-page flex flex-col gap-12">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					{page.heroSubtitle}
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.heroTitle1}
 				</h1>
@@ -35,7 +33,7 @@ function InsightsPage() {
 			</section>
 
 			<section className="rounded-[24px] border border-sand bg-white p-8 shadow-soft">
-				<h2 className="font-display text-2xl font-semibold text-ink">
+				<h2 className="blueprint-info-heading font-display text-2xl font-semibold text-ink">
 					{page.publishedTitle}
 				</h2>
 				<p className="mt-2 text-slate-700">{page.publishedBody}</p>
@@ -53,9 +51,9 @@ function InsightsPage() {
 								<Link
 									key={article.id}
 									to={`/insights/${article.slug}`}
-									className="group flex h-full flex-col rounded-2xl border border-sand bg-gradient-to-br from-white via-white to-mist p-4 shadow-sm transition hover:-translate-y-1 hover:border-ink hover:shadow-soft"
+									className="group flex h-full flex-col rounded-2xl border border-sand bg-gradient-to-br from-white via-white to-mist shadow-sm transition hover:-translate-y-1 hover:border-ink hover:shadow-soft"
 								>
-									<div className="aspect-[4/3] overflow-hidden rounded-xl bg-sand/40">
+									<div className="aspect-[4/3] overflow-hidden bg-sand/40">
 										{article.cover_image_url ? (
 											<img
 												src={article.cover_image_url}
@@ -64,12 +62,17 @@ function InsightsPage() {
 												loading="lazy"
 											/>
 										) : (
-											<div className="flex h-full w-full items-center justify-center text-xs uppercase tracking-[0.2em] text-slate-500">
-												{page.publishedNoImage}
+											<div className="blueprint-article-placeholder h-full w-full">
+												<BookOpenText
+													size={32}
+													strokeWidth={1.5}
+													aria-hidden="true"
+												/>
+												<span>{page.publishedNoImage}</span>
 											</div>
 										)}
 									</div>
-									<div className="mt-3 flex items-start justify-between gap-3">
+									<div className="mt-3 flex items-start justify-between gap-3 md:p-4">
 										<h3 className="min-w-0 font-display text-lg font-semibold text-ink leading-snug group-hover:underline">
 											{article.title}
 										</h3>
@@ -77,7 +80,7 @@ function InsightsPage() {
 											→
 										</span>
 									</div>
-									<p className="mt-1 text-xs text-slate-500">
+									<p className="mt-1 text-xs text-slate-500 md:px-4 pb-4">
 										{formatDate(article.created_at)}
 									</p>
 								</Link>
@@ -94,7 +97,7 @@ function InsightsPage() {
 					</h2>
 					<p className="mt-3">{page.featuredIntro}</p>
 					<p className="mt-3">{page.featuredBody}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--point">
 						{page.featuredList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -122,7 +125,7 @@ function InsightsPage() {
 					<p className="mt-2">{page.casesIntro1}</p>
 					<p className="mt-2">{page.casesIntro2}</p>
 					<p className="mt-2">{page.casesBody}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--point">
 						{page.casesList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -153,7 +156,7 @@ function InsightsPage() {
 				</h2>
 				<p>{page.invitationBody}</p>
 			</section>
-			<div className="flex flex-col md:flex-row md:items-center gap-5">
+			<section className="flex flex-col gap-5 md:flex-row md:items-center">
 				<button
 					type="button"
 					onClick={() => navigate("/diagnostic")}
@@ -169,7 +172,7 @@ function InsightsPage() {
 				>
 					{page.applyCta}
 				</button>
-			</div>
+			</section>
 		</div>
 	);
 }

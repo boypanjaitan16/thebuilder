@@ -1,3 +1,4 @@
+import { Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useI18n } from "../i18n/I18nProvider";
 
@@ -7,11 +8,8 @@ function RiskReadinessDiagnosticPage() {
 	const page = copy.riskReadiness;
 
 	return (
-		<div className="container-page flex flex-col gap-10">
+		<div className="blueprint-page container-page flex flex-col gap-10">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					{page.heroSubtitle}
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.heroTitle}
 				</h1>
@@ -23,10 +21,11 @@ function RiskReadinessDiagnosticPage() {
 
 			<section>
 				<div className="space-y-3">
-					<h2 className="text-2xl font-semibold font-display text-ink">
+					<h2 className="blueprint-info-heading text-2xl font-semibold font-display text-ink">
+						<Shield size={28} strokeWidth={1.5} aria-hidden="true" />
 						{page.designedForTitle}
 					</h2>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--point">
 						{page.designedForList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -41,7 +40,7 @@ function RiskReadinessDiagnosticPage() {
 						{page.helpsTitle}
 					</h2>
 					<p>{page.helpsIntro}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--check">
 						{page.helpsList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -55,7 +54,7 @@ function RiskReadinessDiagnosticPage() {
 					<h3 className="text-xl font-semibold font-display text-ink">
 						{page.isTitle}
 					</h3>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--check">
 						{page.isList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -65,7 +64,7 @@ function RiskReadinessDiagnosticPage() {
 					<h3 className="text-xl font-semibold font-display text-ink">
 						{page.isNotTitle}
 					</h3>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--minus">
 						{page.isNotList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -75,7 +74,7 @@ function RiskReadinessDiagnosticPage() {
 					<h3 className="text-xl font-semibold font-display text-ink">
 						{page.receiveTitle}
 					</h3>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--check">
 						{page.receiveList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -87,7 +86,7 @@ function RiskReadinessDiagnosticPage() {
 						{page.whyTitle}
 					</h3>
 					<p>{page.whyIntro}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--point">
 						{page.whyList.map((item) => (
 							<li key={item}>{item}</li>
 						))}

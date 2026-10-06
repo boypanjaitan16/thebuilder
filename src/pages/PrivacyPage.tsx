@@ -5,16 +5,13 @@ function PrivacyPage() {
 	const page = copy.privacy;
 
 	return (
-		<div className="container-page flex flex-col gap-10">
+		<div className="blueprint-page blueprint-page--privacy container-page flex flex-col gap-10">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					Privacy Policy
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.title}
 				</h1>
 				<p className="my-3">{page.intro}</p>
-				<ul className="list-disc list-inside pl-5">
+				<ul className="blueprint-list blueprint-list--point">
 					{page.bullets.map((item) => (
 						<li key={item}>{item}</li>
 					))}

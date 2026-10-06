@@ -65,11 +65,11 @@ describe("AdminHeader", () => {
 
 		renderWithMemoryRouter(<AdminHeader />);
 
-		expect(screen.getByText("Admin")).toBeInTheDocument();
+		expect(screen.getByText("Admin workspace")).toBeInTheDocument();
 		expect(screen.getByText("The Builder")).toBeInTheDocument();
 	});
 
-	it("shows Home link when not authenticated", () => {
+	it("shows a public site link when not authenticated", () => {
 		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: false,
@@ -78,9 +78,10 @@ describe("AdminHeader", () => {
 
 		renderWithMemoryRouter(<AdminHeader />);
 
-		// Home button is icon-only (no accessible name) — it's the sole
-		// button AdminHeader renders in the unauthenticated state.
-		expect(screen.getByRole("button")).toBeInTheDocument();
+		expect(screen.getByRole("link", { name: "View site" })).toHaveAttribute(
+			"href",
+			"/",
+		);
 	});
 
 	it("shows user menu when authenticated", async () => {
@@ -109,9 +110,10 @@ describe("AdminHeader", () => {
 		expect(
 			screen.getByRole("menuitem", { name: "Update Password" }),
 		).toBeInTheDocument();
-		expect(
-			screen.getByRole("menuitem", { name: "Products" }),
-		).toBeInTheDocument();
+		expect(screen.getByRole("link", { name: "Products" })).toHaveAttribute(
+			"href",
+			"/admin/products",
+		);
 	});
 
 	it("shows 'Administrator' when no displayName", () => {

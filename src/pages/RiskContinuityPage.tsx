@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import BlueprintEditorialImage from "../components/BlueprintEditorialImage";
 import { useI18n } from "../i18n/I18nProvider";
 
 function RiskContinuityPage() {
@@ -7,11 +8,8 @@ function RiskContinuityPage() {
 	const page = copy.risk;
 
 	return (
-		<div className="container-page flex flex-col gap-12">
+		<div className="blueprint-page container-page flex flex-col gap-12">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					{page.heroSubtitle}
-				</p>
 				<h1 className="my-3 font-display text-4xl font-semibold text-ink">
 					{page.heroTitle}
 				</h1>
@@ -26,7 +24,7 @@ function RiskContinuityPage() {
 						{page.invisibleTitle}
 					</h2>
 					<p>{page.invisibleIntro}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--signal">
 						{page.invisibleList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -60,13 +58,15 @@ function RiskContinuityPage() {
 				</div>
 			</section>
 
+			<BlueprintEditorialImage name="continuity" />
+
 			<section>
 				<div className="glass-panel p-8 space-y-3">
 					<h3 className="text-2xl font-semibold font-display text-ink">
 						{page.beyondTitle}
 					</h3>
 					<p>{page.beyondIntro}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--check">
 						{page.beyondList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -82,7 +82,7 @@ function RiskContinuityPage() {
 					</h3>
 					<p>{page.protection.intro1}</p>
 					<p>{page.protection.intro2}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--check">
 						{page.protection.list.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -94,7 +94,7 @@ function RiskContinuityPage() {
 						{page.relevant.title}
 					</h3>
 					<p>{page.relevant.intro}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--point">
 						{page.relevant.list.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -112,7 +112,7 @@ function RiskContinuityPage() {
 						{page.risk.title}
 					</h3>
 					<p>{page.risk.intro}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--signal">
 						{page.risk.list.map((item) => (
 							<li key={item}>{item}</li>
 						))}

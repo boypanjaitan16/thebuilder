@@ -1,3 +1,4 @@
+import ResourceIcon from "../../components/ResourceIcon";
 import { useI18n } from "../../i18n/I18nProvider";
 
 function ResourcesGuidesPage() {
@@ -5,11 +6,8 @@ function ResourcesGuidesPage() {
 	const page = copy.resourcesGuides;
 
 	return (
-		<div className="container-page flex flex-col gap-10">
+		<div className="blueprint-page container-page flex flex-col gap-10">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					{page.heroSubtitle}
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.heroTitle}
 				</h1>
@@ -17,11 +15,12 @@ function ResourcesGuidesPage() {
 			</section>
 
 			<section>
+				<ResourceIcon slug="guides-playbooks" />
 				<h3 className="text-xl font-semibold font-display text-ink">
 					{page.whatInsideTitle}
 				</h3>
 				<p className="text-slate-700 mt-2">{page.topicsBody}</p>
-				<ul className="mt-3 list-disc list-inside">
+				<ul className="blueprint-list blueprint-list--point mt-3">
 					{page.topicsList.map((item) => (
 						<li key={item}>{item}</li>
 					))}

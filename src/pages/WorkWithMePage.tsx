@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import BlueprintEditorialImage from "../components/BlueprintEditorialImage";
 import { useI18n } from "../i18n/I18nProvider";
 
 function WorkWithMePage() {
@@ -7,11 +8,8 @@ function WorkWithMePage() {
 	const page = copy.work;
 
 	return (
-		<div className="container-page flex flex-col gap-12">
+		<div className="blueprint-page container-page flex flex-col gap-12">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					{page.heroSubtitle}
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.heroTitle}
 				</h1>
@@ -37,6 +35,8 @@ function WorkWithMePage() {
 				<p>{page.flowNote}</p>
 			</section>
 
+			<BlueprintEditorialImage name="conversation" />
+
 			<section>
 				<h2 className="text-2xl font-display font-semibold text-ink">
 					{page.scopeTitle}
@@ -45,7 +45,7 @@ function WorkWithMePage() {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
 					<div className="bg-white border border-ink rounded-2xl p-8">
 						<p>{page.scopeIncludesIntro}</p>
-						<ul className="list-disc list-inside pl-5">
+						<ul className="blueprint-list blueprint-list--check">
 							{page.scopeIncludes.map((item) => (
 								<li key={item}>{item}</li>
 							))}
@@ -53,7 +53,7 @@ function WorkWithMePage() {
 					</div>
 					<div className="bg-white border border-ink rounded-2xl p-8">
 						<p>{page.scopeExcludesIntro}</p>
-						<ul className="list-disc list-inside pl-5">
+						<ul className="blueprint-list blueprint-list--minus">
 							{page.scopeExcludes.map((item) => (
 								<li key={item}>{item}</li>
 							))}
@@ -67,7 +67,7 @@ function WorkWithMePage() {
 					<h4 className="font-semibold font-display text-lg uppercase text-ink">
 						{page.fitTitle}
 					</h4>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--check">
 						{page.fitList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -78,7 +78,7 @@ function WorkWithMePage() {
 					<h4 className="font-semibold font-display text-lg uppercase text-ink">
 						{page.notFitTitle}
 					</h4>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--minus">
 						{page.notFitList.map((item) => (
 							<li key={item}>{item}</li>
 						))}

@@ -21,9 +21,10 @@ createRoot(document.getElementById("root")!).render(
 			<ConfigProvider
 				theme={{
 					token: {
-						colorPrimary: "#0ea5e9",
-						// borderRadius: 10,
+						colorPrimary: "#a0e3d0",
+						colorTextLightSolid: "#102a35",
 						fontFamily: '"Work Sans", sans-serif',
+						borderRadius: 0,
 					},
 					components: {
 						Form: {

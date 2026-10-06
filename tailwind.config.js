@@ -11,6 +11,7 @@ export default {
 				mist: "#f8fafc",
 				sand: "#e2e8f0",
 				accent: "#0ea5e9",
+				primary: "#a0e3d0",
 			},
 			fontFamily: {
 				display: ['"Space Grotesk"', '"Sora"', ...defaultTheme.fontFamily.sans],

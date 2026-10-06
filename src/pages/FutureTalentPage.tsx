@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import BlueprintEditorialImage from "../components/BlueprintEditorialImage";
 import { useI18n } from "../i18n/I18nProvider";
 
 function FutureTalentPage() {
@@ -7,11 +8,8 @@ function FutureTalentPage() {
 	const page = copy.future;
 
 	return (
-		<div className="container-page flex flex-col gap-12">
+		<div className="blueprint-page container-page flex flex-col gap-12">
 			<section className="rounded-[26px] bg-white px-8 py-10 shadow-soft">
-				<p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-					{page.heroSubtitle}
-				</p>
 				<h1 className="mt-3 font-display text-4xl font-semibold text-ink">
 					{page.heroTitle}
 				</h1>
@@ -24,7 +22,7 @@ function FutureTalentPage() {
 						{page.problemTitle}
 					</h2>
 					<p>{page.problemIntro}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--signal">
 						{page.problemList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -38,7 +36,7 @@ function FutureTalentPage() {
 					</h2>
 					<p>{page.futureIntro1}</p>
 					<p>{page.futureIntro2}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--check">
 						{page.futureList.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -47,13 +45,15 @@ function FutureTalentPage() {
 				</div>
 			</section>
 
+			<BlueprintEditorialImage name="talent" />
+
 			<section>
 				<div className="glass-panel p-8 space-y-3">
 					<h3 className="text-2xl font-semibold font-display text-ink">
 						{page.approachTitle}
 					</h3>
 					<p>{page.approachBody}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--point">
 						{page.approachItems.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -72,7 +72,7 @@ function FutureTalentPage() {
 							<p className="text-lg font-semibold font-display uppercase text-ink underline-offset-4">
 								{page.scopeIncludesIntro}
 							</p>
-							<ul className="list-disc list-inside pl-5">
+							<ul className="blueprint-list blueprint-list--check">
 								{page.scopeIncludes.map((item) => (
 									<li key={item}>{item}</li>
 								))}
@@ -84,7 +84,7 @@ function FutureTalentPage() {
 							<p className="text-lg font-semibold font-display uppercase text-ink underline-offset-4">
 								{page.scopeExcludesIntro}
 							</p>
-							<ul className="list-disc list-inside pl-5">
+							<ul className="blueprint-list blueprint-list--minus">
 								{page.scopeExcludes.map((item) => (
 									<li key={item}>{item}</li>
 								))}
@@ -100,7 +100,7 @@ function FutureTalentPage() {
 					<h4 className="text-2xl font-semibold font-display text-ink">
 						{page.critical.title}
 					</h4>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--signal">
 						{page.critical.items.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -111,7 +111,7 @@ function FutureTalentPage() {
 						{page.designedFor.title}
 					</h4>
 					<p>{page.designedFor.intro}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--point">
 						{page.designedFor.items.map((item) => (
 							<li key={item}>{item}</li>
 						))}
@@ -124,7 +124,7 @@ function FutureTalentPage() {
 					</h4>
 					<p>{page.resilience.intro1}</p>
 					<p>{page.resilience.intro2}</p>
-					<ul className="list-disc list-inside pl-5">
+					<ul className="blueprint-list blueprint-list--check">
 						{page.resilience.items.map((item) => (
 							<li key={item}>{item}</li>
 						))}

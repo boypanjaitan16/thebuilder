@@ -1,0 +1,1490 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+/* Strategic Blueprint visual system for public pages. */
+.builder-blueprint,
+.builder-blueprint * {
+	box-sizing: border-box;
+}
+.builder-blueprint {
+	min-height: 100vh;
+	overflow-x: clip;
+	font-family: "Manrope", sans-serif;
+	line-height: 1.5;
+}
+.builder-blueprint a {
+	text-decoration: none;
+}
+.builder-blueprint button {
+	cursor: pointer;
+}
+.builder-blueprint :focus-visible {
+	outline: 3px solid currentColor;
+	outline-offset: 4px;
+}
+.blueprint-wrap {
+	width: min(100% - 56px, 1320px);
+	margin-inline: auto;
+}
+.blueprint-kicker,
+.blueprint-index {
+	text-transform: uppercase;
+	letter-spacing: 0.15em;
+	font-size: 11px;
+	font-weight: 700;
+}
+.blueprint-kicker span {
+	display: inline-block;
+	margin-right: 18px;
+}
+.blueprint-text-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 22px;
+	font-weight: 700;
+	border-bottom: 1px solid currentColor;
+	padding-bottom: 8px;
+}
+.blueprint-text-link span {
+	font-size: 20px;
+	line-height: 1;
+}
+
+.blueprint-header {
+	position: sticky;
+	top: 0;
+	z-index: 30;
+}
+.blueprint-header-inner {
+	width: min(100% - 56px, 1320px);
+	min-height: 94px;
+	margin-inline: auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 28px;
+}
+.blueprint-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 13px;
+	flex: none;
+}
+.blueprint-brand-mark {
+	width: 43px;
+	height: 43px;
+	display: grid;
+	place-content: center;
+	font-size: 18px;
+	font-weight: 800;
+	letter-spacing: -0.12em;
+}
+.blueprint-brand-mark span {
+	color: inherit;
+}
+.blueprint-brand-copy {
+	display: grid;
+	line-height: 1.12;
+}
+.blueprint-brand-copy strong {
+	font-size: 16px;
+	letter-spacing: -0.035em;
+}
+.blueprint-brand-copy small {
+	margin-top: 5px;
+	max-width: 180px;
+	font-size: 9px;
+	letter-spacing: 0.01em;
+	line-height: 1.25;
+}
+.blueprint-nav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 8px 26px;
+	margin-left: auto;
+	font-size: 13px;
+	font-weight: 600;
+}
+.blueprint-nav > a,
+.blueprint-services summary {
+	padding: 9px 0;
+	white-space: nowrap;
+}
+.blueprint-nav .is-active {
+	text-decoration: underline;
+	text-underline-offset: 8px;
+}
+.blueprint-services {
+	position: relative;
+}
+.blueprint-services summary {
+	list-style: none;
+	cursor: pointer;
+	display: inline-flex;
+	gap: 7px;
+	align-items: center;
+}
+.blueprint-services summary::-webkit-details-marker {
+	display: none;
+}
+.blueprint-services-menu {
+	position: absolute;
+	top: calc(100% + 12px);
+	left: -20px;
+	width: min(330px, 85vw);
+	padding: 10px;
+	display: grid;
+	box-shadow: 0 20px 60px #0002;
+	border: 1px solid currentColor;
+	background: #fff;
+	color: #182027;
+	z-index: 50;
+}
+.blueprint-services-menu a {
+	padding: 11px 12px;
+	white-space: normal;
+	font-size: 13px;
+}
+.blueprint-services-menu a:hover {
+	background: #eeeae2;
+}
+.blueprint-header-cta {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 24px;
+	flex: none;
+	padding: 12px 18px;
+	font-size: 12px;
+	font-weight: 700;
+	white-space: nowrap;
+}
+.blueprint-header-cta span {
+	font-size: 17px;
+}
+.blueprint-footer {
+	padding: 72px 0 80px;
+}
+.blueprint-footer-inner {
+	display: flex;
+	justify-content: space-between;
+	gap: 50px;
+}
+.blueprint-footer-inner > div:first-child {
+	max-width: 430px;
+}
+.blueprint-footer-brand {
+	font-size: 21px;
+	font-weight: 800;
+	letter-spacing: -0.06em;
+	margin: 0 0 16px;
+}
+.blueprint-footer-inner p:not(.blueprint-footer-brand) {
+	font-size: 13px;
+	line-height: 1.7;
+	margin: 0;
+}
+.blueprint-footer-actions {
+	display: flex;
+	align-items: start;
+	flex-wrap: wrap;
+	gap: 20px;
+	font-size: 12px;
+	font-weight: 700;
+}
+.blueprint-language {
+	display: flex;
+	gap: 3px;
+}
+.blueprint-language button {
+	padding: 4px 7px;
+	background: transparent;
+	border: 0;
+	color: inherit;
+	opacity: 0.58;
+}
+.blueprint-language button.is-active {
+	opacity: 1;
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
+.builder-blueprint {
+	background: #eaf0ef;
+	color: #132631;
+	font-family: "Manrope", sans-serif;
+}
+.builder-blueprint h1,
+.builder-blueprint h2,
+.builder-blueprint h3 {
+	font-family: "Manrope", sans-serif;
+	letter-spacing: -0.065em;
+	overflow-wrap: anywhere;
+}
+.builder-blueprint .blueprint-kicker,
+.builder-blueprint .blueprint-index,
+.builder-blueprint .bp-section-head > span {
+	font-family: "IBM Plex Mono", monospace;
+}
+.builder-blueprint .blueprint-header {
+	background: #102a35;
+	color: #e9f7f2;
+	border-bottom: 1px solid #3d5b63;
+}
+.builder-blueprint .blueprint-brand-mark {
+	border: 1px solid #96decc;
+	color: #96decc;
+	font-family: "IBM Plex Mono", monospace;
+	font-size: 14px;
+}
+.builder-blueprint .blueprint-brand-copy small {
+	color: #acd1c8;
+}
+.builder-blueprint .blueprint-header-cta {
+	background: #a0e3d0;
+	color: #0d2731;
+}
+.builder-blueprint .blueprint-footer {
+	background: #102a35;
+	color: #d4e9e5;
+}
+.bp-hero {
+	background: #102a35;
+	color: #f5f9f5;
+	overflow: hidden;
+}
+.bp-hero-inner {
+	min-height: 700px;
+	display: grid;
+	grid-template-columns: 1.05fr 0.95fr;
+	align-items: center;
+	gap: 3%;
+	padding-top: 75px;
+	padding-bottom: 95px;
+}
+.bp-hero-copy {
+	position: relative;
+	z-index: 2;
+}
+.bp-hero-copy .blueprint-kicker {
+	color: #a0e3d0;
+}
+.bp-hero h1 {
+	max-width: 760px;
+	margin: 25px 0;
+	font-size: clamp(54px, 6.3vw, 94px);
+	line-height: 1.05;
+	font-weight: 600;
+}
+.bp-hero-copy > p:not(.blueprint-kicker) {
+	max-width: 610px;
+	color: #c5d9d5;
+	font-size: 17px;
+}
+.bp-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 42px;
+	padding: 16px 22px;
+	margin-top: 26px;
+	background: #a0e3d0;
+	color: #102a35;
+	font-size: 13px;
+	font-weight: 800;
+}
+.bp-button span {
+	font-size: 19px;
+}
+.bp-system-diagram {
+	width: min(100%, 560px);
+	height: 510px;
+	position: relative;
+	display: grid;
+	place-items: center;
+	color: #a4e7d2;
+	font-family: "IBM Plex Mono", monospace;
+}
+.bp-system-diagram::before,
+.bp-system-diagram::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 80%;
+	height: 1px;
+	background: #5e9c96;
+	transform: translate(-50%, -50%) rotate(32deg);
+}
+.bp-system-diagram::after {
+	transform: translate(-50%, -50%) rotate(-32deg);
+}
+.bp-system-ring {
+	position: absolute;
+	border: 1px dashed #719e99;
+	border-radius: 50%;
+}
+.bp-system-ring-one {
+	width: 88%;
+	aspect-ratio: 1;
+}
+.bp-system-ring-two {
+	width: 61%;
+	aspect-ratio: 1;
+}
+.bp-system-center {
+	position: relative;
+	z-index: 2;
+	display: grid;
+	place-content: center;
+	text-align: center;
+	width: 125px;
+	height: 125px;
+	border-radius: 50%;
+	background: #a4e7d2;
+	color: #102a35;
+	box-shadow: 0 0 0 11px #102a35;
+}
+.bp-system-center span {
+	font:
+		700 37px "Manrope",
+		sans-serif;
+	letter-spacing: -0.12em;
+}
+.bp-system-center small {
+	display: block;
+	max-width: 95px;
+	font-size: 9px;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+.bp-system-node {
+	position: absolute;
+	z-index: 3;
+	display: grid;
+	gap: 7px;
+	min-width: 140px;
+	padding: 14px;
+	border: 1px solid #91bdb2;
+	background: #183d47;
+	color: #e6f8ef;
+	font-size: 11px;
+	line-height: 1.3;
+}
+.bp-system-node span {
+	color: #a4e7d2;
+	font-size: 10px;
+}
+.bp-node-one {
+	top: 6%;
+	left: 11%;
+}
+.bp-node-two {
+	right: 0;
+	top: 36%;
+}
+.bp-node-three {
+	left: 6%;
+	bottom: 8%;
+}
+.bp-section-head {
+	display: grid;
+	grid-template-columns: 0.6fr 2fr;
+	gap: 40px;
+	align-items: start;
+}
+.bp-section-head > span {
+	padding-top: 11px;
+	color: #387276;
+	font-size: 11px;
+	letter-spacing: 0.13em;
+}
+.bp-section-head h2 {
+	margin: 0;
+	font-size: clamp(45px, 5vw, 74px);
+	line-height: 1.05;
+	font-weight: 700;
+}
+.bp-section-deck {
+	max-width: 700px;
+	margin: 25px 0 40px auto;
+	font-size: 17px;
+}
+.bp-problem {
+	padding-top: 110px;
+	padding-bottom: 100px;
+}
+.bp-problem-main {
+	display: grid;
+	grid-template-columns: 1.3fr 1fr;
+	gap: 8%;
+	padding: 40px 0 30px;
+	border-top: 1px solid #8ca5a5;
+	margin-top: 50px;
+}
+.bp-problem-main strong {
+	font-size: clamp(27px, 3.4vw, 46px);
+	line-height: 1.25;
+	letter-spacing: -0.05em;
+}
+.bp-problem-main p {
+	margin: 0;
+}
+.bp-problem-note {
+	margin: 10px 0 0 39%;
+	padding: 15px 22px;
+	border-left: 3px solid #3c9891;
+	background: #d6e5e2;
+	font-weight: 600;
+}
+.bp-layers {
+	padding: 105px 0 120px;
+	background: #d9e7e4;
+}
+.bp-layer-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 0;
+	border: 1px solid #8ca8a5;
+}
+.bp-layer {
+	min-height: 350px;
+	display: flex;
+	flex-direction: column;
+	padding: 26px;
+	border-right: 1px solid #8ca8a5;
+	color: inherit;
+}
+.bp-layer:last-child {
+	border-right: 0;
+}
+.bp-layer:hover {
+	background: #cce5dc;
+}
+.bp-layer-top {
+	display: flex;
+	justify-content: space-between;
+	color: #387276;
+	font:
+		12px "IBM Plex Mono",
+		monospace;
+}
+.blueprint-service-icon {
+	width: 58px;
+	height: 58px;
+	display: inline-grid;
+	place-items: center;
+	flex: none;
+	border: 1px solid #74a8a0;
+	background: #c8e2db;
+	color: #215960;
+}
+.bp-layer .blueprint-service-icon {
+	margin-top: 47px;
+}
+.bp-layer h3 {
+	margin: 20px 0 15px;
+	font-size: clamp(24px, 2.5vw, 34px);
+	line-height: 1.2;
+}
+.bp-layer p {
+	font-size: 14px;
+}
+.bp-layer-cta {
+	margin-top: auto;
+	padding-top: 25px;
+	font:
+		11px "IBM Plex Mono",
+		monospace;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+.bp-approach,
+.bp-org-method {
+	padding-top: 115px;
+	padding-bottom: 120px;
+}
+.bp-approach-photo {
+	margin: 56px 0 0;
+	height: clamp(245px, 29vw, 390px);
+	overflow: hidden;
+	border: 1px solid #8ca8a5;
+	background: #102a35;
+}
+.bp-approach-photo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 55%;
+}
+.bp-approach-grid {
+	display: grid;
+	grid-template-columns: 1fr 1.2fr;
+	gap: 12%;
+	margin-top: 65px;
+}
+.bp-approach-grid h3 {
+	font-size: 31px;
+	margin: 0 0 20px;
+}
+.bp-approach-grid p {
+	max-width: 510px;
+}
+.bp-approach-positioning {
+	font-size: 18px;
+	font-weight: 700;
+}
+.bp-engagement-note {
+	display: grid;
+	grid-template-columns: 1.1fr 1fr 1fr 1fr;
+	gap: 25px;
+	margin-top: 60px;
+	padding-top: 25px;
+	border-top: 1px solid #91a8a7;
+}
+.bp-engagement-note h3 {
+	margin: 0;
+	font-size: 20px;
+}
+.bp-engagement-note p {
+	margin: 0;
+	font-size: 14px;
+}
+.bp-approach-grid small {
+	display: block;
+	margin-top: 30px;
+	color: #397579;
+	font:
+		11px "IBM Plex Mono",
+		monospace;
+	text-transform: uppercase;
+}
+.bp-approach-grid ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.bp-approach-grid li {
+	display: grid;
+	grid-template-columns: 55px 1fr;
+	gap: 15px;
+	padding: 19px 0;
+	border-top: 1px solid #91a8a7;
+	font-weight: 600;
+}
+.bp-approach-grid li span {
+	color: #3b8786;
+	font:
+		12px "IBM Plex Mono",
+		monospace;
+}
+.bp-insights {
+	background: #cbded9;
+	padding: 105px 0 115px;
+}
+.bp-insight-row {
+	display: grid;
+	grid-template-columns: 70px 1.7fr 1fr;
+	gap: 20px;
+	align-items: start;
+	padding: 25px 0;
+	border-top: 1px solid #8daaa4;
+}
+.bp-insight-row:first-of-type {
+	margin-top: 45px;
+}
+.bp-insight-row span,
+.bp-insight-row small {
+	font:
+		11px "IBM Plex Mono",
+		monospace;
+	color: #397579;
+}
+.bp-insight-row strong {
+	font-size: 20px;
+	font-weight: 600;
+}
+.bp-insights .blueprint-text-link {
+	margin-top: 35px;
+}
+.bp-close {
+	padding: 105px 0 115px;
+	background: #1d5559;
+	color: #f5fbf7;
+}
+.bp-close > .blueprint-wrap > span {
+	color: #a3e7d3;
+	font:
+		11px "IBM Plex Mono",
+		monospace;
+	letter-spacing: 0.1em;
+}
+.bp-close h2 {
+	max-width: 900px;
+	margin: 25px 0;
+	font-size: clamp(53px, 6vw, 88px);
+	line-height: 1.04;
+}
+.bp-close p {
+	max-width: 650px;
+	font-size: 18px;
+}
+.bp-org-hero .bp-hero-inner {
+	min-height: 630px;
+}
+.bp-org-problem,
+.bp-org-fit {
+	padding-top: 105px;
+	padding-bottom: 115px;
+}
+.bp-signal-list {
+	border-top: 1px solid #88aaa7;
+}
+.bp-signal-list > div {
+	display: grid;
+	grid-template-columns: 65px 1fr 30px;
+	gap: 20px;
+	padding: 20px 0;
+	border-bottom: 1px solid #88aaa7;
+}
+.bp-signal-list span {
+	color: #397579;
+	font:
+		12px "IBM Plex Mono",
+		monospace;
+}
+.bp-signal-list strong {
+	font-size: 19px;
+	font-weight: 600;
+}
+.bp-org-system {
+	padding: 105px 0 115px;
+	background: #d9e7e4;
+}
+.bp-system-list {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	border: 1px solid #8ca8a5;
+}
+.bp-system-list > div {
+	min-height: 210px;
+	padding: 20px;
+	border-right: 1px solid #8ca8a5;
+}
+.bp-system-list > div:last-child {
+	border: 0;
+}
+.bp-system-list span {
+	font:
+		12px "IBM Plex Mono",
+		monospace;
+	color: #35797b;
+}
+.bp-system-list p {
+	margin-top: 52px;
+	font-size: 17px;
+	font-weight: 700;
+	line-height: 1.3;
+}
+.bp-system-note {
+	padding-top: 25px;
+	font-size: 18px;
+	font-weight: 700;
+}
+.bp-method-result {
+	max-width: 700px;
+	margin: 60px 0 0 auto;
+	border-left: 3px solid #3c9891;
+	padding-left: 25px;
+	font-size: 20px;
+}
+.bp-org-scope {
+	background: #153e46;
+	color: #eaf8f3;
+	padding: 105px 0 115px;
+}
+.bp-org-scope .bp-section-head > span {
+	color: #a0e3d0;
+}
+.bp-scope-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 9%;
+	margin-top: 55px;
+}
+.bp-scope-grid > div {
+	border-top: 1px solid #8dc2b4;
+}
+.bp-scope-grid h3 {
+	font-size: 26px;
+}
+.bp-scope-grid ul,
+.bp-fit-grid ul {
+	padding-left: 20px;
+}
+.bp-scope-grid li,
+.bp-fit-grid li {
+	margin: 13px 0;
+}
+.bp-fit-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 9%;
+	margin-top: 60px;
+}
+.bp-fit-grid h3 {
+	font-size: 27px;
+}
+
+.bp-insight-row {
+	color: inherit;
+}
+.bp-insight-row:hover {
+	opacity: 0.68;
+}
+
+@media (max-width: 1000px) {
+	.blueprint-header-inner {
+		flex-wrap: wrap;
+		padding: 19px 0;
+	}
+	.blueprint-nav {
+		order: 3;
+		width: 100%;
+		margin: 0;
+		justify-content: flex-start;
+		border-top: 1px solid currentColor;
+		padding-top: 8px;
+	}
+	.bp-system-diagram {
+		transform: scale(0.85);
+		transform-origin: center;
+	}
+	.bp-system-list {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.bp-system-list > div:nth-child(3) {
+		border-right: 0;
+	}
+	.bp-system-list > div {
+		border-bottom: 1px solid #8ca8a5;
+	}
+}
+@media (max-width: 700px) {
+	.blueprint-wrap,
+	.blueprint-header-inner {
+		width: min(100% - 36px, 1320px);
+	}
+	.blueprint-header-inner {
+		gap: 18px;
+	}
+	.blueprint-brand-copy strong {
+		font-size: 15px;
+	}
+	.blueprint-brand-copy small {
+		max-width: 160px;
+		font-size: 8px;
+	}
+	.blueprint-header-cta {
+		margin-left: auto;
+		padding: 10px 12px;
+	}
+	.blueprint-nav {
+		gap: 5px 18px;
+		font-size: 12px;
+	}
+	.blueprint-services-menu {
+		left: 0;
+		width: min(330px, calc(100vw - 100px));
+	}
+	.blueprint-footer {
+		padding: 55px 0 70px;
+	}
+	.blueprint-footer-inner {
+		display: block;
+	}
+	.blueprint-footer-actions {
+		margin-top: 35px;
+	}
+	.bp-hero-inner {
+		display: block;
+		min-height: 0;
+		padding-top: 72px;
+		padding-bottom: 50px;
+	}
+	.bp-hero h1 {
+		font-size: clamp(51px, 11vw, 75px);
+	}
+	.bp-close h2 {
+		font-size: clamp(30px, 8.5vw, 42px);
+	}
+	.bp-system-diagram {
+		height: 370px;
+		margin: 45px auto 0;
+		transform: scale(0.74);
+		transform-origin: top center;
+	}
+	.bp-section-head {
+		display: block;
+	}
+	.bp-section-head h2 {
+		margin-top: 20px;
+	}
+	.bp-problem,
+	.bp-layers,
+	.bp-approach,
+	.bp-insights,
+	.bp-close,
+	.bp-org-problem,
+	.bp-org-system,
+	.bp-org-method,
+	.bp-org-scope,
+	.bp-org-fit {
+		padding-top: 75px;
+		padding-bottom: 80px;
+	}
+	.bp-problem-main,
+	.bp-approach-grid,
+	.bp-scope-grid,
+	.bp-fit-grid {
+		display: block;
+	}
+	.bp-problem-main p {
+		margin-top: 22px;
+	}
+	.bp-problem-note {
+		margin-left: 0;
+	}
+	.bp-layer-grid {
+		display: block;
+	}
+	.bp-layer {
+		min-height: 280px;
+		border-right: 0;
+		border-bottom: 1px solid #8ca8a5;
+	}
+	.bp-layer:last-child {
+		border-bottom: 0;
+	}
+	.bp-layer .blueprint-service-icon {
+		margin-top: 35px;
+	}
+	.bp-engagement-note {
+		display: block;
+		margin-top: 45px;
+	}
+	.bp-engagement-note p {
+		margin-top: 16px;
+	}
+	.bp-engagement-note h3 {
+		grid-column: 1 / -1;
+	}
+	.bp-approach-grid ol,
+	.bp-scope-grid > div + div,
+	.bp-fit-grid > div + div {
+		margin-top: 35px;
+	}
+	.bp-insight-row {
+		grid-template-columns: 35px 1fr;
+	}
+	.bp-insight-row small {
+		grid-column: 2;
+	}
+	.bp-system-list {
+		grid-template-columns: 1fr 1fr;
+	}
+	.bp-system-list > div {
+		min-height: 160px;
+	}
+	.bp-system-list p {
+		margin-top: 30px;
+	}
+	.bp-method-result {
+		margin-top: 35px;
+	}
+}
+@media (max-width: 350px) {
+	.bp-hero h1 {
+		font-size: 40px;
+	}
+}
+@media (max-width: 390px) {
+	.blueprint-header-cta {
+		padding: 9px;
+		gap: 9px;
+	}
+	.blueprint-brand-mark {
+		width: 37px;
+		height: 37px;
+	}
+	.blueprint-brand-copy small {
+		max-width: 125px;
+	}
+}
+
+/* Shared Blueprint treatment for the remaining public routes. */
+.blueprint-interior {
+	--blueprint-inline: max(28px, calc((100vw - 1320px) / 2));
+	min-height: 62vh;
+	background: #eaf0ef;
+}
+.blueprint-breadcrumb {
+	width: 100%;
+	max-width: none;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 0;
+	padding: 25px var(--blueprint-inline);
+	background: #102a35;
+	color: #acd1c8;
+	letter-spacing: 0.06em;
+}
+.blueprint-breadcrumb a:hover {
+	color: #a0e3d0;
+	text-decoration: underline;
+}
+.blueprint-breadcrumb [aria-current="page"] {
+	color: #e9f7f2;
+}
+.builder-blueprint .blueprint-page {
+	width: 100%;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	gap: 0;
+}
+.blueprint-page .font-display {
+	font-family: "Manrope", sans-serif;
+	letter-spacing: -0.045em;
+}
+.blueprint-page > section {
+	min-width: 0;
+	padding: 76px var(--blueprint-inline);
+	border-bottom: 1px solid #9bb4b1;
+}
+.blueprint-page > section:first-child {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	min-height: 360px;
+	margin: 0;
+	padding: clamp(55px, 7vw, 100px) var(--blueprint-inline);
+	border: 0;
+	border-bottom: 1px solid #33535b;
+	border-radius: 0;
+	box-shadow: none;
+	background: #102a35;
+	color: #f4faf5;
+}
+.blueprint-page > section:first-child::after {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	width: min(43vw, 520px);
+	aspect-ratio: 1;
+	right: -5%;
+	top: 50%;
+	transform: translateY(-50%);
+	border: 1px dashed #67938f;
+	border-radius: 50%;
+	box-shadow:
+		0 0 0 80px #21434b55,
+		0 0 0 81px #67938f66;
+	pointer-events: none;
+}
+.blueprint-page > section:first-child .blueprint-kicker {
+	font:
+		600 11px "IBM Plex Mono",
+		monospace;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: #a0e3d0;
+}
+.blueprint-page > section:first-child h1 {
+	max-width: 850px;
+	margin: 0 0 25px;
+	font-size: clamp(44px, 4.5vw, 68px);
+	font-weight: 600;
+	line-height: 1.07;
+	letter-spacing: -0.065em;
+	color: #f4faf5;
+	overflow-wrap: anywhere;
+}
+.blueprint-page > section:first-child h2 {
+	max-width: 760px;
+	margin-bottom: 22px;
+	font-size: clamp(23px, 2.3vw, 32px);
+	color: #c5e0d7;
+}
+.blueprint-page > section:first-child > p:not(.blueprint-kicker) {
+	position: relative;
+	max-width: 730px;
+	font-size: 17px;
+	line-height: 1.7;
+	color: #d0e4de;
+}
+.blueprint-page > section:first-child > :is(h1, h2, p, div, ul, a) {
+	position: relative;
+	z-index: 1;
+}
+.blueprint-page > section:first-child .rounded-2xl {
+	background: #183d47;
+	border: 1px solid #4b7777;
+	color: #e5f6f0;
+}
+.blueprint-page > section:first-child .rounded-2xl * {
+	color: inherit;
+}
+.blueprint-page > section:not(:first-child) {
+	border-radius: 0;
+	box-shadow: none;
+}
+.blueprint-page > section:nth-of-type(even) {
+	background: #eaf0ef;
+}
+.blueprint-page > section:nth-of-type(odd):not(:first-child) {
+	background: #d9e7e4;
+}
+.blueprint-page > section:not(:first-child) > :is(h2, h3) {
+	max-width: 900px;
+	font-size: clamp(34px, 3.6vw, 54px);
+	line-height: 1.12;
+	font-weight: 700;
+	letter-spacing: -0.06em;
+}
+.blueprint-page > section:not(:first-child) > :is(p, ul, ol) {
+	max-width: 850px;
+}
+.blueprint-page
+	section
+	:is(.glass-panel, .rounded-2xl, .rounded-xl, .rounded-\[24px\]) {
+	border-radius: 0;
+	box-shadow: none;
+}
+.blueprint-page section .glass-panel {
+	background: transparent;
+	border: 0;
+	padding: 0;
+}
+.blueprint-page section :is(.rounded-2xl, .rounded-xl, .rounded-\[24px\]) {
+	background: #d9e7e4;
+	border: 1px solid #a2bcb8;
+}
+.blueprint-page section :is(article, .rounded-2xl, .rounded-xl):hover {
+	border-color: #397c79;
+}
+.blueprint-page section ul:not(.ant-dropdown-menu) {
+	list-style: none;
+	padding-left: 0;
+}
+.blueprint-page section ul:not(.ant-dropdown-menu) > li {
+	padding: 10px 0;
+	border-top: 1px solid #aac2be;
+}
+.blueprint-page :is(button.rounded-full, a.rounded-full) {
+	border-radius: 0;
+	box-shadow: none;
+	background: #a0e3d0;
+	border: 1px solid #6daea1;
+	color: #102a35;
+	font-weight: 800;
+}
+.blueprint-page :is(button.rounded-full, a.rounded-full):hover {
+	background: #c0efe0;
+	transform: none;
+}
+.blueprint-page :is(button.rounded-full, a.rounded-full).bg-white {
+	background: transparent;
+	border-color: #397c79;
+}
+.blueprint-page > form.glass-panel {
+	width: min(100% - 56px, 1320px);
+	margin: 55px auto 100px;
+	padding: clamp(24px, 4vw, 56px);
+	border: 1px solid #91aaa7;
+	border-radius: 0;
+	background: #d9e7e4;
+	box-shadow: none;
+}
+.blueprint-page form :is(.rounded-2xl, .rounded-xl, .rounded-lg) {
+	border-radius: 0;
+	box-shadow: none;
+}
+.blueprint-page form .ant-btn-primary {
+	min-height: 52px;
+	border-radius: 0;
+	font-weight: 700;
+}
+.blueprint-page--about .blueprint-about-story {
+	display: grid;
+	grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+	align-items: center;
+	gap: clamp(32px, 6vw, 100px);
+}
+.blueprint-about-image {
+	min-width: 0;
+	height: clamp(320px, 36vw, 470px);
+	margin: 0;
+	overflow: hidden;
+	border: 1px solid #9bb4b1;
+	background: #102a35;
+}
+.blueprint-about-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.blueprint-about-story-copy {
+	min-width: 0;
+}
+.blueprint-about-story-copy h2 {
+	margin-bottom: 30px;
+	font-size: clamp(34px, 3.6vw, 54px);
+	line-height: 1.12;
+}
+.blueprint-page--architecture .blueprint-service-icon {
+	margin-bottom: 22px;
+}
+@media (max-width: 800px) {
+	.blueprint-page--about .blueprint-about-story {
+		grid-template-columns: 1fr;
+	}
+	.blueprint-about-image {
+		height: clamp(260px, 56vw, 390px);
+	}
+}
+.blueprint-page--privacy > section:first-child {
+	background: #d9e7e4;
+	border-color: #9bb4b1;
+	color: #102a35;
+}
+.blueprint-page--privacy > section:first-child :is(h1, p, li) {
+	color: #102a35;
+}
+.blueprint-page--privacy > section:first-child ul {
+	max-width: 860px;
+	margin-top: 36px;
+}
+.blueprint-page--privacy > section:first-child li {
+	border-color: #9bb4b1;
+}
+.blueprint-page--not-found > section:first-child {
+	min-height: 55vh;
+}
+.blueprint-page--not-found > section:first-child h1,
+.blueprint-page--article-error > section:first-child h1 {
+	margin-top: 22px;
+}
+.blueprint-page--products > .blueprint-product-intro h1 {
+	font-family: "Manrope", sans-serif;
+}
+.blueprint-page--products .blueprint-product-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 16px;
+}
+.blueprint-product {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	background: #d9e7e4;
+	border: 1px solid #9bb4b1;
+}
+.blueprint-product:hover {
+	border-color: #397c79;
+}
+.blueprint-product img {
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+}
+.blueprint-product > div {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 12px;
+	padding: 20px;
+}
+.blueprint-product > div > span:first-child {
+	grid-column: 1 / -1;
+	font:
+		11px "IBM Plex Mono",
+		monospace;
+	color: #397c79;
+}
+.blueprint-product h2 {
+	margin: 0;
+	font-size: 20px;
+	line-height: 1.25;
+}
+.blueprint-product-state {
+	padding: 70px var(--blueprint-inline);
+}
+.blueprint-article-heading {
+	padding: 28px 0 clamp(70px, 8vw, 110px);
+	background: #102a35;
+	color: #f4faf5;
+}
+.blueprint-article-heading .ant-breadcrumb,
+.blueprint-article-heading .ant-breadcrumb a,
+.blueprint-article-heading .ant-breadcrumb-link,
+.blueprint-article-heading .ant-breadcrumb-separator {
+	color: #acd1c8;
+}
+.blueprint-article-heading .ant-breadcrumb a:hover {
+	color: #a0e3d0;
+}
+.blueprint-article-heading .ant-breadcrumb {
+	max-width: 100%;
+	overflow-wrap: anywhere;
+}
+.blueprint-article-heading p {
+	margin: 70px 0 20px;
+	color: #a0e3d0;
+	font:
+		600 11px "IBM Plex Mono",
+		monospace;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+.blueprint-article-heading h1 {
+	max-width: 1000px;
+	font-size: clamp(40px, 5vw, 70px);
+	font-weight: 600;
+	line-height: 1.1;
+	overflow-wrap: anywhere;
+}
+.blueprint-article-content {
+	padding: 76px 0 100px;
+	background: #eaf0ef;
+}
+.blueprint-page--article article > img {
+	border-radius: 0;
+}
+.blueprint-page--article article > section {
+	border: 1px solid #a2bcb8;
+	border-radius: 0;
+	box-shadow: none;
+	background: #d9e7e4;
+	padding: clamp(24px, 4vw, 56px);
+}
+.blueprint-page--article .prose ul {
+	list-style: disc;
+	padding-left: 1.5em;
+}
+.blueprint-page--article .prose ol {
+	list-style: decimal;
+	padding-left: 1.5em;
+}
+
+@media (max-width: 800px) {
+	.blueprint-page--products .blueprint-product-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+@media (max-width: 700px) {
+	.blueprint-interior {
+		--blueprint-inline: 18px;
+	}
+	.blueprint-page > section {
+		padding: 58px var(--blueprint-inline);
+	}
+	.blueprint-page > section:first-child {
+		min-height: 0;
+		padding: 60px var(--blueprint-inline);
+	}
+	.blueprint-page > section:first-child::after {
+		width: 220px;
+		right: -135px;
+		opacity: 0.5;
+	}
+	.blueprint-page > section:first-child h1 {
+		font-size: clamp(38px, 9vw, 60px);
+	}
+	.blueprint-page section :is(.rounded-2xl, .rounded-xl, .rounded-\[24px\]) {
+		padding: 20px;
+	}
+	.blueprint-page > form.glass-panel {
+		width: min(100% - 36px, 1320px);
+		margin: 30px auto 75px;
+	}
+	.blueprint-article-heading p {
+		margin-top: 45px;
+	}
+	.blueprint-article-content {
+		padding: 50px 0 75px;
+	}
+}
+@media (max-width: 390px) {
+	.blueprint-page--products .blueprint-product-grid {
+		grid-template-columns: 1fr;
+	}
+}
+.blueprint-article-back {
+	display: inline-flex;
+	margin-top: 28px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid #a0e3d0;
+	color: #a0e3d0;
+	font-weight: 700;
+}
+.blueprint-page > section:not(:first-child) > .glass-panel > :is(h2, h3),
+.blueprint-page
+	> section:not(:first-child)
+	> .glass-panel
+	> div:first-child
+	> :is(h2, h3) {
+	font-size: clamp(30px, 3.2vw, 45px);
+	line-height: 1.14;
+	letter-spacing: -0.055em;
+}
+.blueprint-page section > article h2 {
+	font-size: clamp(24px, 2vw, 30px);
+	line-height: 1.2;
+}
+.blueprint-page--privacy > section:first-child > p:not(.blueprint-kicker) {
+	color: #102a35;
+}
+.blueprint-page--privacy > section:first-child::after {
+	opacity: 0.14;
+}
+
+/* Editorial imagery remains a quiet break between content sections. */
+.blueprint-editorial-image {
+	position: relative;
+	width: 100%;
+	height: clamp(240px, 28vw, 390px);
+	margin: 0;
+	overflow: hidden;
+	border-block: 1px solid #7d9f9b;
+	background: #102a35;
+}
+.blueprint-editorial-image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+.blueprint-editorial-image::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-block: 1px solid #e7faf255;
+	box-shadow: inset 0 0 0 1px #102a3522;
+	pointer-events: none;
+}
+.blueprint-resource-icon {
+	display: inline-grid;
+	width: 56px;
+	height: 56px;
+	place-items: center;
+	margin-bottom: 22px;
+	border: 1px solid #74a8a0;
+	background: #c8e2db;
+	color: #215960;
+}
+.blueprint-page > section:first-child .blueprint-resource-icon {
+	border-color: #679f95;
+	background: #173c45;
+	color: #a0e3d0;
+}
+.blueprint-page--products .blueprint-resource-icon {
+	margin-bottom: 28px;
+}
+.blueprint-article-placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 14px;
+	background: #183d47;
+	color: #a0e3d0;
+	font-family: "IBM Plex Mono", monospace;
+	font-size: 11px;
+	letter-spacing: 0.08em;
+	text-align: center;
+}
+.blueprint-form-heading {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+}
+.blueprint-form-heading svg,
+.blueprint-info-heading svg {
+	flex: none;
+	color: #397c79;
+}
+.blueprint-info-heading {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+}
+@media (max-width: 700px) {
+	.blueprint-editorial-image {
+		height: 255px;
+	}
+}
+
+/* Meaningful markers for editorial lists; ordered steps keep their numbers. */
+.blueprint-page section ul.blueprint-list {
+	list-style: none;
+	padding-left: 0;
+}
+.blueprint-page section ul.blueprint-list > li {
+	position: relative;
+	padding: 12px 0 12px 38px;
+	border-top: 1px solid #aac2be;
+}
+.blueprint-page section ul.blueprint-list > li::before {
+	content: "";
+	position: absolute;
+	top: 20px;
+	left: 7px;
+	display: grid;
+	width: 8px;
+	height: 8px;
+	place-items: center;
+	transform: rotate(45deg);
+	background: #397c79;
+	color: #286f70;
+	line-height: 1;
+}
+.blueprint-page section ul.blueprint-list--check > li::before {
+	content: "✓";
+	top: 13px;
+	left: 0;
+	width: 22px;
+	height: 22px;
+	transform: none;
+	border: 1px solid #78aaa1;
+	background: #c6e8dd;
+	font:
+		700 13px "Manrope",
+		sans-serif;
+}
+.blueprint-page section ul.blueprint-list--minus > li::before {
+	content: "−";
+	top: 13px;
+	left: 0;
+	width: 22px;
+	height: 22px;
+	transform: none;
+	border: 1px solid #9aaead;
+	background: #e8efed;
+	color: #4b6668;
+	font:
+		600 17px "IBM Plex Mono",
+		monospace;
+}
+.blueprint-page section ul.blueprint-list--signal > li::before {
+	transform: none;
+	border-radius: 50%;
+	box-shadow: 0 0 0 4px #c9dfd9;
+}
+@media (max-width: 700px) {
+	.blueprint-page section ul.blueprint-list > li {
+		padding-left: 34px;
+	}
+}
