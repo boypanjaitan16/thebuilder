@@ -3,6 +3,13 @@
     "default": "the-builder-12fe5",
     "thebuilder-production": "the-builder-12fe5"
   },
-  "targets": {},
+  "targets": {
+    "the-builder-12fe5": {
+      "hosting": {
+        "home": ["the-builder-12fe5"],
+        "admin": ["the-builder-12fe5-admin"]
+      }
+    }
+  },
   "etags": {}
 }

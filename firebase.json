@@ -1,10 +1,28 @@
 {
+	"hosting": [
+		{
+			"target": "home",
+			"public": "apps/home/dist",
+			"ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+		},
+		{
+			"target": "admin",
+			"public": "apps/admin/dist",
+			"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+			"rewrites": [{ "source": "**", "destination": "/index.html" }],
+			"headers": [
+				{
+					"source": "**",
+					"headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+				}
+			]
+		}
+	],
 	"firestore": {
 		"rules": "firestore.rules",
 		"indexes": "firestore.indexes.json"
 	},
 	"storage": {
-		"bucket": "the-builder-12fe5.firebasestorage.app",
 		"rules": "storage.rules"
 	}
 }

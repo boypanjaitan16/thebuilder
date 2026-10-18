@@ -1,0 +1,220 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AdminHeader > matches snapshot when authenticated 1`] = `
+<div>
+  <header
+    class="admin-header"
+  >
+    <div
+      class="admin-header-inner"
+    >
+      <a
+        aria-current="page"
+        aria-label="The Builder Admin"
+        class="admin-brand active"
+        data-discover="true"
+        href="/"
+      >
+        <span
+          aria-hidden="true"
+          class="admin-brand-mark"
+        >
+          TB
+          <span>
+            .
+          </span>
+        </span>
+        <span
+          class="admin-brand-copy"
+        >
+          <strong>
+            The Builder
+          </strong>
+          <small>
+            Admin workspace
+          </small>
+        </span>
+      </a>
+      <nav
+        aria-label="Admin navigation"
+        class="admin-nav"
+      >
+        <a
+          aria-current="page"
+          class="is-active"
+          data-discover="true"
+          href="/"
+        >
+          Overview
+        </a>
+        <a
+          class=""
+          data-discover="true"
+          href="/products"
+        >
+          Products
+        </a>
+        <a
+          class=""
+          data-discover="true"
+          href="/articles"
+        >
+          Articles
+        </a>
+        <a
+          class=""
+          data-discover="true"
+          href="/advisory-requests"
+        >
+          Requests
+        </a>
+      </nav>
+      <div
+        class="admin-header-actions"
+      >
+        <a
+          class="admin-site-link"
+          href="https://thebuilder.co.id/"
+        >
+          <span>
+            View site
+          </span>
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-arrow-up-right"
+            fill="none"
+            height="16"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7 7h10v10"
+            />
+            <path
+              d="M7 17 17 7"
+            />
+          </svg>
+        </a>
+        <button
+          class="ant-dropdown-trigger admin-account-button"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-user lucide-user-circle"
+            fill="none"
+            height="18"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="18"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <circle
+              cx="12"
+              cy="10"
+              r="3"
+            />
+            <path
+              d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"
+            />
+          </svg>
+          <span>
+            Test Admin
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div
+    class="pointer-events-none fixed top-4 left-1/2 z-50 -translate-x-1/2 space-y-2"
+  />
+</div>
+`;
+
+exports[`AdminHeader > matches snapshot when not authenticated 1`] = `
+<div>
+  <header
+    class="admin-header"
+  >
+    <div
+      class="admin-header-inner"
+    >
+      <a
+        aria-current="page"
+        aria-label="The Builder Admin"
+        class="admin-brand active"
+        data-discover="true"
+        href="/"
+      >
+        <span
+          aria-hidden="true"
+          class="admin-brand-mark"
+        >
+          TB
+          <span>
+            .
+          </span>
+        </span>
+        <span
+          class="admin-brand-copy"
+        >
+          <strong>
+            The Builder
+          </strong>
+          <small>
+            Admin workspace
+          </small>
+        </span>
+      </a>
+      <div
+        class="admin-header-actions"
+      >
+        <a
+          class="admin-site-link"
+          href="https://thebuilder.co.id/"
+        >
+          <span>
+            View site
+          </span>
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-arrow-up-right"
+            fill="none"
+            height="16"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7 7h10v10"
+            />
+            <path
+              d="M7 17 17 7"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+  <div
+    class="pointer-events-none fixed top-4 left-1/2 z-50 -translate-x-1/2 space-y-2"
+  />
+</div>
+`;

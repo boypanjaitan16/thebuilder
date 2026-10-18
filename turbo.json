@@ -1,0 +1,27 @@
+{
+	"$schema": "https://turborepo.dev/schema.json",
+	"globalDependencies": [".env*"],
+	"tasks": {
+		"build": {
+			"cache": false,
+			"dependsOn": ["^build", "typecheck"],
+			"outputs": ["dist/**"],
+			"env": ["VITE_FIREBASE_*", "REQUIRE_PUBLISHED_ARTICLES"],
+			"passThroughEnv": ["PUPPETEER_*"]
+		},
+		"typecheck": {
+			"dependsOn": ["^typecheck"],
+			"outputs": []
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"//#lint:root": {
+			"outputs": []
+		},
+		"//#test:ci": {
+			"outputs": []
+		}
+	}
+}

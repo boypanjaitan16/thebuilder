@@ -1,0 +1,41 @@
+{
+	"name": "@thebuilder/shared",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"typecheck": "tsc -p tsconfig.json"
+	},
+	"exports": {
+		"./lib/firebase": "./src/lib/firebase.ts",
+		"./lib/env": "./src/lib/env.ts",
+		"./lib/firebaseStorage": "./src/lib/firebaseStorage.ts",
+		"./lib/firebaseAppCheck": "./src/lib/firebaseAppCheck.ts",
+		"./lib/queryClient": "./src/lib/queryClient.ts",
+		"./lib/firebaseAuth": "./src/lib/firebaseAuth.ts",
+		"./lib/firebaseDb": "./src/lib/firebaseDb.ts",
+		"./lib/prerender": "./src/lib/prerender.ts",
+		"./lib/queryKeys": "./src/lib/queryKeys.ts",
+		"./lib/errors": "./src/lib/errors.ts",
+		"./lib/date": "./src/lib/date.ts",
+		"./components/LoadingIndicator": "./src/components/LoadingIndicator.tsx",
+		"./components/ToastProvider": "./src/components/ToastProvider.tsx",
+		"./i18n/I18nProvider": "./src/i18n/I18nProvider.tsx",
+		"./i18n/translations": "./src/i18n/translations.ts",
+		"./types/AdvisoryRequest": "./src/types/AdvisoryRequest.ts",
+		"./types/Article": "./src/types/Article.ts",
+		"./types/Product": "./src/types/Product.ts",
+		"./styles/blueprint.css": "./src/styles/blueprint.css",
+		"./data/public": "./src/data/public.ts",
+		"./data/admin": "./src/data/admin.ts"
+	},
+	"peerDependencies": {
+		"react": "^19.2.0"
+	},
+	"dependencies": {
+		"@tanstack/react-query": "^5.104.0",
+		"classnames": "^2.5.1",
+		"dayjs": "^1.11.23",
+		"firebase": "^10.13.0"
+	}
+}
