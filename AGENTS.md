@@ -7,7 +7,7 @@
 - `packages/shared`: private `@thebuilder/shared` package. Use explicit subpath exports for Firebase setup, data queries, types, i18n, dates, errors, toast, and loading UI. Each app owns its React Query hooks and creates its own QueryClient.
 - Root `firebase.json`, `.firebaserc`, `firestore.rules`, `storage.rules`, and `firestore.indexes.json` apply to the same Firebase project for both apps.
 
-Use Node 22 and pnpm 10.11.0. Run `pnpm install --frozen-lockfile`, `pnpm run typecheck`, `pnpm run lint`, `pnpm run test:run`, and `pnpm run build` at the repo root. `pnpm run dev` starts both apps; use `pnpm dev:home` or `pnpm dev:admin` for one app. Root `.env` is loaded by both apps. The manual GitHub Actions workflow deploys two Firebase Hosting targets, `home` and `admin`.
+Use Node 22 and pnpm 10.11.0. Run `pnpm install --frozen-lockfile`, `pnpm run typecheck`, `pnpm run lint`, `pnpm run test:run`, and `pnpm run build` at the repo root. `pnpm run dev` starts both apps; use `pnpm dev:home` or `pnpm dev:admin` for one app. Root `.env` is loaded by both apps. Separate manual GitHub Actions workflows, `deploy-home.yml` and `deploy-admin.yml`, each build one app and deploy its Firebase Hosting target. `test.yml` runs lint, typecheck, and tests on every PR update and on manual runs.
 
 Turbo orchestrates dev, typecheck, lint, CI tests, and build. Both app builds run on every invocation; the home build reads live Firestore articles for prerendering and the sitemap. When a new build-time environment variable is added, include it in Turbo's build inputs so strict environment mode passes it to Vite.
 

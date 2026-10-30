@@ -189,7 +189,7 @@ TOTAL_STAGES=8
 banner "The Builder: Firebase Hosting cutover"
 say "Project: the-builder-12fe5. Stop if the admin site ID is unavailable."
 say "Run this from the repository root after the monorepo changes are committed and pushed."
-pause "Press Enter when the branch containing the deploy workflow is on GitHub."
+pause "Press Enter when the branch containing the deploy workflows is on GitHub."
 
 stage "Create the admin Hosting site"
 open_url "https://console.firebase.google.com/project/the-builder-12fe5/hosting"
@@ -219,14 +219,16 @@ step "Keep the JSON private. Enter its local path; the script reads it without p
 ask SERVICE_ACCOUNT_FILE "Path to downloaded JSON key:"
 [[ -f "$SERVICE_ACCOUNT_FILE" && -r "$SERVICE_ACCOUNT_FILE" ]] || { warn "JSON key file is not readable"; exit 1; }
 open_url "https://github.com/boypanjaitan16/thebuilder/settings/secrets/actions"
-step "This workflow also needs the existing VITE_FIREBASE_* repository secrets from the old Pages workflow. Check all eight names in .github/workflows/deploy.yml."
+step "This workflow also needs the existing VITE_FIREBASE_* repository secrets from the old Pages workflow. Check all eight names in .github/workflows/deploy-home.yml and deploy-admin.yml."
 step "If gh is installed and authenticated, the next step sets FIREBASE_SERVICE_ACCOUNT. Otherwise paste the JSON file content into a new repository secret with that name."
 set_secret FIREBASE_SERVICE_ACCOUNT "$(cat "$SERVICE_ACCOUNT_FILE")"
 confirm "Is FIREBASE_SERVICE_ACCOUNT set in GitHub Actions, along with all required VITE_FIREBASE_* secrets?" || exit 1
 
 stage "Deploy the same revision to both Firebase sites"
-open_url "https://github.com/boypanjaitan16/thebuilder/actions/workflows/deploy.yml"
-step "Run the manual workflow on the branch containing this migration. Wait for lint, tests, build, Deploy home, and Deploy admin to pass."
+open_url "https://github.com/boypanjaitan16/thebuilder/actions/workflows/deploy-home.yml"
+step "Run the manual home workflow on the branch containing this migration. Wait for lint, tests, build, and Deploy home to pass."
+open_url "https://github.com/boypanjaitan16/thebuilder/actions/workflows/deploy-admin.yml"
+step "Run the manual admin workflow on the same branch. Wait for lint, tests, build, and Deploy admin to pass."
 step "Both targets must show the same commit SHA. Do not switch DNS if either deploy failed."
 confirm "Did both Hosting deploy steps pass on the same revision?" || exit 1
 

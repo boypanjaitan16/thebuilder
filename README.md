@@ -22,7 +22,9 @@ The apps use the same Firebase project (`the-builder-12fe5`) and separate Hostin
 
 The repo maps Hosting target `home` to the default site `the-builder-12fe5` and target `admin` to `the-builder-12fe5-admin`. Create the admin site in the Firebase project before the first deployment. Keep the existing Firestore and Storage rules and indexes in this project.
 
-The manual [deploy workflow](.github/workflows/deploy.yml) checks and builds both apps, then deploys both targets. It needs the existing `VITE_FIREBASE_*` GitHub secrets and a `FIREBASE_SERVICE_ACCOUNT` secret containing a Hosting deploy service account JSON key. The two app deployments are sequential, so use the same revision and verify both before changing DNS.
+Each app has its own manual deploy workflow: [deploy-home](.github/workflows/deploy-home.yml) and [deploy-admin](.github/workflows/deploy-admin.yml). Each one runs lint and tests, builds only its app, and deploys only its Hosting target. Both need the existing `VITE_FIREBASE_*` GitHub secrets and a `FIREBASE_SERVICE_ACCOUNT` secret containing a Hosting deploy service account JSON key. For the first cutover, run both workflows on the same revision and verify both before changing DNS.
+
+The [test workflow](.github/workflows/test.yml) runs lint, typecheck, and tests on every pull request, again on each push to it, and on manual runs. It does not build or use secrets.
 
 Before switching production domains:
 
