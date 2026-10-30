@@ -103,6 +103,6 @@ describe("useUploadArticleImage", () => {
 			);
 		});
 
-		expect(result.current.error).toBe("Upload failed");
+		await waitFor(() => expect(result.current.error).toBe("Upload failed"));
 	});
 });

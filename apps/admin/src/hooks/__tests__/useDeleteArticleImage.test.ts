@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useDeleteArticleImage } from "../useDeleteArticleImage";
@@ -77,6 +77,6 @@ describe("useDeleteArticleImage", () => {
 			).rejects.toThrow("Delete failed");
 		});
 
-		expect(result.current.error).toBe("Delete failed");
+		await waitFor(() => expect(result.current.error).toBe("Delete failed"));
 	});
 });

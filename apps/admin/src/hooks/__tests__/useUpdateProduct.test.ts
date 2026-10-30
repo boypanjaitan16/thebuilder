@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useUpdateProduct } from "../useUpdateProduct";
@@ -82,6 +82,6 @@ describe("useUpdateProduct", () => {
 			).rejects.toThrow("Update failed");
 		});
 
-		expect(result.current.error).toBe("Update failed");
+		await waitFor(() => expect(result.current.error).toBe("Update failed"));
 	});
 });
