@@ -24,7 +24,7 @@ Turbo orchestrates dev, typecheck, lint, CI tests, and build. Both app builds ru
 
 ## Firebase and data
 
-- Get Firestore only through `getFirestoreDb()` from `@thebuilder/shared/lib/firebaseDb`; it starts App Check before the first request. Firestore is App Check enforced. During prerender, public Firestore hooks must skip queries and render loading state because headless Chrome has no valid token.
+- Get Firestore only through `getFirestoreDb()` from `@thebuilder/shared/lib/firebaseDb`; it starts App Check before the first request. Firestore is App Check enforced. During prerender, public Firestore hooks must skip queries because headless Chrome has no valid token. Article hooks render build-time seed data instead (`apps/home/src/lib/prerenderData.ts`, filled by `vite-plugins/prerenderSeeds.ts` and embedded in the HTML for the first client render); other public hooks render loading state.
 - Public data reads call `@thebuilder/shared/data/public`, whose article queries constrain `status == "PUBLISHED"` plus `language` (the URL language) and product queries constrain `status == "ACTIVE"` in Firestore. Admin reads call `@thebuilder/shared/data/admin`. Anonymous reads need the query predicate, not a client-side filter.
 - Keep `firestore.rules`, `firestore.indexes.json`, product/article types, and the corresponding queries aligned. Equality `where()` plus `orderBy()` on another field requires a composite index.
 - Keep `firestore.rules` advisory-request payload validation synchronized with `apps/home/src/schemas/applySchema.ts` and `packages/shared/src/types/AdvisoryRequest.ts`.

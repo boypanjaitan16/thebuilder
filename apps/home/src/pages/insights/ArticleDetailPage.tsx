@@ -1,5 +1,6 @@
 import LoadingIndicator from "@thebuilder/shared/components/LoadingIndicator";
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
+import type { Language } from "@thebuilder/shared/i18n/translations";
 import { formatDate } from "@thebuilder/shared/lib/date";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -8,13 +9,18 @@ import { PageBreadcrumb } from "../../components/PageBreadcrumb";
 import { ShareButtons } from "../../components/ShareButtons";
 import { PRODUCTION_ORIGIN } from "../../config/seoRoutes";
 import { useGetArticleBySlug } from "../../hooks/useGetArticleBySlug";
-import { setMetaContent } from "../../lib/documentMeta";
+import { setJsonLd, setMetaContent } from "../../lib/documentMeta";
+import { localizePath } from "../../lib/locale";
 import { stripHtmlAndTruncate } from "../../lib/textExcerpt";
 
 const DEFAULT_OG_IMAGE = `${PRODUCTION_ORIGIN}/thebuilder.png?v=blueprint`;
 
+function articleUrl(slug: string, language: Language) {
+	return `${PRODUCTION_ORIGIN}${localizePath(`/insights/${slug}`, language)}`;
+}
+
 function ArticleDetailPage() {
-	const { copy } = useI18n();
+	const { copy, language } = useI18n();
 	const { slug } = useParams<{ slug: string }>();
 	const {
 		data: article,
@@ -31,6 +37,7 @@ function ArticleDetailPage() {
 		const excerpt = stripHtmlAndTruncate(article.content, 155);
 		const pageTitle = `The Builder — ${article.title}`;
 		const ogImage = article.cover_image_url || DEFAULT_OG_IMAGE;
+		const url = articleUrl(article.slug, article.language);
 
 		document.title = pageTitle;
 		const cleanups = [
@@ -42,6 +49,27 @@ function ArticleDetailPage() {
 			setMetaContent("name", "twitter:title", pageTitle),
 			setMetaContent("name", "twitter:description", excerpt),
 			setMetaContent("name", "twitter:image", ogImage),
+			setJsonLd("article-jsonld", {
+				"@context": "https://schema.org",
+				"@type": "BlogPosting",
+				headline: article.title,
+				description: excerpt,
+				image: ogImage,
+				datePublished: article.created_at,
+				dateModified: article.updated_at,
+				inLanguage: article.language,
+				url,
+				mainEntityOfPage: url,
+				author: { "@type": "Organization", name: "The Builder" },
+				publisher: {
+					"@type": "Organization",
+					name: "The Builder",
+					logo: {
+						"@type": "ImageObject",
+						url: `${PRODUCTION_ORIGIN}/thebuilder.png`,
+					},
+				},
+			}),
 		];
 
 		return () => {
@@ -50,6 +78,8 @@ function ArticleDetailPage() {
 		};
 	}, [article]);
 
+	// With data in hand (seeded at build time or fetched), a failed
+	// background refetch doesn't replace the article.
 	if (loading) {
 		return (
 			<div className="blueprint-page blueprint-page--article container-page w-full flex flex-col flex-grow items-center justify-center py-20">
@@ -58,7 +88,7 @@ function ArticleDetailPage() {
 		);
 	}
 
-	if (error || !article) {
+	if (!article) {
 		return (
 			<div className="blueprint-page blueprint-page--article-error container-page">
 				<section>
@@ -89,7 +119,10 @@ function ArticleDetailPage() {
 			</header>
 			<div className="blueprint-article-content">
 				<div className="blueprint-wrap grid gap-6 md:grid-cols-[56px_1fr]">
-					<ShareButtons title={article.title} url={window.location.href} />
+					<ShareButtons
+						title={article.title}
+						url={articleUrl(article.slug, language)}
+					/>
 					<article className="flex min-w-0 flex-col gap-6">
 						{article.cover_image_url && (
 							<img

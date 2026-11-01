@@ -5,6 +5,7 @@ import { localizePath } from "./src/lib/locale";
 import { fetchPublishedArticlesForBuild } from "./vite-plugins/fetchPublishedArticles";
 import { generateSitemap } from "./vite-plugins/generateSitemap";
 import { prerender } from "./vite-plugins/prerender";
+import { buildPrerenderSeeds } from "./vite-plugins/prerenderSeeds";
 import { localizedPublicPaths } from "./vite-plugins/publicPaths";
 
 // https://vite.dev/config/
@@ -30,13 +31,14 @@ export default defineConfig(async ({ mode }) => {
 	const articlePaths = articles.map((article) =>
 		localizePath(`/insights/${article.slug}`, article.language),
 	);
+	const seeds = buildPrerenderSeeds(articles);
 
 	return {
 		root: appDir,
 		envDir: repoRoot,
 		plugins: [
 			react(),
-			prerender([...localizedPublicPaths(), ...articlePaths], appDir),
+			prerender([...localizedPublicPaths(), ...articlePaths], appDir, seeds),
 			generateSitemap(articles, appDir),
 		],
 		base: "/",

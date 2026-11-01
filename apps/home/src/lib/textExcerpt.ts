@@ -6,7 +6,11 @@
  */
 export function stripHtmlAndTruncate(html: string, maxLength: number): string {
 	const container = document.createElement("div");
-	container.innerHTML = html;
+	// textContent glues adjacent blocks ("end.Next"), so pad block ends first.
+	container.innerHTML = html.replace(
+		/<\/(p|h[1-6]|li|blockquote|div)>|<br\s*\/?>/gi,
+		"$& ",
+	);
 	const text = (container.textContent ?? "").replace(/\s+/g, " ").trim();
 
 	if (text.length <= maxLength) return text;

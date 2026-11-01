@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, onTestFinished, vi } from "vitest";
 import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useGetArticleBySlug } from "../useGetArticleBySlug";
 
@@ -116,6 +116,34 @@ describe("useGetArticleBySlug", () => {
 			wrapper: createQueryWrapper(),
 		});
 		expect(result.current.isLoading).toBe(true);
+		expect(mockGetDocs).not.toHaveBeenCalled();
+	});
+
+	it("renders the build-time seed while prerendering", () => {
+		mockIsPrerendering.mockReturnValue(true);
+		const seeded: Article = {
+			id: "1",
+			title: "Seeded",
+			slug: "test-article",
+			content: "<p>Body</p>",
+			cover_image_url: null,
+			status: "PUBLISHED",
+			language: "id",
+			created_at: "2026-01-01",
+			updated_at: "2026-01-01",
+		};
+		const win = window as unknown as Record<string, unknown>;
+		win.__TB_PRERENDER_DATA__ = { article: seeded };
+		onTestFinished(() => {
+			delete win.__TB_PRERENDER_DATA__;
+		});
+
+		const { result } = renderHook(() => useGetArticleBySlug("test-article"), {
+			wrapper: createQueryWrapper(),
+		});
+
+		expect(result.current.isLoading).toBe(false);
+		expect(result.current.data).toEqual(seeded);
 		expect(mockGetDocs).not.toHaveBeenCalled();
 	});
 });

@@ -104,3 +104,14 @@ export function removeHeadElement(selector: string): () => void {
 		if (el) document.head.appendChild(el);
 	};
 }
+
+/** Adds a <script type="application/ld+json" id={id}>; cleanup removes it. */
+export function setJsonLd(id: string, data: object): () => void {
+	document.getElementById(id)?.remove();
+	const el = document.createElement("script");
+	el.type = "application/ld+json";
+	el.id = id;
+	el.textContent = JSON.stringify(data).replace(/</g, "\\u003c");
+	document.head.appendChild(el);
+	return () => el.remove();
+}

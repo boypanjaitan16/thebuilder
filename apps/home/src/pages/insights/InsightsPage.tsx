@@ -17,6 +17,9 @@ function InsightsPage() {
 		error,
 	} = useGetPublishedArticles();
 
+	// A failed background refetch keeps showing the (prerendered) list.
+	const hasArticles = !loading && articles.length > 0;
+	const showError = !loading && error && !hasArticles;
 	const showEmptyState = !loading && !error && articles.length === 0;
 
 	return (
@@ -39,11 +42,9 @@ function InsightsPage() {
 				<p className="mt-2 text-slate-700">{page.publishedBody}</p>
 				<div className="mt-6">
 					{loading && <LoadingIndicator label={page.publishedLoading} />}
-					{!loading && error && (
-						<Notice type="error" title={page.publishedError} />
-					)}
+					{showError && <Notice type="error" title={page.publishedError} />}
 					{showEmptyState && <Notice type="info" title={page.publishedEmpty} />}
-					{!loading && !error && articles.length > 0 && (
+					{hasArticles && (
 						<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 							{articles.map((article) => (
 								<Link

@@ -1,4 +1,4 @@
-import type { Language } from "@thebuilder/shared/i18n/translations";
+import type { Article } from "@thebuilder/shared/types/Article";
 import { type FirebaseApp, getApps, initializeApp } from "firebase/app";
 import {
 	collection,
@@ -9,14 +9,11 @@ import {
 	where,
 } from "firebase/firestore";
 
-export type BuildTimeArticle = {
-	slug: string;
-	title: string;
-	content: string;
-	cover_image_url: string | null;
-	language: Language;
-	updated_at: string;
-};
+/**
+ * The public Article shape, so build-time data can seed the client's
+ * article queries during prerender (see vite-plugins/prerender.ts).
+ */
+export type BuildTimeArticle = Article;
 
 export type BuildTimeFirebaseEnv = {
 	apiKey?: string;
@@ -67,12 +64,15 @@ export async function fetchPublishedArticlesForBuild(
 		return snapshot.docs.map((doc) => {
 			const data = doc.data();
 			return {
-				slug: data.slug as string,
+				id: doc.id,
 				title: data.title as string,
+				slug: data.slug as string,
 				content: data.content as string,
 				cover_image_url: (data.cover_image_url as string | null) ?? null,
+				status: "PUBLISHED",
 				// Articles saved before the language field existed are Indonesian.
 				language: data.language === "en" ? "en" : "id",
+				created_at: data.created_at as string,
 				updated_at: data.updated_at as string,
 			};
 		});
