@@ -19,12 +19,13 @@ Turbo orchestrates dev, typecheck, lint, CI tests, and build. Both app builds ru
 - Admin article editing uses the full-page Tiptap editor; product create/edit uses `ProductFormDrawer`. Every admin page uses `AdminBreadcrumb`, rooted at `/`. Admin-to-public links use absolute `https://thebuilder.co.id` URLs.
 - Use `lucide-react` icons. For brand icons missing from that set, embed the official SVG path inline instead of adding an icon package.
 - Use `formatDate` and `nowIso` from `@thebuilder/shared/lib/date` for date display and Firestore timestamps. These functions use dayjs.
-- Add new localized copy to both JSON locales in `packages/shared/src/i18n/locales` and update `translations.ts`.
+- Add new localized copy to both JSON locales in `packages/shared/src/i18n/locales` and update `translations.ts`. A new public route also needs `seo.pages` title/description copy and an entry in `apps/home/src/config/seoRoutes.ts`.
+- Home language comes from the URL only: Indonesian at `/…`, English at `/en/…` (`apps/home/src/lib/locale.ts`). Write internal links unprefixed and use `Link`/`useLocalizedNavigate` from `apps/home/src/components/LocalizedLink.tsx` so they stay in the current language. `SeoHead` sets `<html lang>`, canonical, hreflang, and per-page meta before prerender. Admin keeps its localStorage language.
 
 ## Firebase and data
 
 - Get Firestore only through `getFirestoreDb()` from `@thebuilder/shared/lib/firebaseDb`; it starts App Check before the first request. Firestore is App Check enforced. During prerender, public Firestore hooks must skip queries and render loading state because headless Chrome has no valid token.
-- Public data reads call `@thebuilder/shared/data/public`, whose article queries constrain `status == "PUBLISHED"` and product queries constrain `status == "ACTIVE"` in Firestore. Admin reads call `@thebuilder/shared/data/admin`. Anonymous reads need the query predicate, not a client-side filter.
+- Public data reads call `@thebuilder/shared/data/public`, whose article queries constrain `status == "PUBLISHED"` plus `language` (the URL language) and product queries constrain `status == "ACTIVE"` in Firestore. Admin reads call `@thebuilder/shared/data/admin`. Anonymous reads need the query predicate, not a client-side filter.
 - Keep `firestore.rules`, `firestore.indexes.json`, product/article types, and the corresponding queries aligned. Equality `where()` plus `orderBy()` on another field requires a composite index.
 - Keep `firestore.rules` advisory-request payload validation synchronized with `apps/home/src/schemas/applySchema.ts` and `packages/shared/src/types/AdvisoryRequest.ts`.
 - Firebase Auth treats any signed-in user as admin; there are no role claims. Storage deletion of product thumbnails and article covers is orchestrated by admin callers. Inline article images are not tracked for cleanup.
@@ -33,7 +34,8 @@ Turbo orchestrates dev, typecheck, lint, CI tests, and build. Both app builds ru
 
 ## Build and hosting
 
-- `apps/home/vite-plugins/publicPaths.ts` mirrors home routes and the static sitemap. The home build prerenders public paths and published article slugs into `apps/home/dist`, and writes `404.html` for unmatched URLs, including old `/admin/**` URLs.
+- `apps/home/vite-plugins/publicPaths.ts` lists the static home routes and drives prerendering and the generated sitemap (no hand-written `sitemap.xml`). The home build prerenders every route at `/x` and `/en/x`, plus each published article under its own language (`/insights/:slug` or `/en/insights/:slug`), into `apps/home/dist`. It writes a noindex `404.html` for unmatched URLs, including old `/admin/**` URLs.
+- Articles have a `language` (`id` | `en`) set in admin. Articles are not paired with translations. Articles saved before the field existed count as `id` at build time, but public Firestore queries skip them until they are re-saved.
 - `apps/admin` is a SPA. Firebase Hosting rewrites unknown admin paths to its `index.html`. Both apps use root URL bases on separate origins.
 - `firebase.json` defines two Hosting targets. Hosting deploys do not deploy Firestore/Storage rules or indexes; deploy those deliberately with the Firebase CLI when changed.
 - Keep Ant Design and Tiptap out of home imports; they are admin-only dependencies.

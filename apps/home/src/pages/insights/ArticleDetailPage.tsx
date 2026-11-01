@@ -2,14 +2,15 @@ import LoadingIndicator from "@thebuilder/shared/components/LoadingIndicator";
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
 import { formatDate } from "@thebuilder/shared/lib/date";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link } from "../../components/LocalizedLink";
 import { PageBreadcrumb } from "../../components/PageBreadcrumb";
 import { ShareButtons } from "../../components/ShareButtons";
+import { PRODUCTION_ORIGIN } from "../../config/seoRoutes";
 import { useGetArticleBySlug } from "../../hooks/useGetArticleBySlug";
-import { setCanonicalLink, setMetaContent } from "../../lib/documentMeta";
+import { setMetaContent } from "../../lib/documentMeta";
 import { stripHtmlAndTruncate } from "../../lib/textExcerpt";
 
-const PRODUCTION_ORIGIN = "https://thebuilder.co.id";
 const DEFAULT_OG_IMAGE = `${PRODUCTION_ORIGIN}/thebuilder.png?v=blueprint`;
 
 function ArticleDetailPage() {
@@ -21,13 +22,14 @@ function ArticleDetailPage() {
 		error,
 	} = useGetArticleBySlug(slug);
 
+	// Canonical, og:url, hreflang and <html lang> come from SeoHead (the
+	// article's language always matches the URL's, see useGetArticleBySlug).
 	useEffect(() => {
 		if (!article) return;
 
 		const previousTitle = document.title;
 		const excerpt = stripHtmlAndTruncate(article.content, 155);
 		const pageTitle = `The Builder — ${article.title}`;
-		const canonicalUrl = `${PRODUCTION_ORIGIN}/insights/${article.slug}`;
 		const ogImage = article.cover_image_url || DEFAULT_OG_IMAGE;
 
 		document.title = pageTitle;
@@ -36,8 +38,10 @@ function ArticleDetailPage() {
 			setMetaContent("property", "og:title", pageTitle),
 			setMetaContent("property", "og:description", excerpt),
 			setMetaContent("property", "og:image", ogImage),
-			setMetaContent("property", "og:url", canonicalUrl),
-			setCanonicalLink(canonicalUrl),
+			setMetaContent("property", "og:type", "article"),
+			setMetaContent("name", "twitter:title", pageTitle),
+			setMetaContent("name", "twitter:description", excerpt),
+			setMetaContent("name", "twitter:image", ogImage),
 		];
 
 		return () => {

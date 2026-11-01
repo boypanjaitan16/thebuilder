@@ -70,35 +70,39 @@ export function prerender(paths: string[], appDir: string): Plugin {
 				args: ["--no-sandbox", "--disable-setuid-sandbox"],
 			});
 
+			const render = async (routePath: string) => {
+				const page = await browser.newPage();
+				// networkidle2, not networkidle0: Firestore's SDK keeps a
+				// persistent long-polling channel open even after a one-shot
+				// getDocs() read, so the page never reaches zero open
+				// connections and networkidle0 would hang forever.
+				await page.goto(`${baseUrl}${routePath}`, {
+					waitUntil: "networkidle2",
+				});
+				const html = await page.content();
+				await page.close();
+				return html;
+			};
+
 			try {
-				let homeHtml: string | undefined;
-
 				for (const routePath of paths) {
-					const page = await browser.newPage();
-					// networkidle2, not networkidle0: Firestore's SDK keeps a
-					// persistent long-polling channel open even after a one-shot
-					// getDocs() read, so the page never reaches zero open
-					// connections and networkidle0 would hang forever.
-					await page.goto(`${baseUrl}${routePath}`, {
-						waitUntil: "networkidle2",
-					});
-					const html = await page.content();
-					await page.close();
-
+					const html = await render(routePath);
 					const outputFile =
 						routePath === "/"
 							? join(outDir, "index.html")
 							: join(outDir, routePath, "index.html");
 					mkdirSync(dirname(outputFile), { recursive: true });
 					writeFileSync(outputFile, html);
-
-					if (routePath === "/") homeHtml = html;
 				}
 
 				// Firebase Hosting serves this page with a 404 status for unknown
-				// public routes, including the former /admin/** URLs. The SPA router
-				// then renders NotFoundPage for the current path.
-				if (homeHtml) writeFileSync(join(outDir, "404.html"), homeHtml);
+				// public routes, including the former /admin/** URLs. Rendering an
+				// unmatched path gives it NotFoundPage's noindex head tags; the SPA
+				// router then re-renders NotFoundPage in the URL's language.
+				writeFileSync(
+					join(outDir, "404.html"),
+					await render("/__prerender-not-found__"),
+				);
 			} finally {
 				await browser.close();
 				server.close();

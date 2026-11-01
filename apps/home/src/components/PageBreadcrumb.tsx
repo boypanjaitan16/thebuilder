@@ -1,5 +1,5 @@
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
-import { Link } from "react-router-dom";
+import { Link } from "./LocalizedLink";
 
 type BreadcrumbItem = { label: string; to?: string };
 

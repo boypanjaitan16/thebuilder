@@ -6,10 +6,13 @@ import {
 	query,
 	where,
 } from "firebase/firestore";
+import type { Language } from "../i18n/translations";
 import { getFirestoreDb } from "../lib/firebaseDb";
 import type { Article } from "../types/Article";
 import type { Product } from "../types/Product";
-export async function fetchPublishedArticles(): Promise<Article[]> {
+export async function fetchPublishedArticles(
+	language: Language,
+): Promise<Article[]> {
 	const db = getFirestoreDb();
 	if (!db) {
 		throw new Error("Firebase is not configured.");
@@ -20,6 +23,7 @@ export async function fetchPublishedArticles(): Promise<Article[]> {
 			query(
 				collection(db, "articles"),
 				where("status", "==", "PUBLISHED"),
+				where("language", "==", language),
 				orderBy("created_at", "desc"),
 			),
 		);
@@ -35,6 +39,7 @@ export async function fetchPublishedArticles(): Promise<Article[]> {
 
 export async function fetchPublishedArticleBySlug(
 	slug: string,
+	language: Language,
 ): Promise<Article> {
 	const db = getFirestoreDb();
 	if (!db) {
@@ -48,6 +53,7 @@ export async function fetchPublishedArticleBySlug(
 				collection(db, "articles"),
 				where("slug", "==", slug),
 				where("status", "==", "PUBLISHED"),
+				where("language", "==", language),
 				limit(1),
 			),
 		);

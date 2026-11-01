@@ -1,10 +1,11 @@
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv } from "vite";
+import { localizePath } from "./src/lib/locale";
 import { fetchPublishedArticlesForBuild } from "./vite-plugins/fetchPublishedArticles";
 import { generateSitemap } from "./vite-plugins/generateSitemap";
 import { prerender } from "./vite-plugins/prerender";
-import { PUBLIC_PATHS } from "./vite-plugins/publicPaths";
+import { localizedPublicPaths } from "./vite-plugins/publicPaths";
 
 // https://vite.dev/config/
 export default defineConfig(async ({ mode }) => {
@@ -26,14 +27,16 @@ export default defineConfig(async ({ mode }) => {
 		appId: resolvedEnv.VITE_FIREBASE_APP_ID,
 		measurementId: resolvedEnv.VITE_FIREBASE_MEASUREMENT_ID,
 	});
-	const articlePaths = articles.map((article) => `/insights/${article.slug}`);
+	const articlePaths = articles.map((article) =>
+		localizePath(`/insights/${article.slug}`, article.language),
+	);
 
 	return {
 		root: appDir,
 		envDir: repoRoot,
 		plugins: [
 			react(),
-			prerender([...PUBLIC_PATHS, ...articlePaths], appDir),
+			prerender([...localizedPublicPaths(), ...articlePaths], appDir),
 			generateSitemap(articles, appDir),
 		],
 		base: "/",

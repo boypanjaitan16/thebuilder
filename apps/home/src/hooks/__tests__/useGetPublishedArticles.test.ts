@@ -50,6 +50,7 @@ describe("useGetPublishedArticles", () => {
 				content: "<p>Body</p>",
 				cover_image_url: null,
 				status: "PUBLISHED",
+				language: "id",
 				created_at: "2024-01-02",
 				updated_at: "2024-01-02",
 			},
@@ -69,6 +70,7 @@ describe("useGetPublishedArticles", () => {
 		expect(result.current.error).toBeNull();
 		expect(mockCollection).toHaveBeenCalledWith(FAKE_DB, "articles");
 		expect(mockWhere).toHaveBeenCalledWith("status", "==", "PUBLISHED");
+		expect(mockWhere).toHaveBeenCalledWith("language", "==", "id");
 		expect(mockOrderBy).toHaveBeenCalledWith("created_at", "desc");
 		expect(mockQuery).toHaveBeenCalled();
 	});

@@ -197,14 +197,14 @@
 	display: flex;
 	gap: 3px;
 }
-.blueprint-language button {
+.blueprint-language a {
 	padding: 4px 7px;
 	background: transparent;
 	border: 0;
 	color: inherit;
 	opacity: 0.58;
 }
-.blueprint-language button.is-active {
+.blueprint-language a.is-active {
 	opacity: 1;
 	text-decoration: underline;
 	text-underline-offset: 4px;

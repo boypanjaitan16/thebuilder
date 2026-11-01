@@ -1,12 +1,17 @@
 import { z } from "zod";
 
 export const articleStatusValues = ["DRAFT", "PUBLISHED"] as const;
+export const articleLanguageOptions = [
+	{ label: "Bahasa Indonesia", value: "id" },
+	{ label: "English", value: "en" },
+] as const;
 
 export const articleSchema = z.object({
 	title: z.string().min(1, "Title is required"),
 	slug: z.string().min(1, "Slug is required"),
 	content: z.string().min(1, "Content is required"),
 	status: z.enum(articleStatusValues),
+	language: z.enum(["id", "en"]),
 });
 
 export type ArticleFormValues = z.input<typeof articleSchema>;

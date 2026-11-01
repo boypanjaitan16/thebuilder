@@ -41,6 +41,7 @@ describe("useGetArticles", () => {
 				content: "<p>Body</p>",
 				cover_image_url: null,
 				status: "DRAFT",
+				language: "id",
 				created_at: "2024-01-01",
 				updated_at: "2024-01-01",
 			},

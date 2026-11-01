@@ -1,7 +1,7 @@
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
 import { ArrowUpRight } from "lucide-react";
-import { Link } from "react-router-dom";
 import { BlueprintDiagram } from "../components/BlueprintDiagram";
+import { Link } from "../components/LocalizedLink";
 import ServiceIcon from "../components/ServiceIcon";
 
 function HomePage() {

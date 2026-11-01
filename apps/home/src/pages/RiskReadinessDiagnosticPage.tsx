@@ -1,9 +1,9 @@
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
 import { Shield } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocalizedNavigate } from "../components/LocalizedLink";
 
 function RiskReadinessDiagnosticPage() {
-	const navigate = useNavigate();
+	const navigate = useLocalizedNavigate();
 	const { copy } = useI18n();
 	const page = copy.riskReadiness;
 
