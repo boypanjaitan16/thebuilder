@@ -908,5 +908,86 @@
 		"title": "Halaman yang Anda cari tidak ditemukan.",
 		"body": "Mungkin sudah dipindah atau tautannya tidak lagi aktif. Kembali ke beranda untuk melanjutkan.",
 		"cta": "Kembali ke beranda"
+	},
+	"seo": {
+		"siteName": "The Builder",
+		"default": {
+			"title": "The Builder — Konsultasi Strategis untuk Ketahanan Organisasi",
+			"description": "Konsultasi strategis untuk ketahanan organisasi, kesinambungan kepemimpinan, dan risiko manusia. Membangun organisasi yang dapat diskalakan."
+		},
+		"pages": {
+			"home": {
+				"title": "The Builder — Konsultasi Strategis untuk Ketahanan Organisasi",
+				"description": "Organisasi yang kuat tidak bergantung pada satu orang. Konsultasi strategis untuk desain organisasi, kesinambungan kepemimpinan, dan risiko manusia di Indonesia."
+			},
+			"organization": {
+				"title": "Transformasi Organisasi",
+				"description": "Merancang sistem organisasi yang tetap efektif saat pertumbuhan, pergantian pemimpin, dan disrupsi — struktur, hak keputusan, dan akuntabilitas."
+			},
+			"future": {
+				"title": "Strategi Talenta Masa Depan & Pengembangan Kepemimpinan",
+				"description": "Sistem kepemimpinan dan talenta yang selaras dengan tuntutan organisasi masa depan, bukan keberhasilan masa lalu — suksesi, pipeline kepemimpinan, dan desain kapabilitas."
+			},
+			"risk": {
+				"title": "Risiko & Kontinuitas Bisnis",
+				"description": "Kenali dan kurangi risiko manusia dan kepemimpinan sebelum mengganggu bisnis — ketergantungan pada orang kunci, celah kontinuitas, dan paparan tersembunyi."
+			},
+			"insights": {
+				"title": "Insights",
+				"description": "Perspektif terpilih tentang kepemimpinan, struktur, dan kesinambungan: cara pemimpin memikirkan kerentanan organisasi sebelum pecah."
+			},
+			"work": {
+				"title": "Bekerja Bersama",
+				"description": "Keterlibatan advisory untuk pemimpin senior yang butuh kejelasan di level sistem: mendiagnosa risiko sistemik serta merancang ulang struktur organisasi dan kepemimpinan."
+			},
+			"apply": {
+				"title": "Ajukan Percakapan Advisory",
+				"description": "Ajukan percakapan awal dengan The Builder untuk melihat apakah konteks, tantangan kepemimpinan, dan ekspektasi Anda selaras dengan pekerjaan ini."
+			},
+			"diagnostic": {
+				"title": "Diagnostic Organisasi",
+				"description": "Diagnostic singkat untuk mengenali sinyal awal risiko organisasi — keraguan mengambil keputusan, ketergantungan pada orang kunci, dan situasi yang sulit diserap."
+			},
+			"riskReadinessDiagnostic": {
+				"title": "Diagnostic Kesiapan Risiko",
+				"description": "Refleksi terstruktur tentang kepemimpinan, kontinuitas, dan paparan tersembunyi untuk menilai kesiapan organisasi menghadapi disrupsi."
+			},
+			"resources": {
+				"title": "Sumber Daya",
+				"description": "Sumber daya untuk pemimpin yang menginginkan kejelasan, keputusan lebih baik, dan sistem yang bertahan — pemikiran dasar, panduan, kursus, dan produk."
+			},
+			"resourcesFoundational": {
+				"title": "Pemikiran Dasar",
+				"description": "Pemikiran di balik pendekatan The Builder pada kepemimpinan, desain organisasi, dan pertumbuhan jangka panjang — refleksi atas pola organisasi yang berulang."
+			},
+			"resourcesGuides": {
+				"title": "Panduan & Playbook",
+				"description": "Panduan dan playbook terstruktur untuk membantu pemimpin menerapkan pemikiran jernih pada situasi dan keputusan organisasi nyata."
+			},
+			"resourcesCourses": {
+				"title": "Kursus & Pendalaman",
+				"description": "Pembelajaran terstruktur bagi pemimpin yang butuh waktu, bimbingan, dan pemikiran disiplin untuk menghadapi tantangan organisasi yang kompleks."
+			},
+			"resourcesProducts": {
+				"title": "Produk",
+				"description": "Alat dan produk praktis dari The Builder untuk pemimpin yang menangani desain organisasi, kesinambungan kepemimpinan, dan risiko."
+			},
+			"about": {
+				"title": "Tentang The Builder",
+				"description": "The Builder adalah praktik konsultasi strategis berbasis di Indonesia yang bekerja secara selektif dengan organisasi untuk struktur yang tangguh dan kesinambungan kepemimpinan."
+			},
+			"architecture": {
+				"title": "Cara Kerja Lintas Domain",
+				"description": "Cara The Builder bekerja sebagai satu sistem advisory lintas desain organisasi, strategi talenta masa depan, serta risiko dan kontinuitas bisnis."
+			},
+			"privacy": {
+				"title": "Kebijakan Privasi",
+				"description": "Cara The Builder menangani informasi pribadi yang dibagikan melalui situs ini, dengan menjaga kerahasiaan."
+			},
+			"notFound": {
+				"title": "Halaman Tidak Ditemukan",
+				"description": "Halaman yang Anda cari mungkin sudah dipindah atau tautannya tidak lagi aktif."
+			}
+		}
 	}
 }

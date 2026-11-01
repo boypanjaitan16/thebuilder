@@ -7,6 +7,7 @@ describe("articleSchema", () => {
 		slug: "test-article",
 		content: "<p>Body</p>",
 		status: "DRAFT" as const,
+		language: "id" as const,
 	};
 
 	it("validates correct article data", () => {
@@ -42,6 +43,11 @@ describe("articleSchema", () => {
 			...validData,
 			status: "ARCHIVED",
 		});
+		expect(result.success).toBe(false);
+	});
+
+	it("rejects an unknown language", () => {
+		const result = articleSchema.safeParse({ ...validData, language: "fr" });
 		expect(result.success).toBe(false);
 	});
 });

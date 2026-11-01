@@ -2,12 +2,12 @@ import LoadingIndicator from "@thebuilder/shared/components/LoadingIndicator";
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
 import { formatDate } from "@thebuilder/shared/lib/date";
 import { BookOpenText } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocalizedNavigate } from "../../components/LocalizedLink";
 import { Notice } from "../../components/Notice";
 import { useGetPublishedArticles } from "../../hooks/useGetPublishedArticles";
 
 function InsightsPage() {
-	const navigate = useNavigate();
+	const navigate = useLocalizedNavigate();
 	const { copy } = useI18n();
 	const page = copy.insightsPage;
 	const shared = copy.shared;

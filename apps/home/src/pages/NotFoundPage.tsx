@@ -1,6 +1,6 @@
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
 import { House } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "../components/LocalizedLink";
 
 function NotFoundPage() {
 	const { copy } = useI18n();

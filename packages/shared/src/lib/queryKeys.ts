@@ -2,10 +2,12 @@ export const articleKeys = {
 	all: ["articles"] as const,
 	lists: () => [...articleKeys.all, "list"] as const,
 	adminList: () => [...articleKeys.lists(), "admin"] as const,
-	publishedList: () => [...articleKeys.lists(), "published"] as const,
+	publishedList: (language: string) =>
+		[...articleKeys.lists(), "published", language] as const,
 	details: () => [...articleKeys.all, "detail"] as const,
 	detail: (id: string) => [...articleKeys.details(), id] as const,
-	bySlug: (slug: string) => [...articleKeys.details(), "slug", slug] as const,
+	bySlug: (slug: string, language: string) =>
+		[...articleKeys.details(), "slug", language, slug] as const,
 };
 
 export const productKeys = {

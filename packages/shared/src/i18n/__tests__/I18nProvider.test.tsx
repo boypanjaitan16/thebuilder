@@ -154,4 +154,23 @@ describe("useI18n", () => {
 		expect(screen.getByTestId("lang")).toHaveTextContent("id");
 		expect(screen.getByTestId("copy")).toHaveTextContent("Beranda");
 	});
+
+	it("uses the language prop and ignores localStorage when controlled", async () => {
+		const user = userEvent.setup();
+		window.localStorage.getItem = vi.fn().mockReturnValue("id");
+		window.localStorage.setItem = vi.fn();
+
+		render(
+			<I18nProvider language="en">
+				<TestConsumer />
+			</I18nProvider>,
+		);
+
+		expect(screen.getByTestId("language")).toHaveTextContent("en");
+		expect(screen.getByTestId("home-text")).toHaveTextContent("Home");
+		await user.click(screen.getByText("Set ID"));
+		expect(screen.getByTestId("language")).toHaveTextContent("en");
+		expect(window.localStorage.getItem).not.toHaveBeenCalled();
+		expect(window.localStorage.setItem).not.toHaveBeenCalled();
+	});
 });

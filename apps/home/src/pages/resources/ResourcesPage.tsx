@@ -1,10 +1,10 @@
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocalizedNavigate } from "../../components/LocalizedLink";
 import ResourceIcon from "../../components/ResourceIcon";
 
 function ResourcesPage() {
 	const { copy } = useI18n();
-	const navigate = useNavigate();
+	const navigate = useLocalizedNavigate();
 	const page = copy.resources;
 
 	return (

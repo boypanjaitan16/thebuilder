@@ -74,6 +74,7 @@ function ArticlesPage() {
 					slug: article.slug,
 					content: article.content,
 					status: nextStatus,
+					language: article.language ?? "id",
 				},
 				{ cover_image_url: article.cover_image_url },
 			);
@@ -119,6 +120,14 @@ function ArticlesPage() {
 					{title}
 				</button>
 			),
+		},
+		{
+			title: "Language",
+			dataIndex: "language",
+			key: "language",
+			width: 110,
+			render: (language: Article["language"] | undefined) =>
+				(language ?? "id").toUpperCase(),
 		},
 		{
 			title: "Published",

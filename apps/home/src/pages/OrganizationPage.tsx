@@ -1,6 +1,6 @@
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
-import { Link } from "react-router-dom";
 import BlueprintEditorialImage from "../components/BlueprintEditorialImage";
+import { Link } from "../components/LocalizedLink";
 
 function OrganizationPage() {
 	const { copy } = useI18n();

@@ -1,3 +1,4 @@
+import type { Language } from "@thebuilder/shared/i18n/translations";
 import { type FirebaseApp, getApps, initializeApp } from "firebase/app";
 import {
 	collection,
@@ -13,6 +14,7 @@ export type BuildTimeArticle = {
 	title: string;
 	content: string;
 	cover_image_url: string | null;
+	language: Language;
 	updated_at: string;
 };
 
@@ -69,6 +71,8 @@ export async function fetchPublishedArticlesForBuild(
 				title: data.title as string,
 				content: data.content as string,
 				cover_image_url: (data.cover_image_url as string | null) ?? null,
+				// Articles saved before the language field existed are Indonesian.
+				language: data.language === "en" ? "en" : "id",
 				updated_at: data.updated_at as string,
 			};
 		});

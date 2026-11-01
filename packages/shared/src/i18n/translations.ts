@@ -6,6 +6,29 @@ export type Language = "en" | "id";
 type FocusArea = { slug: string; title: string; summary: string; to: string };
 type InsightArticle = { title: string; lens: string };
 type DiagnosticQuestion = { id: string; section: string; text: string };
+type SeoEntry = { title: string; description: string };
+
+export const seoPageKeys = [
+	"home",
+	"organization",
+	"future",
+	"risk",
+	"insights",
+	"work",
+	"apply",
+	"diagnostic",
+	"riskReadinessDiagnostic",
+	"resources",
+	"resourcesFoundational",
+	"resourcesGuides",
+	"resourcesCourses",
+	"resourcesProducts",
+	"about",
+	"architecture",
+	"privacy",
+	"notFound",
+] as const;
+export type SeoPageKey = (typeof seoPageKeys)[number];
 
 export type Copy = {
 	brand: {
@@ -450,6 +473,11 @@ export type Copy = {
 			title: string;
 			subtitle: string;
 		}[];
+	};
+	seo: {
+		siteName: string;
+		default: SeoEntry;
+		pages: Record<SeoPageKey, SeoEntry>;
 	};
 };
 

@@ -904,5 +904,86 @@
 		"title": "The page you’re looking for isn’t here.",
 		"body": "It may have been moved or the link is outdated. Head back to the homepage to continue.",
 		"cta": "Back to homepage"
+	},
+	"seo": {
+		"siteName": "The Builder",
+		"default": {
+			"title": "The Builder — Strategic Advisory for Organizational Resilience",
+			"description": "Strategic advisory for organizational resilience, leadership continuity, and human risk. Building organizations that scale."
+		},
+		"pages": {
+			"home": {
+				"title": "The Builder — Strategic Advisory for Organizational Resilience",
+				"description": "Strong organizations do not depend on one person. Strategic advisory on organizational design, leadership continuity, and human risk in Indonesia."
+			},
+			"organization": {
+				"title": "Organization Transformation",
+				"description": "Designing organizational systems that stay effective through growth, leadership change, and disruption — structure, decision rights, and accountability."
+			},
+			"future": {
+				"title": "Future Talent Strategy & Leadership Development",
+				"description": "Leadership and talent systems aligned with future organizational demands, not past success — succession, leadership pipelines, and capability design."
+			},
+			"risk": {
+				"title": "Risk & Business Continuity",
+				"description": "Identify and reduce human and leadership risk before it disrupts the business — key-person dependency, continuity gaps, and hidden exposure."
+			},
+			"insights": {
+				"title": "Insights",
+				"description": "Selected perspectives on leadership, structure, and continuity: how leaders think about organizational fragility before it breaks."
+			},
+			"work": {
+				"title": "Working Together",
+				"description": "Advisory engagements for senior leaders who need clarity at a system level: diagnosing systemic risk and redesigning organizational and leadership structures."
+			},
+			"apply": {
+				"title": "Request an Advisory Conversation",
+				"description": "Apply for an initial advisory conversation with The Builder to see whether your context, leadership challenges, and expectations fit this work."
+			},
+			"diagnostic": {
+				"title": "Organizational Diagnostic",
+				"description": "A short diagnostic to surface early signals of organizational risk — decision hesitation, dependency on key people, and situations that would be hard to absorb."
+			},
+			"riskReadinessDiagnostic": {
+				"title": "Risk Readiness Diagnostic",
+				"description": "A structured reflection on leadership, continuity, and hidden exposure to help leaders gauge how ready their organization is for disruption."
+			},
+			"resources": {
+				"title": "Resources",
+				"description": "Resources for leaders who want clarity, better decisions, and systems that last — foundational thinking, guides and playbooks, courses, and products."
+			},
+			"resourcesFoundational": {
+				"title": "Foundational Thinking",
+				"description": "The thinking behind The Builder's approach to leadership, organizational design, and long-term growth — reflections on recurring organizational patterns."
+			},
+			"resourcesGuides": {
+				"title": "Guides & Playbooks",
+				"description": "Structured guides and playbooks that help leaders apply clear thinking to real organizational situations and decisions."
+			},
+			"resourcesCourses": {
+				"title": "Courses & Deep Dives",
+				"description": "Structured learning for leaders who need time, guidance, and disciplined thinking to address complex organizational challenges."
+			},
+			"resourcesProducts": {
+				"title": "Products",
+				"description": "Practical tools and products from The Builder for leaders working on organizational design, leadership continuity, and risk."
+			},
+			"about": {
+				"title": "About The Builder",
+				"description": "The Builder is a strategic advisory practice based in Indonesia, working selectively with organizations on resilient structures and leadership continuity."
+			},
+			"architecture": {
+				"title": "How We Work Across Domains",
+				"description": "How The Builder works as one advisory system across organization design, future talent strategy, and risk and business continuity."
+			},
+			"privacy": {
+				"title": "Privacy Policy",
+				"description": "How The Builder handles personal information shared through this website, with discretion and confidentiality."
+			},
+			"notFound": {
+				"title": "Page Not Found",
+				"description": "The page you are looking for may have been moved or the link is outdated."
+			}
+		}
 	}
 }

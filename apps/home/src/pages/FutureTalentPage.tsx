@@ -1,9 +1,9 @@
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
-import { useNavigate } from "react-router-dom";
 import BlueprintEditorialImage from "../components/BlueprintEditorialImage";
+import { useLocalizedNavigate } from "../components/LocalizedLink";
 
 function FutureTalentPage() {
-	const navigate = useNavigate();
+	const navigate = useLocalizedNavigate();
 	const { copy } = useI18n();
 	const page = copy.future;
 

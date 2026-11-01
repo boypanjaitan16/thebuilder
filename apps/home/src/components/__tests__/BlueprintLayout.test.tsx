@@ -32,9 +32,15 @@ describe("BlueprintLayout", () => {
 		const user = userEvent.setup();
 		renderWithMemoryRouter(
 			<Routes>
-				<Route element={<BlueprintLayout />}>
+				<Route path="/" element={<BlueprintLayout />}>
+					<Route path="en">
+						<Route
+							path="resources/guides-playbooks"
+							element={<p>Guide content</p>}
+						/>
+					</Route>
 					<Route
-						path="/resources/guides-playbooks"
+						path="resources/guides-playbooks"
 						element={<p>Guide content</p>}
 					/>
 				</Route>
@@ -48,10 +54,18 @@ describe("BlueprintLayout", () => {
 		expect(breadcrumb).toHaveTextContent("Panduan & Playbook");
 		expect(screen.getByText("Guide content")).toBeInTheDocument();
 
-		await user.click(screen.getByRole("button", { name: "EN" }));
-		expect(breadcrumb).toHaveTextContent("Guides & Playbooks");
+		const enLink = screen.getByRole("link", { name: "EN" });
+		expect(enLink).toHaveAttribute("href", "/en/resources/guides-playbooks");
+		await user.click(enLink);
+
+		const enBreadcrumb = screen.getByRole("navigation", { name: "Breadcrumb" });
+		expect(enBreadcrumb).toHaveTextContent("Guides & Playbooks");
 		expect(
-			within(breadcrumb).getByRole("link", { name: "Resources" }),
-		).toBeInTheDocument();
+			within(enBreadcrumb).getByRole("link", { name: "Resources" }),
+		).toHaveAttribute("href", "/en/resources");
+		expect(screen.getByRole("link", { name: "ID" })).toHaveAttribute(
+			"href",
+			"/resources/guides-playbooks",
+		);
 	});
 });

@@ -1,18 +1,32 @@
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
-import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
+import {
+	matchPath,
+	Outlet,
+	Link as RouterLink,
+	useLocation,
+} from "react-router-dom";
 import { breadcrumbRoutes } from "../config/breadcrumbs";
+import { alternatePath, stripLocale } from "../lib/locale";
+import { Link } from "./LocalizedLink";
+import { SeoHead } from "./SeoHead";
 import "@thebuilder/shared/styles/blueprint.css";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useEffect } from "react";
 
+/** Current path without the /en prefix, for matching against route paths. */
+function usePagePath() {
+	return stripLocale(useLocation().pathname);
+}
+
 function BlueprintHeader() {
 	const location = useLocation();
+	const pagePath = usePagePath();
 	const { copy } = useI18n();
 	const onServicePage = [
 		"/organization-transformation",
 		"/future-talent-strategy",
 		"/risk-and-business-continuity",
-	].includes(location.pathname);
+	].includes(pagePath);
 
 	return (
 		<header className="blueprint-header">
@@ -27,7 +41,7 @@ function BlueprintHeader() {
 					</span>
 				</Link>
 				<nav className="blueprint-nav">
-					<Link className={location.pathname === "/" ? "is-active" : ""} to="/">
+					<Link className={pagePath === "/" ? "is-active" : ""} to="/">
 						{copy.nav.home}
 					</Link>
 					<details className="blueprint-services" key={location.pathname}>
@@ -44,23 +58,19 @@ function BlueprintHeader() {
 						</div>
 					</details>
 					<Link
-						className={
-							location.pathname.startsWith("/insights") ? "is-active" : ""
-						}
+						className={pagePath.startsWith("/insights") ? "is-active" : ""}
 						to="/insights"
 					>
 						{copy.nav.insights}
 					</Link>
 					<Link
-						className={location.pathname === "/work-with-me" ? "is-active" : ""}
+						className={pagePath === "/work-with-me" ? "is-active" : ""}
 						to="/work-with-me"
 					>
 						{copy.nav.work}
 					</Link>
 					<Link
-						className={
-							location.pathname.startsWith("/resources") ? "is-active" : ""
-						}
+						className={pagePath.startsWith("/resources") ? "is-active" : ""}
 						to="/resources"
 					>
 						{copy.nav.resources}
@@ -76,7 +86,8 @@ function BlueprintHeader() {
 }
 
 function BlueprintFooter() {
-	const { copy, language, setLanguage } = useI18n();
+	const { pathname } = useLocation();
+	const { copy, language } = useI18n();
 	return (
 		<footer className="blueprint-footer">
 			<div className="blueprint-wrap blueprint-footer-inner">
@@ -84,22 +95,24 @@ function BlueprintFooter() {
 					<p className="blueprint-footer-brand">THE BUILDER</p>
 					<p>{copy.footer.line}</p>
 					<div className="blueprint-language mt-5">
-						<button
-							type="button"
+						<RouterLink
+							to={alternatePath(pathname, "id")}
+							hrefLang="id"
+							lang="id"
 							className={language === "id" ? "is-active" : ""}
-							onClick={() => setLanguage("id")}
-							aria-pressed={language === "id"}
+							aria-current={language === "id" ? "true" : undefined}
 						>
 							ID
-						</button>
-						<button
-							type="button"
+						</RouterLink>
+						<RouterLink
+							to={alternatePath(pathname, "en")}
+							hrefLang="en"
+							lang="en"
 							className={language === "en" ? "is-active" : ""}
-							onClick={() => setLanguage("en")}
-							aria-pressed={language === "en"}
+							aria-current={language === "en" ? "true" : undefined}
 						>
 							EN
-						</button>
+						</RouterLink>
 					</div>
 				</div>
 				<div className="blueprint-footer-actions">
@@ -118,10 +131,10 @@ function BlueprintFooter() {
 }
 
 function BlueprintBreadcrumb() {
-	const location = useLocation();
+	const pagePath = usePagePath();
 	const { copy } = useI18n();
 	const route = breadcrumbRoutes.find((item) =>
-		matchPath({ path: item.path, end: true }, location.pathname),
+		matchPath({ path: item.path, end: true }, pagePath),
 	);
 	if (!route) return null;
 	const parent = route.parentPath
@@ -147,12 +160,13 @@ function BlueprintBreadcrumb() {
 
 export default function BlueprintLayout() {
 	const location = useLocation();
-	const isHomePage = location.pathname === "/";
+	const isHomePage = stripLocale(location.pathname) === "/";
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	}, [location.pathname]);
 	return (
 		<div className="builder-blueprint">
+			<SeoHead />
 			<BlueprintHeader />
 			<main id="main-content">
 				{isHomePage ? (

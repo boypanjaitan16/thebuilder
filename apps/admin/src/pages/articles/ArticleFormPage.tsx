@@ -19,6 +19,7 @@ import { useUploadArticleImage } from "../../hooks/useUploadArticleImage";
 import {
 	type ArticleFormValues,
 	type ArticleValues,
+	articleLanguageOptions,
 	articleSchema,
 	articleStatusValues,
 } from "../../schemas/articleSchema";
@@ -66,6 +67,7 @@ function ArticleFormPage() {
 			slug: "",
 			content: "",
 			status: "DRAFT",
+			language: "id",
 		},
 	});
 
@@ -78,6 +80,8 @@ function ArticleFormPage() {
 			slug: fetchedArticle.slug,
 			content: fetchedArticle.content,
 			status: fetchedArticle.status,
+			// Articles saved before the language field existed are Indonesian.
+			language: fetchedArticle.language ?? "id",
 		});
 	}, [fetchedArticle, reset]);
 
@@ -228,6 +232,19 @@ function ArticleFormPage() {
 									value,
 								}))}
 							/>
+						)}
+					/>
+				</Form.Item>
+				<Form.Item
+					label="Language"
+					extra="Indonesian articles appear at /insights, English ones at /en/insights."
+					className="mb-0"
+				>
+					<Controller
+						name="language"
+						control={control}
+						render={({ field }) => (
+							<Select {...field} options={[...articleLanguageOptions]} />
 						)}
 					/>
 				</Form.Item>
