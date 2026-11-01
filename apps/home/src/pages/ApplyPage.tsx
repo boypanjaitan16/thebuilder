@@ -1,17 +1,30 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
 import { toErrorMessage } from "@thebuilder/shared/lib/errors";
-import { Alert, Button, Checkbox, Input, Radio, Select } from "antd";
 import classNames from "classnames";
-import { CircleCheck, ScanSearch, Send, UserRound } from "lucide-react";
-import { useMemo, useState } from "react";
+import {
+	CircleCheck,
+	LoaderCircle,
+	ScanSearch,
+	Send,
+	UserRound,
+} from "lucide-react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { SelectBox } from "../components/forms/SelectBox";
+import { TextInput } from "../components/forms/TextInput";
+import { Notice } from "../components/Notice";
 import { useCreateAdvisoryRequest } from "../hooks/useCreateAdvisoryRequest";
 import {
 	type ApplyFormValues,
 	type ApplyFormValuesInput,
 	applySchema,
 } from "../schemas/applySchema";
+
+const MAX_SITUATIONS = 2;
+
+const toOptions = (values: string[]) =>
+	values.map((value) => ({ label: value, value }));
 
 function ApplyPage() {
 	const { copy, language } = useI18n();
@@ -21,6 +34,7 @@ function ApplyPage() {
 	const { createAdvisoryRequest } = useCreateAdvisoryRequest();
 	const {
 		control,
+		register,
 		handleSubmit,
 		reset,
 		formState: { errors, isSubmitting },
@@ -41,11 +55,6 @@ function ApplyPage() {
 			timeline: "",
 		},
 	});
-
-	const situationOptions = useMemo(
-		() => text.form.situationOptions.map((label) => ({ label, value: label })),
-		[text.form.situationOptions],
-	);
 
 	const onSubmit = async (values: ApplyFormValues) => {
 		setSubmitError(null);
@@ -85,127 +94,46 @@ function ApplyPage() {
 					<p className="text-sm text-slate-600">{text.contextNote}</p>
 				</div>
 				<div className="grid gap-4 md:grid-cols-2">
-					<div className="flex flex-col gap-2 text-sm font-medium text-ink">
-						<label htmlFor="name">{text.form.name}</label>
-						<Controller
-							name="name"
-							control={control}
-							render={({ field }) => (
-								<Input
-									size="large"
-									id="name"
-									type="text"
-									status={errors.name ? "error" : undefined}
-									{...field}
-								/>
-							)}
-						/>
-						{errors.name && <p className={errorColor}>{errors.name.message}</p>}
-					</div>
-					<div className="flex flex-col gap-2 text-sm font-medium text-ink">
-						<label htmlFor="email">{text.form.email}</label>
-						<Controller
-							name="email"
-							control={control}
-							render={({ field }) => (
-								<Input
-									size="large"
-									id="email"
-									type="email"
-									status={errors.email ? "error" : undefined}
-									{...field}
-								/>
-							)}
-						/>
-						{errors.email && (
-							<p className={errorColor}>{errors.email.message}</p>
-						)}
-					</div>
+					<TextInput
+						label={text.form.name}
+						errorMessage={errors.name?.message}
+						inputProps={{ type: "text", ...register("name") }}
+					/>
+					<TextInput
+						label={text.form.email}
+						errorMessage={errors.email?.message}
+						inputProps={{ type: "email", ...register("email") }}
+					/>
 				</div>
 				<div className="grid gap-4 md:grid-cols-2">
-					<div className="flex flex-col gap-2 text-sm font-medium text-ink">
-						<label htmlFor="role">{text.form.role}</label>
-						<Controller
-							name="role"
-							control={control}
-							render={({ field }) => (
-								<Input
-									size="large"
-									id="role"
-									type="text"
-									placeholder="e.g. CEO, Founder, Director, CHRO"
-									status={errors.role ? "error" : undefined}
-									{...field}
-								/>
-							)}
-						/>
-						{errors.role && <p className={errorColor}>{errors.role.message}</p>}
-					</div>
-					<div className="flex flex-col gap-2 text-sm font-medium text-ink">
-						<label htmlFor="organization">{text.form.organization}</label>
-						<Controller
-							name="organization"
-							control={control}
-							render={({ field }) => (
-								<Input
-									size="large"
-									id="organization"
-									type="text"
-									status={errors.organization ? "error" : undefined}
-									{...field}
-								/>
-							)}
-						/>
-						{errors.organization && (
-							<p className={errorColor}>{errors.organization.message}</p>
-						)}
-					</div>
+					<TextInput
+						label={text.form.role}
+						errorMessage={errors.role?.message}
+						inputProps={{
+							type: "text",
+							placeholder: "e.g. CEO, Founder, Director, CHRO",
+							...register("role"),
+						}}
+					/>
+					<TextInput
+						label={text.form.organization}
+						errorMessage={errors.organization?.message}
+						inputProps={{ type: "text", ...register("organization") }}
+					/>
 				</div>
 				<div className="grid gap-4 md:grid-cols-2">
-					<div className="flex flex-col gap-2 text-sm font-medium text-ink">
-						<label htmlFor="size">{text.form.size}</label>
-						<Controller
-							name="size"
-							control={control}
-							render={({ field }) => (
-								<Select
-									size="large"
-									id="size"
-									status={errors.size ? "error" : undefined}
-									placeholder={
-										language === "en" ? "Select range" : "Pilih rentang"
-									}
-									options={text.form.sizeOptions.map((option) => ({
-										label: option,
-										value: option,
-									}))}
-									value={field.value || undefined}
-									onChange={field.onChange}
-									onBlur={field.onBlur}
-								/>
-							)}
-						/>
-						{errors.size && <p className={errorColor}>{errors.size.message}</p>}
-					</div>
-					<div className="flex flex-col gap-2 text-sm font-medium text-ink">
-						<label htmlFor="industry">{text.form.industry}</label>
-						<Controller
-							name="industry"
-							control={control}
-							render={({ field }) => (
-								<Input
-									size="large"
-									id="industry"
-									type="text"
-									status={errors.industry ? "error" : undefined}
-									{...field}
-								/>
-							)}
-						/>
-						{errors.industry && (
-							<p className={errorColor}>{errors.industry.message}</p>
-						)}
-					</div>
+					<SelectBox
+						label={text.form.size}
+						options={toOptions(text.form.sizeOptions)}
+						placeholder={language === "en" ? "Select range" : "Pilih rentang"}
+						errorMessage={errors.size?.message}
+						selectProps={register("size")}
+					/>
+					<TextInput
+						label={text.form.industry}
+						errorMessage={errors.industry?.message}
+						inputProps={{ type: "text", ...register("industry") }}
+					/>
 				</div>
 
 				<div className="flex flex-col gap-1">
@@ -215,89 +143,80 @@ function ApplyPage() {
 					</h3>
 					<p className="text-sm text-slate-600">{text.form.situationTitle}</p>
 				</div>
-				<div className="">
+				<div>
 					<Controller
 						name="situation"
 						control={control}
-						render={({ field }) => (
-							<Checkbox.Group
-								className="mt-3 grid gap-2 md:grid-cols-2"
-								options={situationOptions}
-								value={field.value ?? []}
-								onChange={(checked) => {
-									if (checked.length <= 2) field.onChange(checked);
-								}}
-							/>
-						)}
+						render={({ field }) => {
+							const selected = field.value ?? [];
+							return (
+								<div className="mt-3 grid gap-2 md:grid-cols-2">
+									{text.form.situationOptions.map((option) => {
+										const checked = selected.includes(option);
+										const disabled =
+											!checked && selected.length >= MAX_SITUATIONS;
+										return (
+											<label
+												key={option}
+												className={classNames(
+													"flex items-start gap-2 text-sm text-ink",
+													disabled && "cursor-not-allowed opacity-50",
+												)}
+											>
+												<input
+													type="checkbox"
+													className="mt-1 accent-ink"
+													value={option}
+													checked={checked}
+													disabled={disabled}
+													onBlur={field.onBlur}
+													onChange={(event) =>
+														field.onChange(
+															event.target.checked
+																? [...selected, option]
+																: selected.filter((value) => value !== option),
+														)
+													}
+												/>
+												<span>{option}</span>
+											</label>
+										);
+									})}
+								</div>
+							);
+						}}
 					/>
 					{errors.situation && (
 						<p className={errorColor}>{errors.situation.message}</p>
 					)}
-					<div className="mt-4 flex flex-col gap-2 text-sm font-medium text-ink">
-						<label htmlFor="description">{text.form.description}</label>
-						<Controller
-							name="description"
-							control={control}
-							render={({ field }) => (
-								<Input.TextArea
-									id="description"
-									rows={4}
-									size="large"
-									{...field}
-								/>
-							)}
+					<label className="mt-4 flex flex-col gap-2 text-sm font-medium text-ink">
+						{text.form.description}
+						<textarea
+							rows={4}
+							className="rounded-xl border border-sand bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-ink focus:ring-2 focus:ring-ink/10"
+							{...register("description")}
 						/>
-					</div>
+					</label>
 				</div>
 
 				<div className="grid gap-4 md:grid-cols-2">
-					<div className="flex flex-col gap-2 text-sm font-medium text-ink">
-						<label htmlFor="expectation">{text.form.expectation}</label>
-						<Controller
-							name="expectation"
-							control={control}
-							render={({ field }) => (
-								<Select
-									size="large"
-									id="expectation"
-									status={errors.expectation ? "error" : undefined}
-									placeholder={
-										language === "en" ? "Select an option" : "Pilih opsi"
-									}
-									options={text.form.expectationOptions.map((option) => ({
-										label: option,
-										value: option,
-									}))}
-									value={field.value || undefined}
-									onChange={field.onChange}
-									onBlur={field.onBlur}
-								/>
-							)}
-						/>
-						{errors.expectation && (
-							<p className={errorColor}>{errors.expectation.message}</p>
-						)}
-					</div>
-					<div className="flex flex-col gap-2 text-sm font-medium text-ink">
-						<label htmlFor="decisionFlow">{text.form.decisionFlow}</label>
-						<Controller
-							name="decisionFlow"
-							control={control}
-							render={({ field }) => (
-								<Input
-									size="large"
-									id="decisionFlow"
-									type="text"
-									placeholder="e.g. leadership team discussion, founder-led, board-driven"
-									status={errors.decisionFlow ? "error" : undefined}
-									{...field}
-								/>
-							)}
-						/>
-						{errors.decisionFlow && (
-							<p className={errorColor}>{errors.decisionFlow.message}</p>
-						)}
-					</div>
+					<SelectBox
+						label={text.form.expectation}
+						options={toOptions(text.form.expectationOptions)}
+						placeholder={language === "en" ? "Select an option" : "Pilih opsi"}
+						errorMessage={errors.expectation?.message}
+						selectProps={register("expectation")}
+					/>
+					<TextInput
+						label={text.form.decisionFlow}
+						errorMessage={errors.decisionFlow?.message}
+						inputProps={{
+							type: "text",
+							placeholder:
+								"e.g. leadership team discussion, founder-led, board-driven",
+							...register("decisionFlow"),
+						}}
+					/>
 				</div>
 
 				<div className="flex flex-col gap-1">
@@ -308,84 +227,96 @@ function ApplyPage() {
 				</div>
 				<div className="grid gap-6 md:grid-cols-2">
 					<div>
-						<div
+						<fieldset
 							className={classNames(
 								"rounded-2xl border p-5 shadow-sm",
 								errors.readiness?.message ? "border-red-600" : "border-primary",
 							)}
 						>
-							<p className="text-sm font-semibold text-ink">
+							<legend className="sr-only">{text.form.readinessTitle}</legend>
+							<p className="text-sm font-semibold text-ink" aria-hidden="true">
 								{text.form.readinessTitle}
 							</p>
-							<Controller
-								name="readiness"
-								control={control}
-								render={({ field }) => (
-									<Radio.Group {...field} className="mt-3 flex flex-col gap-2">
-										{text.form.readinessOptions.map((option) => (
-											<Radio key={option} value={option}>
-												{option}
-											</Radio>
-										))}
-									</Radio.Group>
-								)}
-							/>
-						</div>
+							<div className="mt-3 flex flex-col gap-2">
+								{text.form.readinessOptions.map((option) => (
+									<label
+										key={option}
+										className="flex items-start gap-2 text-sm text-ink"
+									>
+										<input
+											type="radio"
+											className="mt-1 accent-ink"
+											value={option}
+											{...register("readiness")}
+										/>
+										<span>{option}</span>
+									</label>
+								))}
+							</div>
+						</fieldset>
 						{errors.readiness && (
 							<p className={errorColor}>{errors.readiness.message}</p>
 						)}
 					</div>
 					<div>
-						<div
+						<fieldset
 							className={classNames(
 								"rounded-2xl border p-5 shadow-sm",
 								errors.timeline?.message ? "border-red-600" : "border-primary",
 							)}
 						>
-							<p className="text-sm font-semibold text-ink">
+							<legend className="sr-only">{text.form.timelineTitle}</legend>
+							<p className="text-sm font-semibold text-ink" aria-hidden="true">
 								{text.form.timelineTitle}
 							</p>
-							<Controller
-								name="timeline"
-								control={control}
-								render={({ field }) => (
-									<Radio.Group {...field} className="mt-3 flex flex-col gap-2">
-										{text.form.timelineOptions.map((option) => (
-											<Radio key={option} value={option}>
-												{option}
-											</Radio>
-										))}
-									</Radio.Group>
-								)}
-							/>
-						</div>
+							<div className="mt-3 flex flex-col gap-2">
+								{text.form.timelineOptions.map((option) => (
+									<label
+										key={option}
+										className="flex items-start gap-2 text-sm text-ink"
+									>
+										<input
+											type="radio"
+											className="mt-1 accent-ink"
+											value={option}
+											{...register("timeline")}
+										/>
+										<span>{option}</span>
+									</label>
+								))}
+							</div>
+						</fieldset>
 						{errors.timeline && (
 							<p className={errorColor}>{errors.timeline.message}</p>
 						)}
 					</div>
 				</div>
 
-				{submitError && <Alert type="error" showIcon title={submitError} />}
+				{submitError && <Notice type="error" title={submitError} />}
 
 				{submitted && (
-					<Alert
+					<Notice
 						type="success"
-						showIcon
 						title={`${text.form.successTitle} ${text.form.successBody}`}
 					/>
 				)}
 
-				<Button
-					block
-					type="primary"
-					shape="round"
-					size="large"
-					htmlType="submit"
-					loading={isSubmitting}
-					icon={<Send size={16} />}
+				<button
+					type="submit"
+					disabled={isSubmitting}
+					className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-base font-semibold text-[#102a35] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70"
 				>
+					{isSubmitting ? (
+						<LoaderCircle
+							size={16}
+							className="animate-spin"
+							aria-hidden="true"
+						/>
+					) : (
+						<Send size={16} aria-hidden="true" />
+					)}
 					{text.form.submit}
-				</Button>
+				</button>
 			</form>
 		</div>
 	);

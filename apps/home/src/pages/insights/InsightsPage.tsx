@@ -1,9 +1,9 @@
 import LoadingIndicator from "@thebuilder/shared/components/LoadingIndicator";
 import { useI18n } from "@thebuilder/shared/i18n/I18nProvider";
 import { formatDate } from "@thebuilder/shared/lib/date";
-import { Alert } from "antd";
 import { BookOpenText } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { Notice } from "../../components/Notice";
 import { useGetPublishedArticles } from "../../hooks/useGetPublishedArticles";
 
 function InsightsPage() {
@@ -40,11 +40,9 @@ function InsightsPage() {
 				<div className="mt-6">
 					{loading && <LoadingIndicator label={page.publishedLoading} />}
 					{!loading && error && (
-						<Alert type="error" showIcon title={page.publishedError} />
+						<Notice type="error" title={page.publishedError} />
 					)}
-					{showEmptyState && (
-						<Alert type="info" showIcon title={page.publishedEmpty} />
-					)}
+					{showEmptyState && <Notice type="info" title={page.publishedEmpty} />}
 					{!loading && !error && articles.length > 0 && (
 						<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 							{articles.map((article) => (
