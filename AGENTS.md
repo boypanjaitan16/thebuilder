@@ -14,8 +14,8 @@ Turbo orchestrates dev, typecheck, lint, CI tests, and build. Both app builds ru
 ## React and UI
 
 - Keep pages and their route subtrees in each app's `src/pages`. Shared UI belongs in `packages/shared` only when both apps actually use it.
-- Public pages use Tailwind plus `TextInput` and `SelectBox` for new form fields. Admin pages use Ant Design. The public `/apply` route loads Ant Design lazily through `ApplyRoute`.
-- For Ant Design `Input`, `Input.Password`, and `Input.TextArea`, use RHF `Controller`. Ant Design's custom `InputRef` breaks a raw `register()` ref at submit. Use Ant Design `Form` only as layout; validation is RHF plus zod.
+- Public pages use Tailwind plus `TextInput` and `SelectBox` for new form fields. Admin pages use Ant Design. Home must not depend on Ant Design.
+- In admin, for Ant Design `Input`, `Input.Password`, and `Input.TextArea`, use RHF `Controller`. Ant Design's custom `InputRef` breaks a raw `register()` ref at submit. Use Ant Design `Form` only as layout; validation is RHF plus zod.
 - Admin article editing uses the full-page Tiptap editor; product create/edit uses `ProductFormDrawer`. Every admin page uses `AdminBreadcrumb`, rooted at `/`. Admin-to-public links use absolute `https://thebuilder.co.id` URLs.
 - Use `lucide-react` icons. For brand icons missing from that set, embed the official SVG path inline instead of adding an icon package.
 - Use `formatDate` and `nowIso` from `@thebuilder/shared/lib/date` for date display and Firestore timestamps. These functions use dayjs.
@@ -36,7 +36,7 @@ Turbo orchestrates dev, typecheck, lint, CI tests, and build. Both app builds ru
 - `apps/home/vite-plugins/publicPaths.ts` mirrors home routes and the static sitemap. The home build prerenders public paths and published article slugs into `apps/home/dist`, and writes `404.html` for unmatched URLs, including old `/admin/**` URLs.
 - `apps/admin` is a SPA. Firebase Hosting rewrites unknown admin paths to its `index.html`. Both apps use root URL bases on separate origins.
 - `firebase.json` defines two Hosting targets. Hosting deploys do not deploy Firestore/Storage rules or indexes; deploy those deliberately with the Firebase CLI when changed.
-- Keep admin-only Ant Design/Tiptap code out of home imports. The home `/apply` route is the only intended Ant Design dependency in the public app.
+- Keep Ant Design and Tiptap out of home imports; they are admin-only dependencies.
 
 ## Agent docs
 

@@ -1,14 +1,14 @@
-import LoadingIndicator from "@thebuilder/shared/components/LoadingIndicator";
-import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AnalyticsTracker } from "./components/AnalyticsTracker";
 import BlueprintLayout from "./components/BlueprintLayout";
 import AboutPage from "./pages/AboutPage";
+import ApplyPage from "./pages/ApplyPage";
 import ArchitecturePage from "./pages/ArchitecturePage";
 import DiagnosticPage from "./pages/DiagnosticPage";
 import FutureTalentPage from "./pages/FutureTalentPage";
 import HomePage from "./pages/HomePage";
 import ArticleDetailPage from "./pages/insights/ArticleDetailPage";
+import InsightsPage from "./pages/insights/InsightsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import OrganizationPage from "./pages/OrganizationPage";
 import PrivacyPage from "./pages/PrivacyPage";
@@ -20,10 +20,6 @@ import ResourcesGuidesPage from "./pages/resources/ResourcesGuidesPage";
 import ResourcesPage from "./pages/resources/ResourcesPage";
 import ResourcesProductsPage from "./pages/resources/ResourcesProductsPage";
 import WorkWithMePage from "./pages/WorkWithMePage";
-
-// Apply uses Ant Design; load it only for that public route.
-const ApplyPage = lazy(() => import("./pages/ApplyRoute"));
-const InsightsPage = lazy(() => import("./pages/insights/InsightsPage"));
 
 function App() {
 	return (
@@ -44,24 +40,10 @@ function App() {
 						path="/risk-and-business-continuity"
 						element={<RiskContinuityPage />}
 					/>
-					<Route
-						path="/insights"
-						element={
-							<Suspense fallback={<LoadingIndicator label="Loading…" />}>
-								<InsightsPage />
-							</Suspense>
-						}
-					/>
+					<Route path="/insights" element={<InsightsPage />} />
 					<Route path="/insights/:slug" element={<ArticleDetailPage />} />
 					<Route path="/work-with-me" element={<WorkWithMePage />} />
-					<Route
-						path="/apply"
-						element={
-							<Suspense fallback={<LoadingIndicator label="Loading…" />}>
-								<ApplyPage />
-							</Suspense>
-						}
-					/>
+					<Route path="/apply" element={<ApplyPage />} />
 					<Route path="/diagnostic" element={<DiagnosticPage />} />
 					<Route
 						path="/risk-readiness-diagnostic"
