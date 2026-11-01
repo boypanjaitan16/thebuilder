@@ -1,25 +1,27 @@
 import { describe, expect, it } from "vitest";
+import type { BuildTimeArticle } from "../fetchPublishedArticles";
 import { buildSitemapXml } from "../generateSitemap";
 import { localizedPublicPaths, PUBLIC_PATHS } from "../publicPaths";
 
+function article(overrides: Partial<BuildTimeArticle>): BuildTimeArticle {
+	return {
+		id: "a",
+		title: "Title",
+		slug: "slug",
+		content: "",
+		cover_image_url: null,
+		status: "PUBLISHED",
+		language: "id",
+		created_at: "2026-09-01",
+		updated_at: "2026-09-01",
+		...overrides,
+	};
+}
+
 describe("buildSitemapXml", () => {
 	const xml = buildSitemapXml([
-		{
-			slug: "id-article",
-			title: "ID",
-			content: "",
-			cover_image_url: null,
-			language: "id",
-			updated_at: "2026-10-01T00:00:00.000Z",
-		},
-		{
-			slug: "en-article",
-			title: "EN",
-			content: "",
-			cover_image_url: null,
-			language: "en",
-			updated_at: "2026-10-02T00:00:00.000Z",
-		},
+		article({ slug: "id-article", language: "id", updated_at: "2026-10-01" }),
+		article({ slug: "en-article", language: "en", updated_at: "2026-10-02" }),
 	]);
 
 	it("lists every static route in both languages with hreflang alternates", () => {

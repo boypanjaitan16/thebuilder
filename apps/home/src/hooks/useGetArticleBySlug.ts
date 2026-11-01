@@ -5,6 +5,7 @@ import { toErrorMessage } from "@thebuilder/shared/lib/errors";
 import { isPrerendering } from "@thebuilder/shared/lib/prerender";
 import { PUBLIC_CONTENT_STALE_TIME } from "@thebuilder/shared/lib/queryClient";
 import { articleKeys } from "@thebuilder/shared/lib/queryKeys";
+import { getSeededArticle } from "../lib/prerenderData";
 
 /**
  * Public-safe single-article lookup by slug. Filters to
@@ -20,11 +21,16 @@ export function useGetArticleBySlug(slug: string | undefined) {
 		queryFn: () => fetchPublishedArticleBySlug(slug as string, language),
 		enabled: !!slug && !isPrerendering(),
 		staleTime: PUBLIC_CONTENT_STALE_TIME,
+		// Build-time copy on prerendered pages; marked stale so the client
+		// still refetches it once on mount.
+		initialData: () => getSeededArticle(slug, language),
+		initialDataUpdatedAt: 0,
 	});
+	const data = articleQuery.data ?? null;
 
 	return {
-		data: articleQuery.data ?? null,
-		isLoading: articleQuery.isLoading || isPrerendering(),
+		data,
+		isLoading: !data && (articleQuery.isLoading || isPrerendering()),
 		error: articleQuery.error
 			? toErrorMessage(articleQuery.error, "Failed to fetch article.")
 			: null,

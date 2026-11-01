@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, onTestFinished, vi } from "vitest";
 import { createQueryWrapper } from "../../test/queryTestUtils";
 import { useGetPublishedArticles } from "../useGetPublishedArticles";
 
@@ -97,6 +97,29 @@ describe("useGetPublishedArticles", () => {
 
 		expect(result.current.isLoading).toBe(true);
 		expect(result.current.error).toBeNull();
+		expect(mockGetDocs).not.toHaveBeenCalled();
+	});
+
+	it("renders the seeded list for the current language while prerendering", () => {
+		mockIsPrerendering.mockReturnValue(true);
+		const win = window as unknown as Record<string, unknown>;
+		win.__TB_PRERENDER_DATA__ = { articles: { language: "en", items: [] } };
+		onTestFinished(() => {
+			delete win.__TB_PRERENDER_DATA__;
+		});
+
+		// Default (unwrapped) language is "id", so the EN seed doesn't apply.
+		const { result } = renderHook(() => useGetPublishedArticles(), {
+			wrapper: createQueryWrapper(),
+		});
+		expect(result.current.isLoading).toBe(true);
+
+		win.__TB_PRERENDER_DATA__ = { articles: { language: "id", items: [] } };
+		const { result: seeded } = renderHook(() => useGetPublishedArticles(), {
+			wrapper: createQueryWrapper(),
+		});
+		expect(seeded.current.isLoading).toBe(false);
+		expect(seeded.current.data).toEqual([]);
 		expect(mockGetDocs).not.toHaveBeenCalled();
 	});
 });

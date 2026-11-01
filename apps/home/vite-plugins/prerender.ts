@@ -3,6 +3,12 @@ import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, extname, join } from "node:path";
 import type { Plugin } from "vite";
+import {
+	PRERENDER_DATA_GLOBAL,
+	PRERENDER_DATA_SCRIPT_ID,
+	type PrerenderData,
+	serializePrerenderData,
+} from "../src/lib/prerenderData";
 
 const MIME_TYPES: Record<string, string> = {
 	".html": "text/html; charset=utf-8",
@@ -22,13 +28,24 @@ const MIME_TYPES: Record<string, string> = {
 	".xml": "application/xml",
 };
 
+/** Embeds the page's seed data in its saved HTML for the client's first render. */
+export function injectPrerenderData(html: string, data: PrerenderData): string {
+	const script = `<script type="application/json" id="${PRERENDER_DATA_SCRIPT_ID}">${serializePrerenderData(data)}</script>`;
+	return html.replace("</head>", `${script}</head>`);
+}
+
 /**
  * Crawls the built SPA with a headless browser and writes the fully
  * rendered HTML for each path in `paths` back into the build output, so
  * Firebase Hosting serves real content on first request. Runs on every
- * `vite build`.
+ * `vite build`. `seeds` maps a path to build-time data the page renders in
+ * place of Firestore reads (see src/lib/prerenderData.ts).
  */
-export function prerender(paths: string[], appDir: string): Plugin {
+export function prerender(
+	paths: string[],
+	appDir: string,
+	seeds: Record<string, PrerenderData> = {},
+): Plugin {
 	return {
 		name: "prerender-spa",
 		apply: "build",
@@ -72,6 +89,16 @@ export function prerender(paths: string[], appDir: string): Plugin {
 
 			const render = async (routePath: string) => {
 				const page = await browser.newPage();
+				const seed = seeds[routePath];
+				if (seed) {
+					await page.evaluateOnNewDocument(
+						(key, data) => {
+							(window as unknown as Record<string, unknown>)[key] = data;
+						},
+						PRERENDER_DATA_GLOBAL,
+						seed,
+					);
+				}
 				// networkidle2, not networkidle0: Firestore's SDK keeps a
 				// persistent long-polling channel open even after a one-shot
 				// getDocs() read, so the page never reaches zero open
@@ -81,7 +108,7 @@ export function prerender(paths: string[], appDir: string): Plugin {
 				});
 				const html = await page.content();
 				await page.close();
-				return html;
+				return seed ? injectPrerenderData(html, seed) : html;
 			};
 
 			try {

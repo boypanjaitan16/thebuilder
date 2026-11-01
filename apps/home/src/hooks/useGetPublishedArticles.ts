@@ -5,6 +5,7 @@ import { toErrorMessage } from "@thebuilder/shared/lib/errors";
 import { isPrerendering } from "@thebuilder/shared/lib/prerender";
 import { PUBLIC_CONTENT_STALE_TIME } from "@thebuilder/shared/lib/queryClient";
 import { articleKeys } from "@thebuilder/shared/lib/queryKeys";
+import { getSeededArticles } from "../lib/prerenderData";
 
 /**
  * Public-safe article list: explicitly filters to `status == "PUBLISHED"`.
@@ -24,13 +25,17 @@ export function useGetPublishedArticles() {
 		queryFn: () => fetchPublishedArticles(language),
 		staleTime: PUBLIC_CONTENT_STALE_TIME,
 		// No App Check token during prerender, so the read would fail under
-		// enforcement — skip it and prerender the loading state instead.
+		// enforcement — skip it and render the build-time seed (or the
+		// loading state when there is none) instead.
 		enabled: !isPrerendering(),
+		initialData: () => getSeededArticles(language),
+		initialDataUpdatedAt: 0,
 	});
 
 	return {
 		data: articlesQuery.data ?? [],
-		isLoading: articlesQuery.isLoading || isPrerendering(),
+		isLoading:
+			!articlesQuery.data && (articlesQuery.isLoading || isPrerendering()),
 		error: articlesQuery.error
 			? toErrorMessage(articlesQuery.error, "Failed to fetch articles.")
 			: null,
