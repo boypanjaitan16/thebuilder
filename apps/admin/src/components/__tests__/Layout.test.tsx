@@ -10,16 +10,17 @@ vi.mock("../AdminHeader", () => ({
 describe("Admin layout", () => {
 	beforeEach(() => {
 		window.scrollTo = vi.fn();
-		window.localStorage.getItem = vi.fn().mockReturnValue(null);
 	});
 
-	it("renders the admin shell and external public links", () => {
-		renderWithMemoryRouter(<Layout />);
+	it("renders the header and no footer", () => {
+		renderWithMemoryRouter(<Layout />, ["/articles"]);
 		expect(screen.getByTestId("admin-header")).toBeInTheDocument();
-		expect(screen.getByRole("link", { name: "Tentang" })).toHaveAttribute(
-			"href",
-			"https://thebuilder.co.id/about",
-		);
+		expect(screen.queryByRole("contentinfo")).not.toBeInTheDocument();
+	});
+
+	it("hides the header on the login screen", () => {
+		renderWithMemoryRouter(<Layout />, ["/login"]);
+		expect(screen.queryByTestId("admin-header")).not.toBeInTheDocument();
 	});
 
 	it("scrolls to top on route entry", () => {

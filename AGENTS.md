@@ -20,7 +20,7 @@ Turbo orchestrates dev, typecheck, lint, CI tests, and build. Both app builds ru
 - Use `lucide-react` icons. For brand icons missing from that set, embed the official SVG path inline instead of adding an icon package.
 - Use `formatDate` and `nowIso` from `@thebuilder/shared/lib/date` for date display and Firestore timestamps. These functions use dayjs.
 - Add new localized copy to both JSON locales in `packages/shared/src/i18n/locales` and update `translations.ts`. A new public route also needs `seo.pages` title/description copy and an entry in `apps/home/src/config/seoRoutes.ts`.
-- Home language comes from the URL only: Indonesian at `/…`, English at `/en/…` (`apps/home/src/lib/locale.ts`). Write internal links unprefixed and use `Link`/`useLocalizedNavigate` from `apps/home/src/components/LocalizedLink.tsx` so they stay in the current language. `SeoHead` sets `<html lang>`, canonical, hreflang, and per-page meta before prerender. Admin keeps its localStorage language.
+- Home language comes from the URL only: Indonesian at `/…`, English at `/en/…` (`apps/home/src/lib/locale.ts`). Write internal links unprefixed and use `Link`/`useLocalizedNavigate` from `apps/home/src/components/LocalizedLink.tsx` so they stay in the current language. `SeoHead` sets `<html lang>`, canonical, hreflang, and per-page meta before prerender. Admin has no i18n; its UI is English.
 
 ## Firebase and data
 

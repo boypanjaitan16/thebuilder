@@ -69,7 +69,7 @@ describe("AdminHeader", () => {
 		expect(screen.getByText("The Builder")).toBeInTheDocument();
 	});
 
-	it("shows a public site link when not authenticated", () => {
+	it("has no public site link in the header", () => {
 		MockedUseFirebaseSession.mockReturnValue({
 			checking: false,
 			isAuthenticated: false,
@@ -78,10 +78,9 @@ describe("AdminHeader", () => {
 
 		renderWithMemoryRouter(<AdminHeader />);
 
-		expect(screen.getByRole("link", { name: "View site" })).toHaveAttribute(
-			"href",
-			"https://thebuilder.co.id/",
-		);
+		expect(
+			screen.queryByRole("link", { name: "View site" }),
+		).not.toBeInTheDocument();
 	});
 
 	it("shows user menu when authenticated", async () => {

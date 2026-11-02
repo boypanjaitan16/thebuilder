@@ -72,34 +72,6 @@ exports[`AdminHeader > matches snapshot when authenticated 1`] = `
       <div
         class="admin-header-actions"
       >
-        <a
-          class="admin-site-link"
-          href="https://thebuilder.co.id/"
-        >
-          <span>
-            View site
-          </span>
-          <svg
-            aria-hidden="true"
-            class="lucide lucide-arrow-up-right"
-            fill="none"
-            height="16"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7 7h10v10"
-            />
-            <path
-              d="M7 17 17 7"
-            />
-          </svg>
-        </a>
         <button
           class="ant-dropdown-trigger admin-account-button"
           type="button"
@@ -181,36 +153,7 @@ exports[`AdminHeader > matches snapshot when not authenticated 1`] = `
       </a>
       <div
         class="admin-header-actions"
-      >
-        <a
-          class="admin-site-link"
-          href="https://thebuilder.co.id/"
-        >
-          <span>
-            View site
-          </span>
-          <svg
-            aria-hidden="true"
-            class="lucide lucide-arrow-up-right"
-            fill="none"
-            height="16"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7 7h10v10"
-            />
-            <path
-              d="M7 17 17 7"
-            />
-          </svg>
-        </a>
-      </div>
+      />
     </div>
   </header>
   <div
