@@ -1,6 +1,5 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ToastProvider } from "@thebuilder/shared/components/ToastProvider";
-import { I18nProvider } from "@thebuilder/shared/i18n/I18nProvider";
 import { createQueryClient } from "@thebuilder/shared/lib/queryClient";
 import { ConfigProvider } from "antd";
 import { StrictMode } from "react";
@@ -27,13 +26,11 @@ createRoot(document.getElementById("root")!).render(
 					},
 				}}
 			>
-				<I18nProvider>
-					<ToastProvider>
-						<BrowserRouter>
-							<App />
-						</BrowserRouter>
-					</ToastProvider>
-				</I18nProvider>
+				<ToastProvider>
+					<BrowserRouter>
+						<App />
+					</BrowserRouter>
+				</ToastProvider>
 			</ConfigProvider>
 		</QueryClientProvider>
 	</StrictMode>,

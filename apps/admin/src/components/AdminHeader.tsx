@@ -2,7 +2,7 @@ import { getFirebaseAuth } from "@thebuilder/shared/lib/firebaseAuth";
 import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 import { signOut } from "firebase/auth";
-import { ArrowUpRight, Home, LogOut, UserCircle } from "lucide-react";
+import { Home, LogOut, UserCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useFirebaseSession } from "../hooks/useFirebaseSession";
@@ -102,10 +102,6 @@ export function AdminHeader() {
 				)}
 
 				<div className="admin-header-actions">
-					<a className="admin-site-link" href="https://thebuilder.co.id/">
-						<span>View site</span>
-						<ArrowUpRight size={16} aria-hidden="true" />
-					</a>
 					{isAuthenticated && (
 						<Dropdown
 							menu={{ items }}

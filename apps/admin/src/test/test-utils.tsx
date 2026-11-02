@@ -1,7 +1,6 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { type RenderOptions, render } from "@testing-library/react";
 import { ToastProvider } from "@thebuilder/shared/components/ToastProvider";
-import { I18nProvider } from "@thebuilder/shared/i18n/I18nProvider";
 import type { ReactElement, ReactNode } from "react";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { createTestQueryClient } from "./queryTestUtils";
@@ -15,9 +14,7 @@ function AllProviders({ children }: WrapperProps) {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
-				<I18nProvider>
-					<ToastProvider>{children}</ToastProvider>
-				</I18nProvider>
+				<ToastProvider>{children}</ToastProvider>
 			</BrowserRouter>
 		</QueryClientProvider>
 	);
@@ -29,9 +26,7 @@ function createMemoryRouterWrapper(initialEntries: string[] = ["/"]) {
 		return (
 			<QueryClientProvider client={queryClient}>
 				<MemoryRouter initialEntries={initialEntries}>
-					<I18nProvider>
-						<ToastProvider>{children}</ToastProvider>
-					</I18nProvider>
+					<ToastProvider>{children}</ToastProvider>
 				</MemoryRouter>
 			</QueryClientProvider>
 		);
