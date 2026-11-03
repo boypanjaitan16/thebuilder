@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Chrome for prerender
+        run: pnpm exec puppeteer browsers install chrome
+
       - name: Lint
         run: pnpm run lint
 
